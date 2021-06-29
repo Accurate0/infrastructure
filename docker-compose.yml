@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+    paste:
+        build: ./servers/paste
+        expose:
+            - "5000"
+
+    nginx:
+        build:
+            context: .
+            dockerfile: clients/Dockerfile
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - paste
