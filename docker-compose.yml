@@ -5,10 +5,8 @@ services:
         expose:
             - "5000"
 
-    nginx:
-        build:
-            context: .
-            dockerfile: clients/Dockerfile
+    frontend:
+        build: ./frontend
         ports:
             - "80:80"
             - "443:443"

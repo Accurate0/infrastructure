@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('~/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-weight: 400;
+  font-display: block;
+  src: url('~/assets/fonts/SourceSansPro-Regular.ttf') format('truetype');
+}
+
+.page-enter-active,
+.page-leave-active,
+.layout-enter-active,
+.layout-leave-active {
+    transition: opacity .1s
+}
+
+.page-enter,
+.page-leave-active,
+.layout-enter,
+.layout-leave-active {
+    opacity: 0
+}
+
+h1, h2, h3, h4, h5, h6, body {
+    font-family: 'Poppins', sans-serif !important;
+    margin: 0;
+}
+
+:root {
+    --color: #F9FAFB;
+    --bg: #131314;
+    --links: #7ac873;
+}
+
+.special {
+    --color: #1D1F21;
+    --links: #fb00ff;
+    --gradient: radial-gradient(circle,#fffc00 3%,#ff7a00 69%,#ab5200 100%);
+}
+
+body {
+    background-color: var(--bg);
+    background-image: var(--gradient);
+}
+
+.container {
+    color: var(--color);
+}
+
+a, a:hover, a:link, a:active, a:visited {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    color: var(--links);
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+}
