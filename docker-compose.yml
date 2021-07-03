@@ -1,7 +1,7 @@
 version: "3.9"
 services:
     paste:
-        build: ./servers/paste
+        build: ./services/paste
         expose:
             - "5000"
 
