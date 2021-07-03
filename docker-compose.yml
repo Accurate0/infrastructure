@@ -1,9 +1,16 @@
 version: "3.9"
 services:
+    redis:
+        image: "redis:6.2-alpine3.13"
+        ports:
+            - "6379:6379"
+
     paste:
         build: ./services/paste
         expose:
             - "5000"
+        depends_on:
+            - redis
 
     frontend:
         build: ./frontend
