@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
+import Dropzone from 'react-dropzone';
 import { useHistory } from 'react-router';
 import {
   DropdownProps,
@@ -52,6 +53,16 @@ const Home = () => {
       .catch((error: AxiosError) => setError(error));
   };
 
+  const onDropFile = (files: any[]) => {
+    files.forEach((file) => {
+      const r = new FileReader();
+      r.onload = (evt) => {
+        setState({ ...state, paste: evt.target?.result as string });
+      };
+      r.readAsText(file);
+    });
+  };
+
   const handleChange = (
     e: any,
     { name, value }: TextAreaProps | DropdownProps | InputProps
@@ -75,19 +86,28 @@ const Home = () => {
           placeholder="filename"
           onChange={handleChange}
         />
-        <Form.TextArea
-          error={
-            pasteError && {
-              content: 'Required',
-              pointing: 'above',
-            }
-          }
-          style={{ minHeight: 400 }}
-          value={state.paste}
-          label="Paste"
-          name="paste"
-          onChange={handleChange}
-        />
+
+        <Dropzone onDrop={(acceptedFiles) => onDropFile(acceptedFiles)}>
+          {({ getRootProps }) => (
+            <section>
+              <div {...getRootProps()}>
+                <Form.TextArea
+                  error={
+                    pasteError && {
+                      content: 'Required',
+                      pointing: 'above',
+                    }
+                  }
+                  style={{ minHeight: 400, fontFamily: 'monospace' }}
+                  value={state.paste}
+                  label="Paste"
+                  name="paste"
+                  onChange={handleChange}
+                />
+              </div>
+            </section>
+          )}
+        </Dropzone>
         <Form.Select
           clearable
           options={LanguageOptions}

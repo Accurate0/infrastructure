@@ -84,12 +84,16 @@ const Paste = () => {
             <Menu>
               {data?.filename && (
                 <Menu.Item>
-                  <Header>{data.filename}</Header>
+                  <Header style={{ color: '#1D1F21' }}>
+                    {data.filename.length > 20
+                      ? data.filename.substring(0, 20 - 3) + '...'
+                      : data.filename}
+                  </Header>
                 </Menu.Item>
               )}
               {expire && (
                 <Menu.Item>
-                  <Header>
+                  <Header style={{ color: '#1D1F21' }}>
                     <Countdown
                       date={Date.now() + expire}
                       renderer={renderer}
@@ -101,6 +105,7 @@ const Paste = () => {
               <Menu.Menu position="right">
                 <Menu.Item>
                   <Select
+                    search
                     value={lang}
                     placeholder="Language"
                     options={LanguageOptions}

@@ -17,6 +17,7 @@
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
     "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "semantic-ui-css": "^2.4.1",
@@ -25,10 +26,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
     "format": "prettier --write .",
     "prod": "yarn build"
   },
@@ -51,9 +52,12 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^6.1.2",
+    "@semantic-ui-react/craco-less": "^1.2.3",
     "@types/prismjs": "^1.16.5",
     "@types/react-router": "^5.1.15",
     "@types/react-router-dom": "^5.1.7",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "semantic-ui-less": "^2.4.1"
   }
 }
