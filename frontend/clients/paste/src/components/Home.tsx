@@ -87,7 +87,9 @@ const Home = () => {
           onChange={handleChange}
         />
 
-        <Dropzone onDrop={(acceptedFiles) => onDropFile(acceptedFiles)}>
+        <Dropzone
+          maxFiles={1}
+          onDrop={(acceptedFiles) => onDropFile(acceptedFiles)}>
           {({ getRootProps }) => (
             <section>
               <div {...getRootProps()}>
