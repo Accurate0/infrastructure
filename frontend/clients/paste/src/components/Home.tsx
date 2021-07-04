@@ -1,10 +1,18 @@
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { DropdownProps, Form, Message, TextAreaProps } from 'semantic-ui-react';
+import {
+  DropdownProps,
+  Form,
+  Input,
+  InputProps,
+  Message,
+  TextAreaProps,
+} from 'semantic-ui-react';
 import { LanguageOptions } from './Languages';
 
 interface IFormState {
+  filename?: string;
   paste?: string;
   language?: string;
 }
@@ -27,6 +35,9 @@ const Home = () => {
     if (state.language && state.language?.length !== 0) {
       form.append('language', state.language);
     }
+    if (state.filename && state.filename?.length !== 0) {
+      form.append('filename', state.filename);
+    }
 
     axios({
       method: 'POST',
@@ -43,7 +54,7 @@ const Home = () => {
 
   const handleChange = (
     e: any,
-    { name, value }: TextAreaProps | DropdownProps
+    { name, value }: TextAreaProps | DropdownProps | InputProps
   ) => {
     setState({ ...state, [name]: value });
   };
@@ -56,6 +67,14 @@ const Home = () => {
         </Message>
       )}
       <Form onSubmit={onSubmit}>
+        <Form.Field
+          control={Input}
+          value={state.filename}
+          label="Filename"
+          name="filename"
+          placeholder="Filename"
+          onChange={handleChange}
+        />
         <Form.TextArea
           error={
             pasteError && {
