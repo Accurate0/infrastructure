@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import {
   Checkbox,
-  Container,
   Dimmer,
   Header,
   Loader,
@@ -32,12 +31,14 @@ const Paste = () => {
   const [error, setError] = useState<AxiosError>();
   const [linesOn, setLinesOn] = useState(false);
   const [lang, setLang] = useState<Language>('clike');
+  const [expire, setExpire] = useState<number | undefined>();
 
   useEffect(() => {
     axios(`/api/${hash}`)
       .then((resp) => {
         setData(resp.data);
         setLang(resp.data.language);
+        setExpire(resp.data.expire * 1000);
         setLoading(false);
       })
       .catch((e: Error | AxiosError) => {
@@ -46,8 +47,7 @@ const Paste = () => {
           setLoading(false);
         }
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hash]);
 
   const renderer = ({
     hours,
@@ -87,12 +87,13 @@ const Paste = () => {
                   <Header>{data.filename}</Header>
                 </Menu.Item>
               )}
-              {data?.expire && (
+              {expire && (
                 <Menu.Item>
                   <Header>
                     <Countdown
-                      date={Date.now() + data.expire * 1000}
+                      date={Date.now() + expire}
                       renderer={renderer}
+                      onTick={({ total }) => setExpire(total)}
                     />
                   </Header>
                 </Menu.Item>
@@ -134,6 +135,7 @@ const Paste = () => {
                     padding: 25,
                     color: '#C5C8C6',
                     borderRadius: 5,
+                    margin: 0,
                   }}>
                   {tokens.map((line, i) => (
                     <div {...getLineProps({ line, key: i })}>

@@ -72,7 +72,7 @@ const Home = () => {
           value={state.filename}
           label="Filename"
           name="filename"
-          placeholder="Filename"
+          placeholder="filename"
           onChange={handleChange}
         />
         <Form.TextArea
@@ -86,7 +86,6 @@ const Home = () => {
           value={state.paste}
           label="Paste"
           name="paste"
-          placeholder="Paste"
           onChange={handleChange}
         />
         <Form.Select
