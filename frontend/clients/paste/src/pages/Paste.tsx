@@ -15,7 +15,7 @@ import {
 import axios, { AxiosError } from 'axios';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
-import { LanguageOptions } from './Languages';
+import { LanguageOptions } from '../utils/Languages';
 import Countdown, { CountdownTimeDelta } from 'react-countdown';
 
 interface IResponse {

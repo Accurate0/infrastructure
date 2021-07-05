@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import Paste from './components/Paste';
-import Home from './components/Home';
+import Paste from './pages/Paste';
+import Index from './pages';
 import { Header, Segment } from 'semantic-ui-react';
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
         </Segment>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Index />
           </Route>
           <Route path="*">
             <Paste />

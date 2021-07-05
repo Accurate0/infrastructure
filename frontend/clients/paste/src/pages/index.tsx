@@ -12,7 +12,7 @@ import {
   Segment,
   TextAreaProps,
 } from 'semantic-ui-react';
-import { LanguageOptions } from './Languages';
+import { LanguageOptions } from '../utils/Languages';
 
 interface IFormState {
   filename?: string;
