@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import {
   Checkbox,
+  Container,
   Dimmer,
   Header,
   Loader,
@@ -66,102 +67,110 @@ const Paste = () => {
   };
 
   return (
-    <>
-      {error && (
-        <Message negative>
-          <Message.Header>{error.response?.statusText}</Message.Header>
-        </Message>
-      )}
-      {loading ? (
-        <Segment style={{ minHeight: 500 }}>
-          <Dimmer active>
-            <Loader size="large">Loading</Loader>
-          </Dimmer>
-        </Segment>
-      ) : (
-        data && (
-          <>
-            <Menu>
-              {data?.filename && (
-                <Menu.Item>
-                  <Header style={{ color: '#1D1F21' }}>
-                    {data.filename.length > 20
-                      ? data.filename.substring(0, 20 - 3) + '...'
-                      : data.filename}
-                  </Header>
-                </Menu.Item>
-              )}
-              {expire && (
-                <Menu.Item>
-                  <Header style={{ color: '#1D1F21' }}>
-                    <Countdown
-                      date={Date.now() + expire}
-                      renderer={renderer}
-                      onTick={({ total }) => setExpire(total)}
+    <Container>
+      <Segment>
+        {error && (
+          <Message negative>
+            <Message.Header>{error.response?.statusText}</Message.Header>
+          </Message>
+        )}
+        {loading ? (
+          <Segment style={{ minHeight: 500 }}>
+            <Dimmer active>
+              <Loader size="large">Loading</Loader>
+            </Dimmer>
+          </Segment>
+        ) : (
+          data && (
+            <>
+              <Menu>
+                {data?.filename && (
+                  <Menu.Item>
+                    <Header style={{ color: '#1D1F21' }}>
+                      {data.filename.length > 20
+                        ? data.filename.substring(0, 20 - 3) + '...'
+                        : data.filename}
+                    </Header>
+                  </Menu.Item>
+                )}
+                {expire && (
+                  <Menu.Item>
+                    <Header style={{ color: '#1D1F21' }}>
+                      <Countdown
+                        date={Date.now() + expire}
+                        renderer={renderer}
+                        onTick={({ total }) => setExpire(total)}
+                      />
+                    </Header>
+                  </Menu.Item>
+                )}
+                <Menu.Menu position="right">
+                  <Menu.Item>
+                    <Select
+                      search
+                      value={lang}
+                      placeholder="Language"
+                      options={LanguageOptions}
+                      onChange={(_, data) => setLang(data.value as Language)}
                     />
-                  </Header>
-                </Menu.Item>
-              )}
-              <Menu.Menu position="right">
-                <Menu.Item>
-                  <Select
-                    search
-                    value={lang}
-                    placeholder="Language"
-                    options={LanguageOptions}
-                    onChange={(_, data) => setLang(data.value as Language)}
-                  />
-                </Menu.Item>
-                <Menu.Item>
-                  <Header></Header>
-                  <Checkbox
-                    checked={linesOn}
-                    toggle
-                    onChange={() => setLinesOn(!linesOn)}
-                  />
-                </Menu.Item>
-              </Menu.Menu>
-            </Menu>
-            <Highlight
-              {...defaultProps}
-              // Prism
-              theme={vsDark}
-              code={data.paste}
-              language={lang ?? 'clike'}>
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <pre
-                  className={className}
-                  style={{
-                    ...style,
-                    overflowX: 'auto',
-                    wordBreak: 'normal',
-                    wordWrap: 'normal',
-                    whiteSpace: 'pre',
-                    padding: 25,
-                    color: '#C5C8C6',
-                    borderRadius: 5,
-                    margin: 0,
-                  }}>
-                  {tokens.map((line, i) => (
-                    <div {...getLineProps({ line, key: i })}>
-                      {linesOn && (
-                        <span>
-                          {i + 1}
-                          {'  '}
-                        </span>
-                      )}
-                      {line.map((token, key) => (
-                        <span {...getTokenProps({ token, key })} />
-                      ))}
-                    </div>
-                  ))}
-                </pre>
-              )}
-            </Highlight>
-          </>
-        )
-      )}
-    </>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Header></Header>
+                    <Checkbox
+                      checked={linesOn}
+                      toggle
+                      onChange={() => setLinesOn(!linesOn)}
+                    />
+                  </Menu.Item>
+                </Menu.Menu>
+              </Menu>
+              <Highlight
+                {...defaultProps}
+                // Prism
+                theme={vsDark}
+                code={data.paste}
+                language={lang ?? 'clike'}>
+                {({
+                  className,
+                  style,
+                  tokens,
+                  getLineProps,
+                  getTokenProps,
+                }) => (
+                  <pre
+                    className={className}
+                    style={{
+                      ...style,
+                      overflowX: 'auto',
+                      wordBreak: 'normal',
+                      wordWrap: 'normal',
+                      whiteSpace: 'pre',
+                      padding: 25,
+                      color: '#C5C8C6',
+                      borderRadius: 5,
+                      margin: 0,
+                    }}>
+                    {tokens.map((line, i) => (
+                      <div {...getLineProps({ line, key: i })}>
+                        {linesOn && (
+                          <span>
+                            {i + 1}
+                            {'  '}
+                          </span>
+                        )}
+                        {line.map((token, key) => (
+                          <span {...getTokenProps({ token, key })} />
+                        ))}
+                      </div>
+                    ))}
+                  </pre>
+                )}
+              </Highlight>
+            </>
+          )
+        )}
+      </Segment>
+    </Container>
   );
 };
 

@@ -3,11 +3,13 @@ import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { useHistory } from 'react-router';
 import {
+  Container,
   DropdownProps,
   Form,
   Input,
   InputProps,
   Message,
+  Segment,
   TextAreaProps,
 } from 'semantic-ui-react';
 import { LanguageOptions } from './Languages';
@@ -71,60 +73,62 @@ const Home = () => {
   };
 
   return (
-    <>
-      {error && (
-        <Message negative>
-          <Message.Header>{error.response?.statusText}</Message.Header>
-        </Message>
-      )}
-      <Form onSubmit={onSubmit}>
-        <Form.Field
-          control={Input}
-          value={state.filename}
-          label="Filename"
-          name="filename"
-          placeholder="filename"
-          onChange={handleChange}
-        />
+    <Container text>
+      <Segment>
+        {error && (
+          <Message negative>
+            <Message.Header>{error.response?.statusText}</Message.Header>
+          </Message>
+        )}
+        <Form onSubmit={onSubmit}>
+          <Form.Field
+            control={Input}
+            value={state.filename}
+            label="Filename"
+            name="filename"
+            placeholder="filename"
+            onChange={handleChange}
+          />
 
-        <Dropzone
-          maxFiles={1}
-          onDrop={(acceptedFiles) => onDropFile(acceptedFiles)}>
-          {({ getRootProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <Form.TextArea
-                  error={
-                    pasteError && {
-                      content: 'Required',
-                      pointing: 'above',
+          <Dropzone
+            maxFiles={1}
+            onDrop={(acceptedFiles) => onDropFile(acceptedFiles)}>
+            {({ getRootProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <Form.TextArea
+                    error={
+                      pasteError && {
+                        content: 'Required',
+                        pointing: 'above',
+                      }
                     }
-                  }
-                  style={{ minHeight: 400, fontFamily: 'monospace' }}
-                  value={state.paste}
-                  label="Paste"
-                  name="paste"
-                  onChange={handleChange}
-                />
-              </div>
-            </section>
-          )}
-        </Dropzone>
-        <Form.Select
-          clearable
-          options={LanguageOptions}
-          label={{
-            children: 'Language',
-          }}
-          placeholder="Language"
-          search
-          name="language"
-          value={state.language}
-          onChange={handleChange}
-        />
-        <Form.Button content="Submit" />
-      </Form>
-    </>
+                    style={{ minHeight: 400, fontFamily: 'monospace' }}
+                    value={state.paste}
+                    label="Paste"
+                    name="paste"
+                    onChange={handleChange}
+                  />
+                </div>
+              </section>
+            )}
+          </Dropzone>
+          <Form.Select
+            clearable
+            options={LanguageOptions}
+            label={{
+              children: 'Language',
+            }}
+            placeholder="Language"
+            search
+            name="language"
+            value={state.language}
+            onChange={handleChange}
+          />
+          <Form.Button content="Submit" />
+        </Form>
+      </Segment>
+    </Container>
   );
 };
 
