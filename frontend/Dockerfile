@@ -1,9 +1,8 @@
 FROM node:14.17-alpine3.11 as clients
 WORKDIR /clients
-COPY ./clients/ .
-
 RUN apk add --no-cache python make g++
 
+COPY ./clients/ .
 RUN ./build.sh
 
 FROM nginx:1.21-alpine
