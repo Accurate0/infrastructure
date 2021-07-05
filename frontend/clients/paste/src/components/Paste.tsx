@@ -14,7 +14,7 @@ import {
 } from 'semantic-ui-react';
 import axios, { AxiosError } from 'axios';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
-import vsDark from 'prism-react-renderer/themes/vsDark';
+import theme from 'prism-react-renderer/themes/vsDark';
 import { LanguageOptions } from './Languages';
 import Countdown, { CountdownTimeDelta } from 'react-countdown';
 
@@ -31,7 +31,7 @@ const Paste = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
   const [linesOn, setLinesOn] = useState(false);
-  const [lang, setLang] = useState<Language>('clike');
+  const [lang, setLang] = useState<Language | undefined>();
   const [expire, setExpire] = useState<number | undefined>();
 
   useEffect(() => {
@@ -127,7 +127,7 @@ const Paste = () => {
               <Highlight
                 {...defaultProps}
                 // Prism
-                theme={vsDark}
+                theme={theme}
                 code={data.paste}
                 language={lang ?? 'clike'}>
                 {({

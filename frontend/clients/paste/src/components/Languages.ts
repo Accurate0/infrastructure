@@ -1,3 +1,13 @@
+// @ts-expect-error
+import Prism from 'prism-react-renderer/prism';
+// @ts-expect-error
+(typeof global !== 'undefined' ? global : window).Prism = Prism;
+require('prismjs/components/prism-kotlin');
+require('prismjs/components/prism-csharp');
+require('prismjs/components/prism-regex');
+require('prismjs/components/prism-rust');
+require('prismjs/components/prism-brainfuck');
+
 export const LanguageOptions: {
   key: string;
   value: string;
@@ -34,4 +44,9 @@ export const LanguageOptions: {
   { key: 'typescript', value: 'typescript', text: 'typescript' },
   { key: 'wasm', value: 'wasm', text: 'wasm' },
   { key: 'yaml', value: 'yaml', text: 'yaml' },
+  { key: 'csharp', value: 'csharp', text: 'csharp' },
+  { key: 'kotlin', value: 'kotlin', text: 'kotlin' },
+  { key: 'regex', value: 'regex', text: 'regex' },
+  { key: 'rust', value: 'rust', text: 'rust' },
+  { key: 'brainfuck', value: 'brainfuck', text: 'brainfuck' },
 ];
