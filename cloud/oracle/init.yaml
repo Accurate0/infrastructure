@@ -14,7 +14,6 @@ packages:
 
 runcmd:
   - [systemctl, daemon-reload]
-  - [systemctl, enable, docker.service]
-  - [systemctl, start, --no-block, docker.service]
+  - [systemctl, enable, --now, --no-block, docker.service]
   - [usermod, -a, -G, docker, ubuntu]
   - [pip, install, docker-compose]

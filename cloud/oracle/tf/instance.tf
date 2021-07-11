@@ -12,7 +12,7 @@ data "template_file" "user_data" {
   template = file("../init.yaml")
 }
 
-resource "oci_core_instance" "ubuntu-paste" {
+resource "oci_core_instance" "ubuntu_paste" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = oci_identity_compartment.paste.id
   shape               = "VM.Standard.E2.1.Micro"

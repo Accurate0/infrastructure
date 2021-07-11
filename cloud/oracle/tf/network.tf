@@ -44,7 +44,7 @@ resource "oci_core_dhcp_options" "dhcp-options" {
 }
 
 data "oci_core_private_ips" "paste-private-ips" {
-  ip_address = oci_core_instance.ubuntu-paste.private_ip
+  ip_address = oci_core_instance.ubuntu_paste.private_ip
   subnet_id  = oci_core_subnet.paste-public-subnet.id
 }
 
