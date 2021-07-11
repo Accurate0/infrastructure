@@ -1,23 +1,37 @@
 #!/usr/bin/env bash
 # manual deployment, please dont hurt me
+
+_cleanup() {
+    rm -f image.tar image.tar.zst
+}
+
+trap _cleanup EXIT SIGINT SIGTERM
 set -x
 
+export DOCKER_BUILDKIT=1
 PROJ=oracle
 USER=ubuntu
 PRIVATE_KEY="./tf/instance_key"
 PUBLIC_IP=$(cd tf && terraform output -raw public-ip)
+SSH_COMMAND="ssh -i $PRIVATE_KEY"
 
-DOCKER_BUILDKIT=1 docker-compose -p $PROJ build
+docker-compose -p $PROJ build
 docker save -o image.tar ${PROJ}_frontend ${PROJ}_paste ${PROJ}_redis
+
+tar --zstd -cf image.tar.zst image.tar
 
 rsync \
     -avz \
-    -e "ssh -i $PRIVATE_KEY" \
+    -e "$SSH_COMMAND" \
     --progress \
-    ./image.tar \
+    ./image.tar.zst \
     ./docker-compose.yml \
-    --exclude 'node_modules/' \
     "$USER@$PUBLIC_IP:/home/$USER/app"
 
-ssh -i "$PRIVATE_KEY" "$USER@$PUBLIC_IP" "cd app && sudo docker load -i image.tar"
-ssh -i "$PRIVATE_KEY" "$USER@$PUBLIC_IP" "cd app && sudo docker-compose -p $PROJ up -d --no-build"
+$SSH_COMMAND "$USER@$PUBLIC_IP" "bash -s" << EOF
+cd app \
+&& tar -xf image.tar.zst \
+&& docker load -i image.tar \
+&& docker-compose -p $PROJ up -d --no-build \
+&& docker ps
+EOF

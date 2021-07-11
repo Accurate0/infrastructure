@@ -10,6 +10,7 @@ packages:
   - docker-ce-cli
   - rsync
   - python3-pip
+  - zstd
 
 runcmd:
   - [systemctl, daemon-reload]

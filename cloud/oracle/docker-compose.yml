@@ -1,7 +1,9 @@
 version: "3.3"
 services:
   redis:
-    image: "redis:6.2-alpine3.13"
+    build:
+      context: ../../services
+      dockerfile: Dockerfile.redis
     deploy:
       restart_policy:
         condition: any
