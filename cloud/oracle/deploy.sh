@@ -10,7 +10,7 @@ set -x
 
 export DOCKER_BUILDKIT=1
 PROJ=oracle
-USER=ubuntu
+REMOTE_USER=ubuntu
 PRIVATE_KEY="./tf/instance_key"
 PUBLIC_IP=$(cd tf && terraform output -raw public-ip)
 SSH_COMMAND="ssh -i $PRIVATE_KEY"
@@ -26,9 +26,9 @@ rsync \
     --progress \
     ./image.tar.zst \
     ./docker-compose.yml \
-    "$USER@$PUBLIC_IP:/home/$USER/app"
+    "$REMOTE_USER@$PUBLIC_IP:/home/$REMOTE_USER/app"
 
-$SSH_COMMAND "$USER@$PUBLIC_IP" "bash -s" << EOF
+$SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP" "bash -s" << EOF
 cd app \
 && tar -xf image.tar.zst \
 && docker load -i image.tar \
