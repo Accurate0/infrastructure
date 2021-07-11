@@ -1,0 +1,19 @@
+#cloud-config
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+packages:
+  - docker-ce
+  - docker-ce-cli
+  - rsync
+  - python3-pip
+
+runcmd:
+  - [systemctl, daemon-reload]
+  - [systemctl, enable, docker.service]
+  - [systemctl, start, --no-block, docker.service]
+  - [usermod, -a, -G, docker, ubuntu]
+  - [pip, install, docker-compose]
