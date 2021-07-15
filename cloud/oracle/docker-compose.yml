@@ -18,7 +18,7 @@ services:
         condition: any
     depends_on:
       - redis
-    container_name: paste
+    container_name: oracle_paste
 
   frontend:
     build:
@@ -32,4 +32,4 @@ services:
         condition: any
     depends_on:
       - paste
-    container_name: frontend
+    container_name: oracle_frontend
