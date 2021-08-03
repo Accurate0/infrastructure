@@ -1,0 +1,7 @@
+tunnel: 11884d4d-f096-4417-8df8-4236a839ac3b
+credentials-file: /home/arch/.cloudflared/11884d4d-f096-4417-8df8-4236a839ac3b.json
+
+ingress:
+  - hostname: arch.anurag.sh
+    service: ssh://localhost:22
+  - service: http_status:404
