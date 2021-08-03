@@ -1,8 +1,15 @@
 FROM node:14.17-alpine3.11 as clients
 WORKDIR /clients
 
+RUN mkdir paste
+
+COPY ./clients/paste/package.json ./paste
+COPY ./clients/paste/yarn.lock ./paste
+
+RUN cd ./paste && yarn
+
 COPY ./clients/paste ./paste
-RUN cd ./paste && yarn && yarn prod
+RUN cd ./paste && yarn prod
 
 FROM nginx:1.21-alpine
 
