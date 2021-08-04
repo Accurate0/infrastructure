@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /data/aur:/var/data/aur
+    depends_on:
+      - jenkins
+    container_name: nginx
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-server
+    privileged: true
+    hostname: jenkins
+    user: root
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: jenkins
+
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5000:5000
+    volumes:
+      - /data/registry:/var/lib/registry
+    container_name: registry
+
+volumes:
+  jenkins-data:

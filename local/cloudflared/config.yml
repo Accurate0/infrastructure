@@ -4,4 +4,11 @@ credentials-file: /home/arch/.cloudflared/11884d4d-f096-4417-8df8-4236a839ac3b.j
 ingress:
   - hostname: arch.anurag.sh
     service: ssh://localhost:22
+
+  - hostname: jenkins.anurag.sh
+    service: http://localhost:80
+
+  - hostname: aur.anurag.sh
+    service: http://localhost:80
+
   - service: http_status:404
