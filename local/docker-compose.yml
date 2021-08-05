@@ -4,7 +4,9 @@ services:
   nginx:
     build: ./nginx
     container_name: nginx
-    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: any
     ports:
       - 80:80
     volumes:
@@ -19,7 +21,9 @@ services:
     privileged: true
     hostname: jenkins
     user: root
-    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: any
     ports:
       - "8080:8080"
     volumes:
@@ -44,7 +48,9 @@ services:
     #     - '$GITLAB_HOME/data:/var/opt/gitlab'
 
   registry:
-    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: any
     image: registry:2
     ports:
       - 5000:5000
