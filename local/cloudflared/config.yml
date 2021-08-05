@@ -5,10 +5,4 @@ ingress:
   - hostname: arch.anurag.sh
     service: ssh://localhost:22
 
-  - hostname: jenkins.anurag.sh
-    service: http://localhost:80
-
-  - hostname: aur.anurag.sh
-    service: http://localhost:80
-
-  - service: http_status:404
+  - service: http://localhost:80

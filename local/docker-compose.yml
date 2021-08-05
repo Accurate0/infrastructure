@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   nginx:
+    networks:
+      - main-network
     build: ./nginx
     container_name: nginx
     deploy:
@@ -16,6 +18,8 @@ services:
       - jenkins
 
   jenkins:
+    networks:
+      - main-network
     image: jenkins/jenkins:lts
     container_name: jenkins-server
     privileged: true
@@ -31,23 +35,52 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: jenkins
 
-    # gitlab:
-    #   image: 'gitlab/gitlab-ee:latest'
-    #   restart: always
-    #   hostname: 'gitlab.anurag.sh'
-    #   environment:
-    #     GITLAB_OMNIBUS_CONFIG: |
-    #       external_url 'https://gitlab.anurag.sh'
-    #       # Add any other gitlab.rb configuration here, each on its own line
-    #   ports:
-    #     - '9090:80'
-    #     - '22:22'
-    #   volumes:
-    #     - '$GITLAB_HOME/config:/etc/gitlab'
-    #     - '$GITLAB_HOME/logs:/var/log/gitlab'
-    #     - '$GITLAB_HOME/data:/var/opt/gitlab'
+  server:
+    networks:
+      - main-network
+    image: gitea/gitea:1.14.5
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__service__REQUIRE_SIGNIN_VIEW=true
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__HOST=postgres:5432
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+    deploy:
+      restart_policy:
+        condition: any
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
+
+    depends_on:
+        - postgres
+
+  postgres:
+    networks:
+      - main-network
+    image: postgres:13
+    container_name: postgres
+    deploy:
+      restart_policy:
+        condition: any
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_DB=gitea
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
 
   registry:
+    networks:
+      - main-network
     deploy:
       restart_policy:
         condition: any
@@ -58,5 +91,10 @@ services:
       - /data/registry:/var/lib/registry
     container_name: registry
 
+networks:
+  main-network:
+    name: main-network
+
 volumes:
+  gitea-data:
   jenkins-data:
