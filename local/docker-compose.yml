@@ -3,6 +3,8 @@ version: "3.9"
 services:
   nginx:
     build: ./nginx
+    container_name: nginx
+    restart: on-failure
     ports:
       - 80:80
     volumes:
@@ -10,7 +12,6 @@ services:
       - /data/aur:/var/data/aur
     depends_on:
       - jenkins
-    container_name: nginx
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -26,8 +27,24 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: jenkins
 
+    # gitlab:
+    #   image: 'gitlab/gitlab-ee:latest'
+    #   restart: always
+    #   hostname: 'gitlab.anurag.sh'
+    #   environment:
+    #     GITLAB_OMNIBUS_CONFIG: |
+    #       external_url 'https://gitlab.anurag.sh'
+    #       # Add any other gitlab.rb configuration here, each on its own line
+    #   ports:
+    #     - '9090:80'
+    #     - '22:22'
+    #   volumes:
+    #     - '$GITLAB_HOME/config:/etc/gitlab'
+    #     - '$GITLAB_HOME/logs:/var/log/gitlab'
+    #     - '$GITLAB_HOME/data:/var/opt/gitlab'
+
   registry:
-    restart: always
+    restart: on-failure
     image: registry:2
     ports:
       - 5000:5000
