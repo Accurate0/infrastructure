@@ -1,0 +1,69 @@
+- job-template:
+    name: aur-package-{package}
+    defaults: aur
+    properties:
+      - copyartifact:
+          projects: "aur-update"
+    node: archlinux-docker
+    wrappers:
+      - workspace-cleanup
+    scm:
+      - git:
+          url: "https://aur.archlinux.org/{package}.git"
+          branches:
+            - "*/master"
+          skip-tag: true
+    triggers:
+      - pollscm:
+          cron: "@hourly"
+    builders:
+      - shell: |
+          #!/bin/bash -ex
+          sudo pacman -Syu --noconfirm
+          makepkg --nosign --syncdeps --noconfirm --skippgpcheck
+    publishers:
+      - archive:
+          artifacts: "*.pkg.tar.zst"
+          allow-empty: "false"
+          only-if-success: true
+      - trigger-parameterized-builds:
+          - project: "aur-update"
+            current-parameters: true
+            condition: "UNSTABLE_OR_BETTER"
+            fail-on-missing: true
+            predefined-parameters: "UPSTREAM_PROJECT=${{JOB_NAME}}"
+
+- job:
+    name: "aur-update"
+    defaults: aur
+    node: archlinux-repo-update
+    parameters:
+      - string:
+          name: UPSTREAM_PROJECT
+          description: |
+            Package to add to the repo
+    builders:
+      - copyartifact:
+          project: "${UPSTREAM_PROJECT}"
+          filter: "**/*.pkg.tar.zst"
+          target: $WORKSPACE
+          which-build: last-successful
+
+      - shell: |
+          #!/bin/bash -ex
+          cp "$WORKSPACE"/* /var/data/aur/
+          repo-add -n -p -R /var/data/aur/aur-anurag-sh.db.tar.gz /var/data/aur/*.pkg.tar.zst
+
+- defaults:
+    name: aur
+    description: |
+      Managed by Jenkins Job Builder. Do not edit via web.
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 10
+
+- project:
+    name: aur
+    package: !include: packages.yaml.inc
+    jobs:
+      - "aur-package-{package}"

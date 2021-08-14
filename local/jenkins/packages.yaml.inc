@@ -1,0 +1,4 @@
+- paru
+- linux-xanmod
+- google-chrome
+- spotify

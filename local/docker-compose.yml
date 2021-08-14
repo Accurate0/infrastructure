@@ -76,7 +76,7 @@ services:
       - POSTGRES_PASSWORD=gitea
       - POSTGRES_DB=gitea
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
   registry:
     networks:
@@ -96,5 +96,6 @@ networks:
     name: main-network
 
 volumes:
+  postgres-data:
   gitea-data:
   jenkins-data:

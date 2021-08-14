@@ -14,6 +14,7 @@ rsync \
     "./nginx" \
     "./docker-compose.yml" \
     "./Dockerfile.archbuild" \
+    "./jenkins" \
     "$REMOTE_USER@$SERVER:/home/$REMOTE_USER/docker"
 
 ssh "$REMOTE_USER@$SERVER" "bash -s" << EOF
@@ -21,6 +22,7 @@ set -x
 cd docker
 docker build -f Dockerfile.archbuild -t localhost:5000/archbuild:latest .
 docker push localhost:5000/archbuild
-docker-compose up -d --build
+docker-compose up -d --build --remove-orphans
 docker ps
+jenkins-jobs --conf ~/docker/jenkins/config.ini update ~/docker/jenkins/jobs.yml
 EOF
