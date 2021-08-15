@@ -31,7 +31,7 @@
             current-parameters: true
             condition: "UNSTABLE_OR_BETTER"
             fail-on-missing: true
-            predefined-parameters: "UPSTREAM_PROJECT=${{JOB_NAME}}"
+            predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
 - job:
     name: aur-package-linux-xanmod
@@ -71,7 +71,7 @@
             current-parameters: true
             condition: "UNSTABLE_OR_BETTER"
             fail-on-missing: true
-            predefined-parameters: "UPSTREAM_PROJECT=${{JOB_NAME}}"
+            predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
 - job:
     name: "aur-update"
@@ -92,15 +92,12 @@
       - shell: |
           #!/bin/bash -ex
           cp "$WORKSPACE"/* /var/data/aur/
-          repo-add -n -p -R /var/data/aur/aur-anurag-sh.db.tar.gz /var/data/aur/*.pkg.tar.zst
+          repo-add -p -R /var/data/aur/aur-anurag-sh.db.tar.gz /var/data/aur/*.pkg.tar.zst
 
 - defaults:
     name: aur
     description: |
       Managed by Jenkins Job Builder. Do not edit via web.
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 10
 
 - project:
     name: aur
