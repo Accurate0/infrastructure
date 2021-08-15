@@ -20,7 +20,47 @@
       - shell: |
           #!/bin/bash -ex
           sudo pacman -Syu --noconfirm
-          makepkg --nosign --syncdeps --noconfirm --skippgpcheck
+          makepkg --nosign --syncdeps --noconfirm
+    publishers:
+      - archive:
+          artifacts: "*.pkg.tar.zst"
+          allow-empty: "false"
+          only-if-success: true
+      - trigger-parameterized-builds:
+          - project: "aur-update"
+            current-parameters: true
+            condition: "UNSTABLE_OR_BETTER"
+            fail-on-missing: true
+            predefined-parameters: "UPSTREAM_PROJECT=${{JOB_NAME}}"
+
+- job:
+    name: aur-package-linux-xanmod
+    defaults: aur
+    properties:
+      - copyartifact:
+          projects: "aur-update"
+    node: archlinux-docker
+    wrappers:
+      - workspace-cleanup
+    scm:
+      - git:
+          url: "https://aur.archlinux.org/linux-xanmod.git"
+          branches:
+            - "*/master"
+          skip-tag: true
+    triggers:
+      - pollscm:
+          cron: "@hourly"
+    builders:
+      - shell: |
+          #!/bin/bash -ex
+          mkdir -p "$HOME/.config"
+
+          wget https://gist.githubusercontent.com/Accurate0/9077883950f7a022f833caee773d402f/raw/5ecb753f86cdffe89ec2cdce2df100281c007c44/modprobedb -O "$HOME/.config/modprobed.db"
+          wget https://gist.githubusercontent.com/Accurate0/d19ac6c179843d555c8d0314cd9683b4/raw/731675b5fd35deb546432d2b2450a18b055410e6/myconfig -O myconfig
+
+          sudo pacman -Syu --noconfirm
+          env _microarchitecture=15 use_numa=n use_tracers=n _localmodcfg=y /usr/bin/makepkg -s --noconfirm --skippgpcheck --skipinteg --skipchecksums
     publishers:
       - archive:
           artifacts: "*.pkg.tar.zst"

@@ -35,7 +35,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: jenkins
 
-  server:
+  gitea:
     networks:
       - main-network
     image: gitea/gitea:1.14.5
