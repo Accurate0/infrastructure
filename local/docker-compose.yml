@@ -1,40 +1,6 @@
 version: "3.9"
 
-services:
-  nginx:
-    networks:
-      - main-network
-    build: ./nginx
-    container_name: nginx
-    deploy:
-      restart_policy:
-        condition: any
-    ports:
-      - 80:80
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - /data/aur:/var/data/aur
-    depends_on:
-      - jenkins
-
-  jenkins:
-    networks:
-      - main-network
-    image: jenkins/jenkins:lts
-    container_name: jenkins-server
-    privileged: true
-    hostname: jenkins
-    user: root
-    deploy:
-      restart_policy:
-        condition: any
-    ports:
-      - "8080:8080"
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    container_name: jenkins
-
+x-disabled:
   gitea:
     networks:
       - main-network
@@ -47,11 +13,11 @@ services:
       - GITEA__database__DB_TYPE=postgres
       - GITEA__database__HOST=postgres:5432
       - GITEA__database__NAME=gitea
-      - GITEA__database__USER=gitea
-      - GITEA__database__PASSWD=gitea
+      - GITEA__database__USER=databaseuser
+      - GITEA__database__PASSWD=databasepassword
     deploy:
       restart_policy:
-        condition: any
+        condition: on-failure
     volumes:
       - gitea-data:/data
       - /etc/timezone:/etc/timezone:ro
@@ -59,7 +25,6 @@ services:
     ports:
       - "3000:3000"
       - "222:22"
-
     depends_on:
         - postgres
 
@@ -70,21 +35,79 @@ services:
     container_name: postgres
     deploy:
       restart_policy:
-        condition: any
+        condition: on-failure
     environment:
-      - POSTGRES_USER=gitea
-      - POSTGRES_PASSWORD=gitea
-      - POSTGRES_DB=gitea
+      - POSTGRES_USER=databaseuser
+      - POSTGRES_PASSWORD=databasepassword
+      - POSTGRES_MULTIPLE_DATABASES=gitea,boards
     volumes:
+      - ./postgres/scripts:/docker-entrypoint-initdb.d
       - postgres-data:/var/lib/postgresql/data
+
+services:
+  nginx:
+    networks:
+      - main-network
+    build: ./nginx
+    container_name: nginx
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 80:80
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /data/aur:/var/data/aur
+      - /data/ip:/var/data/ip
+      - /data/file:/var/data/file
+    depends_on:
+      - jenkins
+      - jellyfin
+
+  jellyfin:
+    image: linuxserver/jellyfin:version-10.7.7-1
+    networks:
+      - main-network
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - /data/plex/jellyfin-config:/config
+      - /data/plex/TV:/data/tvshows
+      - /data/plex/Movies:/data/movies
+    expose:
+      - "8096"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  jenkins:
+    networks:
+      - main-network
+    image: jenkins/jenkins:lts-jdk11
+    container_name: jenkins
+    privileged: true
+    hostname: jenkins
+    user: root
+    deploy:
+      restart_policy:
+        condition: on-failure
+    expose:
+      - "8080"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: jenkins
 
   registry:
     networks:
       - main-network
     deploy:
       restart_policy:
-        condition: any
-    image: registry:2
+        condition: on-failure
+    image: registry:2.7.1
     ports:
       - 5000:5000
     volumes:
@@ -96,6 +119,4 @@ networks:
     name: main-network
 
 volumes:
-  postgres-data:
-  gitea-data:
   jenkins-data:

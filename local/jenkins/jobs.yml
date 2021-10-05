@@ -56,14 +56,14 @@
           #!/bin/bash -ex
           mkdir -p "$HOME/.config"
 
-          wget https://gist.githubusercontent.com/Accurate0/9077883950f7a022f833caee773d402f/raw/5ecb753f86cdffe89ec2cdce2df100281c007c44/modprobedb -O "$HOME/.config/modprobed.db"
-          wget https://gist.githubusercontent.com/Accurate0/d19ac6c179843d555c8d0314cd9683b4/raw/731675b5fd35deb546432d2b2450a18b055410e6/myconfig -O myconfig
+          wget https://file.anurag.sh/modules -O "$HOME/.config/modprobed.db"
+          wget https://file.anurag.sh/config -O myconfig
 
           sudo pacman -Syu --noconfirm
           env _microarchitecture=15 use_numa=n use_tracers=n _localmodcfg=y /usr/bin/makepkg -s --noconfirm --skippgpcheck --skipinteg --skipchecksums
     publishers:
       - archive:
-          artifacts: "*.pkg.tar.zst"
+          artifacts: "*.pkg.tar.zst, config.last"
           allow-empty: "false"
           only-if-success: true
       - trigger-parameterized-builds:
@@ -93,6 +93,7 @@
           #!/bin/bash -ex
           cp "$WORKSPACE"/* /var/data/aur/
           repo-add -p -R /var/data/aur/aur-anurag-sh.db.tar.gz /var/data/aur/*.pkg.tar.zst
+          rm /var/data/aur/*.old
 
 - defaults:
     name: aur

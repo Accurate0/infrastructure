@@ -1,7 +1,9 @@
-FROM nginx:1.21-alpine
+FROM nginx:1.21.3-alpine
 
 COPY jenkins.conf /etc/nginx/sites-enabled/
 COPY aur.conf /etc/nginx/sites-enabled/
-COPY git.conf /etc/nginx/sites-enabled/
+COPY jellyfin.conf /etc/nginx/sites-enabled/
+COPY ip.conf /etc/nginx/sites-enabled/
+COPY file.conf /etc/nginx/sites-enabled/
 
 COPY nginx.conf /etc/nginx/nginx.conf

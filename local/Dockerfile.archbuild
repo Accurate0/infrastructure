@@ -1,4 +1,4 @@
-FROM archlinux:base-devel-20210725.0.29770 AS archlinux
+FROM archlinux/archlinux:base-devel-20210926.0.35054 AS archlinux
 
 ARG VERSION=4.3
 ARG user=jenkins
