@@ -1,0 +1,2 @@
+local/nginx/*.conf linguist-language=nginx
+frontend/nginx/*.conf linguist-language=nginx
