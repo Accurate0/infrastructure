@@ -1,5 +1,5 @@
 - job-template:
-    name: aur-package-{package}
+    name: "{package}"
     defaults: aur
     properties:
       - copyartifact:
@@ -29,12 +29,12 @@
       - trigger-parameterized-builds:
           - project: "aur-update"
             current-parameters: true
-            condition: "UNSTABLE_OR_BETTER"
+            condition: "ALWAYS"
             fail-on-missing: true
             predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
 - job:
-    name: aur-package-linux-xanmod
+    name: linux-xanmod
     defaults: aur
     properties:
       - copyartifact:
@@ -60,7 +60,7 @@
           wget https://file.anurag.sh/config -O myconfig
 
           sudo pacman -Syu --noconfirm
-          env _microarchitecture=15 use_numa=n use_tracers=n _localmodcfg=y /usr/bin/makepkg -s --noconfirm --skippgpcheck --skipinteg --skipchecksums
+          env _microarchitecture=15 use_numa=n use_tracers=n _localmodcfg=y makepkg -s --noconfirm --skippgpcheck --skipinteg --skipchecksums
     publishers:
       - archive:
           artifacts: "*.pkg.tar.zst, config.last"
@@ -69,7 +69,7 @@
       - trigger-parameterized-builds:
           - project: "aur-update"
             current-parameters: true
-            condition: "UNSTABLE_OR_BETTER"
+            condition: "ALWAYS"
             fail-on-missing: true
             predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
@@ -92,11 +92,16 @@
       - shell: |
           #!/bin/bash -ex
           cp "$WORKSPACE"/* /var/data/aur/
-          repo-add -p -R /var/data/aur/aur-anurag-sh.db.tar.gz /var/data/aur/*.pkg.tar.zst
-          rm /var/data/aur/*.old
+          repo-add -p -R /var/data/aur/aur.db.tar.gz /var/data/aur/*.pkg.tar.zst
+          rm -f /var/data/aur/*.old
+
+- job:
+    name: aur-packages
+    project-type: folder
 
 - defaults:
     name: aur
+    folder: aur-packages
     description: |
       Managed by Jenkins Job Builder. Do not edit via web.
 
@@ -104,4 +109,4 @@
     name: aur
     package: !include: packages.yaml.inc
     jobs:
-      - "aur-package-{package}"
+      - "{package}"

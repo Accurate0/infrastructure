@@ -1,0 +1,15 @@
+- view:
+    name: Builds
+    view-type: list
+    job-name:
+    regex: aur-packages/.*
+    columns:
+        - status
+        - weather
+        - job
+        - last-success
+        - last-failure
+        - last-duration
+        - last-stable
+        - build-button
+    recurse: true

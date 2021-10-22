@@ -15,9 +15,7 @@ x-disabled:
       - GITEA__database__NAME=gitea
       - GITEA__database__USER=databaseuser
       - GITEA__database__PASSWD=databasepassword
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
     volumes:
       - gitea-data:/data
       - /etc/timezone:/etc/timezone:ro
@@ -33,9 +31,7 @@ x-disabled:
       - main-network
     image: postgres:13
     container_name: postgres
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
     environment:
       - POSTGRES_USER=databaseuser
       - POSTGRES_PASSWORD=databasepassword
@@ -50,9 +46,7 @@ services:
       - main-network
     build: ./nginx
     container_name: nginx
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
     ports:
       - 80:80
     volumes:
@@ -65,7 +59,7 @@ services:
       - jellyfin
 
   jellyfin:
-    image: linuxserver/jellyfin:version-10.7.7-1
+    image: linuxserver/jellyfin:10.7.7
     networks:
       - main-network
     container_name: jellyfin
@@ -79,21 +73,17 @@ services:
       - /data/plex/Movies:/data/movies
     expose:
       - "8096"
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
 
   jenkins:
     networks:
       - main-network
-    image: jenkins/jenkins:lts-jdk11
+    image: jenkins/jenkins:2.303.2-lts-alpine
     container_name: jenkins
     privileged: true
     hostname: jenkins
     user: root
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
     expose:
       - "8080"
     volumes:
@@ -104,9 +94,7 @@ services:
   registry:
     networks:
       - main-network
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: always
     image: registry:2.7.1
     ports:
       - 5000:5000

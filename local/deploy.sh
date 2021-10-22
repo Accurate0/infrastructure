@@ -34,7 +34,7 @@ docker build -f Dockerfile.archbuild -t localhost:5000/archbuild:latest .
 docker push localhost:5000/archbuild
 docker-compose up -d --build --remove-orphans
 docker ps
-jenkins-jobs --conf ~/docker/jenkins/config.ini update ~/docker/jenkins/jobs.yml
+jenkins-jobs --conf ~/docker/jenkins/config.ini update --workers 0 --delete-old ~/docker/jenkins
 EOF
 
 # copy my kernel module info for the jenkins job
