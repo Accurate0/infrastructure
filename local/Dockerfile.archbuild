@@ -1,6 +1,6 @@
 FROM jenkins/agent:latest-archlinux-jdk11
 
 USER root
-RUN pacman -Syu base-devel
+RUN pacman -Syu --noconfirm base-devel
 
 USER jenkins
