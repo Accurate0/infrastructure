@@ -22,5 +22,4 @@ rsync \
     "./config.yml" \
     "$REMOTE_USER@$SERVER:/etc/cloudflared"
 
-echo "---> systemctl restart cloudflared"
-ssh "$REMOTE_USER@$SERVER"
+sshpass ssh -t "$REMOTE_USER@$SERVER" "systemctl restart cloudflared"
