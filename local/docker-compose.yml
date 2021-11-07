@@ -1,45 +1,5 @@
 version: "3.9"
 
-x-disabled:
-  gitea:
-    networks:
-      - main-network
-    image: gitea/gitea:1.14.5
-    container_name: gitea
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - GITEA__service__REQUIRE_SIGNIN_VIEW=true
-      - GITEA__database__DB_TYPE=postgres
-      - GITEA__database__HOST=postgres:5432
-      - GITEA__database__NAME=gitea
-      - GITEA__database__USER=databaseuser
-      - GITEA__database__PASSWD=databasepassword
-    restart: always
-    volumes:
-      - gitea-data:/data
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "3000:3000"
-      - "222:22"
-    depends_on:
-        - postgres
-
-  postgres:
-    networks:
-      - main-network
-    image: postgres:13
-    container_name: postgres
-    restart: always
-    environment:
-      - POSTGRES_USER=databaseuser
-      - POSTGRES_PASSWORD=databasepassword
-      - POSTGRES_MULTIPLE_DATABASES=gitea,boards
-    volumes:
-      - ./postgres/scripts:/docker-entrypoint-initdb.d
-      - postgres-data:/var/lib/postgresql/data
-
 services:
   nginx:
     networks:
