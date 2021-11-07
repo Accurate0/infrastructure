@@ -31,4 +31,4 @@ docker ps
 jenkins-jobs --conf ~/docker/jenkins/config.ini update --workers 0 --delete-old ~/docker/jenkins
 EOF
 
-source kernel_config.sh
+source jenkins/kernel_config.sh
