@@ -12,14 +12,12 @@ rsync \
     -avzr \
     --progress \
     "./nginx" \
-    "./docker-compose.yml" \
     "./jenkins" \
-    "keepalive.sh" \
-    "keepalive.service" \
-    "init_keepalive.sh" \
+    "./keepalive" \
+    "./docker-compose.yml" \
     "$REMOTE_USER@$SERVER:/home/$REMOTE_USER/docker"
 
-sshpass ssh -tt "$REMOTE_USER@$SERVER" "cd ~/docker && sudo ./init_keepalive.sh"
+sshpass ssh -tt "$REMOTE_USER@$SERVER" "cd ~/docker/keepalive && sudo ./init_keepalive.sh"
 
 ssh "$REMOTE_USER@$SERVER" "bash -s" << EOF
 set -x
