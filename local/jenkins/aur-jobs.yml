@@ -7,6 +7,7 @@
     node: archlinux-docker
     wrappers:
       - workspace-cleanup
+      - ansicolor
     scm:
       - git:
           url: "https://aur.archlinux.org/{package}.git"
@@ -29,7 +30,7 @@
       - trigger-parameterized-builds:
           - project: "aur-update"
             current-parameters: true
-            condition: "ALWAYS"
+            condition: "SUCCESS"
             fail-on-missing: true
             predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
@@ -42,6 +43,7 @@
     node: archlinux-docker
     wrappers:
       - workspace-cleanup
+      - ansicolor
     scm:
       - git:
           url: "https://aur.archlinux.org/linux-xanmod.git"
@@ -69,7 +71,7 @@
       - trigger-parameterized-builds:
           - project: "aur-update"
             current-parameters: true
-            condition: "ALWAYS"
+            condition: "SUCCESS"
             fail-on-missing: true
             predefined-parameters: "UPSTREAM_PROJECT=$JOB_NAME"
 
