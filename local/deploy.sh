@@ -8,6 +8,13 @@ fi
 
 REMOTE_USER=arch
 SERVER="$1"
+
+if [ "$2" = "all" ]; then
+    (cd jenkins && ./deploy.sh "$SERVER")
+    (cd keepalive && ./deploy.sh "$SERVER")
+    (cd cloudflared && ./deploy.sh "$SERVER")
+fi
+
 rsync \
     -avzr \
     --progress \
