@@ -19,6 +19,7 @@ rsync \
     -avzr \
     --progress \
     "./nginx" \
+    "./linx" \
     "./docker-compose.yml" \
     "$REMOTE_USER@$SERVER:/home/$REMOTE_USER/docker"
 

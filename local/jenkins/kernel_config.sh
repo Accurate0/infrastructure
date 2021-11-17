@@ -1,7 +1,7 @@
 # copy my kernel module info for the jenkins job
-modprobed-db list | ssh "$REMOTE_USER@$SERVER" "cat - > /data/file/modules"
+modprobed-db list | ssh "$REMOTE_USER@$SERVER" "cat - > /data/kernel/modules"
 
-ssh "$REMOTE_USER@$SERVER" "cat - > /data/file/config" << EOF
+ssh "$REMOTE_USER@$SERVER" "cat - > /data/kernel/config" << EOF
 scripts/config --enable CONFIG_SATA_AHCI
 scripts/config --enable CONFIG_BLK_DEV_NVME
 scripts/config --enable CONFIG_NVME_FC

@@ -58,8 +58,8 @@
           #!/bin/bash -ex
           mkdir -p "$HOME/.config"
 
-          wget https://file.anurag.sh/modules -O "$HOME/.config/modprobed.db"
-          wget https://file.anurag.sh/config -O myconfig
+          wget https://kernel.anurag.sh/modules -O "$HOME/.config/modprobed.db"
+          wget https://kernel.anurag.sh/config -O myconfig
 
           sudo pacman -Syu --noconfirm
           env _microarchitecture=15 use_numa=n use_tracers=n _localmodcfg=y makepkg -s --noconfirm --skippgpcheck --skipinteg --skipchecksums
