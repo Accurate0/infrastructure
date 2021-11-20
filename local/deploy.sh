@@ -18,6 +18,7 @@ fi
 rsync \
     -avzr \
     --progress \
+    ".env" \
     "./nginx" \
     "./linx" \
     "./docker-compose.yml" \
