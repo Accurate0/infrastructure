@@ -94,7 +94,7 @@
       - shell: |
           #!/bin/bash -ex
           cp "$WORKSPACE"/* /var/data/aur/
-          repo-add -p -R /var/data/aur/aur.db.tar.gz /var/data/aur/*.pkg.tar.zst
+          repo-add -p /var/data/aur/aur-packages.db.tar.gz /var/data/aur/*.pkg.tar.zst
           rm -f /var/data/aur/*.old
 
 - job:
