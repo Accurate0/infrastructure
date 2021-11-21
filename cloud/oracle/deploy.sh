@@ -56,7 +56,7 @@ transfer_buildkite() {
     set -x
     cd app/files
     docker-compose up --build -d
-    docker-compose ps
+    docker ps
 EOF
 }
 
