@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  nginx:
+    networks:
+      - main-network
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - linx-server
+
+  linx-server:
+    container_name: linx-server
+    image: andreimarcu/linx-server:version-2.3.8
+    command: -config /data/linx-server.conf
+    volumes:
+      - linx-data:/data/files
+      - linx-meta:/data/meta
+      - ./linx/linx-server.conf:/data/linx-server.conf:ro
+    networks:
+      - main-network
+    expose:
+      - "8080"
+    restart: always
+
+networks:
+  main-network:
+    name: main-network
+
+volumes:
+  linx-meta:
+  linx-data:

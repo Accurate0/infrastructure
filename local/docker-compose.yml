@@ -10,7 +10,6 @@ services:
     ports:
       - 80:80
     volumes:
-      - jenkins-data:/var/jenkins_home
       - /data/aur:/var/data/aur
       - /data/ip:/var/data/ip
       - /data/kernel:/var/data/kernel
@@ -49,20 +48,6 @@ services:
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-
-  linx-server:
-    container_name: linx-server
-    image: andreimarcu/linx-server:version-2.3.8
-    command: -config /data/linx-server.conf
-    volumes:
-      - linx-data:/data/files
-      - linx-meta:/data/meta
-      - ./linx/linx-server.conf:/data/linx-server.conf:ro
-    networks:
-      - main-network
-    expose:
-      - "8080"
-    restart: always
 
   registry:
     networks:
