@@ -4,7 +4,9 @@ services:
   nginx:
     networks:
       - main-network
-    build: ./nginx
+    build:
+      context: ../../
+      dockerfile: ./services/files/Dockerfile
     container_name: nginx
     restart: always
     ports:

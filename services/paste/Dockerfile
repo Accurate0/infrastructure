@@ -1,16 +1,24 @@
-FROM alpine:3.14.0
+FROM node:14.17-alpine3.11 as clients
+WORKDIR /clients
 
-RUN apk add --no-cache python3 gcc libc-dev linux-headers python3-dev
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
+RUN mkdir paste
 
-WORKDIR /app
+COPY ./services/paste/frontend/package.json ./paste
+COPY ./services/paste/frontend/yarn.lock ./paste
 
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
+RUN cd ./paste && yarn
 
-COPY . /app
-RUN adduser -D flask
-USER flask
+COPY ./services/paste/frontend/ ./paste
+RUN cd ./paste && yarn prod
 
-CMD [ "uwsgi", "--ini", "uwsgi.ini" ]
+FROM nginx:1.21-alpine
+
+COPY services/paste/paste.conf /etc/nginx/sites-enabled/
+
+COPY ./nginx/default.conf /etc/nginx/conf.d/
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/ssl.conf /etc/nginx/ssl.conf
+
+COPY ./nginx/certs/* /etc/ssl/
+
+COPY --from=clients /clients/paste/build /www/data/paste

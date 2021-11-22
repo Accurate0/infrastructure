@@ -19,9 +19,8 @@ SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i
 
 set -x
 
-docker-compose -p "$PROJ" build
+(cd ../../services/paste && docker-compose -p "$PROJ" build)
 docker save -o "$RAW_IMAGE" "${PROJ}_frontend" "${PROJ}_paste" "${PROJ}_redis"
-
 zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
 
 transfer_paste() {
@@ -30,7 +29,7 @@ transfer_paste() {
         -e "$SSH_COMMAND" \
         --progress \
         ./$RAW_IMAGE.zst \
-        ./docker-compose.yml \
+        "../../services/paste/docker-compose.yml" \
         "$REMOTE_USER@$PUBLIC_IP_PASTE:/home/$REMOTE_USER/app"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_PASTE" "bash -s" << EOF
@@ -50,11 +49,13 @@ transfer_buildkite() {
         -e "$SSH_COMMAND" \
         --progress \
         "../../services/files" \
-        "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER/app"
+        "../../nginx" \
+        "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER/services"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_BUILDKITE" "bash -s" << EOF
     set -x
-    cd app/files
+    mv ~/services/nginx ~/nginx
+    cd services/files
     docker-compose up --build -d
     docker ps
 EOF

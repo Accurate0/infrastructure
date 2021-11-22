@@ -2,15 +2,15 @@ version: "3.3"
 services:
   redis:
     build:
-      context: ../../services
-      dockerfile: Dockerfile.redis
+      context: ../../
+      dockerfile: ./services/paste/Dockerfile.redis
     deploy:
       restart_policy:
         condition: any
     container_name: oracle_redis
 
   paste:
-    build: ../../services/paste
+    build: ./api
     expose:
       - "5000"
     deploy:
@@ -22,8 +22,8 @@ services:
 
   frontend:
     build:
-      context: ../../frontend
-      dockerfile: Dockerfile.paste
+      context: ../../
+      dockerfile: ./services/paste/Dockerfile
     ports:
       - "80:80"
       - "443:443"
