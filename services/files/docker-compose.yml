@@ -7,6 +7,9 @@ services:
     build:
       context: ../../
       dockerfile: ./services/files/Dockerfile
+    volumes:
+      - /usr/share/nginx/html:/usr/share/nginx/html:rw
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     container_name: nginx
     restart: always
     ports:
@@ -14,6 +17,17 @@ services:
       - 443:443
     depends_on:
       - linx-server
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:rw
+      - /var/lib/letsencrypt:/var/lib/letsencrypt:rw
+      - /usr/share/nginx/html:/usr/share/nginx/html:rw
+    depends_on:
+      - nginx
+    command: certonly --webroot --force-renewal --webroot-path=/usr/share/nginx/html --email contact@anurag.sh --agree-tos --no-eff-email -d files.anurag.sh
 
   linx-server:
     container_name: linx-server

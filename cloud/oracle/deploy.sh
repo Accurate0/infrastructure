@@ -42,19 +42,23 @@ transfer_paste() {
 EOF
 }
 
-
 transfer_buildkite() {
     rsync \
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
         "../../services/files" \
-        "../../nginx" \
         "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER/services"
+
+    rsync \
+        -avz \
+        -e "$SSH_COMMAND" \
+        --progress \
+        "../../nginx" \
+        "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_BUILDKITE" "bash -s" << EOF
     set -x
-    mv ~/services/nginx ~/nginx
     cd services/files
     docker-compose up --build -d
     docker ps
