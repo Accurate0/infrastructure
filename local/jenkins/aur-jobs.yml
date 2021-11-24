@@ -89,11 +89,13 @@
           project: "${UPSTREAM_PROJECT}"
           filter: "**/*.pkg.tar.zst"
           target: $WORKSPACE
-          which-build: last-successful
+          which-build: upstream-build
+          fallback-to-last-successful: true
+          flatten: true
 
       - shell: |
           #!/bin/bash -ex
-          cp "$WORKSPACE"/* /var/data/aur/
+          cp "$WORKSPACE"/*.pkg.tar.zst /var/data/aur/
           repo-add -p /var/data/aur/aur-packages.db.tar.gz /var/data/aur/*.pkg.tar.zst
           rm -f /var/data/aur/*.old
 

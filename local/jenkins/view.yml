@@ -2,6 +2,7 @@
     name: Builds
     view-type: list
     job-name:
+      - packages/main
     regex: aur-packages/.*
     columns:
         - status

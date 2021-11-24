@@ -17,6 +17,7 @@ rsync \
 ssh "$REMOTE_USER@$SERVER" "bash -s" << EOF
 set -x
 cd jenkins
+docker pull jenkins/agent:latest-archlinux-jdk11
 docker build -f Dockerfile.archbuild -t localhost:5000/archbuild:latest .
 docker push localhost:5000/archbuild
 jenkins-jobs --conf ./config.ini update --workers 0 --delete-old ./
