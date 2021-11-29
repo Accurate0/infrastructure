@@ -16,6 +16,38 @@ services:
     depends_on:
       - jenkins
       - jellyfin
+      - sonarr
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    networks:
+      - main-network
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - /data/plex/sonarr-config:/config
+      - /data/plex/TV:/tv
+      - /data/plex/downloads:/downloads
+    restart: always
+    expose:
+      - "8989"
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    networks:
+      - main-network
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+      - WEBUI_PORT=7070
+    volumes:
+      - /data/plex/downloads:/downloads
+      - /data/plex/qbittorrent-config:/config
 
   jellyfin:
     image: linuxserver/jellyfin:10.7.7
@@ -60,17 +92,6 @@ services:
       - /data/registry:/var/lib/registry
     container_name: registry
 
-  buildkite-agent:
-    container_name: buildkite-agent
-    image: buildkite/agent
-    volumes:
-      - /var/lib/buildkite/builds:/var/lib/buildkite/builds
-      - /usr/bin/buildkite-agent:/usr/local/bin/buildkite-agent
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-        - BUILDKITE_AGENT_TOKEN=${BUILDKITE_AGENT_TOKEN}
-        - BUILDKITE_AGENT_NAME=alpine-docker
-        - BUILDKITE_BUILD_PATH=/var/lib/buildkite/builds
 networks:
   main-network:
     name: main-network
