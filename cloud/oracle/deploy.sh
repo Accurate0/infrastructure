@@ -19,11 +19,11 @@ SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i
 
 set -x
 
-(cd ../../services/paste && docker-compose -p "$PROJ" build)
-docker save -o "$RAW_IMAGE" "${PROJ}_frontend" "${PROJ}_paste" "${PROJ}_redis"
-zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
-
 transfer_paste() {
+    (cd ../../services/paste && docker-compose -p "$PROJ" build)
+    docker save -o "$RAW_IMAGE" "${PROJ}_frontend" "${PROJ}_paste" "${PROJ}_redis"
+    zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
+
     rsync \
         -avz \
         -e "$SSH_COMMAND" \
