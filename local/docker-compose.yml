@@ -69,7 +69,7 @@ services:
   jenkins:
     networks:
       - main-network
-    image: jenkins/jenkins:2.322-alpine
+    image: jenkins/jenkins:2.324-alpine
     container_name: jenkins
     privileged: true
     hostname: jenkins
