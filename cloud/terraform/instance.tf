@@ -9,7 +9,7 @@ data "oci_identity_availability_domains" "ads" {
 }
 
 data "template_file" "user_data" {
-  template = file("../init.yaml")
+  template = file("./init.yaml")
 }
 
 resource "oci_core_instance" "ubuntu_paste" {
@@ -28,7 +28,7 @@ resource "oci_core_instance" "ubuntu_paste" {
   }
 
   metadata = {
-    ssh_authorized_keys = file("./instance_key.pub")
+    ssh_authorized_keys = var.instance_key
     user_data           = base64encode(data.template_file.user_data.rendered)
   }
 }
@@ -49,7 +49,21 @@ resource "oci_core_instance" "ubuntu_buildkite" {
   }
 
   metadata = {
-    ssh_authorized_keys = file("./instance_key.pub")
+    ssh_authorized_keys = var.instance_key
     user_data           = base64encode(data.template_file.user_data.rendered)
   }
+}
+
+variable "instance_list" {
+  default = ["linode1", "linode2"]
+}
+
+resource "linode_instance" "this" {
+  label           = var.instance_list[count.index]
+  image           = "linode/arch"
+  region          = "ap-southeast"
+  type            = "g6-nanode-1"
+  authorized_keys = [var.instance_key]
+  stackscript_id  = linode_stackscript.script-init.id
+  count           = length(var.instance_list)
 }

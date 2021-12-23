@@ -12,15 +12,15 @@ export DOCKER_BUILDKIT=1
 RAW_IMAGE=image.tar
 PROJ=oracle
 REMOTE_USER=ubuntu
-PRIVATE_KEY="./tf/instance_key"
-PUBLIC_IP_PASTE=$(cd tf && terraform output -raw public-ip-paste)
-PUBLIC_IP_BUILDKITE=$(cd tf && terraform output -raw public-ip-buildkite)
+PRIVATE_KEY="./terraform/instance_key"
+PUBLIC_IP_PASTE=$(cd terraform && terraform output -raw public-ip-paste)
+PUBLIC_IP_BUILDKITE=$(cd terraform && terraform output -raw public-ip-buildkite)
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
 set -x
 
 transfer_paste() {
-    (cd ../../services/paste && docker-compose -p "$PROJ" build)
+    (cd ../services/paste && docker-compose -p "$PROJ" build)
     docker save -o "$RAW_IMAGE" "${PROJ}_frontend" "${PROJ}_paste" "${PROJ}_redis"
     zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
 
@@ -29,7 +29,7 @@ transfer_paste() {
         -e "$SSH_COMMAND" \
         --progress \
         ./$RAW_IMAGE.zst \
-        "../../services/paste/docker-compose.yml" \
+        "../services/paste/docker-compose.yml" \
         "$REMOTE_USER@$PUBLIC_IP_PASTE:/home/$REMOTE_USER/app"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_PASTE" "bash -s" << EOF
@@ -47,14 +47,14 @@ transfer_buildkite() {
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
-        "../../services/files" \
+        "../services/files" \
         "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER/services"
 
     rsync \
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
-        "../../nginx" \
+        "../nginx" \
         "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_BUILDKITE" "bash -s" << EOF
@@ -71,7 +71,7 @@ transfer_buildkite() {
 EOF
 }
 
-# transfer_paste &
+transfer_paste &
 transfer_buildkite &
 
 wait
