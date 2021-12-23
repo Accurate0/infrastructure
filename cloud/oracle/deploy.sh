@@ -60,12 +60,18 @@ transfer_buildkite() {
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_BUILDKITE" "bash -s" << EOF
     set -x
     cd services/files
+
+    pushd certbot
+    sudo cp certbot-renewal.* /etc/systemd/system/
+    sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
+    popd
+
     docker-compose up --build -d
     docker ps
 EOF
 }
 
-transfer_paste &
+# transfer_paste &
 transfer_buildkite &
 
 wait
