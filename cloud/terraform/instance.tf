@@ -60,7 +60,7 @@ variable "instance_list" {
 
 resource "linode_instance" "this" {
   label           = var.instance_list[count.index]
-  image           = "linode/arch"
+  image           = "linode/ubuntu20.04"
   region          = "ap-southeast"
   type            = "g6-nanode-1"
   authorized_keys = [var.instance_key]
