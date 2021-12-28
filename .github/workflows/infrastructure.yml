@@ -10,106 +10,106 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # plan:
-  #   runs-on: ubuntu-latest
+  plan:
+    runs-on: ubuntu-latest
 
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud/terraform"
+    defaults:
+      run:
+        working-directory: "./cloud/terraform"
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: hashicorp/setup-terraform@v1.2.1
-  #     with:
-  #       cli_config_credentials_hostname: app.terraform.io
-  #       cli_config_credentials_token: ${{ secrets.tf_token }}
-  #       terraform_version: 1.1.2
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.tf_token }}
+        terraform_version: 1.1.2
 
-  #   - name: Terraform fmt
-  #     id: fmt
-  #     run: terraform fmt -recursive
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -recursive
 
-  #   - name: Terraform Init
-  #     id: init
-  #     run: terraform init -no-color
+    - name: Terraform Init
+      id: init
+      run: terraform init -no-color
 
-  #   - name: Terraform Validate
-  #     id: validate
-  #     run: terraform validate -no-color
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
 
-  #   - name: Terraform Plan
-  #     id: plan
-  #     run: terraform plan -no-color
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
 
-  # apply:
-  #   needs: plan
-  #   runs-on: ubuntu-latest
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
 
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud/terraform"
+    defaults:
+      run:
+        working-directory: "./cloud/terraform"
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: hashicorp/setup-terraform@v1.2.1
-  #     with:
-  #       cli_config_credentials_hostname: app.terraform.io
-  #       cli_config_credentials_token: ${{ secrets.tf_token }}
-  #       terraform_version: 1.1.2
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.tf_token }}
+        terraform_version: 1.1.2
 
-  #   - name: Terraform Init
-  #     id: init
-  #     run: terraform init -no-color
+    - name: Terraform Init
+      id: init
+      run: terraform init -no-color
 
-  #   - name: Terraform Apply
-  #     id: apply
-  #     run: terraform apply -auto-approve -no-color
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve -no-color
 
-  # dns:
-  #   needs: apply
-  #   runs-on: ubuntu-latest
+  dns:
+    needs: apply
+    runs-on: ubuntu-latest
 
-  #   env:
-  #     CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud/terraform"
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
+    defaults:
+      run:
+        working-directory: "./cloud/terraform"
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: hashicorp/setup-terraform@v1.2.1
-  #     with:
-  #       cli_config_credentials_hostname: app.terraform.io
-  #       cli_config_credentials_token: ${{ secrets.tf_token }}
-  #       terraform_version: 1.1.2
-  #       terraform_wrapper: false
-  #   - run: terraform init
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.tf_token }}
+        terraform_version: 1.1.2
+        terraform_wrapper: false
+    - run: terraform init
 
-  #   - uses: actions/setup-node@v2
-  #     with:
-  #       node-version: '16'
-  #   - run: npm install -g cloudflare-cli
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: npm install -g cloudflare-cli
 
-  #   - run: cfcli -d 'anurag.sh' rm linode1 || exit 0
-  #   - run: cfcli -d 'anurag.sh' rm linode2 || exit 0
+    - run: cfcli -d 'anurag.sh' rm linode1 || exit 0
+    - run: cfcli -d 'anurag.sh' rm linode2 || exit 0
 
-  #   - run: cfcli -d 'anurag.sh' rm oracle1 || exit 0
-  #   - run: cfcli -d 'anurag.sh' rm oracle2 || exit 0
+    - run: cfcli -d 'anurag.sh' rm oracle1 || exit 0
+    - run: cfcli -d 'anurag.sh' rm oracle2 || exit 0
 
-  #   - name: update linode1 entry
-  #     run: cfcli -t A -d 'anurag.sh' add linode1 $(terraform output -json linode-public-ips | jq '.[0]' | tr -d '"')
+    - name: update linode1 entry
+      run: cfcli -t A -d 'anurag.sh' add linode1 $(terraform output -json linode-public-ips | jq '.[0]' | tr -d '"')
 
-  #   - name: update linode2 entry
-  #     run: cfcli -t A -d 'anurag.sh' add linode2 $(terraform output -json linode-public-ips | jq '.[1]' | tr -d '"')
+    - name: update linode2 entry
+      run: cfcli -t A -d 'anurag.sh' add linode2 $(terraform output -json linode-public-ips | jq '.[1]' | tr -d '"')
 
-  #   - name: update oracle1 entry
-  #     run: cfcli -t A -d 'anurag.sh' add oracle1 $(terraform output -raw public-ip-paste)
+    - name: update oracle1 entry
+      run: cfcli -t A -d 'anurag.sh' add oracle1 $(terraform output -raw public-ip-paste)
 
-  #   - name: update oracle2 entry
-  #     run: cfcli -t A -d 'anurag.sh' add oracle2 $(terraform output -raw public-ip-buildkite)
+    - name: update oracle2 entry
+      run: cfcli -t A -d 'anurag.sh' add oracle2 $(terraform output -raw public-ip-buildkite)
 
   deploy:
-    # needs: dns
+    needs: dns
     runs-on: ubuntu-latest
 
     env:
