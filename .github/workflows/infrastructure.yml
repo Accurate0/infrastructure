@@ -109,7 +109,7 @@ jobs:
     - name: update oracle2 entry
       run: cfcli -t A -d 'anurag.sh' add oracle2 $(terraform output -raw public-ip-buildkite)
 
-  deploy:
+  deploy-oracle:
     needs: dns
     runs-on: ubuntu-latest
 
@@ -123,4 +123,19 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - run: "sudo apt-get update -y && sudo apt-get install -y rsync"
-        - run: "./deploy.sh"
+        - run: "./deploy_oracle.sh"
+
+  deploy-linode:
+    needs: dns
+    runs-on: ubuntu-latest
+
+    env:
+      INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
+      ORIGIN_SSL_CERT: ${{ secrets.ORIGIN_SSL_CERT }}
+    defaults:
+      run:
+        working-directory: "./cloud"
+
+    steps:
+        - uses: actions/checkout@v2
+        - run: "./deploy_linode.sh"
