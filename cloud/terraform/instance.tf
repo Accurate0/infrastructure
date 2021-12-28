@@ -64,6 +64,5 @@ resource "linode_instance" "this" {
   region          = "ap-southeast"
   type            = "g6-nanode-1"
   authorized_keys = [var.instance_key]
-  stackscript_id  = linode_stackscript.script-init.id
   count           = length(var.instance_list)
 }

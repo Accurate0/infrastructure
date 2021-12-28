@@ -5,6 +5,10 @@ on:
     paths:
       - 'cloud/terraform/**'
 
+concurrency:
+  group: environment-${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   plan:
     runs-on: ubuntu-latest
