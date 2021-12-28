@@ -4,6 +4,7 @@ on:
     branches: [ main ]
     paths:
       - 'cloud/**'
+      - '.github/workflows/infrastructure.yml'
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
