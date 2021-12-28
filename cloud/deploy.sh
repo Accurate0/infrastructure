@@ -8,13 +8,22 @@ _cleanup() {
 trap _cleanup EXIT SIGINT SIGTERM
 set -eo pipefail
 
+KEY="./terraform/instance_key"
+
+[ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
+
+ORIGIN_CERT="../nginx/certs/anurag.sh.key"
+[ -f "$ORIGIN_CERT" ] || echo "$ORIGIN_SSL_CERT" >> "$ORIGIN_CERT"
+
+chmod 400 "$KEY"
+
 export DOCKER_BUILDKIT=1
 RAW_IMAGE=image.tar
 PROJ=oracle
 REMOTE_USER=ubuntu
-PRIVATE_KEY="./terraform/instance_key"
-PUBLIC_IP_PASTE=$(cd terraform && terraform output -raw public-ip-paste)
-PUBLIC_IP_BUILDKITE=$(cd terraform && terraform output -raw public-ip-buildkite)
+PRIVATE_KEY="$KEY"
+PUBLIC_IP_PASTE="oracle1.anurag.sh"
+PUBLIC_IP_BUILDKITE="oracle2.anurag.sh"
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
 set -x
