@@ -109,7 +109,7 @@ jobs:
     - name: update oracle2 entry
       run: cfcli -t A -d 'anurag.sh' add oracle2 $(terraform output -raw public-ip-buildkite)
 
-  provision-oracle:
+  setup-oracle:
     needs: dns
     runs-on: ubuntu-latest
     env:
@@ -119,9 +119,9 @@ jobs:
         working-directory: "./cloud"
     steps:
         - uses: actions/checkout@v2
-        - run: "./provision_ubuntu.sh"
+        - run: "./setup_ubuntu.sh"
 
-  provision-linode:
+  setup-linode:
     needs: dns
     runs-on: ubuntu-latest
     env:
@@ -131,10 +131,10 @@ jobs:
         working-directory: "./cloud"
     steps:
         - uses: actions/checkout@v2
-        - run: "./provision_arch.sh"
+        - run: "./setup_arch.sh"
 
   deploy-oracle:
-    needs: provision-oracle
+    needs: setup-oracle
     runs-on: ubuntu-latest
 
     env:
@@ -150,7 +150,7 @@ jobs:
         - run: "./deploy_oracle.sh"
 
   deploy-linode:
-    needs: provision-linode
+    needs: setup-linode
     runs-on: ubuntu-latest
 
     env:
