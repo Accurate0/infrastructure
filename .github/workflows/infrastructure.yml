@@ -141,8 +141,7 @@ jobs:
 
 
   deploy-files:
-    if: steps.verify-changed-files.outputs.files_changed == 'true'
-    needs: check-file-changes
+    needs: setup-oracle
     runs-on: ubuntu-latest
 
     env:
@@ -158,8 +157,7 @@ jobs:
 
 
   deploy-paste:
-    if: steps.verify-changed-paste.outputs.files_changed == 'true'
-    needs: check-file-changes
+    needs: setup-oracle
     runs-on: ubuntu-latest
 
     env:
@@ -174,8 +172,7 @@ jobs:
       - run: "./deploy_paste.sh"
 
   deploy-jenkins:
-    if: steps.verify-changed-jenkins.outputs.files_changed == 'true'
-    needs: check-file-changes
+    needs: setup-linode
     runs-on: ubuntu-latest
 
     env:
