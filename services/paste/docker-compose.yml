@@ -2,8 +2,8 @@ version: "3.3"
 services:
   redis:
     build:
-      context: ../../
-      dockerfile: ./services/paste/Dockerfile.redis
+      context: ./
+      dockerfile: Dockerfile.redis
     deploy:
       restart_policy:
         condition: any
@@ -22,8 +22,8 @@ services:
 
   frontend:
     build:
-      context: ../../
-      dockerfile: ./services/paste/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"

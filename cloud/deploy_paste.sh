@@ -9,12 +9,7 @@ trap _cleanup EXIT SIGINT SIGTERM
 set -eo pipefail
 
 KEY="./terraform/instance_key"
-
 [ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
-
-ORIGIN_CERT="../nginx/certs/anurag.sh.key"
-[ -f "$ORIGIN_CERT" ] || echo "$ORIGIN_SSL_CERT" >> "$ORIGIN_CERT"
-
 chmod 400 "$KEY"
 
 export DOCKER_BUILDKIT=1
@@ -23,7 +18,6 @@ PROJ=oracle
 REMOTE_USER=ubuntu
 PRIVATE_KEY="$KEY"
 PUBLIC_IP_PASTE="oracle1.anurag.sh"
-PUBLIC_IP_BUILDKITE="oracle2.anurag.sh"
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
 set -x
@@ -51,36 +45,4 @@ transfer_paste() {
 EOF
 }
 
-transfer_buildkite() {
-    rsync \
-        -avz \
-        -e "$SSH_COMMAND" \
-        --progress \
-        "../services/files" \
-        "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER/services"
-
-    rsync \
-        -avz \
-        -e "$SSH_COMMAND" \
-        --progress \
-        "../nginx" \
-        "$REMOTE_USER@$PUBLIC_IP_BUILDKITE:/home/$REMOTE_USER"
-
-    $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_BUILDKITE" "bash -s" << EOF
-    set -x
-    cd services/files
-
-    pushd certbot
-    sudo cp certbot-renewal.* /etc/systemd/system/
-    sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
-    popd
-
-    docker-compose up --build -d
-    docker ps
-EOF
-}
-
-transfer_paste &
-transfer_buildkite &
-
-wait
+transfer_paste

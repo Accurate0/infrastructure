@@ -4,7 +4,7 @@ services:
   nginx:
     networks:
       - main-network
-    build: ./nginx
+    build: ./
     container_name: nginx
     restart: always
     ports:

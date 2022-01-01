@@ -3,22 +3,19 @@ WORKDIR /clients
 
 RUN mkdir paste
 
-COPY ./services/paste/frontend/package.json ./paste
-COPY ./services/paste/frontend/yarn.lock ./paste
+COPY frontend/package.json ./paste
+COPY frontend/yarn.lock ./paste
 
 RUN cd ./paste && yarn
 
-COPY ./services/paste/frontend/ ./paste
+COPY frontend/ ./paste
 RUN cd ./paste && yarn prod
 
 FROM nginx:1.21-alpine
 
-COPY services/paste/paste.conf /etc/nginx/sites-enabled/
+COPY ./paste.conf /etc/nginx/sites-enabled/
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx/origin-ssl.conf /etc/nginx/ssl.conf
-
-COPY ./nginx/certs/* /etc/ssl/
+COPY ./default.conf /etc/nginx/conf.d/
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=clients /clients/paste/build /www/data/paste
