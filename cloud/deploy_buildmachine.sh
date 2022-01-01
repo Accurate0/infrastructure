@@ -19,6 +19,7 @@ cd /srv/buildmachine
 
 echo $JENKINS_EXEC_SECRET > jenkins_secret
 
+echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers
 chown -R jenkins:jenkins /var/jenkins
 
 useradd -m jenkins
