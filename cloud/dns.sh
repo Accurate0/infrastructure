@@ -8,6 +8,7 @@ cfcli -d 'anurag.sh' rm oracle2 || exit 0
 
 cfcli -t A -d 'anurag.sh' add linode1 "$(terraform output -json linode-public-ips | jq '.[0]' | tr -d '"')"
 cfcli -t A -d 'anurag.sh' add linode2 "$(terraform output -json linode-public-ips | jq '.[1]' | tr -d '"')"
+cfcli -t A -d 'anurag.sh' add linode3 "$(terraform output -raw linode3-public-ip)"
 cfcli -t A -d 'anurag.sh' add oracle1 "$(terraform output -raw public-ip-paste)"
 cfcli -t A -d 'anurag.sh' add oracle2 "$(terraform output -raw public-ip-buildkite)"
 

@@ -60,3 +60,11 @@ resource "linode_instance" "this" {
   authorized_keys = [var.instance_key]
   count           = length(var.instance_list)
 }
+
+resource "linode_instance" "linode3" {
+  label           = "linode3"
+  image           = "linode/arch"
+  region          = "ap-southeast"
+  type            = "g6-standard-1"
+  authorized_keys = [var.instance_key]
+}

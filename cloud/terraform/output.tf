@@ -8,3 +8,7 @@ output "public-ip-buildkite" {
 output "linode-public-ips" {
   value = linode_instance.this.*.ip_address
 }
+
+output "linode3-public-ip" {
+  value = linode_instance.linode3.ip_address
+}
