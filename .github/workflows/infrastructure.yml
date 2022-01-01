@@ -114,6 +114,7 @@ jobs:
     needs:
       - setup-oracle
       - setup-linode
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
