@@ -15,6 +15,7 @@ set -x
 
 REMOTE_USER=root
 rsync \
+    --delete \
     -e "$SSH_COMMAND" \
     -avzr \
     --progress \

@@ -16,6 +16,7 @@ set -x
 
 transfer_files() {
     rsync \
+        --delete \
         -avz \
         -e "$SSH_COMMAND" \
         --progress \

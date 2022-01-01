@@ -28,6 +28,7 @@ transfer_paste() {
     zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
 
     rsync \
+        --delete \
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
