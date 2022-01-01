@@ -131,7 +131,8 @@ jobs:
         with:
           files: |
             services/paste
-            cloud/
+            cloud/deploy_paste.sh
+            cloud/terraform
 
       - name: Run step if any of paste files changed
         id: paste-changed
@@ -144,7 +145,8 @@ jobs:
         with:
           files: |
             services/files
-            cloud/
+            cloud/deploy_files.sh
+            cloud/terraform
 
       - name: Run step if any of files files changed
         id: files-changed
@@ -157,7 +159,8 @@ jobs:
         with:
           files: |
             services/jenkins
-            cloud/
+            cloud/deploy_jenkins.sh
+            cloud/terraform
 
       - name: Run step if any of jenkins files changed
         id: jenkins-changed
