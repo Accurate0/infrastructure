@@ -16,7 +16,7 @@ $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_JENKINS" "bash -s" << EOF
 mkdir -p /srv/buildmachine
 cd /srv/buildmachine
 
-echo \$JENKINS_EXEC_SECRET > jenkins_secret
-wget https://jenkins.anurag.sh/jnlpJars/agent.jar -O agent.jar
-java -jar agent.jar -jnlpUrl https://jenkins.anurag.sh/computer/linode1/jenkins-agent.jnlp -secret @jenkins_secret -workDir "/var/jenkins"
+echo $JENKINS_EXEC_SECRET > jenkins_secret
+pkill -f -9 agent.jar
+nohup java -jar agent.jar -jnlpUrl https://jenkins.anurag.sh/computer/linode1/jenkins-agent.jnlp -secret @jenkins_secret -workDir "/var/jenkins" &
 EOF

@@ -3,8 +3,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - cloud
-      - services
+      - cloud/**
+      - services/**
       - .github/workflows/infrastructure.yml
 
 concurrency:
