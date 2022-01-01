@@ -14,11 +14,14 @@ SERVERS="linode1.anurag.sh linode2.anurag.sh"
 provision() {
 $SSH_COMMAND "root@$1" "bash -s" << EOF
     set -x
+    reflector -c Australia -f 5 --latest 5 --save /etc/pacman.d/mirrorlist --verbose --protocol http
+
     pacman -Syu --noconfirm docker docker-compose rsync wget jre11-openjdk-headless git base-devel reflector
 
     systemctl enable --now docker
 
-    reflector -c Australia -f 5 --latest 5 --save /etc/pacman.d/mirrorlist --verbose --protocol http
+    # pod2man fix for lemonbar ?
+    ln -sf /usr/bin/core_perl/pod2man "/usr/bin/pod2man"
 EOF
 }
 
