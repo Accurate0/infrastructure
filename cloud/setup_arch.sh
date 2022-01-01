@@ -14,7 +14,7 @@ SERVERS="linode1.anurag.sh linode2.anurag.sh"
 provision() {
 $SSH_COMMAND "root@$1" "bash -s" << EOF
     set -x
-    pacman -Syu --noconfirm docker docker-compose rsync wget jre11-openjdk-headless
+    pacman -Syu --noconfirm docker docker-compose rsync wget jre11-openjdk-headless git base-devel
 
     systemctl enable --now docker
 EOF
