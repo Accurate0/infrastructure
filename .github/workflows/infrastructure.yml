@@ -2,6 +2,10 @@ name: infrastructure
 on:
   push:
     branches: [ main ]
+    paths:
+      - cloud
+      - services
+      - .github/workflows/infrastructure.yml
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}

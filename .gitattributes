@@ -1,4 +1,1 @@
-local/nginx/*.conf linguist-language=nginx
-nginx/*.conf linguist-language=nginx
-
 * text=auto
