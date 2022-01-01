@@ -19,12 +19,12 @@ cd /srv/buildmachine
 
 echo $JENKINS_EXEC_SECRET > jenkins_secret
 
-echo 'jenkins ALL=(ALL) ALL' >> /etc/sudoers
-chown -R jenkins:jenkins /var/jenkins
-
 useradd -m jenkins
-su jenkins
+echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+chown -R jenkins:jenkins /var/jenkins
+chown -R jenkins:jenkins /srv/buildmachine
 
 pkill -f -9 agent.jar
-java -jar agent.jar -jnlpUrl https://jenkins.anurag.sh/computer/linode1/jenkins-agent.jnlp -secret @jenkins_secret -workDir "/var/jenkins" &
+wget https://jenkins.anurag.sh/jnlpJars/agent.jar -O agent.jar
+sudo -u jenkins nohup java -jar agent.jar -jnlpUrl https://jenkins.anurag.sh/computer/linode1/jenkins-agent.jnlp -secret @jenkins_secret -workDir "/var/jenkins" </dev/null >std.out 2>std.err &
 EOF
