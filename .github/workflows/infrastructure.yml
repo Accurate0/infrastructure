@@ -219,3 +219,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: "./deploy_jenkins.sh"
+
+  deploy-buildmachine:
+    needs: deploy-jenkins
+    runs-on: ubuntu-latest
+
+    env:
+      JENKINS_EXEC_SECRET: ${{ secrets.JENKINS_EXEC_SECRET }}
+    defaults:
+      run:
+        working-directory: "./cloud"
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: "./deploy_buildmachine.sh"
