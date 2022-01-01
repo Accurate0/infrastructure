@@ -142,7 +142,7 @@ jobs:
 
       - name: Run step if any of paste files changed
         id: paste-changed
-        if: steps.changed-files-paste.outputs.any_changed == 'true'
+        if: steps.changed-files-paste.outputs.any_changed == 'true' || steps.changed-files-paste.outputs.any_deleted == 'true'
         run: echo "::set-output name=changed::true"
 
       - name: Get files changed files
@@ -157,7 +157,7 @@ jobs:
 
       - name: Run step if any of files files changed
         id: files-changed
-        if: steps.changed-files-files.outputs.any_changed == 'true'
+        if: steps.changed-files-files.outputs.any_changed == 'true' || steps.changed-files-files.outputs.any_deleted == 'true'
         run: echo "::set-output name=changed::true"
 
       - name: Get jenkins changed files
@@ -173,7 +173,7 @@ jobs:
 
       - name: Run step if any of jenkins files changed
         id: jenkins-changed
-        if: steps.changed-files-jenkins.outputs.any_changed == 'true'
+        if: steps.changed-files-jenkins.outputs.any_changed == 'true' || steps.changed-files-jenkins.outputs.any_deleted == 'true'
         run: echo "::set-output name=changed::true"
 
   deploy-files:
