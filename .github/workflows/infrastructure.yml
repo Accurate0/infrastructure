@@ -124,6 +124,7 @@ jobs:
       paste-changed: ${{ steps.paste-changed.outputs.changed }}
       files-changed: ${{ steps.files-changed.outputs.changed }}
       jenkins-changed: ${{ steps.jenkins-changed.outputs.changed }}
+      buildmachine-changed: ${{ steps.buildmachine-changed.outputs.changed }}
 
     steps:
       - uses: actions/checkout@v2
@@ -174,6 +175,20 @@ jobs:
         if: steps.changed-files-jenkins.outputs.any_changed == 'true'
         run: echo "::set-output name=changed::true"
 
+      - name: Get buildmachine changed files
+        id: changed-files-buildmachine
+        uses: tj-actions/changed-files@v12.2
+        with:
+          files: |
+            cloud/deploy_buildmachine.sh
+            cloud/terraform
+            .github/
+
+      - name: Run step if any of buildmachine files changed
+        id: buildmachine-changed
+        if: steps.changed-files-buildmachine.outputs.any_changed == 'true'
+        run: echo "::set-output name=changed::true"
+
   deploy-files:
     if: needs.check-file-changes.outputs.files-changed == 'true'
     needs: check-file-changes
@@ -221,7 +236,10 @@ jobs:
       - run: "./deploy_jenkins.sh"
 
   deploy-buildmachine:
-    needs: deploy-jenkins
+    if: needs.check-file-changes.outputs.buildmachine-changed == 'true'
+    needs:
+      - check-file-changes
+      - deploy-jenkins
     runs-on: ubuntu-latest
 
     env:
