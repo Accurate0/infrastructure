@@ -131,6 +131,7 @@ jobs:
         with:
           files: |
             services/paste
+            cloud/
 
       - name: Run step if any of paste files changed
         id: paste-changed
@@ -143,6 +144,7 @@ jobs:
         with:
           files: |
             services/files
+            cloud/
 
       - name: Run step if any of files files changed
         id: files-changed
@@ -155,6 +157,7 @@ jobs:
         with:
           files: |
             services/jenkins
+            cloud/
 
       - name: Run step if any of jenkins files changed
         id: jenkins-changed
@@ -195,7 +198,7 @@ jobs:
       - run: "./deploy_paste.sh"
 
   deploy-jenkins:
-    if: needs.check-file-changes.outputs.files-changed == 'true'
+    if: needs.check-file-changes.outputs.jenkins-changed == 'true'
     needs: check-file-changes
     runs-on: ubuntu-latest
 
