@@ -135,8 +135,7 @@ jobs:
       - name: Run step if any of paste files changed
         id: paste-changed
         if: steps.changed-files-paste.outputs.any_changed == 'true'
-        run: |
-          run: echo "::set-output name=changed::true"
+        run: echo "::set-output name=changed::true"
 
       - name: Get files changed files
         id: changed-files-files
@@ -148,9 +147,7 @@ jobs:
       - name: Run step if any of files files changed
         id: files-changed
         if: steps.changed-files-files.outputs.any_changed == 'true'
-        run: |
-          run: echo "::set-output name=changed::true"
-
+        run: echo "::set-output name=changed::true"
 
       - name: Get jenkins changed files
         id: changed-files-jenkins
@@ -162,8 +159,7 @@ jobs:
       - name: Run step if any of jenkins files changed
         id: jenkins-changed
         if: steps.changed-files-jenkins.outputs.any_changed == 'true'
-        run: |
-          run: echo "::set-output name=changed::true"
+        run: echo "::set-output name=changed::true"
 
   deploy-files:
     if: needs.check-file-changes.outputs.files-changed == 'true'
