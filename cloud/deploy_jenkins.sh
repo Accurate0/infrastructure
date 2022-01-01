@@ -24,6 +24,6 @@ rsync \
 $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_JENKINS" "bash -s" << EOF
 set -x
 cd /srv/jenkins
-docker-compose up -d
+docker-compose up --build -d
 docker ps
 EOF
