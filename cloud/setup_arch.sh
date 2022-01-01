@@ -14,7 +14,7 @@ SERVERS="linode1.anurag.sh linode2.anurag.sh"
 provision() {
 $SSH_COMMAND "root@$1" "bash -s" << EOF
     set -x
-    pacman -Syu --noconfirm docker rsync
+    pacman -Syu --noconfirm docker docker-compose rsync
 
     systemctl enable --now docker
 EOF
