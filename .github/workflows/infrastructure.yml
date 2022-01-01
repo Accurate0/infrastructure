@@ -2,9 +2,6 @@ name: infrastructure
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'cloud/**'
-      - '.github/workflows/infrastructure.yml'
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
@@ -26,20 +23,16 @@ jobs:
         cli_config_credentials_token: ${{ secrets.tf_token }}
         terraform_version: 1.1.2
 
-    - name: Terraform fmt
-      id: fmt
+    - name: terraform fmt
       run: terraform fmt -recursive
 
-    - name: Terraform Init
-      id: init
+    - name: terraform init
       run: terraform init -no-color
 
-    - name: Terraform Validate
-      id: validate
+    - name: terraform validate
       run: terraform validate -no-color
 
-    - name: Terraform Plan
-      id: plan
+    - name: terraform plan
       run: terraform plan -no-color
 
   apply:
@@ -58,12 +51,10 @@ jobs:
         cli_config_credentials_token: ${{ secrets.tf_token }}
         terraform_version: 1.1.2
 
-    - name: Terraform Init
-      id: init
+    - name: terraform init
       run: terraform init -no-color
 
-    - name: Terraform Apply
-      id: apply
+    - name: terraform apply
       run: terraform apply -auto-approve -no-color
 
   dns:
@@ -92,7 +83,7 @@ jobs:
     - run: npm install -g cloudflare-cli
 
     - name: update dns
-    - run: ../dns.sh
+      run: ../dns.sh
 
   setup-oracle:
     needs: dns
@@ -103,8 +94,8 @@ jobs:
       run:
         working-directory: "./cloud"
     steps:
-        - uses: actions/checkout@v2
-        - run: "./setup_ubuntu.sh"
+      - uses: actions/checkout@v2
+      - run: "./setup_ubuntu.sh"
 
   setup-linode:
     needs: dns
@@ -130,8 +121,8 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-        - uses: actions/checkout@v2
-        - run: "./deploy_files.sh"
+      - uses: actions/checkout@v2
+      - run: "./deploy_files.sh"
 
 
   deploy-paste:
@@ -146,8 +137,8 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-        - uses: actions/checkout@v2
-        - run: "./deploy_paste.sh"
+      - uses: actions/checkout@v2
+      - run: "./deploy_paste.sh"
 
   deploy-jenkins:
     needs: setup-linode
@@ -161,5 +152,5 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-        - uses: actions/checkout@v2
-        - run: "./deploy_jenkins.sh"
+      - uses: actions/checkout@v2
+      - run: "./deploy_jenkins.sh"
