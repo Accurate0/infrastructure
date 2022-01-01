@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  nginx:
+    networks:
+      - main-network
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - jenkins
+
+  jenkins:
+    networks:
+      - main-network
+    image: jenkins/jenkins:2.324-alpine
+    container_name: jenkins
+    privileged: true
+    hostname: jenkins
+    user: root
+    restart: always
+    expose:
+      - "8080"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  main-network:
+    name: main-network
+
+volumes:
+  jenkins-data:
