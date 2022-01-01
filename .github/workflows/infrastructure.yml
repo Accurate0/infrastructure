@@ -109,8 +109,39 @@ jobs:
         - uses: actions/checkout@v2
         - run: "./setup_arch.sh"
 
+
+  check-file-changes:
+    needs:
+      - setup-oracle
+      - setup-linode
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: verify changed files
+        uses: tj-actions/verify-changed-files@v8.8
+        id: verify-changed-files
+        with:
+          files: |
+            ./services/files
+
+      - name: verify changed paste
+        uses: tj-actions/verify-changed-files@v8.8
+        id: verify-changed-paste
+        with:
+          files: |
+            ./services/paste
+
+      - name: verify changed jenkins
+        uses: tj-actions/verify-changed-files@v8.8
+        id: verify-changed-jenkins
+        with:
+          files: |
+            ./services/jenkins
+
+
   deploy-files:
-    needs: setup-oracle
+    if: steps.verify-changed-files.outputs.files_changed == 'true'
+    needs: check-file-changes
     runs-on: ubuntu-latest
 
     env:
@@ -126,7 +157,8 @@ jobs:
 
 
   deploy-paste:
-    needs: setup-oracle
+    if: steps.verify-changed-paste.outputs.files_changed == 'true'
+    needs: check-file-changes
     runs-on: ubuntu-latest
 
     env:
@@ -141,7 +173,8 @@ jobs:
       - run: "./deploy_paste.sh"
 
   deploy-jenkins:
-    needs: setup-linode
+    if: steps.verify-changed-jenkins.outputs.files_changed == 'true'
+    needs: check-file-changes
     runs-on: ubuntu-latest
 
     env:
