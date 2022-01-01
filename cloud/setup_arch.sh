@@ -9,7 +9,7 @@ PRIVATE_KEY="$KEY"
 
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
-SERVERS="linode1.anurag.sh linode2.anurag.sh"
+SERVERS="linode1.anurag.sh linode2.anurag.sh linode3.anurag.sh"
 
 provision() {
 $SSH_COMMAND "root@$1" "bash -s" << EOF
