@@ -14,6 +14,7 @@ SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i
 set -x
 $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_JENKINS" "bash -s" << EOF
 set -x
+mkdir -p /var/jenkins
 mkdir -p /srv/buildmachine
 cd /srv/buildmachine
 

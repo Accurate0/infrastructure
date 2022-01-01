@@ -17,8 +17,8 @@ $SSH_COMMAND "root@$1" "bash -s" << EOF
     reflector -c Australia -f 5 --latest 5 --save /etc/pacman.d/mirrorlist --verbose --protocol http
 
     pacman -Syu --noconfirm
-    pacman -Syu --noconfirm archlinux-keyring
-    pacman -Syu --noconfirm --needed docker docker-compose rsync wget jre11-openjdk-headless git base-devel reflector
+    pacman -S --noconfirm archlinux-keyring
+    pacman -S --noconfirm --needed docker docker-compose rsync wget jre11-openjdk-headless git base-devel reflector
 
     systemctl enable --now docker
 
