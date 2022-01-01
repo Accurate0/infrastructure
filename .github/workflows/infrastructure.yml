@@ -231,6 +231,7 @@ jobs:
 
     env:
       JENKINS_EXEC_SECRET: ${{ secrets.JENKINS_EXEC_SECRET }}
+      INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
     defaults:
       run:
         working-directory: "./cloud"
