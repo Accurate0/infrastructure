@@ -133,6 +133,7 @@ jobs:
             services/paste
             cloud/deploy_paste.sh
             cloud/terraform
+            .github/
 
       - name: Run step if any of paste files changed
         id: paste-changed
@@ -147,6 +148,7 @@ jobs:
             services/files
             cloud/deploy_files.sh
             cloud/terraform
+            .github/
 
       - name: Run step if any of files files changed
         id: files-changed
@@ -161,6 +163,7 @@ jobs:
             services/jenkins
             cloud/deploy_jenkins.sh
             cloud/terraform
+            .github/
 
       - name: Run step if any of jenkins files changed
         id: jenkins-changed
@@ -174,7 +177,6 @@ jobs:
 
     env:
       INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
-      ORIGIN_SSL_CERT: ${{ secrets.ORIGIN_SSL_CERT }}
     defaults:
       run:
         working-directory: "./cloud"
@@ -191,7 +193,6 @@ jobs:
 
     env:
       INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
-      ORIGIN_SSL_CERT: ${{ secrets.ORIGIN_SSL_CERT }}
     defaults:
       run:
         working-directory: "./cloud"
@@ -207,7 +208,6 @@ jobs:
 
     env:
       INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
-      ORIGIN_SSL_CERT: ${{ secrets.ORIGIN_SSL_CERT }}
     defaults:
       run:
         working-directory: "./cloud"
