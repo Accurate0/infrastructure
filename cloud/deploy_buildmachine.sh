@@ -17,10 +17,13 @@ set -x
 mkdir -p /srv/buildmachine
 cd /srv/buildmachine
 
-useradd -m jenkins || exit 0
+echo $JENKINS_EXEC_SECRET > jenkins_secret
+
+chown -R jenkins:jenkins /var/jenkins
+
+useradd -m jenkins
 su jenkins
 
-echo $JENKINS_EXEC_SECRET > jenkins_secret
 pkill -f -9 agent.jar
 nohup java -jar agent.jar -jnlpUrl https://jenkins.anurag.sh/computer/linode1/jenkins-agent.jnlp -secret @jenkins_secret -workDir "/var/jenkins" &
 EOF
