@@ -110,7 +110,7 @@ jobs:
       run: cfcli -t A -d 'anurag.sh' add oracle2 $(terraform output -raw public-ip-buildkite)
 
     - name: update jenkins entry
-      run: cfcli -t CNAME -d 'anurag.sh' add jenkins linode2
+      run: cfcli -t CNAME -d 'anurag.sh' add jenkins linode2.anurag.sh || exit 0
 
   setup-oracle:
     needs: dns
