@@ -15,7 +15,6 @@ FROM nginx:1.21-alpine
 
 COPY ./paste.conf /etc/nginx/sites-enabled/
 
-COPY ./default.conf /etc/nginx/conf.d/
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=clients /clients/paste/build /www/data/paste
