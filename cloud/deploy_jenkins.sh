@@ -2,6 +2,8 @@
 # manual deployment, please dont hurt me
 set -eo pipefail
 
+exit 0
+
 KEY="./terraform/instance_key"
 [ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
 chmod 400 "$KEY"
