@@ -106,6 +106,7 @@ jobs:
       files-changed: ${{ steps.files-changed.outputs.changed }}
       jenkins-changed: ${{ steps.jenkins-changed.outputs.changed }}
       buildmachine-changed: ${{ steps.buildmachine-changed.outputs.changed }}
+      zigbee-changed: ${{ steps.zigbee-changed.outputs.changed }}
 
     steps:
       - uses: actions/checkout@v2
@@ -236,7 +237,7 @@ jobs:
       - run: "./deploy_buildmachine.sh"
 
   deploy-zigbee2mqtt:
-    if: needs.check-file-changes.steps.zigbee-changed.outputs.changed == 'true'
+    if: needs.check-file-changes.outputs.zigbee-changed == 'true'
     needs:
       - check-file-changes
     runs-on: ubuntu-latest

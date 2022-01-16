@@ -5,10 +5,10 @@ services:
     restart: unless-stopped
     volumes:
       - "./mosquitto:/mosquitto"
-    ports:
-      - "1883:1883"
-      - "9001:9001"
+    # ports:
+    #   - "1883:1883"
     command: "mosquitto -c /mosquitto-no-auth.conf"
+    network_mode: host
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
@@ -17,14 +17,15 @@ services:
     volumes:
       - ./zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
-    ports:
-      - 8080:8080
+    # ports:
+    #   - 8080:8080
     environment:
       - TZ=Australia/Perth
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     depends_on:
       - mqtt
+    network_mode: host
 
   homeassistant:
     container_name: homeassistant
@@ -33,6 +34,7 @@ services:
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
       - ./homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
     network_mode: host
