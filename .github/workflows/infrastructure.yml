@@ -187,7 +187,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: "./deploy_files.sh"
 
-
   deploy-paste:
     if: needs.check-file-changes.outputs.paste-changed == 'true'
     needs: check-file-changes
