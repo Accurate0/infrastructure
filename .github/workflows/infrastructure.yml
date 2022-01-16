@@ -236,7 +236,7 @@ jobs:
       - run: "./deploy_buildmachine.sh"
 
   deploy-zigbee2mqtt:
-    if: needs.check-file-changes.outputs.zigbee-changed == 'true'
+    if: needs.check-file-changes.steps.zigbee-changed.outputs.changed == 'true'
     needs:
       - check-file-changes
     runs-on: ubuntu-latest
