@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+KEY="./terraform/instance_key"
+[ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
+chmod 400 "$KEY"
+
 REMOTE_USER=alarm
-IP="$1"
-SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no"
+IP="home.anurag.sh"
+SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $KEY"
 
 set -x
 
