@@ -2,5 +2,6 @@
     "cSpell.words": [
         "buildmachine",
         "mqtt"
-    ]
+    ],
+    "python.formatting.provider": "black"
 }

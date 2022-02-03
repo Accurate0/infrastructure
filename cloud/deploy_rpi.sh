@@ -15,12 +15,12 @@ rsync \
     -e "$SSH_COMMAND" \
     -avzr \
     --progress \
-    "../services/zigbee2mqtt" \
+    "../services/rpi" \
     "$REMOTE_USER@$IP:/home/$REMOTE_USER/"
 
 $SSH_COMMAND "$REMOTE_USER@$IP" "bash -s" << EOF
 set -x
-cd \$HOME/zigbee2mqtt
-docker-compose up --build -d
+cd \$HOME/rpi
+docker-compose up --build -d --remove-orphans
 docker ps
 EOF
