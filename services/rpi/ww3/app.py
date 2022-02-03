@@ -15,6 +15,7 @@ if app.env == "development":
 def get():
     return jsonify(
         {
-            "ww3": "No",
+            "status": "No",
+            "emoji": "😌",
         }
     )
