@@ -14,6 +14,7 @@ RUN cd ./paste && yarn prod
 FROM nginx:1.21-alpine
 
 COPY ./paste.conf /etc/nginx/sites-enabled/
+COPY ./default.conf /etc/nginx/sites-enabled/
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
