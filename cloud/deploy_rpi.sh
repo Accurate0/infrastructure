@@ -15,7 +15,7 @@ rsync \
     -e "$SSH_COMMAND" \
     -avzr \
     --progress \
-    "../services/rpi" \
+    "../servers/rpi" \
     "$REMOTE_USER@$IP:/home/$REMOTE_USER/"
 
 $SSH_COMMAND "$REMOTE_USER@$IP" "bash -s" << EOF

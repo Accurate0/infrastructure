@@ -20,12 +20,12 @@ transfer_files() {
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
-        "../services/files" \
-        "$REMOTE_USER@$PUBLIC_IP_FILES:/home/$REMOTE_USER/services"
+        "../servers/files" \
+        "$REMOTE_USER@$PUBLIC_IP_FILES:/home/$REMOTE_USER/servers"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_FILES" "bash -s" << EOF
     set -x
-    cd services/files
+    cd servers/files
 
     pushd certbot
     sudo cp certbot-renewal.* /etc/systemd/system/

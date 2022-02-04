@@ -4,7 +4,7 @@ on:
     branches: [ main ]
     paths:
       - cloud/**
-      - services/**
+      - servers/**
       - .github/workflows/infrastructure.yml
 
 concurrency:
@@ -101,7 +101,7 @@ jobs:
         uses: tj-actions/changed-files@v12.2
         with:
           files: |
-            services/paste
+            servers/paste
             cloud/deploy_paste.sh
             cloud/terraform
             .github/
@@ -116,7 +116,7 @@ jobs:
         uses: tj-actions/changed-files@v12.2
         with:
           files: |
-            services/files
+            servers/files
             cloud/deploy_files.sh
             cloud/terraform
             .github/
@@ -131,7 +131,7 @@ jobs:
         uses: tj-actions/changed-files@v12.2
         with:
           files: |
-            services/rpi
+            servers/rpi
             cloud/deploy_rpi.sh
             .github/
 
