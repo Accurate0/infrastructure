@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -eo pipefail
-
 KEY="./terraform/instance_key"
 [ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
 chmod 400 "$KEY"
