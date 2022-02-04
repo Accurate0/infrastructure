@@ -6,7 +6,7 @@ KEY="./terraform/instance_key"
 chmod 400 "$KEY"
 
 REMOTE_USER=alarm
-IP="home.anurag.sh"
+IP="rpi.anurag.sh"
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $KEY"
 
 set -x
