@@ -83,6 +83,7 @@ jobs:
       - run: "./setup_ubuntu.sh"
 
   provision-update-rpi:
+    needs: dns
     runs-on: ubuntu-latest
     env:
       INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
