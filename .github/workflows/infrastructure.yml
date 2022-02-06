@@ -95,7 +95,7 @@ jobs:
 
   check-file-changes:
     needs:
-      - provision-update-ubuntu
+      - provision-update-oracle
       - provision-update-rpi
     runs-on: ubuntu-latest
 
