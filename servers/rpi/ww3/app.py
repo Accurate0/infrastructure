@@ -10,7 +10,7 @@ if app.env == "development":
     prefix = "/api"
 
 
-@app.route(f"{prefix}/check", methods=["GET"])
+@app.route(f"{prefix}/status", methods=["GET"])
 @cross_origin()
 def get():
     return jsonify(
