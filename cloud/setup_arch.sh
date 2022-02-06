@@ -9,21 +9,17 @@ PRIVATE_KEY="$KEY"
 
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
-SERVERS="linode1.anurag.sh linode2.anurag.sh linode3.anurag.sh"
+SERVERS="rpi.anurag.sh"
 
 provision() {
-$SSH_COMMAND "root@$1" "bash -s" << EOF
+$SSH_COMMAND "alarm@$1" "bash -s" << EOF
     set -x
-    reflector -c Australia -f 5 --latest 5 --save /etc/pacman.d/mirrorlist --verbose --protocol http
 
-    pacman -Syu --noconfirm
-    pacman -S --noconfirm archlinux-keyring
-    pacman -S --noconfirm --needed docker docker-compose rsync wget jre11-openjdk-headless git base-devel reflector
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm archlinux-keyring
+    sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
 
-    systemctl enable --now docker
-
-    # pod2man fix for lemonbar ?
-    ln -sf /usr/bin/core_perl/pod2man "/usr/bin/pod2man"
+    sudo systemctl enable --now docker
 EOF
 }
 
