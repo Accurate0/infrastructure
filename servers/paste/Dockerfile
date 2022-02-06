@@ -11,7 +11,7 @@ RUN cd ./paste && yarn
 COPY frontend/ ./paste
 RUN cd ./paste && yarn prod
 
-FROM nginx:1.21-alpine
+FROM nginx:1.21.6-alpine
 
 COPY ./paste.conf /etc/nginx/sites-enabled/
 COPY ./default.conf /etc/nginx/sites-enabled/

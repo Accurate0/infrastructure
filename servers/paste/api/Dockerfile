@@ -1,4 +1,4 @@
-FROM alpine:3.14.0
+FROM alpine:3.15.0
 
 RUN apk add --no-cache python3 gcc libc-dev linux-headers python3-dev
 RUN python3 -m ensurepip
