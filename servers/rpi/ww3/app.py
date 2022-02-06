@@ -23,6 +23,6 @@ def get():
 
 @app.after_request
 def add_header(response):
-    response.cache_control.max_age = 2400
+    response.cache_control.max_age = 28800
     response.cache_control.public = True
     return response
