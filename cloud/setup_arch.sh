@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -x
-
 KEY="./instance_key"
 [ -f "$KEY" ] || echo "$INSTANCE_KEY" >> "$KEY"
 chmod 400 "$KEY"
@@ -10,6 +8,8 @@ PRIVATE_KEY="$KEY"
 SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i $PRIVATE_KEY"
 
 SERVERS="rpi.anurag.sh"
+
+set -x
 
 provision() {
 $SSH_COMMAND "alarm@$1" "bash -s" << EOF
