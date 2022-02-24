@@ -27,7 +27,6 @@ transfer_paste() {
         -avz \
         -e "$SSH_COMMAND" \
         --progress \
-        ./$RAW_IMAGE.zst \
         "../servers/oracle1/docker-compose.yml" \
         "$REMOTE_USER@$PUBLIC_IP_PASTE:/home/$REMOTE_USER/app"
 }
