@@ -20,7 +20,7 @@ jobs:
         working-directory: "./cloud/terraform"
 
     steps:
-    - uses:
+    - uses: actions/checkout@v2
       with:
         submodules: 'recursive'
     - uses: hashicorp/setup-terraform@v1.2.1
@@ -55,7 +55,7 @@ jobs:
         working-directory: "./cloud/terraform"
 
     steps:
-    - uses:
+    - uses: actions/checkout@v2
       with:
         submodules: 'recursive'
     - uses: hashicorp/setup-terraform@v1.2.1
@@ -83,7 +83,7 @@ jobs:
       run:
         working-directory: "./cloud"
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - run: "./setup_ubuntu.sh"
@@ -97,7 +97,7 @@ jobs:
       run:
         working-directory: "./cloud"
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - run: "./setup_arch.sh"
@@ -114,7 +114,7 @@ jobs:
       rpi-changed: ${{ steps.rpi-changed.outputs.changed }}
 
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
         with:
@@ -175,7 +175,7 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - run: "./deploy_files.sh"
@@ -192,7 +192,7 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - run: "./deploy_paste.sh"
@@ -210,7 +210,7 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses:
+      - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - run: "./deploy_rpi.sh"
