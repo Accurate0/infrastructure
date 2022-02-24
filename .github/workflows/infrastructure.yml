@@ -83,14 +83,14 @@ jobs:
     # steps:
     #   - uses: actions/checkout@v2
     #     with:
-    #       submodules: 'recursive'
+    #       submodules: recursive
 
     #   - name: install/update dependencies
     #     uses: appleboy/ssh-action@v0.1.4
     #     with:
-    #       host: 'oracle1.anurag.sh,oracle2.anurag.sh'
+    #       host: oracle1.anurag.sh,oracle2.anurag.sh
     #       sync: true
-    #       username: 'ubuntu'
+    #       username: ubuntu
     #       key: ${{ secrets.INSTANCE_KEY }}
     #       script: |
     #         sudo apt-get update -y
@@ -222,7 +222,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: oracle2.anurag.sh
-          username: 'ubuntu'
+          username: ubuntu
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
             cd servers/files
@@ -253,20 +253,34 @@ jobs:
   #         submodules: 'recursive'
   #     - run: "./deploy_paste.sh"
 
-  # deploy-rpi:
-  #   if: needs.check-file-changes.outputs.rpi-changed == 'true'
-  #   needs:
-  #     - check-file-changes
-  #   runs-on: ubuntu-latest
+  deploy-rpi:
+    # if: needs.check-file-changes.outputs.rpi-changed == 'true'
+    # needs:
+    #   - check-file-changes
+    runs-on: ubuntu-latest
 
-  #   env:
-  #     INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         submodules: 'recursive'
-  #     - run: "./deploy_rpi.sh"
+      - name: deploy
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avz --delete --progress
+          remote_path: /home/alarm
+          remote_host: rpi.anurag.sh
+          remote_user: alarm
+          remote_key: ${{ secrets.INSTANCE_KEY }}
+          path: servers/rpi
+
+      - name: activate deployment
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: rpi.anurag.sh
+          username: alarm
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+            cd /home/alarm/rpi
+            docker-compose up --build -d --remove-orphans
+            docker ps
