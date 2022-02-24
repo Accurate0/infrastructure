@@ -74,133 +74,133 @@ jobs:
   #   - name: update dns
   #     run: ../dns.sh
 
-  provision-update-oracle:
+  # provision-update-oracle:
     # needs: dns
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./cloud"
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
+    # runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: "./cloud"
+    # steps:
+    #   - uses: actions/checkout@v2
+    #     with:
+    #       submodules: 'recursive'
 
-      - name: install/update dependencies
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: 'oracle1.anurag.sh,oracle2.anurag.sh'
-          sync: true
-          username: 'ubuntu'
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            sudo apt-get update -y
-            sudo apt-get install -y \
-                ca-certificates \
-                curl \
-                gnupg \
-                lsb-release
+    #   - name: install/update dependencies
+    #     uses: appleboy/ssh-action@v0.1.4
+    #     with:
+    #       host: 'oracle1.anurag.sh,oracle2.anurag.sh'
+    #       sync: true
+    #       username: 'ubuntu'
+    #       key: ${{ secrets.INSTANCE_KEY }}
+    #       script: |
+    #         sudo apt-get update -y
+    #         sudo apt-get install -y \
+    #             ca-certificates \
+    #             curl \
+    #             gnupg \
+    #             lsb-release
 
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --no-tty --dearmor --batch -o /usr/share/keyrings/docker-archive-keyring.gpg
+    #         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --no-tty --dearmor --batch -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-            echo \
-            "deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-            \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    #         echo \
+    #         "deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+    #         \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-            sudo apt-get update -y
-            sudo apt-get install -y docker-ce docker-ce-cli containerd.io rsync python3-pip zstd
+    #         sudo apt-get update -y
+    #         sudo apt-get install -y docker-ce docker-ce-cli containerd.io rsync python3-pip zstd
 
-            sudo systemctl daemon-reload
-            sudo systemctl enable --now --no-block docker.service
-            sudo usermod -a -G docker ubuntu
-            sudo pip install docker-compose
+    #         sudo systemctl daemon-reload
+    #         sudo systemctl enable --now --no-block docker.service
+    #         sudo usermod -a -G docker ubuntu
+    #         sudo pip install docker-compose
 
-  provision-update-rpi:
+  # provision-update-rpi:
     # needs: dns
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./cloud"
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
+    # runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: "./cloud"
+    # steps:
+    #   - uses: actions/checkout@v2
+    #     with:
+    #       submodules: 'recursive'
 
-      - name: install/update dependencies
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: 'rpi.anurag.sh'
-          username: 'alarm'
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            sudo pacman -Syu --noconfirm
-            sudo pacman -S --noconfirm archlinux-keyring
-            sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
-            sudo systemctl enable --now docker
+    #   - name: install/update dependencies
+    #     uses: appleboy/ssh-action@v0.1.4
+    #     with:
+    #       host: 'rpi.anurag.sh'
+    #       username: 'alarm'
+    #       key: ${{ secrets.INSTANCE_KEY }}
+    #       script: |
+    #         sudo pacman -Syu --noconfirm
+    #         sudo pacman -S --noconfirm archlinux-keyring
+    #         sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
+    #         sudo systemctl enable --now docker
 
-  check-file-changes:
-    needs:
-      - provision-update-oracle
-      - provision-update-rpi
-    runs-on: ubuntu-latest
+  # check-file-changes:
+  #   needs:
+  #     - provision-update-oracle
+  #     - provision-update-rpi
+  #   runs-on: ubuntu-latest
 
-    outputs:
-      paste-changed: ${{ steps.paste-changed.outputs.changed }}
-      files-changed: ${{ steps.files-changed.outputs.changed }}
-      rpi-changed: ${{ steps.rpi-changed.outputs.changed }}
+  #   outputs:
+  #     paste-changed: ${{ steps.paste-changed.outputs.changed }}
+  #     files-changed: ${{ steps.files-changed.outputs.changed }}
+  #     rpi-changed: ${{ steps.rpi-changed.outputs.changed }}
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          fetch-depth: 2
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         submodules: 'recursive'
+  #         fetch-depth: 2
 
-      - name: Get paste changed files
-        id: changed-files-paste
-        uses: tj-actions/changed-files@v12.2
-        with:
-          files: |
-            servers/paste
-            cloud/deploy_paste.sh
-            cloud/terraform
-            .github/
+  #     - name: Get paste changed files
+  #       id: changed-files-paste
+  #       uses: tj-actions/changed-files@v12.2
+  #       with:
+  #         files: |
+  #           servers/paste
+  #           cloud/deploy_paste.sh
+  #           cloud/terraform
+  #           .github/
 
-      - name: Run step if any of paste files changed
-        id: paste-changed
-        if: steps.changed-files-paste.outputs.any_changed == 'true' || steps.changed-files-paste.outputs.any_deleted == 'true'
-        run: echo "::set-output name=changed::true"
+  #     - name: Run step if any of paste files changed
+  #       id: paste-changed
+  #       if: steps.changed-files-paste.outputs.any_changed == 'true' || steps.changed-files-paste.outputs.any_deleted == 'true'
+  #       run: echo "::set-output name=changed::true"
 
-      - name: Get files changed files
-        id: changed-files-files
-        uses: tj-actions/changed-files@v12.2
-        with:
-          files: |
-            servers/files
-            cloud/deploy_files.sh
-            cloud/terraform
-            .github/
+  #     - name: Get files changed files
+  #       id: changed-files-files
+  #       uses: tj-actions/changed-files@v12.2
+  #       with:
+  #         files: |
+  #           servers/files
+  #           cloud/deploy_files.sh
+  #           cloud/terraform
+  #           .github/
 
-      - name: Run step if any of files files changed
-        id: files-changed
-        if: steps.changed-files-files.outputs.any_changed == 'true' || steps.changed-files-files.outputs.any_deleted == 'true'
-        run: echo "::set-output name=changed::true"
+  #     - name: Run step if any of files files changed
+  #       id: files-changed
+  #       if: steps.changed-files-files.outputs.any_changed == 'true' || steps.changed-files-files.outputs.any_deleted == 'true'
+  #       run: echo "::set-output name=changed::true"
 
-      - name: Get rpi changed files
-        id: changed-files-rpi
-        uses: tj-actions/changed-files@v12.2
-        with:
-          files: |
-            servers/rpi
-            cloud/deploy_rpi.sh
-            .github/
+  #     - name: Get rpi changed files
+  #       id: changed-files-rpi
+  #       uses: tj-actions/changed-files@v12.2
+  #       with:
+  #         files: |
+  #           servers/rpi
+  #           cloud/deploy_rpi.sh
+  #           .github/
 
-      - name: Run step if any of rpi files changed
-        id: rpi-changed
-        if: steps.changed-files-rpi.outputs.any_changed == 'true' || steps.changed-files-rpi.outputs.any_deleted == 'true'
-        run: echo "::set-output name=changed::true"
+  #     - name: Run step if any of rpi files changed
+  #       id: rpi-changed
+  #       if: steps.changed-files-rpi.outputs.any_changed == 'true' || steps.changed-files-rpi.outputs.any_deleted == 'true'
+  #       run: echo "::set-output name=changed::true"
 
   deploy-files:
-    if: needs.check-file-changes.outputs.files-changed == 'true'
-    needs: check-file-changes
+    # if: needs.check-file-changes.outputs.files-changed == 'true'
+    # needs: check-file-changes
     runs-on: ubuntu-latest
 
     steps:
