@@ -23,7 +23,7 @@ SSH_COMMAND="ssh -q -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -i
 set -x
 
 transfer_paste() {
-    (cd ../servers/paste && docker-compose -p "$PROJ" build)
+    (cd ../servers/oracle1 && docker-compose -p "$PROJ" build)
     docker save -o "$RAW_IMAGE" "${PROJ}_frontend" "${PROJ}_paste" "${PROJ}_redis"
     zstd -T0 -20 --ultra --rsyncable "$RAW_IMAGE" -o "$RAW_IMAGE.zst"
 
@@ -33,7 +33,7 @@ transfer_paste() {
         -e "$SSH_COMMAND" \
         --progress \
         ./$RAW_IMAGE.zst \
-        "../servers/paste/docker-compose.yml" \
+        "../servers/oracle1/docker-compose.yml" \
         "$REMOTE_USER@$PUBLIC_IP_PASTE:/home/$REMOTE_USER/app"
 
     $SSH_COMMAND "$REMOTE_USER@$PUBLIC_IP_PASTE" "bash -s" << EOF

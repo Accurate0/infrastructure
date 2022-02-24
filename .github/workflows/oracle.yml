@@ -174,12 +174,12 @@ jobs:
         uses: Burnett01/rsync-deployments@5.2
         with:
           switches: -avz --delete --progress
-          remote_path: /home/ubuntu
+          remote_path: /home/ubuntu/app
           remote_host: oracle1.anurag.sh
           remote_user: ubuntu
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: |
-            servers/oracle1/docker-compose.yml
+            servers/oracle1
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
@@ -188,6 +188,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
+            cd app
             zstd -f -d -T0 "image.tar.zst" -o "image.tar"
             docker load -i "image.tar"
             docker-compose -p "oracle" up -d --no-build
