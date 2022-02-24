@@ -267,7 +267,7 @@ jobs:
       - name: deploy
         uses: Burnett01/rsync-deployments@5.2
         with:
-          switches: -avz --delete --progress
+          switches: -avz --progress
           remote_path: /home/alarm
           remote_host: rpi.anurag.sh
           remote_user: alarm
