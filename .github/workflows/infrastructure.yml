@@ -12,70 +12,70 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
+  # terraform:
+  #   runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: "./cloud/terraform"
+  #   defaults:
+  #     run:
+  #       working-directory: "./cloud/terraform"
 
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
-    - uses: hashicorp/setup-terraform@v1.2.1
-      with:
-        cli_config_credentials_hostname: app.terraform.io
-        cli_config_credentials_token: ${{ secrets.tf_token }}
-        terraform_version: 1.1.2
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       submodules: 'recursive'
+  #   - uses: hashicorp/setup-terraform@v1.2.1
+  #     with:
+  #       cli_config_credentials_hostname: app.terraform.io
+  #       cli_config_credentials_token: ${{ secrets.tf_token }}
+  #       terraform_version: 1.1.2
 
-    - name: terraform fmt
-      run: terraform fmt -recursive
+  #   - name: terraform fmt
+  #     run: terraform fmt -recursive
 
-    - name: terraform init
-      run: terraform init
+  #   - name: terraform init
+  #     run: terraform init
 
-    - name: terraform validate
-      run: terraform validate
+  #   - name: terraform validate
+  #     run: terraform validate
 
-    - name: terraform plan
-      run: terraform plan
+  #   - name: terraform plan
+  #     run: terraform plan
 
-    - name: terraform apply
-      run: terraform apply -auto-approve
+  #   - name: terraform apply
+  #     run: terraform apply -auto-approve
 
-  dns:
-    needs: terraform
-    runs-on: ubuntu-latest
+  # dns:
+  #   needs: terraform
+  #   runs-on: ubuntu-latest
 
-    env:
-      CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
-    defaults:
-      run:
-        working-directory: "./cloud/terraform"
+  #   env:
+  #     CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
+  #   defaults:
+  #     run:
+  #       working-directory: "./cloud/terraform"
 
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
-    - uses: hashicorp/setup-terraform@v1.2.1
-      with:
-        cli_config_credentials_hostname: app.terraform.io
-        cli_config_credentials_token: ${{ secrets.tf_token }}
-        terraform_version: 1.1.2
-        terraform_wrapper: false
-    - run: terraform init
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       submodules: 'recursive'
+  #   - uses: hashicorp/setup-terraform@v1.2.1
+  #     with:
+  #       cli_config_credentials_hostname: app.terraform.io
+  #       cli_config_credentials_token: ${{ secrets.tf_token }}
+  #       terraform_version: 1.1.2
+  #       terraform_wrapper: false
+  #   - run: terraform init
 
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - run: npm install -g cloudflare-cli
+  #   - uses: actions/setup-node@v2
+  #     with:
+  #       node-version: '16'
+  #   - run: npm install -g cloudflare-cli
 
-    - name: update dns
-      run: ../dns.sh
+  #   - name: update dns
+  #     run: ../dns.sh
 
   provision-update-oracle:
-    needs: dns
+    # needs: dns
     runs-on: ubuntu-latest
     env:
       INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
@@ -89,7 +89,7 @@ jobs:
       - run: "./setup_ubuntu.sh"
 
   provision-update-rpi:
-    needs: dns
+    # needs: dns
     runs-on: ubuntu-latest
     defaults:
       run:
