@@ -170,19 +170,15 @@ jobs:
       # - name: compress image
       #   run: zstd -T0 -20 --ultra --rsyncable "image.tar" -o "image.tar.zst"
 
-      - name: transfer image & docker compose file
-        run: cd cloud && ./deploy_paste.sh
-
-      # - name: transfer image
-      #   uses: Burnett01/rsync-deployments@5.2
-      #   with:
-      #     switches: -avz --delete --progress
-      #     remote_path: /home/ubuntu/app
-      #     remote_host: oracle1.anurag.sh
-      #     remote_user: ubuntu
-      #     remote_key: ${{ secrets.INSTANCE_KEY }}
-      #     path: |
-      #       servers/oracle1/docker-compose.yml
+      - name: transfer image
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avz --delete --progress
+          remote_path: /home/ubuntu/app
+          remote_host: oracle1.anurag.sh
+          remote_user: ubuntu
+          remote_key: ${{ secrets.INSTANCE_KEY }}
+          path: servers/oracle1/docker-compose.yml
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
