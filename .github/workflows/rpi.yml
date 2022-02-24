@@ -35,7 +35,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-
+    needs: update-install
     steps:
       - uses: actions/checkout@v2
         with:
