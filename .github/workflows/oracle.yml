@@ -1,7 +1,10 @@
 name: oracle
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["terraform"]
+    branches: [main]
+    types:
+      - completed
     paths:
       - cloud/**
       - servers/oracle1/**
@@ -13,38 +16,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: "./cloud/terraform"
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
-    - uses: hashicorp/setup-terraform@v1.2.1
-      with:
-        cli_config_credentials_hostname: app.terraform.io
-        cli_config_credentials_token: ${{ secrets.tf_token }}
-        terraform_version: 1.1.2
-
-    - name: terraform fmt
-      run: terraform fmt -recursive
-
-    - name: terraform init
-      run: terraform init
-
-    - name: terraform validate
-      run: terraform validate
-
-    - name: terraform plan
-      run: terraform plan
-
-    - name: terraform apply
-      run: terraform apply -auto-approve
-
   dns:
     needs: terraform
     runs-on: ubuntu-latest
