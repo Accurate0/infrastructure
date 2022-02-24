@@ -20,7 +20,9 @@ jobs:
         working-directory: "./cloud/terraform"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses:
+      with:
+        submodules: 'recursive'
     - uses: hashicorp/setup-terraform@v1.2.1
       with:
         cli_config_credentials_hostname: app.terraform.io
@@ -53,7 +55,9 @@ jobs:
         working-directory: "./cloud/terraform"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses:
+      with:
+        submodules: 'recursive'
     - uses: hashicorp/setup-terraform@v1.2.1
       with:
         cli_config_credentials_hostname: app.terraform.io
@@ -79,7 +83,9 @@ jobs:
       run:
         working-directory: "./cloud"
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
       - run: "./setup_ubuntu.sh"
 
   provision-update-rpi:
@@ -91,7 +97,9 @@ jobs:
       run:
         working-directory: "./cloud"
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
       - run: "./setup_arch.sh"
 
   check-file-changes:
@@ -106,7 +114,9 @@ jobs:
       rpi-changed: ${{ steps.rpi-changed.outputs.changed }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
         with:
           fetch-depth: 2
       - name: Get paste changed files
@@ -165,7 +175,9 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
       - run: "./deploy_files.sh"
 
   deploy-paste:
@@ -180,7 +192,9 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
       - run: "./deploy_paste.sh"
 
   deploy-rpi:
@@ -196,5 +210,7 @@ jobs:
         working-directory: "./cloud"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses:
+        with:
+          submodules: 'recursive'
       - run: "./deploy_rpi.sh"
