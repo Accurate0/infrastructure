@@ -180,7 +180,6 @@ jobs:
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: |
             image.tar.zst
-            servers/oracle1/docker-compose.yml
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
