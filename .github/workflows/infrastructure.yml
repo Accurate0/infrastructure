@@ -91,8 +91,6 @@ jobs:
   provision-update-rpi:
     needs: dns
     runs-on: ubuntu-latest
-    env:
-      INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
     defaults:
       run:
         working-directory: "./cloud"
@@ -100,7 +98,18 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
-      - run: "./setup_arch.sh"
+      - name: install/update dependencies
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: 'rpi.anurag.sh'
+          username: 'alarm'
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+          sudo pacman -Syu --noconfirm
+          sudo pacman -S --noconfirm archlinux-keyring
+          sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
+
+          sudo systemctl enable --now docker
 
   check-file-changes:
     needs:
