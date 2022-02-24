@@ -1,0 +1,3 @@
+[submodule "servers/rpi/ww3"]
+	path = servers/rpi/ww3
+	url = https://github.com/Accurate0/isitww3yet-api.git
