@@ -98,6 +98,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+
       - name: install/update dependencies
         uses: appleboy/ssh-action@v0.1.4
         with:
@@ -108,7 +109,6 @@ jobs:
           sudo pacman -Syu --noconfirm
           sudo pacman -S --noconfirm archlinux-keyring
           sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
-
           sudo systemctl enable --now docker
 
   check-file-changes:
