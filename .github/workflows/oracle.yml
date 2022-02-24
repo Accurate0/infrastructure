@@ -115,7 +115,7 @@ jobs:
   #           sudo usermod -a -G docker ubuntu
   #           sudo pip install docker-compose
 
-  # deploy-files:
+  # deploy-oracle2:
   #   needs: update-install
   #   runs-on: ubuntu-latest
 
@@ -132,7 +132,7 @@ jobs:
   #         remote_host: oracle2.anurag.sh
   #         remote_user: ubuntu
   #         remote_key: ${{ secrets.INSTANCE_KEY }}
-  #         path: servers/files
+  #         path: servers/oracle2
 
   #     - name: activate deployment
   #       uses: appleboy/ssh-action@v0.1.4
@@ -141,7 +141,7 @@ jobs:
   #         username: ubuntu
   #         key: ${{ secrets.INSTANCE_KEY }}
   #         script: |
-  #           cd servers/files
+  #           cd servers/oracle2
 
   #           pushd certbot
   #           sudo cp certbot-renewal.* /etc/systemd/system/
@@ -152,7 +152,7 @@ jobs:
   #           docker-compose up --build -d
   #           docker ps
 
-  deploy-paste:
+  deploy-oracle1:
     # needs: update-install
     runs-on: ubuntu-latest
 
@@ -163,7 +163,7 @@ jobs:
 
       - name: build image
         run: |
-          cd servers/paste && docker-compose -p "oracle" build
+          cd servers/oracle1 && docker-compose -p "oracle" build
           docker save -o "image.tar" "oracle_frontend" "oracle_paste" "oracle_redis"
           zstd -T0 -20 --ultra --rsyncable "image.tar" -o "image.tar.zst"
 
@@ -177,7 +177,7 @@ jobs:
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: |
             image.tar.zst
-            servers/paste/docker-compose.yml
+            servers/oracle1/docker-compose.yml
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
