@@ -4,7 +4,7 @@ on:
     branches: [ main ]
     paths:
       - servers/rpi/**
-      - .github/workflows/rpi.yml
+      - .github/workflows/**
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}

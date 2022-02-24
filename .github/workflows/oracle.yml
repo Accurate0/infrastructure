@@ -9,7 +9,7 @@ on:
       - cloud/**
       - servers/oracle1/**
       - servers/oracle2/**
-      - .github/workflows/oracle.yml
+      - .github/workflows/**
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
