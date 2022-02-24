@@ -114,29 +114,6 @@ jobs:
     #         sudo usermod -a -G docker ubuntu
     #         sudo pip install docker-compose
 
-  # provision-update-rpi:
-    # needs: dns
-    # runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: "./cloud"
-    # steps:
-    #   - uses: actions/checkout@v2
-    #     with:
-    #       submodules: 'recursive'
-
-    #   - name: install/update dependencies
-    #     uses: appleboy/ssh-action@v0.1.4
-    #     with:
-    #       host: 'rpi.anurag.sh'
-    #       username: 'alarm'
-    #       key: ${{ secrets.INSTANCE_KEY }}
-    #       script: |
-    #         sudo pacman -Syu --noconfirm
-    #         sudo pacman -S --noconfirm archlinux-keyring
-    #         sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
-    #         sudo systemctl enable --now docker
-
   # check-file-changes:
   #   needs:
   #     - provision-update-oracle
@@ -252,35 +229,3 @@ jobs:
   #       with:
   #         submodules: 'recursive'
   #     - run: "./deploy_paste.sh"
-
-  deploy-rpi:
-    # if: needs.check-file-changes.outputs.rpi-changed == 'true'
-    # needs:
-    #   - check-file-changes
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-
-      - name: deploy
-        uses: Burnett01/rsync-deployments@5.2
-        with:
-          switches: -avz --progress
-          remote_path: /home/alarm
-          remote_host: rpi.anurag.sh
-          remote_user: alarm
-          remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/rpi
-
-      - name: activate deployment
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: rpi.anurag.sh
-          username: alarm
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            cd /home/alarm/rpi
-            docker-compose up --build -d --remove-orphans
-            docker ps
