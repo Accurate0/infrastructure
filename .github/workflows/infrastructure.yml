@@ -106,10 +106,10 @@ jobs:
           username: 'alarm'
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
-          sudo pacman -Syu --noconfirm
-          sudo pacman -S --noconfirm archlinux-keyring
-          sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
-          sudo systemctl enable --now docker
+            sudo pacman -Syu --noconfirm
+            sudo pacman -S --noconfirm archlinux-keyring
+            sudo pacman -S --noconfirm --needed docker docker-compose rsync wget
+            sudo systemctl enable --now docker
 
   check-file-changes:
     needs:
