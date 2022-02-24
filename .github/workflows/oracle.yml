@@ -4,8 +4,8 @@ on:
     branches: [ main ]
     paths:
       - cloud/**
-      - servers/paste/**
-      - servers/files/**
+      - servers/oracle1/**
+      - servers/oracle2/**
       - .github/workflows/oracle.yml
 
 concurrency:
