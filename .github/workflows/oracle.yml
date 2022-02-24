@@ -13,147 +13,147 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # terraform:
-  #   runs-on: ubuntu-latest
+  terraform:
+    runs-on: ubuntu-latest
 
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud/terraform"
+    defaults:
+      run:
+        working-directory: "./cloud/terraform"
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #     with:
-  #       submodules: 'recursive'
-  #   - uses: hashicorp/setup-terraform@v1.2.1
-  #     with:
-  #       cli_config_credentials_hostname: app.terraform.io
-  #       cli_config_credentials_token: ${{ secrets.tf_token }}
-  #       terraform_version: 1.1.2
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.tf_token }}
+        terraform_version: 1.1.2
 
-  #   - name: terraform fmt
-  #     run: terraform fmt -recursive
+    - name: terraform fmt
+      run: terraform fmt -recursive
 
-  #   - name: terraform init
-  #     run: terraform init
+    - name: terraform init
+      run: terraform init
 
-  #   - name: terraform validate
-  #     run: terraform validate
+    - name: terraform validate
+      run: terraform validate
 
-  #   - name: terraform plan
-  #     run: terraform plan
+    - name: terraform plan
+      run: terraform plan
 
-  #   - name: terraform apply
-  #     run: terraform apply -auto-approve
+    - name: terraform apply
+      run: terraform apply -auto-approve
 
-  # dns:
-  #   needs: terraform
-  #   runs-on: ubuntu-latest
+  dns:
+    needs: terraform
+    runs-on: ubuntu-latest
 
-  #   env:
-  #     CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud/terraform"
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
+    defaults:
+      run:
+        working-directory: "./cloud/terraform"
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #     with:
-  #       submodules: 'recursive'
-  #   - uses: hashicorp/setup-terraform@v1.2.1
-  #     with:
-  #       cli_config_credentials_hostname: app.terraform.io
-  #       cli_config_credentials_token: ${{ secrets.tf_token }}
-  #       terraform_version: 1.1.2
-  #       terraform_wrapper: false
-  #   - run: terraform init
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        cli_config_credentials_hostname: app.terraform.io
+        cli_config_credentials_token: ${{ secrets.tf_token }}
+        terraform_version: 1.1.2
+        terraform_wrapper: false
+    - run: terraform init
 
-  #   - uses: actions/setup-node@v2
-  #     with:
-  #       node-version: '16'
-  #   - run: npm install -g cloudflare-cli
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: npm install -g cloudflare-cli
 
-  #   - name: update dns
-  #     run: ../dns.sh
+    - name: update dns
+      run: ../dns.sh
 
-  # update-install:
-  #   needs: dns
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud"
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         submodules: recursive
+  update-install:
+    needs: dns
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./cloud"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
-  #     - name: install/update dependencies
-  #       uses: appleboy/ssh-action@v0.1.4
-  #       with:
-  #         host: oracle1.anurag.sh,oracle2.anurag.sh
-  #         sync: true
-  #         username: ubuntu
-  #         key: ${{ secrets.INSTANCE_KEY }}
-  #         script: |
-  #           sudo apt-get update -y
-  #           sudo apt-get install -y \
-  #               ca-certificates \
-  #               curl \
-  #               gnupg \
-  #               lsb-release
+      - name: install/update dependencies
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: oracle1.anurag.sh,oracle2.anurag.sh
+          sync: true
+          username: ubuntu
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+            sudo apt-get update -y
+            sudo apt-get install -y \
+                ca-certificates \
+                curl \
+                gnupg \
+                lsb-release
 
-  #           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --no-tty --dearmor --batch -o /usr/share/keyrings/docker-archive-keyring.gpg
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --no-tty --dearmor --batch -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-  #           echo \
-  #           "deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  #           \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            echo \
+            "deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+            \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-  #           sudo apt-get update -y
-  #           sudo apt-get install -y docker-ce docker-ce-cli containerd.io rsync python3-pip zstd
+            sudo apt-get update -y
+            sudo apt-get install -y docker-ce docker-ce-cli containerd.io rsync python3-pip zstd
 
-  #           sudo systemctl daemon-reload
-  #           sudo systemctl enable --now --no-block docker.service
-  #           sudo usermod -a -G docker ubuntu
-  #           sudo pip install docker-compose
+            sudo systemctl daemon-reload
+            sudo systemctl enable --now --no-block docker.service
+            sudo usermod -a -G docker ubuntu
+            sudo pip install docker-compose
 
-  # deploy-oracle2:
-  #   needs: update-install
-  #   runs-on: ubuntu-latest
+  deploy-oracle2:
+    needs: update-install
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         submodules: 'recursive'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
-  #     - name: deploy
-  #       uses: Burnett01/rsync-deployments@5.2
-  #       with:
-  #         switches: -avz --delete --progress
-  #         remote_path: /home/ubuntu/servers
-  #         remote_host: oracle2.anurag.sh
-  #         remote_user: ubuntu
-  #         remote_key: ${{ secrets.INSTANCE_KEY }}
-  #         path: servers/oracle2
+      - name: deploy
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avz --delete --progress
+          remote_path: /home/ubuntu/servers
+          remote_host: oracle2.anurag.sh
+          remote_user: ubuntu
+          remote_key: ${{ secrets.INSTANCE_KEY }}
+          path: servers/oracle2
 
-  #     - name: activate deployment
-  #       uses: appleboy/ssh-action@v0.1.4
-  #       with:
-  #         host: oracle2.anurag.sh
-  #         username: ubuntu
-  #         key: ${{ secrets.INSTANCE_KEY }}
-  #         script: |
-  #           cd servers/oracle2
+      - name: activate deployment
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: oracle2.anurag.sh
+          username: ubuntu
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+            cd servers/oracle2
 
-  #           pushd certbot
-  #           sudo cp certbot-renewal.* /etc/systemd/system/
-  #           sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
-  #           popd
+            pushd certbot
+            sudo cp certbot-renewal.* /etc/systemd/system/
+            sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
+            popd
 
-  #           docker network prune -f
-  #           docker-compose up --build -d
-  #           docker ps
+            docker network prune -f
+            docker-compose up --build -d
+            docker ps
 
   deploy-oracle1:
-    # needs: update-install
+    needs: update-install
     runs-on: ubuntu-latest
 
     steps:
