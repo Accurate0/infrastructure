@@ -1,7 +1,7 @@
 name: oracle
 on:
   workflow_run:
-    workflows: ["terraform"]
+    workflows: ["terraform","dns"]
     branches: [main]
     types:
       - completed
