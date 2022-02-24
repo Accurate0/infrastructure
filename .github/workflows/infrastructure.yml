@@ -198,22 +198,43 @@ jobs:
         if: steps.changed-files-rpi.outputs.any_changed == 'true' || steps.changed-files-rpi.outputs.any_deleted == 'true'
         run: echo "::set-output name=changed::true"
 
-  # deploy-files:
-  #   if: needs.check-file-changes.outputs.files-changed == 'true'
-  #   needs: check-file-changes
-  #   runs-on: ubuntu-latest
+  deploy-files:
+    if: needs.check-file-changes.outputs.files-changed == 'true'
+    needs: check-file-changes
+    runs-on: ubuntu-latest
 
-  #   env:
-  #     INSTANCE_KEY: ${{ secrets.INSTANCE_KEY }}
-  #   defaults:
-  #     run:
-  #       working-directory: "./cloud"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         submodules: 'recursive'
-  #     - run: "./deploy_files.sh"
+      - name: deploy
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avz --delete --progress
+          remote_path: /home/ubuntu/servers
+          remote_host: oracle2.anurag.sh
+          remote_user: ubuntu
+          remote_key: ${{ secrets.INSTANCE_KEY }}
+          path: servers/files
+
+      - name: activate deployment
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: oracle2.anurag.sh
+          username: 'ubuntu'
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+            cd servers/files
+
+            pushd certbot
+            sudo cp certbot-renewal.* /etc/systemd/system/
+            sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
+            popd
+
+            docker network prune -f
+            docker-compose up --build -d
+            docker ps
 
   # deploy-paste:
   #   if: needs.check-file-changes.outputs.paste-changed == 'true'
