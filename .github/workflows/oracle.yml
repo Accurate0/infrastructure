@@ -161,14 +161,14 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: build image
-        run: cd servers/oracle1 && docker-compose -p "oracle" build
+      # - name: build image
+      #   run: cd servers/oracle1 && docker-compose -p "oracle" build
 
-      - name: save image
-        run: docker save -o "image.tar" "oracle_frontend" "oracle_paste" "oracle_redis"
+      # - name: save image
+      #   run: docker save -o "image.tar" "oracle_frontend" "oracle_paste" "oracle_redis"
 
-      - name: compress image
-        run: zstd -T0 -20 --ultra --rsyncable "image.tar" -o "image.tar.zst"
+      # - name: compress image
+      #   run: zstd -T0 -20 --ultra --rsyncable "image.tar" -o "image.tar.zst"
 
       - name: transfer image
         uses: Burnett01/rsync-deployments@5.2
@@ -178,17 +178,8 @@ jobs:
           remote_host: oracle1.anurag.sh
           remote_user: ubuntu
           remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: image.tar.zst
-
-      - name: transfer docker compose file
-        uses: Burnett01/rsync-deployments@5.2
-        with:
-          switches: -avz --delete --progress
-          remote_path: /home/ubuntu/app
-          remote_host: oracle1.anurag.sh
-          remote_user: ubuntu
-          remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/oracle1/docker-compose.yml
+          path: |
+            servers/oracle1/docker-compose.yml
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
