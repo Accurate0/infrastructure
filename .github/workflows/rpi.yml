@@ -10,6 +10,10 @@ concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: false
 
+env:
+  HOSTNAME: rpi.anurag.sh
+  USERNAME: alarm
+
 jobs:
   update-install:
     runs-on: ubuntu-latest
@@ -24,8 +28,8 @@ jobs:
       - name: install/update dependencies
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: 'rpi.anurag.sh'
-          username: 'alarm'
+          host: ${{ env.HOSTNAME }}
+          username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
             sudo pacman -Syu --noconfirm
@@ -45,19 +49,19 @@ jobs:
         uses: Burnett01/rsync-deployments@5.2
         with:
           switches: -avz --progress
-          remote_path: /home/alarm
-          remote_host: rpi.anurag.sh
-          remote_user: alarm
+          remote_path: /home/${{ env.USERNAME }}
+          remote_host: ${{ env.HOSTNAME }}
+          remote_user: ${{ env.USERNAME }}
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: servers/rpi
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: rpi.anurag.sh
-          username: alarm
+          host: ${{ env.HOSTNAME }}
+          username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
-            cd /home/alarm/rpi
+            cd /home/$USERNAME/rpi
             docker-compose up --build -d --remove-orphans
             docker ps
