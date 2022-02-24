@@ -117,8 +117,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
-        with:
           fetch-depth: 2
+
       - name: Get paste changed files
         id: changed-files-paste
         uses: tj-actions/changed-files@v12.2
