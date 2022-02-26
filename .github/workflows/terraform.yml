@@ -1,10 +1,10 @@
 name: terraform
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - cloud/**
-      - .github/workflows/**
+# on:
+#   push:
+#     branches: [ main ]
+#     paths:
+#       - cloud/**
+#       - .github/workflows/**
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
