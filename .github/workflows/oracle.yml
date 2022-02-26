@@ -10,6 +10,11 @@ concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: false
 
+env:
+  USERNAME: ubuntu
+  ORACLE1_HOST: oracle1.anurag.sh
+  ORACLE2_HOST: oracle2.anurag.sh
+
 jobs:
   dns:
     runs-on: ubuntu-latest
@@ -54,9 +59,9 @@ jobs:
       - name: install/update dependencies
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: oracle1.anurag.sh,oracle2.anurag.sh
+          host: ${{ env.ORACLE1_HOST }},${{ env.ORACLE2_HOST }}
           sync: true
-          username: ubuntu
+          username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
             sudo apt-get update -y
@@ -93,17 +98,17 @@ jobs:
         uses: Burnett01/rsync-deployments@5.2
         with:
           switches: -avz --delete --progress
-          remote_path: /home/ubuntu/
-          remote_host: oracle1.anurag.sh
-          remote_user: ubuntu
+          remote_path: /home/${{ env.USERNAME }}/
+          remote_host: ${{ env.ORACLE1_HOST }}
+          remote_user: ${{ env.USERNAME }}
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: servers/oracle1
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: oracle1.anurag.sh
-          username: ubuntu
+          host: ${{ env.ORACLE1_HOST }}
+          username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
             cd oracle1
@@ -123,17 +128,17 @@ jobs:
         uses: Burnett01/rsync-deployments@5.2
         with:
           switches: -avz --delete --progress
-          remote_path: /home/ubuntu/servers
-          remote_host: oracle2.anurag.sh
-          remote_user: ubuntu
+          remote_path: /home/${{ env.USERNAME }}/servers
+          remote_host: ${{ env.ORACLE2_HOST }}
+          remote_user: ${{ env.USERNAME }}
           remote_key: ${{ secrets.INSTANCE_KEY }}
           path: servers/oracle2
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: oracle2.anurag.sh
-          username: ubuntu
+          host: ${{ env.ORACLE2_HOST }}
+          username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
             cd servers/oracle2

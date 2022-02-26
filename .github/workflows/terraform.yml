@@ -5,9 +5,9 @@ on:
     paths:
       - cloud/**
       - .github/workflows/terraform.yml
+      - .github/workflows/oracle.yml
       - servers/oracle1/**
       - servers/oracle2/**
-      - .github/workflows/oracle.yml
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
