@@ -62,6 +62,6 @@ jobs:
           username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
           script: |
-            cd /home/$USERNAME/rpi
+            cd /home/${{ env.USERNAME }}/rpi
             docker-compose up --build -d --remove-orphans
             docker ps
