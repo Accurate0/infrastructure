@@ -132,15 +132,6 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: build image
-        run: cd servers/oracle1 && docker-compose -p "oracle" build
-
-      - name: save image
-        run: docker save -o "image.tar" "oracle_frontend" "oracle_paste" "oracle_redis"
-
-      - name: compress image
-        run: zstd -T0 -20 --ultra --rsyncable "image.tar" -o "image.tar.zst"
-
       - name: deploy
         uses: Burnett01/rsync-deployments@5.2
         with:
