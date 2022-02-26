@@ -11,26 +11,6 @@ services:
     restart: always
     network_mode: host
 
-  ww3:
-    build:
-      context: ./ww3
-      network: host
-    ports:
-      - "5000:5000"
-    restart: always
-    container_name: ww3
-    network_mode: host
-
-  homeassistant:
-    container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
-    volumes:
-      - ./homeassistant:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-
   mqtt:
     image: eclipse-mosquitto:2.0.14
     restart: unless-stopped

@@ -1,35 +1,18 @@
 version: "3.3"
 services:
-  redis:
+  ww3:
     build:
-      context: ./
-      dockerfile: Dockerfile.redis
-    deploy:
-      restart_policy:
-        condition: any
-    container_name: oracle_redis
+      context: ./ww3
+    restart: always
+    container_name: ww3
 
-  paste:
-    build: ./api
-    expose:
-      - "5000"
-    deploy:
-      restart_policy:
-        condition: any
-    depends_on:
-      - redis
-    container_name: oracle_paste
-
-  frontend:
+  nginx:
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ./nginx
     ports:
       - "80:80"
       - "443:443"
-    deploy:
-      restart_policy:
-        condition: any
+    restart: always
     depends_on:
-      - paste
-    container_name: oracle_frontend
+      - ww3
+    container_name: nginx
