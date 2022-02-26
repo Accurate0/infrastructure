@@ -1,10 +1,10 @@
 name: oracle
 on:
-  # workflow_run:
-  #   workflows: ["terraform"]
-  #   branches: [main]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["terraform"]
+    branches: [main]
+    types:
+      - completed
   push:
     paths:
       - cloud/**
