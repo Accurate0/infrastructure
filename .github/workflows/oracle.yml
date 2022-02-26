@@ -86,6 +86,36 @@ jobs:
             sudo usermod -a -G docker ubuntu
             sudo pip install docker-compose
 
+  deploy-oracle1:
+    needs: update-install
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: deploy
+        uses: Burnett01/rsync-deployments@5.2
+        with:
+          switches: -avz --delete --progress
+          remote_path: /home/ubuntu/
+          remote_host: oracle1.anurag.sh
+          remote_user: ubuntu
+          remote_key: ${{ secrets.INSTANCE_KEY }}
+          path: servers/oracle1
+
+      - name: activate deployment
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: oracle1.anurag.sh
+          username: ubuntu
+          key: ${{ secrets.INSTANCE_KEY }}
+          script: |
+            cd oracle1
+            docker-compose up --build -d --remove-orphans
+            docker ps
+
   deploy-oracle2:
     needs: update-install
     runs-on: ubuntu-latest
@@ -121,34 +151,4 @@ jobs:
 
             docker network prune -f
             docker-compose up --build -d
-            docker ps
-
-  deploy-oracle1:
-    needs: update-install
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-
-      - name: deploy
-        uses: Burnett01/rsync-deployments@5.2
-        with:
-          switches: -avz --delete --progress
-          remote_path: /home/ubuntu/app/
-          remote_host: oracle1.anurag.sh
-          remote_user: ubuntu
-          remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/oracle1
-
-      - name: activate deployment
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: oracle1.anurag.sh
-          username: ubuntu
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            cd app
-            docker-compose up --build -d --remove-orphans
             docker ps
