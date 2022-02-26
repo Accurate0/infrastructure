@@ -36,3 +36,13 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     network_mode: host
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
