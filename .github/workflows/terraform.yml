@@ -4,7 +4,7 @@ name: terraform
 #     branches: [ main ]
 #     paths:
 #       - cloud/**
-#       - .github/workflows/**
+#       - .github/workflows/terraform.yml
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
