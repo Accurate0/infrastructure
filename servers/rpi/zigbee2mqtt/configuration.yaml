@@ -1,4 +1,4 @@
-permit_join: true
+permit_join: false
 homeassistant: true
 mqtt:
   base_topic: zigbee2mqtt
