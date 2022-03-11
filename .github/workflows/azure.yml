@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - cloud/azure/**
+      - cloud/terraform/azure/**
       - .github/workflows/azure.yml
 
 concurrency:
