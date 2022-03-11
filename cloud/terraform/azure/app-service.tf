@@ -21,13 +21,6 @@ resource "azurerm_app_service" "weather-api" {
     }
   }
 
-  source_control {
-    repo_url           = "https://github.com/Accurate0/weather-api.git"
-    branch             = "main"
-    manual_integration = true
-    use_mercurial      = false
-  }
-
   connection_string {
     name  = "Database"
     type  = "Custom"
