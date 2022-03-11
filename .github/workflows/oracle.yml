@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - cloud/**
+      - cloud/oracle/**
       - .github/workflows/oracle.yml
       - servers/oracle1/**
       - servers/oracle2/**
@@ -23,7 +23,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./cloud/terraform"
+        working-directory: "./cloud/terraform/oracle"
 
     steps:
     - uses: actions/checkout@v2
@@ -58,7 +58,7 @@ jobs:
       CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
     defaults:
       run:
-        working-directory: "./cloud/terraform"
+        working-directory: "./cloud/terraform/oracle"
 
     steps:
     - uses: actions/checkout@v2

@@ -13,14 +13,6 @@ module "vcn" {
   vcn_cidr                 = "10.0.0.0/16"
 }
 
-# resource "oci_core_subnet" "paste-private-subnet" {
-#   compartment_id = oci_identity_compartment.paste.id
-#   vcn_id         = module.vcn.vcn_id
-#   route_table_id = module.vcn.nat_route_id
-#   cidr_block     = "10.0.1.0/24"
-#   dns_label      = "privatepaste"
-# }
-
 resource "oci_core_subnet" "paste-public-subnet" {
   compartment_id    = oci_identity_compartment.paste.id
   vcn_id            = module.vcn.vcn_id

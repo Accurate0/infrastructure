@@ -47,24 +47,3 @@ resource "oci_core_instance" "ubuntu_buildkite" {
     ssh_authorized_keys = var.instance_key
   }
 }
-
-variable "instance_list" {
-  default = ["linode1", "linode2"]
-}
-
-# resource "linode_instance" "this" {
-#   label           = var.instance_list[count.index]
-#   image           = "linode/arch"
-#   region          = "ap-southeast"
-#   type            = "g6-nanode-1"
-#   authorized_keys = [var.instance_key]
-#   count           = length(var.instance_list)
-# }
-
-# resource "linode_instance" "linode3" {
-#   label           = "linode3"
-#   image           = "linode/arch"
-#   region          = "ap-southeast"
-#   type            = "g6-standard-1"
-#   authorized_keys = [var.instance_key]
-# }

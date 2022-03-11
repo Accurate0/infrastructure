@@ -8,9 +8,9 @@ terraform {
       source  = "hashicorp/cloudinit"
       version = "2.2.0"
     }
-    linode = {
-      source  = "linode/linode"
-      version = "1.25.0"
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.99.0"
     }
     template = {
       source  = "hashicorp/template"
@@ -53,12 +53,4 @@ provider "oci" {
   private_key  = var.oracle_private_key
   fingerprint  = var.oracle_fingerprint
   auth         = "ApiKey"
-}
-
-variable "linode_token" {
-  type = string
-}
-
-provider "linode" {
-  token = var.linode_token
 }
