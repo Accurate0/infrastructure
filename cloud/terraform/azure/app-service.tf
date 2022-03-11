@@ -1,7 +1,7 @@
 resource "azurerm_app_service_plan" "weather-api-appserviceplan" {
   name                = "weather-api-appserviceplan"
-  location            = azurerm_resource_group.weather-api.location
-  resource_group_name = azurerm_resource_group.weather-api.name
+  location            = azurerm_resource_group.weather-api-group.location
+  resource_group_name = azurerm_resource_group.weather-api-group.name
 
   sku {
     tier = "FREE"
@@ -9,10 +9,10 @@ resource "azurerm_app_service_plan" "weather-api-appserviceplan" {
   }
 }
 
-resource "azurerm_app_service" "weather-api-app-service" {
+resource "azurerm_app_service" "weather-api" {
   name                = "weather-api-app-service"
-  location            = azurerm_resource_group.weather-api.location
-  resource_group_name = azurerm_resource_group.weather-api.name
+  location            = azurerm_resource_group.weather-api-group.location
+  resource_group_name = azurerm_resource_group.weather-api-group.name
   app_service_plan_id = azurerm_app_service_plan.weather-api-appserviceplan.id
 
   source_control {
@@ -20,5 +20,11 @@ resource "azurerm_app_service" "weather-api-app-service" {
     branch             = "main"
     manual_integration = true
     use_mercurial      = false
+  }
+
+  connection_string {
+    name  = "Database"
+    type  = "DocDb"
+    value = azurerm_cosmosdb_account.weather-api-db.connection_strings[0]
   }
 }
