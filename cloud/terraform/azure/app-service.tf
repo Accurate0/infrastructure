@@ -15,6 +15,12 @@ resource "azurerm_app_service" "weather-api" {
   resource_group_name = azurerm_resource_group.weather-api-group.name
   app_service_plan_id = azurerm_app_service_plan.weather-api-appserviceplan.id
 
+  logs {
+    application_logs {
+      file_system_level = "Verbose"
+    }
+  }
+
   source_control {
     repo_url           = "https://github.com/Accurate0/weather-api.git"
     branch             = "main"
@@ -24,7 +30,7 @@ resource "azurerm_app_service" "weather-api" {
 
   connection_string {
     name  = "Database"
-    type  = "DocDb"
+    type  = "Custom"
     value = azurerm_cosmosdb_account.weather-api-db.connection_strings[0]
   }
 }

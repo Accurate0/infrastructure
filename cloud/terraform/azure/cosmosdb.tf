@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "weather-api-db" {
-  name                = "weather-api-cosmos-db"
+  name                = "weather-api-db"
   location            = azurerm_resource_group.weather-api-group.location
   resource_group_name = azurerm_resource_group.weather-api-group.name
   offer_type          = "Standard"
