@@ -27,4 +27,5 @@ resource "azurerm_function_app" "weather-api-fa" {
   storage_account_name       = azurerm_storage_account.weather-api-sa.name
   storage_account_access_key = azurerm_storage_account.weather-api-sa.primary_access_key
   version                    = "~3"
+  https_only                 = true
 }
