@@ -38,7 +38,7 @@ resource "azurerm_function_app" "weather-background-fa" {
   app_service_plan_id        = azurerm_app_service_plan.weather-api-fa-appserviceplan.id
   storage_account_name       = azurerm_storage_account.weather-api-sa.name
   storage_account_access_key = azurerm_storage_account.weather-api-sa.primary_access_key
-  version                    = "~3"
+  version                    = "~4"
   https_only                 = true
 
   connection_string {
