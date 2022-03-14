@@ -7,4 +7,8 @@ resource "azurerm_api_management" "general-apim" {
   publisher_email     = "contact@anurag.sh"
 
   sku_name = "Consumption_0"
+
+  protocols {
+    enable_http2 = true
+  }
 }
