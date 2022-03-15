@@ -35,9 +35,6 @@ resource "aws_lambda_function" "weather-service" {
   filename      = data.archive_file.dummy.output_path
 
   runtime = "dotnet6"
-
-  environment {
-  }
 }
 
 resource "aws_cloudwatch_event_rule" "weather-every-30-minutes" {
