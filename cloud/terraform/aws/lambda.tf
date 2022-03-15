@@ -18,10 +18,21 @@ resource "aws_iam_role" "iam_for_weather_service" {
 EOF
 }
 
+data "archive_file" "dummy" {
+  type        = "zip"
+  output_path = "${path.module}/lambda_function_payload.zip"
+
+  source {
+    content  = "dummy"
+    filename = "dummy.txt"
+  }
+}
+
 resource "aws_lambda_function" "weather-service" {
   function_name = "WeatherService"
   role          = aws_iam_role.iam_for_weather_service.arn
   handler       = "index.test"
+  filename      = data.archive_file.dummy.output_path
 
   runtime = "dotnet6"
 
