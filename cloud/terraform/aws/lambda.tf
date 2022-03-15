@@ -45,7 +45,7 @@ resource "aws_cloudwatch_event_rule" "weather-every-30-minutes" {
   schedule_expression = "rate(30 minutes)"
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_foo" {
+resource "aws_lambda_permission" "cloudwatch-call-weather-service" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.weather-service.function_name
