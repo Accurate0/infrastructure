@@ -31,8 +31,14 @@ data "archive_file" "dummy" {
 resource "aws_lambda_function" "weather-service" {
   function_name = "WeatherService"
   role          = aws_iam_role.iam_for_weather_service.arn
-  handler       = "index.test"
+  handler       = "WeatherService"
   filename      = data.archive_file.dummy.output_path
+
+  environment {
+    variables = {
+      cosmosdb_connection_string = var.cosmosdb-secret
+    }
+  }
 
   runtime = "dotnet6"
 }
@@ -48,4 +54,14 @@ resource "aws_lambda_permission" "cloudwatch-call-weather-service" {
   function_name = aws_lambda_function.weather-service.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.weather-every-30-minutes.arn
+}
+
+variable "cosmosdb-secret" {
+  type      = string
+  sensitive = true
+}
+
+resource "aws_cloudwatch_event_target" "weather-invoke-target" {
+  rule = aws_cloudwatch_event_rule.weather-every-30-minutes.name
+  arn  = aws_lambda_function.weather-service.arn
 }
