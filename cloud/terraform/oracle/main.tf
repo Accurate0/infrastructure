@@ -17,7 +17,7 @@ terraform {
   cloud {
     organization = "server"
     workspaces {
-      name = "infrastructure"
+      name = "oracle"
     }
   }
 }
