@@ -1,7 +1,7 @@
 resource "aws_iam_role" "iam_for_weather_service" {
   name = "iam_for_weather_service"
 
-  assume_role_policy = <<EOF
+  assume_role_policy  = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -16,6 +16,7 @@ resource "aws_iam_role" "iam_for_weather_service" {
   ]
 }
 EOF
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
 }
 
 data "archive_file" "dummy" {
@@ -31,9 +32,9 @@ data "archive_file" "dummy" {
 resource "aws_lambda_function" "weather-service" {
   function_name = "WeatherService"
   role          = aws_iam_role.iam_for_weather_service.arn
-  handler       = "WeatherService"
+  handler       = "WeatherService::WeatherService.WeatherService::Run"
   filename      = data.archive_file.dummy.output_path
-
+  timeout       = 60
   environment {
     variables = {
       cosmosdb_connection_string = var.cosmosdb-secret
