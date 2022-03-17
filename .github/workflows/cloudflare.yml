@@ -5,6 +5,7 @@ on:
     paths:
       - terraform/cloudflare/**
       - .github/workflows/cloudflare.yml
+      - .github/workflows/terraform.yml
 
 jobs:
   provision:

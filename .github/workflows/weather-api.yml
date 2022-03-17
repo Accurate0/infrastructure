@@ -5,6 +5,7 @@ on:
     paths:
       - terraform/weather-api/**
       - .github/workflows/weather-api.yml
+      - .github/workflows/terraform.yml
 
 jobs:
   provision:

@@ -5,6 +5,7 @@ on:
     paths:
       - terraform/apim/**
       - .github/workflows/apim.yml
+      - .github/workflows/terraform.yml
 
 jobs:
   provision:

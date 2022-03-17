@@ -5,6 +5,7 @@ on:
     paths:
       - terraform/oracle/**
       - .github/workflows/oracle.yml
+      - .github/workflows/terraform.yml
       - servers/oracle1/**
       - servers/oracle2/**
 
