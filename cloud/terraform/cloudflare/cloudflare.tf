@@ -15,3 +15,8 @@ resource "cloudflare_record" "www" {
   ttl             = 1
   allow_overwrite = true
 }
+
+variable "cloudflare_zone_id" {
+  type      = string
+  sensitive = true
+}
