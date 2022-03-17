@@ -12,3 +12,5 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       name: cloudflare
+    secrets:
+      tf_token: ${{ secrets.tf_token }}

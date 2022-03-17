@@ -5,6 +5,10 @@ on:
       name:
         required: true
         type: string
+    secrets:
+      tf_token:
+        required: true
+        type: string
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}

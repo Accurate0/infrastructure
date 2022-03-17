@@ -12,3 +12,5 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       name: weather-api
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
