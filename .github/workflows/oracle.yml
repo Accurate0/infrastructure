@@ -14,9 +14,10 @@ env:
   ORACLE2_HOST: oracle2.anurag.sh
 
 jobs:
-  uses: ./.github/workflows/terraform.yml
-  with:
-    name: oracle
+  provision:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: oracle
 
   update-install:
     runs-on: ubuntu-latest

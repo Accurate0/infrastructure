@@ -7,6 +7,7 @@ on:
       - .github/workflows/apim.yml
 
 jobs:
-  uses: ./.github/workflows/terraform.yml
-  with:
-    name: apim
+  provision:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: apim
