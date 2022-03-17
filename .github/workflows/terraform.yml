@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./cloud/terraform/{{ inputs.name }}"
+        working-directory: "./terraform/{{ inputs.name }}"
 
     steps:
     - uses: actions/checkout@v2
