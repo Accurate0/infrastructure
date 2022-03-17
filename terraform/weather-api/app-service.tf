@@ -4,7 +4,7 @@ resource "azurerm_app_service_plan" "weather-api-appserviceplan" {
   resource_group_name = azurerm_resource_group.weather-api-group.name
 
   sku {
-    tier = "FREE"
+    tier = "Free"
     size = "F1"
   }
 }
