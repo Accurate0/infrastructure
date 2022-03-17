@@ -13,7 +13,12 @@ resource "azurerm_api_management_custom_domain" "general-apim-custom-domain" {
   api_management_id = azurerm_api_management.general-apim.id
   proxy {
     default_ssl_binding          = true
-    host_name                    = "az-api.anurag.sh"
+    host_name                    = "api.anurag.sh"
     negotiate_client_certificate = false
   }
+}
+
+resource "azurerm_resource_group" "general-api-group" {
+  name     = "general-api-group"
+  location = "australiaeast"
 }

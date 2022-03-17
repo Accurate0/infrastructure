@@ -1,0 +1,12 @@
+name: weather-api
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - cloud/terraform/weather-api/**
+      - .github/workflows/weather-api.yml
+
+jobs:
+  uses: ./.github/workflows/terraform.yml
+  with:
+    name: weather-api

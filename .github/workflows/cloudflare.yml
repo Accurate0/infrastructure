@@ -1,0 +1,12 @@
+name: cloudflare
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - cloud/terraform/cloudflare/**
+      - .github/workflows/cloudflare.yml
+
+jobs:
+  uses: ./.github/workflows/terraform.yml
+  with:
+    name: cloudflare

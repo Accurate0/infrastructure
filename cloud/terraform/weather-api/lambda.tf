@@ -35,9 +35,10 @@ resource "aws_lambda_function" "weather-service" {
   handler       = "WeatherService::WeatherService.WeatherService::Run"
   filename      = data.archive_file.dummy.output_path
   timeout       = 60
+  memory_size   = 256
   environment {
     variables = {
-      cosmosdb_connection_string = var.cosmosdb-secret
+      cosmosdb_connection_string = azurerm_cosmosdb_account.weather-api-db.connection_strings[0]
     }
   }
 
@@ -55,11 +56,6 @@ resource "aws_lambda_permission" "cloudwatch-call-weather-service" {
   function_name = aws_lambda_function.weather-service.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.weather-every-30-minutes.arn
-}
-
-variable "cosmosdb-secret" {
-  type      = string
-  sensitive = true
 }
 
 resource "aws_cloudwatch_event_target" "weather-invoke-target" {

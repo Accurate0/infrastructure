@@ -1,10 +1,10 @@
-name: aws
+name: terraform
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - cloud/terraform/aws/**
-      - .github/workflows/aws.yml
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
@@ -16,7 +16,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./cloud/terraform/aws"
+        working-directory: "./cloud/terraform/{{ inputs.name }}"
 
     steps:
     - uses: actions/checkout@v2

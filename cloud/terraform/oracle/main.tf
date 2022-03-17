@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/template"
       version = "2.2.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "3.10.1"
+    }
   }
 
   cloud {
@@ -49,4 +53,8 @@ provider "oci" {
   private_key  = var.oracle_private_key
   fingerprint  = var.oracle_fingerprint
   auth         = "ApiKey"
+}
+
+provider "cloudflare" {
+
 }

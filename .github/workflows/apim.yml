@@ -1,0 +1,12 @@
+name: apim
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - cloud/terraform/apim/**
+      - .github/workflows/apim.yml
+
+jobs:
+  uses: ./.github/workflows/terraform.yml
+  with:
+    name: apim
