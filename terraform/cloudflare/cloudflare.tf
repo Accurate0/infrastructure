@@ -3,6 +3,7 @@ resource "cloudflare_record" "root" {
   name            = "@"
   value           = "accurate0.github.io"
   type            = "CNAME"
+  proxied         = true
   ttl             = 1
   allow_overwrite = true
 }
@@ -12,6 +13,7 @@ resource "cloudflare_record" "www" {
   name            = "www"
   value           = "anurag.sh"
   type            = "CNAME"
+  proxied         = true
   ttl             = 1
   allow_overwrite = true
 }
