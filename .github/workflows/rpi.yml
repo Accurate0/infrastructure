@@ -1,5 +1,6 @@
 name: rpi
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:

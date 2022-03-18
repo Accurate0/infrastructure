@@ -1,5 +1,6 @@
 name: ww3-api
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:
