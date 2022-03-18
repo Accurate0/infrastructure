@@ -2,7 +2,7 @@
     <inbound>
         <cors allow-credentials="false">
             <allowed-origins>
-                <origin>*</origin>
+                <origin>https://isitww3yet.com/</origin>
             </allowed-origins>
             <allowed-methods preflight-result-max-age="300">
                 <method>GET</method>
