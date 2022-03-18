@@ -28,7 +28,7 @@ resource "oci_core_instance" "ubuntu_paste" {
   }
 }
 
-resource "oci_core_instance" "ubuntu_buildkite" {
+resource "oci_core_instance" "ubuntu_oracle2" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = oci_identity_compartment.paste.id
   shape               = "VM.Standard.E2.1.Micro"
@@ -37,7 +37,7 @@ resource "oci_core_instance" "ubuntu_buildkite" {
     source_type = "image"
   }
 
-  display_name = "buildkite_vms"
+  display_name = "ubuntu_oracle2"
   create_vnic_details {
     assign_public_ip = true
     subnet_id        = oci_core_subnet.paste-public-subnet.id

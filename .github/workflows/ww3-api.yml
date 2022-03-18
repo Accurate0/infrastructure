@@ -1,0 +1,16 @@
+name: ww3-api
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - terraform/ww3-api/**
+      - .github/workflows/ww3-api.yml
+      - .github/workflows/terraform.yml
+
+jobs:
+  provision:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: ww3-api
+    secrets:
+      tf_token: ${{ secrets.tf_token }}

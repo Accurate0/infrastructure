@@ -1,5 +1,0 @@
-[Unit]
-Description=Certbot Renewal
-
-[Service]
-ExecStart=/usr/bin/bash -c "cd /home/ubuntu/services/files && docker-compose run certbot"

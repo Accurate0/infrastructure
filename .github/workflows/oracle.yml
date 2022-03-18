@@ -108,6 +108,7 @@ jobs:
           path: servers/oracle2
 
       - name: activate deployment
+        if: ${{ false }}
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ env.ORACLE2_HOST }}

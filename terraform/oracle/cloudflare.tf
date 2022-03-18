@@ -10,7 +10,7 @@ resource "cloudflare_record" "oracle1" {
 resource "cloudflare_record" "oracle2" {
   zone_id         = var.cloudflare_zone_id
   name            = "oracle2"
-  value           = oci_core_instance.ubuntu_buildkite.public_ip
+  value           = oci_core_instance.ubuntu_oracle2.public_ip
   type            = "A"
   ttl             = 1
   allow_overwrite = true
@@ -23,15 +23,6 @@ resource "cloudflare_record" "ww3" {
   type            = "CNAME"
   ttl             = 1
   proxied         = true
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "files" {
-  zone_id         = var.cloudflare_zone_id
-  name            = "files"
-  value           = cloudflare_record.oracle1.hostname
-  type            = "CNAME"
-  ttl             = 1
   allow_overwrite = true
 }
 
