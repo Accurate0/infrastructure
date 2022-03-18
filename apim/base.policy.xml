@@ -1,0 +1,17 @@
+<policies>
+    <inbound>
+        <cors allow-credentials="false">
+            <allowed-origins>
+                <origin>*</origin>
+            </allowed-origins>
+            <allowed-methods preflight-result-max-age="300">
+                <method>GET</method>
+            </allowed-methods>
+        </cors>
+    </inbound>
+    <backend>
+        <forward-request />
+    </backend>
+    <outbound />
+    <on-error />
+</policies>

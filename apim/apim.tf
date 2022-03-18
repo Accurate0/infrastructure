@@ -22,3 +22,8 @@ resource "azurerm_resource_group" "general-api-group" {
   name     = "general-api-group"
   location = "australiaeast"
 }
+
+resource "azurerm_api_management_policy" "apim-base-policy" {
+  api_management_id = azurerm_api_management.general-apim.id
+  xml_content       = file("base.policy.xml")
+}
