@@ -13,6 +13,10 @@ resource "azurerm_cosmosdb_account" "weather-api-db" {
     max_staleness_prefix    = 100000
   }
 
+  capacity {
+    total_throughput_limit = 1000
+  }
+
   geo_location {
     location          = azurerm_resource_group.weather-api-group.location
     failover_priority = 0
