@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - terraform/oracle/**
+      - oracle/**
       - .github/workflows/oracle.yml
       - .github/workflows/terraform.yml
       - servers/oracle1/**

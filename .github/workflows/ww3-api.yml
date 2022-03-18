@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - terraform/ww3-api/**
+      - ww3-api/**
       - .github/workflows/ww3-api.yml
       - .github/workflows/terraform.yml
 

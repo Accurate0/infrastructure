@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - terraform/apim/**
+      - apim/**
       - .github/workflows/apim.yml
       - .github/workflows/terraform.yml
 

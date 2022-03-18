@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - terraform/weather-api/**
+      - weather-api/**
       - .github/workflows/weather-api.yml
       - .github/workflows/terraform.yml
 
