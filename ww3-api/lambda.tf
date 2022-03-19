@@ -32,8 +32,8 @@ resource "aws_lambda_function" "ww3-api" {
   handler       = "main"
   role          = aws_iam_role.iam_for_ww3_api.arn
   filename      = data.archive_file.dummy.output_path
-  timeout       = 60
-  memory_size   = 256
+  timeout       = 15
+  memory_size   = 128
 
   runtime = "go1.x"
 }
