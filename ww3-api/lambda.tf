@@ -13,8 +13,6 @@ resource "aws_iam_role" "iam_for_ww3_api" {
       }
     ]
   })
-
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
 }
 
 data "archive_file" "dummy" {
