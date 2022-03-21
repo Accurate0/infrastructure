@@ -22,26 +22,23 @@ jobs:
         working-directory: "./${{ inputs.name }}"
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
-    - uses: hashicorp/setup-terraform@v1.2.1
-      with:
-        cli_config_credentials_hostname: app.terraform.io
-        cli_config_credentials_token: ${{ secrets.tf_token }}
-        terraform_version: 1.1.2
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+      - uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          cli_config_credentials_hostname: app.terraform.io
+          cli_config_credentials_token: ${{ secrets.tf_token }}
+          terraform_version: 1.1.2
 
-    - name: terraform fmt
-      run: terraform fmt -recursive
+      - name: terraform fmt
+        run: terraform fmt -recursive
 
-    - name: terraform init
-      run: terraform init
+      - name: terraform init
+        run: terraform init
 
-    - name: terraform validate
-      run: terraform validate
+      - name: terraform validate
+        run: terraform validate
 
-    - name: terraform plan
-      run: terraform plan
-
-    - name: terraform apply
-      run: terraform apply -auto-approve
+      - name: terraform apply
+        run: terraform apply -auto-approve
