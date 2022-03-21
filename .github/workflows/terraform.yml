@@ -40,8 +40,5 @@ jobs:
       - name: terraform validate
         run: terraform validate
 
-      - name: terraform plan
-        run: terraform plan -out=current.tfplan
-
       - name: terraform apply
-        run: terraform apply -auto-approve current.tfplan
+        run: terraform apply -auto-approve
