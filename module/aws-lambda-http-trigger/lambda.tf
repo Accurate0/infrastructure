@@ -1,5 +1,5 @@
-resource "aws_iam_role" "iam_for_ww3_api" {
-  name = "iam_for_ww3_api"
+resource "aws_iam_role" "iam" {
+  name = "iam_for_${var.api_name}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -25,13 +25,12 @@ data "archive_file" "dummy" {
   }
 }
 
-resource "aws_lambda_function" "ww3-api" {
-  function_name = "WW3Api"
-  handler       = "main"
-  role          = aws_iam_role.iam_for_ww3_api.arn
+resource "aws_lambda_function" "api" {
+  function_name = var.api_name
+  handler       = var.api_handler
+  role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
   timeout       = 15
   memory_size   = 128
-
-  runtime = "go1.x"
+  runtime       = var.api_runtime
 }

@@ -1,0 +1,57 @@
+name: provision
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ww3-api/**
+      - weather-api/**
+      - cloudflare/**
+      - paste-api/**
+      - apim/**
+      - .github/workflows/provision.yml
+
+concurrency:
+  group: environment-${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  ww3-api:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: ww3-api
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
+
+  weather-api:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: weather-api
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
+
+  cloudflare:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: cloudflare
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
+
+  paste-api:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: paste-api
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
+
+  apim:
+    needs:
+      - ww3-api
+      - weather-api
+      - paste-api
+    if: ${{ always() }}
+    uses: ./.github/workflows/terraform.yml
+    with:
+      name: apim
+    secrets:
+      tf_token: ${{ secrets.tf_token }}

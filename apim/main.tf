@@ -26,5 +26,4 @@ provider "azurerm" {
   }
 }
 
-provider "aws" {}
 provider "cloudflare" {}

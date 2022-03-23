@@ -24,3 +24,7 @@ provider "azurerm" {
 
 provider "aws" {
 }
+
+output "http_endpoint" {
+  value = "https://${azurerm_app_service.weather-api.name}.azurewebsites.net"
+}
