@@ -2,11 +2,11 @@ name: oracle
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - oracle/**
       - .github/workflows/oracle.yml
-      - .github/workflows/terraform.yml
+      - .github/workflows/tf.yml
       - servers/oracle1/**
       - servers/oracle2/**
 
@@ -17,7 +17,7 @@ env:
 
 jobs:
   provision:
-    uses: ./.github/workflows/terraform.yml
+    uses: ./.github/workflows/tf.yml
     with:
       name: oracle
     secrets:
@@ -66,7 +66,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: deploy
         uses: Burnett01/rsync-deployments@5.2
@@ -97,7 +97,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: deploy
         uses: Burnett01/rsync-deployments@5.2
