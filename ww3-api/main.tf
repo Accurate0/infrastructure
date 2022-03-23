@@ -17,5 +17,6 @@ module "lambda" {
 }
 
 output "http_endpoint" {
-  value = module.lambda.http_endpoint
+  value     = module.lambda.http_endpoint
+  sensitive = true
 }
