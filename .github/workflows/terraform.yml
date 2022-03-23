@@ -9,10 +9,6 @@ on:
       tf_token:
         required: true
 
-concurrency:
-  group: environment-${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: false
-
 jobs:
   _:
     runs-on: ubuntu-latest
