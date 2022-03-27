@@ -9,8 +9,8 @@ on:
       - cloudflare/**
       - paste-api/**
       - apim/**
-      - .github/workflows/provision.yml
       - .github/workflows/tf.yml
+      - .github/workflows/provision.yml
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
