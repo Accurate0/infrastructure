@@ -30,7 +30,7 @@ resource "aws_lambda_function" "weather-service" {
   role          = aws_iam_role.iam_for_weather_service.arn
   handler       = "WeatherService::WeatherService.WeatherService::Run"
   filename      = data.archive_file.dummy.output_path
-  timeout       = 60
+  timeout       = 30
   memory_size   = 256
   environment {
     variables = {
