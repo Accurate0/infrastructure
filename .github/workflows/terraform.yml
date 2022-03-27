@@ -38,13 +38,6 @@ jobs:
     secrets:
       tf_token: ${{ secrets.tf_token }}
 
-  paste-api:
-    uses: ./.github/workflows/tf.yml
-    with:
-      name: paste-api
-    secrets:
-      tf_token: ${{ secrets.tf_token }}
-
   apim:
     needs:
       - ww3-api
