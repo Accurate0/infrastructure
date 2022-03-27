@@ -42,7 +42,6 @@ jobs:
     needs:
       - ww3-api
       - weather-api
-      - paste-api
     if: ${{ always() }}
     uses: ./.github/workflows/tf.yml
     with:
