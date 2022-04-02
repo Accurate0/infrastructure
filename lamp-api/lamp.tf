@@ -1,15 +1,24 @@
+data "azurerm_resource_group" "general-api-group" {
+  name = "general-api-group"
+}
+
+data "azurerm_api_management" "general-apim" {
+  name                = "general-apim"
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
+}
+
 resource "azurerm_api_management_api_version_set" "lamp-segment-version" {
   name                = "LampApiSegment"
-  resource_group_name = azurerm_resource_group.general-api-group.name
-  api_management_name = azurerm_api_management.general-apim.name
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
+  api_management_name = data.azurerm_api_management.general-apim.name
   display_name        = "Lamp API"
   versioning_scheme   = "Segment"
 }
 
 resource "azurerm_api_management_api" "lamp-v1" {
   name                  = "Lamp-API-v1"
-  resource_group_name   = azurerm_resource_group.general-api-group.name
-  api_management_name   = azurerm_api_management.general-apim.name
+  resource_group_name   = data.azurerm_resource_group.general-api-group.name
+  api_management_name   = data.azurerm_api_management.general-apim.name
   revision              = "1"
   version               = "v1"
   display_name          = "Lamp API"
@@ -26,8 +35,8 @@ resource "azurerm_api_management_api" "lamp-v1" {
 
 resource "azurerm_api_management_api_policy" "lamp-v1-policy" {
   api_name            = azurerm_api_management_api.lamp-v1.name
-  api_management_name = azurerm_api_management.general-apim.name
-  resource_group_name = azurerm_resource_group.general-api-group.name
+  api_management_name = data.azurerm_api_management.general-apim.name
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
 
   xml_content = file("policy/lamp.policy.xml")
 }
@@ -75,8 +84,8 @@ resource "azurerm_api_management_api_operation" "lamp-state" {
 }
 
 resource "azurerm_api_management_subscription" "lamp-subscription" {
-  api_management_name = azurerm_api_management.general-apim.name
-  resource_group_name = azurerm_api_management.general-apim.resource_group_name
+  api_management_name = data.azurerm_api_management.general-apim.name
+  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
   api_id              = azurerm_api_management_api.lamp-v1.id
   display_name        = "Lamp API"
   state               = "active"
@@ -89,8 +98,8 @@ variable "home_assistant_api_key" {
 
 resource "azurerm_api_management_named_value" "home-assistant-api-key" {
   name                = "home-assistant-api-key"
-  resource_group_name = azurerm_resource_group.general-api-group.name
-  api_management_name = azurerm_api_management.general-apim.name
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
+  api_management_name = data.azurerm_api_management.general-apim.name
   display_name        = "HomeAssistantApiKey"
   secret              = true
   value               = var.home_assistant_api_key

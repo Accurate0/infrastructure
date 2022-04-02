@@ -8,6 +8,7 @@ on:
       - weather-api/**
       - cloudflare/**
       - paste-api/**
+      - lamp-api/**
       - apim/**
       - .github/workflows/tf.yml
       - .github/workflows/provision.yml
@@ -18,33 +19,39 @@ concurrency:
 
 jobs:
   ww3-api:
+    needs: apim
     uses: ./.github/workflows/tf.yml
     with:
-      name: ww3-api
+      directory: ww3-api
     secrets:
       tf_token: ${{ secrets.tf_token }}
 
   weather-api:
+    needs: apim
     uses: ./.github/workflows/tf.yml
     with:
-      name: weather-api
+      directory: weather-api
     secrets:
       tf_token: ${{ secrets.tf_token }}
 
   cloudflare:
     uses: ./.github/workflows/tf.yml
     with:
-      name: cloudflare
+      directory: cloudflare
+    secrets:
+      tf_token: ${{ secrets.tf_token }}
+
+  lamp-api:
+    needs: apim
+    uses: ./.github/workflows/tf.yml
+    with:
+      directory: lamp-api
     secrets:
       tf_token: ${{ secrets.tf_token }}
 
   apim:
-    needs:
-      - ww3-api
-      - weather-api
-    if: ${{ always() }}
     uses: ./.github/workflows/tf.yml
     with:
-      name: apim
+      directory: apim
     secrets:
       tf_token: ${{ secrets.tf_token }}

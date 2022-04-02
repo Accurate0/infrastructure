@@ -2,7 +2,7 @@ name: terraform
 on:
   workflow_call:
     inputs:
-      name:
+      directory:
         required: true
         type: string
     secrets:
@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./${{ inputs.name }}"
+        working-directory: "./${{ inputs.directory }}"
 
     steps:
       - uses: actions/checkout@v2
