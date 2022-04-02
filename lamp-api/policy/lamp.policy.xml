@@ -18,6 +18,7 @@
         <set-header name="Authorization" exists-action="override">
             <value>Bearer {{HomeAssistantApiKey}}</value>
         </set-header>
+        <!-- don't tell home assistant who's asking -->
         <set-header name="X-Forwarded-For" exists-action="delete" />
         <choose>
             <when condition="@(context.Variables.GetValueOrDefault<string>("endpoint").Equals("off") || context.Variables.GetValueOrDefault<string>("endpoint").Equals("on"))">

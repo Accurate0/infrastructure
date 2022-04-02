@@ -39,7 +39,7 @@
         </set-header>
         <set-header name="X-Powered-By" exists-action="delete" />
         <set-header name="Server" exists-action="delete" />
-        <!-- drop CF headers-->
+        <!-- drop CF headers -->
         <set-header name="Report-To" exists-action="delete" />
         <set-header name="CF-Cache-Status" exists-action="delete" />
         <set-header name="CF-RAY" exists-action="delete" />
