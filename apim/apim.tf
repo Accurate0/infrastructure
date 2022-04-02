@@ -11,7 +11,7 @@ resource "azurerm_api_management" "general-apim" {
 
 resource "azurerm_api_management_custom_domain" "general-apim-custom-domain" {
   api_management_id = azurerm_api_management.general-apim.id
-  proxy {
+  gateway {
     default_ssl_binding          = true
     host_name                    = "api.anurag.sh"
     negotiate_client_certificate = false
