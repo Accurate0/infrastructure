@@ -19,7 +19,7 @@ jobs:
   provision:
     uses: ./.github/workflows/tf.yml
     with:
-      name: oracle
+      directory: oracle
     secrets:
       tf_token: ${{ secrets.tf_token }}
 
