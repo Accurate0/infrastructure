@@ -17,7 +17,7 @@ env:
 
 jobs:
   provision:
-    uses: ./.github/workflows/tf.yml
+    uses: ./.github/workflows/old-tf.yml
     with:
       directory: oracle
     secrets:
