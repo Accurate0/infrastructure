@@ -8,6 +8,9 @@
                 <method>GET</method>
             </allowed-methods>
         </cors>
+        <!-- always delete api key headers... no one needs these -->
+        <set-header name="X-Api-Key" exists-action="delete" />
+        <set-header name="Ocp-Apim-Subscription-Key" exists-action="delete" />
     </inbound>
     <backend>
         <forward-request />
