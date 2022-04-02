@@ -6,7 +6,7 @@ on:
     paths:
       - oracle/**
       - .github/workflows/oracle.yml
-      - .github/workflows/tf.yml
+      - .github/workflows/old-tf.yml
       - servers/oracle1/**
       - servers/oracle2/**
 
