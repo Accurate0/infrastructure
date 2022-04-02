@@ -17,53 +17,47 @@ concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: false
 
-env:
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  TF_VAR_cloudflare_zone_id: ${{ secrets.TF_VAR_cloudflare_zone_id }}
-  TF_VAR_home_assistant_api_key: ${{ secrets.TF_VAR_home_assistant_api_key }}
-
 jobs:
-  ww3-api:
-    needs: apim
-    uses: ./.github/workflows/tf.yml
-    with:
-      directory: ww3-api
-    secrets:
-      tf_token: ${{ secrets.tf_token }}
-
-  weather-api:
-    needs: apim
-    uses: ./.github/workflows/tf.yml
-    with:
-      directory: weather-api
-    secrets:
-      tf_token: ${{ secrets.tf_token }}
-
-  cloudflare:
-    uses: ./.github/workflows/tf.yml
-    with:
-      directory: cloudflare
-    secrets:
-      tf_token: ${{ secrets.tf_token }}
-
-  lamp-api:
-    needs: apim
-    uses: ./.github/workflows/tf.yml
-    with:
-      directory: lamp-api
-    secrets:
-      tf_token: ${{ secrets.tf_token }}
-
   apim:
     uses: ./.github/workflows/tf.yml
     with:
       directory: apim
     secrets:
       tf_token: ${{ secrets.tf_token }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TF_VAR_cloudflare_zone_id: ${{ secrets.TF_VAR_cloudflare_zone_id }}
+      TF_VAR_home_assistant_api_key: ${{ secrets.TF_VAR_home_assistant_api_key }}
+
+  _:
+    name: ${{ matrix.directory }}
+    strategy:
+      matrix:
+        directory:
+          - ww3-api
+          - weather-api
+          - lamp-api
+          - cloudflare
+      steps:
+        needs: apim
+        uses: ./.github/workflows/tf.yml
+        with:
+          directory: ${{ matrix.directory }}
+        secrets:
+          tf_token: ${{ secrets.tf_token }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TF_VAR_cloudflare_zone_id: ${{ secrets.TF_VAR_cloudflare_zone_id }}
+          TF_VAR_home_assistant_api_key: ${{ secrets.TF_VAR_home_assistant_api_key }}
