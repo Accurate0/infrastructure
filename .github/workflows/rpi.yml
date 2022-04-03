@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - servers/rpi/**
+      - rpi/**
       - .github/workflows/rpi.yml
 
 concurrency:
@@ -18,13 +18,10 @@ env:
 jobs:
   update-install:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./cloud"
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: install/update dependencies
         uses: appleboy/ssh-action@v0.1.4
@@ -44,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: deploy
         uses: Burnett01/rsync-deployments@5.2
@@ -54,7 +51,7 @@ jobs:
           remote_host: ${{ env.HOSTNAME }}
           remote_user: ${{ env.USERNAME }}
           remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/rpi
+          path: ./rpi
 
       - name: activate deployment
         uses: appleboy/ssh-action@v0.1.4
