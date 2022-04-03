@@ -2,7 +2,15 @@
     <inbound>
         <base />
         <set-variable name="endpoint" value="@(context.Request.OriginalUrl.Path.Trim('/').Substring(context.Request.OriginalUrl.Path.LastIndexOf('/')))" />
-        <set-variable name="light" value="light.0x001788010381ef5d" />
+        <set-variable name="device" value="@(new List<string>(context.Request.OriginalUrl.Path.Trim('/').Split('/')).Skip(2).First())" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("device").Equals("lamp"))">
+                <set-variable name="light" value="light.0x001788010381ef5d" />
+            </when>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("device").Equals("roof"))">
+                <set-variable name="light" value="light.0x0017880103525874"/>
+            </when>
+        </choose>
         <choose>
             <when condition="@(context.Variables.GetValueOrDefault<string>("endpoint").Equals("off"))">
                 <rewrite-uri template="/turn_off" />

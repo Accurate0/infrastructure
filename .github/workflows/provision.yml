@@ -42,7 +42,7 @@ jobs:
         directory:
           - ww3-api
           - weather-api
-          - lamp-api
+          - light-api
           - cloudflare
 
     env:
