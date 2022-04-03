@@ -1,10 +1,6 @@
-name: terraform
+name: azure-apim-terraform
 on:
   workflow_call:
-    inputs:
-      directory:
-        required: true
-        type: string
     secrets:
       tf_token:
         required: true
@@ -16,17 +12,9 @@ on:
         required: true
       ARM_TENANT_ID:
         required: true
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      AWS_REGION:
-        required: true
       CLOUDFLARE_API_TOKEN:
         required: true
       TF_VAR_cloudflare_zone_id:
-        required: true
-      TF_VAR_home_assistant_api_key:
         required: true
 
 env:
@@ -47,7 +35,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./${{ inputs.directory }}"
+        working-directory: "./apim"
 
     steps:
       - uses: actions/checkout@v2
