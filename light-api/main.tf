@@ -9,7 +9,7 @@ terraform {
   cloud {
     organization = "server"
     workspaces {
-      name = "lamp-api"
+      name = "light-api"
     }
   }
 }
