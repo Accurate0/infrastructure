@@ -1,9 +1,10 @@
 resource "tfe_workspace" "tfc" {
-  name              = "tfc"
-  execution_mode    = "local"
-  terraform_version = "1.1.2"
-  organization      = tfe_organization.server.name
-  queue_all_runs    = false
+  name               = "tfc"
+  execution_mode     = "local"
+  terraform_version  = "1.1.2"
+  organization       = tfe_organization.server.name
+  queue_all_runs     = false
+  allow_destroy_plan = false
 }
 
 resource "tfe_workspace" "apim" {
