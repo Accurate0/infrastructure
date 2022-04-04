@@ -8,7 +8,7 @@ on:
       - weather-api/**
       - cloudflare/**
       - paste-api/**
-      - lamp-api/**
+      - light-api/**
       - apim/**
       - .github/workflows/azure-apim-terraform.yml
       - .github/workflows/provision.yml
