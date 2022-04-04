@@ -56,9 +56,11 @@
         <choose>
             <when condition="@(context.Variables.GetValueOrDefault<string>("endpoint").Equals("off") || context.Variables.GetValueOrDefault<string>("endpoint").Equals("on"))">
                 <!-- Empty the body on the way out-->
+                <set-status code="204" reason="No Content"/>
                 <set-body></set-body>
             </when>
             <when condition="@(context.Variables.GetValueOrDefault<string>("endpoint").Equals("state"))">
+                <set-status code="200" reason="OK"/>
                 <set-body>@{
                     var body = context.Response.Body.As<JObject>();
                     var response = new JObject();
