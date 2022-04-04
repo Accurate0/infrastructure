@@ -7,9 +7,9 @@ on:
       - ww3-api/**
       - weather-api/**
       - cloudflare/**
-      - paste-api/**
       - light-api/**
       - apim/**
+      - tfc/**
       - .github/workflows/azure-apim-terraform.yml
       - .github/workflows/provision.yml
 
