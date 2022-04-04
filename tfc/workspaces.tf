@@ -1,6 +1,6 @@
 resource "tfe_workspace" "tfc" {
   name              = "tfc"
-  execution_mode    = "remote"
+  execution_mode    = "local"
   terraform_version = "1.1.2"
   organization      = tfe_organization.server.name
   queue_all_runs    = false
