@@ -45,19 +45,19 @@ locals {
   api-list = [{
     operation_id = "light-off"
     display_name = "Light Off"
-    url_template = "/off/{lightName}"
+    url_template = "/{lightName}/off"
     method       = "POST"
     },
     {
       operation_id = "light-on"
       display_name = "Light On"
-      url_template = "/on/{lightName}"
+      url_template = "/{lightName}/on"
       method       = "POST"
     },
     {
       operation_id = "light-state"
       display_name = "Light Status"
-      url_template = "/state/{lightName}"
+      url_template = "/{lightName}/state"
       method       = "GET"
     }
   ]
