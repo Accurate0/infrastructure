@@ -1,8 +1,8 @@
 <policies>
     <inbound>
         <base />
-        <set-variable name="endpoint" value="@(context.Request.OriginalUrl.Path.Trim('/').Substring(context.Request.OriginalUrl.Path.LastIndexOf('/')))" />
-        <set-variable name="device" value="@(new List<string>(context.Request.OriginalUrl.Path.Trim('/').Split('/')).Skip(2).First())" />
+        <set-variable name="endpoint" value="@(new List<string>(context.Request.OriginalUrl.Path.Trim('/').Split('/')).Skip(2).First())" />
+        <set-variable name="device" value="@(context.Request.MatchedParameters["lightName"])" />
         <choose>
             <when condition="@(context.Variables.GetValueOrDefault<string>("device").Equals("lamp"))">
                 <set-variable name="light" value="light.0x001788010381ef5d" />

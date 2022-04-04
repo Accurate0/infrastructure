@@ -40,3 +40,46 @@ resource "azurerm_api_management_api_policy" "light-v1-policy" {
 
   xml_content = file("policy/light.policy.xml")
 }
+
+locals {
+  api-list = [{
+    operation_id = "light-off"
+    display_name = "Light Off"
+    url_template = "/off/{lightName}"
+    method       = "POST"
+    },
+    {
+      operation_id = "light-on"
+      display_name = "Light On"
+      url_template = "/on/{lightName}"
+      method       = "POST"
+    },
+    {
+      operation_id = "light-state"
+      display_name = "Light Status"
+      url_template = "/state/{lightName}"
+      method       = "GET"
+    }
+  ]
+}
+
+resource "azurerm_api_management_api_operation" "light-api-operations" {
+  count        = length(local.api-list)
+  operation_id = local.api-list[count.index].operation_id
+  display_name = local.api-list[count.index].display_name
+  url_template = local.api-list[count.index].url_template
+  method       = local.api-list[count.index].method
+
+  api_name            = azurerm_api_management_api.light-v1.name
+  api_management_name = azurerm_api_management_api.light-v1.api_management_name
+  resource_group_name = azurerm_api_management_api.light-v1.resource_group_name
+
+  template_parameter {
+    name     = "lightName"
+    required = true
+    type     = "string"
+  }
+  response {
+    status_code = 200
+  }
+}
