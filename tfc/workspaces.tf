@@ -1,3 +1,11 @@
+resource "tfe_workspace" "tfc" {
+  name              = "tfc"
+  execution_mode    = "remote"
+  terraform_version = "1.1.2"
+  organization      = tfe_organization.server.name
+  queue_all_runs    = false
+}
+
 resource "tfe_workspace" "apim" {
   name           = "apim"
   execution_mode = "local"
