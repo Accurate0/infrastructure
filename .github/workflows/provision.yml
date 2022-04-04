@@ -10,7 +10,7 @@ on:
       - light-api/**
       - apim/**
       - tfc/**
-      - .github/workflows/azure-apim-terraform.yml
+      - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
 concurrency:

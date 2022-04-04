@@ -6,7 +6,7 @@ on:
     paths:
       - oracle/**
       - .github/workflows/oracle.yml
-      - .github/workflows/old-tf.yml
+      - .github/workflows/call-terraform-remote.yml
       - servers/oracle1/**
       - servers/oracle2/**
 
@@ -17,11 +17,11 @@ env:
 
 jobs:
   provision:
-    uses: ./.github/workflows/old-tf.yml
+    uses: ./.github/workflows/call-terraform-remote.yml
     with:
       directory: oracle
     secrets:
-      tf_token: ${{ secrets.tf_token }}
+      TF_TOKEN: ${{ secrets.TF_TOKEN }}
 
   update-install:
     runs-on: ubuntu-latest
