@@ -18,8 +18,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  tfc:
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: tfc
+    secrets:
+      TF_TOKEN: ${{ secrets.TF_TOKEN }}
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+
   apim:
-    uses: ./.github/workflows/azure-apim-terraform.yml
+    needs: tfc
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: apim
     secrets:
       TF_TOKEN: ${{ secrets.TF_TOKEN }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}

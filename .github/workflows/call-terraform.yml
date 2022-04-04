@@ -1,19 +1,26 @@
-name: azure-apim-terraform
+name: call-terraform
 on:
   workflow_call:
+    inputs:
+      directory:
+        type: string
+        required: true
     secrets:
+      TFE_TOKEN:
+        required: false
       TF_TOKEN:
-        required: true
+        required: false
       ARM_CLIENT_ID:
-        required: true
+        required: false
       ARM_CLIENT_SECRET:
-        required: true
+        required: false
       ARM_SUBSCRIPTION_ID:
-        required: true
+        required: false
       ARM_TENANT_ID:
-        required: true
+        required: false
 
 env:
+  TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
@@ -25,7 +32,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: "./apim"
+        working-directory: ${{ inputs.directory }}
 
     steps:
       - uses: actions/checkout@v2
