@@ -42,11 +42,12 @@ resource "azurerm_api_management_api_policy" "light-v1-policy" {
 }
 
 locals {
-  api-list = [{
-    operation_id = "light-off"
-    display_name = "Light Off"
-    url_template = "/{lightName}/off"
-    method       = "POST"
+  api-list = [
+    {
+      operation_id = "light-off"
+      display_name = "Light Off"
+      url_template = "/{lightName}/off"
+      method       = "POST"
     },
     {
       operation_id = "light-on"
