@@ -24,6 +24,6 @@ resource "azurerm_app_service" "weather-api" {
   connection_string {
     name  = "Database"
     type  = "Custom"
-    value = azurerm_cosmosdb_account.weather-api-db.connection_strings[0]
+    value = data.terraform_remote_state.database.outputs.readonly_connection_string
   }
 }

@@ -51,3 +51,11 @@ resource "tfe_workspace" "ww3-api" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "database" {
+  name                      = "database"
+  execution_mode            = "local"
+  organization              = tfe_organization.server.name
+  queue_all_runs            = false
+  remote_state_consumer_ids = [tfe_workspace.weather-api.id]
+}

@@ -34,7 +34,7 @@ resource "aws_lambda_function" "weather-service" {
   memory_size   = 256
   environment {
     variables = {
-      cosmosdb_connection_string = azurerm_cosmosdb_account.weather-api-db.connection_strings[0]
+      cosmosdb_connection_string = sensitive(data.terraform_remote_state.database.outputs.connection_string)
     }
   }
 
