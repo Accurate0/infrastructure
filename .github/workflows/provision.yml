@@ -9,6 +9,7 @@ on:
       - cloudflare/**
       - light-api/**
       - apim/**
+      - database/**
       - tfc/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
