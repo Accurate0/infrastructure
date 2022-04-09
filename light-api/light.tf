@@ -38,6 +38,10 @@ resource "azurerm_api_management_api_policy" "light-v1-policy" {
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 
+  depends_on = [
+    azurerm_api_management_named_value.home-assistant-api-key
+  ]
+
   xml_content = file("policy/light.policy.xml")
 }
 
