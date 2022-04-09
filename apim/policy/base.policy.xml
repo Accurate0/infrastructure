@@ -37,6 +37,7 @@
         <set-header name="Cache-Control" exists-action="override">
             <value>max-age=900, must-revalidate</value>
         </set-header>
+        <!-- general server headers -->
         <set-header name="X-Powered-By" exists-action="delete" />
         <set-header name="Server" exists-action="delete" />
         <!-- drop CF headers -->
@@ -44,7 +45,10 @@
         <set-header name="CF-Cache-Status" exists-action="delete" />
         <set-header name="CF-RAY" exists-action="delete" />
         <set-header name="NEL" exists-action="delete" />
-        <set-header name="alt-svc" exists-action="delete" />
+        <!-- AWS headers -->
+        <set-header name="x-amz-apigw-id" exists-action="delete"/>
+        <set-header name="x-amzn-RequestId" exists-action="delete"/>
+        <set-header name="X-Amzn-Trace-Id" exists-action="delete"/>
     </outbound>
     <on-error />
 </policies>

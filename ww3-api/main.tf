@@ -22,9 +22,9 @@ provider "azurerm" {
   features {}
 }
 module "lambda" {
-  source      = "../module/aws-lambda-http-trigger"
-  api_name    = "WW3Api"
-  api_runtime = "go1.x"
-  api_handler = "main"
-  api_routes  = ["GET /status"]
+  source         = "../module/aws-lambda-rest-trigger"
+  api_name       = "WW3Api"
+  lambda_runtime = "go1.x"
+  lambda_handler = "main"
+  api_routes     = [{ method = "GET", route = "status" }]
 }

@@ -27,10 +27,10 @@ data "archive_file" "dummy" {
 
 resource "aws_lambda_function" "api" {
   function_name = var.api_name
-  handler       = var.api_handler
+  handler       = var.lambda_handler
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
   timeout       = 15
   memory_size   = 128
-  runtime       = var.api_runtime
+  runtime       = var.lambda_runtime
 }
