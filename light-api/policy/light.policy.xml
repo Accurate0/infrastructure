@@ -12,7 +12,7 @@
             </when>
             <otherwise>
                 <return-response>
-                    <set-status code="418" reason="I'm a teapot"/>
+                    <set-status code="503" reason="Service Unavailable"/>
                  </return-response>
             </otherwise>
         </choose>
@@ -29,7 +29,7 @@
             </when>
             <otherwise>
                 <return-response>
-                    <set-status code="418" reason="I'm a teapot"/>
+                    <set-status code="503" reason="Service Unavailable"/>
                  </return-response>
             </otherwise>
         </choose>
@@ -73,7 +73,7 @@
     <on-error>
         <base />
         <return-response>
-            <set-status code="418" reason="I'm a teapot"/>
+            <set-status code="503" reason="Service Unavailable"/>
         </return-response>
     </on-error>
 </policies>
