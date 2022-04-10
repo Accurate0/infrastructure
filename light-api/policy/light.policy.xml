@@ -12,7 +12,7 @@
             </when>
             <otherwise>
                 <return-response>
-                    <set-status code="503" reason="Service Unavailable"/>
+                    <set-status code="501" reason="Not Implemented"/>
                  </return-response>
             </otherwise>
         </choose>
@@ -27,11 +27,6 @@
                 <set-backend-service base-url="https://home.anurag.sh/api/states/"/>
                 <rewrite-uri template="@(context.Variables.GetValueOrDefault<string>("light"))" />
             </when>
-            <otherwise>
-                <return-response>
-                    <set-status code="503" reason="Service Unavailable"/>
-                 </return-response>
-            </otherwise>
         </choose>
         <set-header name="Authorization" exists-action="override">
             <value>Bearer {{HomeAssistantApiKey}}</value>
