@@ -23,6 +23,10 @@ variable "api_routes" {
   type = list(object({ route = string, method = string }))
 }
 
+variable "api_version" {
+  type = string
+}
+
 output "http_endpoint" {
   value     = aws_api_gateway_stage.api-stage.invoke_url
   sensitive = true

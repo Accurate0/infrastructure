@@ -59,3 +59,10 @@ resource "tfe_workspace" "database" {
   queue_all_runs            = false
   remote_state_consumer_ids = [tfe_workspace.weather-api.id]
 }
+
+resource "tfe_workspace" "sandbox" {
+  name           = "sandbox"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

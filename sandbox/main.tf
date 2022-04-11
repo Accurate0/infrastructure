@@ -4,28 +4,22 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.5.0"
     }
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.0.0"
-    }
   }
+
   cloud {
     organization = "server"
     workspaces {
-      name = "ww3-api"
+      name = "sandbox"
     }
   }
 }
 
 provider "aws" {}
-provider "azurerm" {
-  features {}
-}
 module "lambda" {
   source         = "../module/aws-lambda-rest-trigger"
-  api_name       = "WW3Api"
-  api_version    = "v2"
+  api_name       = "TestApi"
+  api_version    = "v1"
   lambda_runtime = "go1.x"
   lambda_handler = "main"
-  api_routes     = [{ method = "GET", route = "status" }]
+  api_routes     = [{ method = "ANY", route = "reply" }]
 }

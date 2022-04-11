@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "api" {
-  name           = var.api_name
+  name           = "${var.api_name}/${var.api_version}"
   api_key_source = "HEADER"
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -29,7 +29,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
 resource "aws_api_gateway_stage" "api-stage" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
   deployment_id = aws_api_gateway_deployment.api-deployment.id
-  stage_name    = "api"
+  stage_name    = var.api_version
 }
 
 resource "aws_api_gateway_method" "api-method" {
@@ -70,6 +70,10 @@ resource "aws_api_gateway_usage_plan_key" "usage-plan-key" {
 
 resource "aws_api_gateway_usage_plan" "api-usage" {
   name = "api-usage"
+
+  depends_on = [
+    aws_api_gateway_stage.api-stage
+  ]
 
   api_stages {
     api_id = aws_api_gateway_rest_api.api.id

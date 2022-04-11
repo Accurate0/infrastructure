@@ -60,6 +60,7 @@ jobs:
           - weather-api
           - light-api
           - cloudflare
+          - sandbox
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest
