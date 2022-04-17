@@ -61,6 +61,7 @@ jobs:
           - light-api
           - cloudflare
           - sandbox
+          - maccas-api
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest

@@ -27,6 +27,9 @@ variable "api_version" {
   type = string
 }
 
+output "role_name" {
+  value = aws_iam_role.iam.name
+}
 output "http_endpoint" {
   value     = aws_api_gateway_stage.api-stage.invoke_url
   sensitive = true

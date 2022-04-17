@@ -66,3 +66,10 @@ resource "tfe_workspace" "sandbox" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "maccas-api" {
+  name           = "maccas-api"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
