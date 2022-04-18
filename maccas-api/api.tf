@@ -43,7 +43,7 @@ resource "aws_api_gateway_usage_plan_key" "usage-plan-key" {
 }
 
 resource "aws_api_gateway_usage_plan" "api-usage" {
-  name = "api-usage"
+  name = "maccas-api-usage"
 
   depends_on = [
     aws_api_gateway_stage.api-stage
@@ -60,7 +60,7 @@ resource "aws_api_gateway_usage_plan" "api-usage" {
 
   throttle_settings {
     burst_limit = 5
-    rate_limit  = 10
+    rate_limit  = 2
   }
 }
 
