@@ -10,6 +10,10 @@ on:
       - servers/oracle1/**
       - servers/oracle2/**
 
+concurrency:
+  group: environment-${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: false
+
 env:
   USERNAME: ubuntu
   ORACLE1_HOST: oracle1.anurag.sh
