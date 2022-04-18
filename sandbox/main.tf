@@ -15,11 +15,3 @@ terraform {
 }
 
 provider "aws" {}
-module "lambda" {
-  source         = "../module/aws-lambda-rest-trigger"
-  api_name       = "TestApi"
-  api_version    = "v1"
-  lambda_runtime = "go1.x"
-  lambda_handler = "main"
-  api_routes     = [{ method = "ANY", route = "reply" }]
-}
