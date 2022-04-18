@@ -8,8 +8,8 @@ module "vcn" {
 
   # Optional
   internet_gateway_enabled = true
-  nat_gateway_enabled      = true
-  service_gateway_enabled  = true
+  nat_gateway_enabled      = false
+  service_gateway_enabled  = false
   vcn_cidr                 = "10.0.0.0/16"
 }
 
