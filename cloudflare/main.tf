@@ -18,7 +18,6 @@ terraform {
   }
 }
 
-
 provider "cloudflare" {}
 provider "azurerm" {
   features {}

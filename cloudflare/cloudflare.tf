@@ -7,7 +7,6 @@ data "azurerm_api_management" "general-apim" {
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 }
 
-
 variable "cloudflare_zone_id" {
   type      = string
   sensitive = true

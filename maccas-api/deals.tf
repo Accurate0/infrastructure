@@ -52,7 +52,6 @@ resource "aws_api_gateway_integration" "deals-post-api-integration" {
   uri                     = aws_lambda_function.api.invoke_arn
 }
 
-
 resource "aws_api_gateway_integration" "deals-delete-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.deals-dealid-post-api-resource.id

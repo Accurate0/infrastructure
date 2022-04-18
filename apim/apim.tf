@@ -1,4 +1,3 @@
-
 resource "azurerm_api_management" "general-apim" {
   name                = "general-apim"
   location            = azurerm_resource_group.general-api-group.location
