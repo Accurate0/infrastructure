@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.5.0"
     }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.99.0"
+    }
   }
 
   cloud {
@@ -12,6 +16,9 @@ terraform {
       name = "maccas-api"
     }
   }
+}
+provider "azurerm" {
+  features {}
 }
 
 provider "aws" {}
@@ -55,18 +62,4 @@ resource "aws_iam_policy" "dynamodb-access" {
 }
 EOF
 
-}
-
-resource "aws_iam_role_policy_attachment" "dynamodb-full-access-attachment" {
-  role       = module.lambda.role_name
-  policy_arn = aws_iam_policy.dynamodb-access.arn
-}
-
-module "lambda" {
-  source         = "../module/aws-lambda-rest-trigger"
-  api_name       = "MaccasApi"
-  api_version    = "v1"
-  lambda_runtime = "provided.al2"
-  lambda_handler = "bootstrap"
-  api_routes     = [{ method = "ANY", route = "offers" }]
 }
