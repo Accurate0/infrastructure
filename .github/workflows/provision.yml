@@ -11,6 +11,7 @@ on:
       - apim/**
       - database/**
       - tfc/**
+      - maccas-api/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
