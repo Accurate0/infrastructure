@@ -3,10 +3,10 @@ resource "aws_dynamodb_table" "maccas-api-db" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20
-  hash_key       = "Version"
+  hash_key       = "account_name"
 
   attribute {
-    name = "Version"
+    name = "account_name"
     type = "S"
   }
 }
