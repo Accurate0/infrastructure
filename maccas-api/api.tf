@@ -11,20 +11,18 @@ resource "aws_api_gateway_deployment" "api-deployment" {
   depends_on = [
     aws_api_gateway_rest_api.api,
     aws_api_gateway_resource.deals-api-resource,
+    aws_api_gateway_resource.code-api-resource,
+    aws_api_gateway_resource.code-dealid-get-api-resource,
+    aws_api_gateway_resource.deals-dealid-post-api-resource,
     aws_api_gateway_method.deals-api-method,
+    aws_api_gateway_method.code-api-method,
     aws_api_gateway_method.deals-delete-api-method,
     aws_api_gateway_method.deals-post-api-method,
     aws_api_gateway_integration.deals-api-integration,
   ]
 
   triggers = {
-    redeployment = sha1(jsonencode([
-      aws_api_gateway_resource.deals-api-resource,
-      aws_api_gateway_method.deals-api-method,
-      aws_api_gateway_method.deals-delete-api-method,
-      aws_api_gateway_method.deals-post-api-method,
-      aws_api_gateway_integration.deals-api-integration,
-    ]))
+    redeployment = filesha1("deals.tf")
   }
 
   lifecycle {
