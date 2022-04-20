@@ -48,7 +48,11 @@ resource "aws_iam_policy" "dynamodb-access" {
                 "dynamodb:Update*",
                 "dynamodb:PutItem"
             ],
-            "Resource": "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-db.id}"
+            "Resource": [
+                "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-db.id}",
+                "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db.id}"
+            ]
+
         }
     ]
 }
@@ -73,6 +77,16 @@ data "archive_file" "dummy" {
 
 resource "aws_lambda_function" "api" {
   function_name = "MaccasApi"
+  handler       = "bootstrap"
+  role          = aws_iam_role.iam.arn
+  filename      = data.archive_file.dummy.output_path
+  timeout       = 30
+  memory_size   = 128
+  runtime       = "provided.al2"
+}
+
+resource "aws_lambda_function" "api-deals" {
+  function_name = "MaccasApi-deals"
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
