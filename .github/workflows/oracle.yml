@@ -8,7 +8,6 @@ on:
       - .github/workflows/oracle.yml
       - .github/workflows/call-terraform-remote.yml
       - servers/oracle1/**
-      - servers/oracle2/**
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
@@ -91,42 +90,4 @@ jobs:
           script: |
             cd oracle1
             docker-compose up --build -d --remove-orphans
-            docker ps
-
-  deploy-oracle2:
-    if: ${{ false }}
-    needs: update-install
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
-      - name: deploy
-        uses: Burnett01/rsync-deployments@5.2
-        with:
-          switches: -avz --delete --progress
-          remote_path: /home/${{ env.USERNAME }}/servers
-          remote_host: ${{ env.ORACLE2_HOST }}
-          remote_user: ${{ env.USERNAME }}
-          remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/oracle2
-
-      - name: activate deployment
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ env.ORACLE2_HOST }}
-          username: ${{ env.USERNAME }}
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            cd servers/oracle2
-
-            pushd certbot
-            sudo cp certbot-renewal.* /etc/systemd/system/
-            sudo sh -c 'systemctl daemon-reload && systemctl enable --now certbot-renewal.timer'
-            popd
-
-            docker network prune -f
-            docker-compose up --build -d
             docker ps
