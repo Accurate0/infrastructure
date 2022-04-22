@@ -10,15 +10,23 @@ resource "aws_api_gateway_deployment" "api-deployment" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   depends_on = [
     aws_api_gateway_rest_api.api,
+
     aws_api_gateway_resource.deals-api-resource,
     aws_api_gateway_resource.code-api-resource,
     aws_api_gateway_resource.code-dealid-get-api-resource,
     aws_api_gateway_resource.deals-dealid-post-api-resource,
+    aws_api_gateway_resource.deals-refresh-post-api-resource,
+
     aws_api_gateway_method.deals-api-method,
     aws_api_gateway_method.code-api-method,
     aws_api_gateway_method.deals-delete-api-method,
     aws_api_gateway_method.deals-post-api-method,
+    aws_api_gateway_method.deals-refresh-api-method,
+
     aws_api_gateway_integration.deals-api-integration,
+    aws_api_gateway_integration.deals-refresh-api-integration,
+    aws_api_gateway_integration.deals-delete-api-integration,
+    aws_api_gateway_integration.code-get-api-integration,
   ]
 
   triggers = {
