@@ -10,6 +10,9 @@
     </backend>
     <outbound>
         <base />
+        <set-header name="Cache-Control" exists-action="override">
+            <value>max-age=28800, public</value>
+        </set-header>
     </outbound>
     <on-error>
         <base />
