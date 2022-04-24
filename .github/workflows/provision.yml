@@ -13,6 +13,7 @@ on:
       - tfc/**
       - maccas-api/**
       - sandbox/**
+      - module/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
