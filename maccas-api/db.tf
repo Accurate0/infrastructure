@@ -1,8 +1,8 @@
 resource "aws_dynamodb_table" "maccas-api-db" {
   name           = "MaccasApiDb"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "account_name"
 
   attribute {
@@ -14,8 +14,8 @@ resource "aws_dynamodb_table" "maccas-api-db" {
 resource "aws_dynamodb_table" "maccas-api-cache-db" {
   name           = "MaccasApiCache"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "account_name"
 
   attribute {
