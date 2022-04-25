@@ -65,6 +65,12 @@ resource "aws_iam_role_policy_attachment" "dynamodb-full-access-attachment" {
   policy_arn = aws_iam_policy.dynamodb-access.arn
 }
 
+
+resource "aws_iam_role_policy_attachment" "lambda-basic-execution" {
+  role       = aws_iam_role.iam.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 data "archive_file" "dummy" {
   type        = "zip"
   output_path = "${path.module}/lambda_function_payload.zip"
