@@ -111,7 +111,7 @@ resource "aws_api_gateway_integration" "deals-refresh-api-integration" {
   http_method             = aws_api_gateway_method.deals-refresh-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api-refresh.invoke_arn
 }
 resource "aws_api_gateway_integration" "locations-get-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id

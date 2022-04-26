@@ -33,7 +33,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
   ]
 
   triggers = {
-    redeployment = filesha1("deals.tf")
+    redeployment = jsonencode([filesha1("deals.tf"), filesha1("api.tf")])
   }
 
   lifecycle {
@@ -86,6 +86,15 @@ resource "aws_lambda_permission" "api-deals-gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.api-deals.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "api-refresh-gw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.api-refresh.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
