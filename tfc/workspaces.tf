@@ -73,3 +73,10 @@ resource "tfe_workspace" "maccas-api" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "places-api" {
+  name           = "places-api"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

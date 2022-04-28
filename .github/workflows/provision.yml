@@ -12,6 +12,7 @@ on:
       - database/**
       - tfc/**
       - maccas-api/**
+      - places-api/**
       - sandbox/**
       - module/**
       - .github/workflows/call-terraform.yml
@@ -65,6 +66,7 @@ jobs:
           - cloudflare
           - sandbox
           - maccas-api
+          - places-api
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest

@@ -1,0 +1,29 @@
+<policies>
+    <inbound>
+        <rewrite-uri template="@{
+            return "/findplacefromtext/json?inputtype=textquery&amp;fields=formatted_address,name,geometry&amp;key={{GooglePlacesApiKey}}&amp;input=" + context.Request.OriginalUrl.Query.GetValueOrDefault("text");
+        }" copy-unmatched-params="false" />
+        <base />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+        <set-body>@{
+            var body = context.Response.Body.As<JObject>();
+            var response = new JObject();
+            response.Add(new JProperty("status", body["status"]));
+
+            if(body["status"].ToObject<string>() == "OK") {
+                response.Add(new JProperty("result", body["candidates"][0]));
+                return response.ToString();
+            }
+
+            return response.ToString();
+        }</set-body>
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
