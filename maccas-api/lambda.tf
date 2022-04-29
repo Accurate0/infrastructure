@@ -107,7 +107,7 @@ resource "aws_lambda_function" "api-refresh" {
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
-  timeout       = 60
+  timeout       = 120
   memory_size   = 128
   runtime       = "provided.al2"
 }
