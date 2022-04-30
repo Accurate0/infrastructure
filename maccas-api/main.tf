@@ -22,3 +22,8 @@ provider "azurerm" {
 }
 
 provider "aws" {}
+
+provider "aws" {
+  alias  = "singapore"
+  region = "ap-southeast-1"
+}

@@ -44,3 +44,28 @@ resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   ]
   xml_content = file("policy/maccas.v1.policy.xml")
 }
+
+resource "azurerm_api_management_api_operation" "refresh-operation" {
+  operation_id = "refresh"
+  display_name = "Refresh Deals"
+  url_template = "/deals/refresh"
+  method       = "POST"
+
+  api_name            = azurerm_api_management_api.maccas-v1.name
+  api_management_name = azurerm_api_management_api.maccas-v1.api_management_name
+  resource_group_name = azurerm_api_management_api.maccas-v1.resource_group_name
+}
+
+resource "azurerm_api_management_api_operation_policy" "refresh-operation-policy" {
+  api_name            = azurerm_api_management_api_operation.refresh-operation.api_name
+  api_management_name = azurerm_api_management_api_operation.refresh-operation.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.refresh-operation.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.refresh-operation.operation_id
+
+  depends_on = [
+    azurerm_api_management_named_value.maccas-lambda-singapore-backend,
+    azurerm_api_management_named_value.maccas-lambda-backend
+  ]
+
+  xml_content = file("policy/refresh.policy.xml")
+}
