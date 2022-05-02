@@ -66,13 +66,13 @@ resource "aws_api_gateway_usage_plan" "api-usage" {
     stage  = aws_api_gateway_stage.api-stage.stage_name
   }
   quota_settings {
-    limit  = 200
+    limit  = 2000
     period = "DAY"
   }
 
   throttle_settings {
-    burst_limit = 5
-    rate_limit  = 2
+    burst_limit = 50
+    rate_limit  = 5
   }
 }
 
