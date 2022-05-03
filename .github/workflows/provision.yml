@@ -67,6 +67,7 @@ jobs:
           - sandbox
           - maccas-api
           - places-api
+          - kvp-api
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest

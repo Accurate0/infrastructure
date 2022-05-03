@@ -80,3 +80,10 @@ resource "tfe_workspace" "places-api" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "kvp-api" {
+  name           = "kvp-api"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

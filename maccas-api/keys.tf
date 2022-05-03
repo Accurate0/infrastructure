@@ -7,7 +7,6 @@ resource "azurerm_api_management_named_value" "maccas-lambda-api-key" {
   value               = aws_api_gateway_api_key.api-key.value
 }
 
-
 resource "azurerm_api_management_named_value" "maccas-lambda-singapore-backend" {
   name                = "maccas-lambda-singapore-backend"
   resource_group_name = data.azurerm_resource_group.general-api-group.name
