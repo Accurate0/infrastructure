@@ -1,0 +1,16 @@
+<policies>
+    <inbound>
+        <set-header name="Api-Key" exists-action="override">
+            <value>{{NewrelicApiKey}}</value>
+        </set-header>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <set-header name="Api-Key" exists-action="delete" />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

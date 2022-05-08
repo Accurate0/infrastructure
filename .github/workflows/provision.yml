@@ -14,6 +14,7 @@ on:
       - maccas-api/**
       - places-api/**
       - kvp-api/**
+      - log-api/**
       - sandbox/**
       - module/**
       - .github/workflows/call-terraform.yml
@@ -69,6 +70,7 @@ jobs:
           - maccas-api
           - places-api
           - kvp-api
+          - log-api
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest
