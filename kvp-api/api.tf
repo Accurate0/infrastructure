@@ -14,9 +14,11 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_method.key-get-method,
     aws_api_gateway_method.key-post-method,
     aws_api_gateway_method.key-delete-method,
+    aws_api_gateway_method.key-patch-method,
     aws_api_gateway_integration.key-get-api-integration,
     aws_api_gateway_integration.key-post-api-integration,
     aws_api_gateway_integration.key-delete-api-integration,
+    aws_api_gateway_integration.key-patch-api-integration,
   ]
 
   triggers = {
@@ -106,6 +108,14 @@ resource "aws_api_gateway_method" "key-delete-method" {
   authorization    = "NONE"
 }
 
+resource "aws_api_gateway_method" "key-patch-method" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.key-resource.id
+  http_method      = "PATCH"
+  api_key_required = true
+  authorization    = "NONE"
+}
+
 resource "aws_api_gateway_integration" "key-get-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.key-resource.id
@@ -128,6 +138,15 @@ resource "aws_api_gateway_integration" "key-delete-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.key-resource.id
   http_method             = aws_api_gateway_method.key-delete-method.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "key-patch-api-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.key-resource.id
+  http_method             = aws_api_gateway_method.key-patch-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.api.invoke_arn
