@@ -57,6 +57,17 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
+  aws:
+    needs: tfc
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: aws
+    secrets:
+      TF_TOKEN: ${{ secrets.TF_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
   terraform:
     strategy:
       fail-fast: false
@@ -68,6 +79,7 @@ jobs:
           - cloudflare
           - sandbox
           - maccas-api
+          - maccas-api-v2
           - places-api
           - kvp-api
           - log-api
@@ -77,6 +89,7 @@ jobs:
     needs:
       - apim
       - database
+      - aws
     defaults:
       run:
         working-directory: "${{ matrix.directory }}"

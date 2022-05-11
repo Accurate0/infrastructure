@@ -94,3 +94,17 @@ resource "tfe_workspace" "log-api" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "aws" {
+  name           = "aws"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
+
+resource "tfe_workspace" "maccas-api-v2" {
+  name           = "maccas-api-v2"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
