@@ -5,6 +5,10 @@ resource "azurerm_api_management" "general-apim" {
   publisher_name      = "Anurag Singh"
   publisher_email     = "contact@anurag.sh"
 
+  protocols {
+    enable_http2 = true
+  }
+
   sku_name = "Consumption_0"
 }
 
