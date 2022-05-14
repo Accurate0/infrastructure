@@ -26,7 +26,8 @@ on:
         required: false
       CLOUDFLARE_API_TOKEN:
         required: false
-
+      TF_VAR_cloudflare_zone_id:
+        required: false
 env:
   TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -37,6 +38,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  TF_VAR_cloudflare_zone_id: ${{ secrets.TF_VAR_cloudflare_zone_id }}
 
 jobs:
   apply:

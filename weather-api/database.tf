@@ -3,7 +3,7 @@ data "terraform_remote_state" "database" {
   config = {
     organization = "server"
     workspaces = {
-      name = "database"
+      name = "azure"
     }
   }
 }

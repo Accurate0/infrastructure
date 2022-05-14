@@ -7,11 +7,12 @@ resource "tfe_workspace" "tfc" {
   allow_destroy_plan = false
 }
 
-resource "tfe_workspace" "apim" {
-  name           = "apim"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
+resource "tfe_workspace" "azure" {
+  name                      = "azure"
+  execution_mode            = "local"
+  organization              = tfe_organization.server.name
+  queue_all_runs            = false
+  remote_state_consumer_ids = [tfe_workspace.weather-api.id]
 }
 
 resource "tfe_workspace" "cloudflare" {
@@ -50,14 +51,6 @@ resource "tfe_workspace" "ww3-api" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
-}
-
-resource "tfe_workspace" "database" {
-  name                      = "database"
-  execution_mode            = "local"
-  organization              = tfe_organization.server.name
-  queue_all_runs            = false
-  remote_state_consumer_ids = [tfe_workspace.weather-api.id]
 }
 
 resource "tfe_workspace" "sandbox" {
