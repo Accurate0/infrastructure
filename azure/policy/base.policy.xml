@@ -1,12 +1,22 @@
 <policies>
     <inbound>
-        <cors allow-credentials="false">
+        <cors allow-credentials="true">
             <allowed-origins>
-                <origin>*</origin>
+                <origin>http://localhost:3000/</origin>
+                <origin>https://isitww3yet.com/</origin>
+                <origin>https://maccas.anurag.sh/</origin>
             </allowed-origins>
             <allowed-methods preflight-result-max-age="300">
                 <method>GET</method>
+                <method>POST</method>
+                <method>DELETE</method>
             </allowed-methods>
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+            <expose-headers>
+                <header>*</header>
+            </expose-headers>
         </cors>
         <!-- always delete api key headers... no one needs these -->
         <set-header name="X-Api-Key" exists-action="delete" />
