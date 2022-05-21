@@ -17,7 +17,6 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_resource.deals-dealid-post-api-resource,
     aws_api_gateway_resource.locations-api-resource,
     aws_api_gateway_resource.lock-api-resource,
-    aws_api_gateway_resource.lock-dealid-get-api-resource,
 
     aws_api_gateway_method.deals-api-method,
     aws_api_gateway_method.code-api-method,
