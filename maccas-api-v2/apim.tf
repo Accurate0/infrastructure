@@ -22,7 +22,7 @@ resource "azurerm_api_management_api" "maccas-v2" {
   display_name          = "Maccas API"
   path                  = "maccas"
   protocols             = ["https", "http"]
-  subscription_required = false
+  subscription_required = true
   service_url           = aws_api_gateway_stage.api-stage.invoke_url
   version_set_id        = data.azurerm_api_management_api_version_set.maccas-segment-version.id
 
