@@ -29,10 +29,10 @@ resource "azurerm_api_management_named_value" "maccas-api-public-id" {
 }
 
 resource "azurerm_api_management_product" "maccas-policy-apim" {
-  product_id            = "MaccasAPIMPolicy"
+  product_id            = "MaccasApiKey"
   api_management_name   = data.azurerm_api_management.general-apim.name
   resource_group_name   = data.azurerm_api_management.general-apim.resource_group_name
-  display_name          = "Maccas APIM Policy"
+  display_name          = "Maccas API Key"
   subscription_required = true
   published             = true
 }
@@ -41,15 +41,6 @@ resource "azurerm_api_management_subscription" "maccas-policy-apim-subscription"
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
   product_id          = azurerm_api_management_product.maccas-policy-apim.id
-  display_name        = "MaccasAPIMPolicy"
+  display_name        = "MaccasApiKey"
   state               = "active"
-}
-
-resource "azurerm_api_management_named_value" "maccas-apim-policy" {
-  name                = "maccas-policy-apim-subscription"
-  resource_group_name = data.azurerm_resource_group.general-api-group.name
-  api_management_name = data.azurerm_api_management.general-apim.name
-  display_name        = "MaccasAPIMPolicy"
-  secret              = true
-  value               = azurerm_api_management_subscription.maccas-policy-apim-subscription.primary_key
 }

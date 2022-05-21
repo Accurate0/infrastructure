@@ -17,6 +17,9 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_resource.deals-dealid-post-api-resource,
     aws_api_gateway_resource.locations-api-resource,
     aws_api_gateway_resource.lock-api-resource,
+    aws_api_gateway_resource.users-api-resource,
+    aws_api_gateway_resource.users-config-api-resource,
+    aws_api_gateway_resource.locations-search-api-resource,
 
     aws_api_gateway_method.deals-api-method,
     aws_api_gateway_method.code-api-method,
@@ -25,6 +28,9 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_method.locations-api-method,
     aws_api_gateway_method.lock-post-api-method,
     aws_api_gateway_method.lock-delete-api-method,
+    aws_api_gateway_method.locations-search-api-method,
+    aws_api_gateway_method.user-config-get-api-method,
+    aws_api_gateway_method.user-config-patch-api-method,
 
     aws_api_gateway_integration.deals-api-integration,
     aws_api_gateway_integration.deals-delete-api-integration,
@@ -32,6 +38,9 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_integration.locations-get-api-integration,
     aws_api_gateway_integration.lock-post-api-integration,
     aws_api_gateway_integration.lock-delete-api-integration,
+    aws_api_gateway_integration.locations-search-post-api-integration,
+    aws_api_gateway_integration.user-config-get-api-integration,
+    aws_api_gateway_integration.user-config-patch-api-integration,
   ]
 
   triggers = {

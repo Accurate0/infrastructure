@@ -5,7 +5,7 @@ data "azurerm_api_management_product" "maccas-bot" {
 }
 
 data "azurerm_api_management_product" "maccas-apim" {
-  product_id          = "MaccasAPIMPolicy"
+  product_id          = "MaccasApiKey"
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
 }

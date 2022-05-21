@@ -42,6 +42,23 @@ resource "aws_api_gateway_resource" "locations-api-resource" {
   path_part   = "locations"
 }
 
+resource "aws_api_gateway_resource" "users-api-resource" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  path_part   = "user"
+}
+
+resource "aws_api_gateway_resource" "users-config-api-resource" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.users-api-resource.id
+  path_part   = "config"
+}
+
+resource "aws_api_gateway_resource" "locations-search-api-resource" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.locations-api-resource.id
+  path_part   = "search"
+}
 resource "aws_api_gateway_resource" "deals-api-resource" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
@@ -64,6 +81,30 @@ resource "aws_api_gateway_method" "lock-post-api-method" {
   rest_api_id      = aws_api_gateway_rest_api.api.id
   resource_id      = aws_api_gateway_resource.lock-api-resource.id
   http_method      = "POST"
+  api_key_required = true
+  authorization    = "NONE"
+}
+
+resource "aws_api_gateway_method" "locations-search-api-method" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.locations-search-api-resource.id
+  http_method      = "GET"
+  api_key_required = true
+  authorization    = "NONE"
+}
+
+resource "aws_api_gateway_method" "user-config-get-api-method" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.users-config-api-resource.id
+  http_method      = "GET"
+  api_key_required = true
+  authorization    = "NONE"
+}
+
+resource "aws_api_gateway_method" "user-config-patch-api-method" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.users-config-api-resource.id
+  http_method      = "PATCH"
   api_key_required = true
   authorization    = "NONE"
 }
@@ -123,6 +164,33 @@ resource "aws_api_gateway_integration" "locations-get-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.locations-api-resource.id
   http_method             = aws_api_gateway_method.locations-api-method.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api-deals.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "locations-search-post-api-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.locations-search-api-resource.id
+  http_method             = aws_api_gateway_method.locations-search-api-method.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api-deals.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "user-config-get-api-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.users-config-api-resource.id
+  http_method             = aws_api_gateway_method.user-config-get-api-method.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api-deals.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "user-config-patch-api-integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.users-config-api-resource.id
+  http_method             = aws_api_gateway_method.user-config-patch-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.api-deals.invoke_arn
