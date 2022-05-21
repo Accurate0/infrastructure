@@ -42,3 +42,64 @@ resource "azurerm_api_management_api_policy" "maccas-v2-policy" {
   ]
   xml_content = file("policy/maccas.v2.policy.xml")
 }
+
+
+resource "azurerm_api_management_api_operation" "config-get-operation" {
+  operation_id = "GetConfig"
+  display_name = "Get User Config"
+  url_template = "/user/config"
+  method       = "GET"
+
+  api_name            = azurerm_api_management_api.maccas-v2.name
+  api_management_name = azurerm_api_management_api.maccas-v2.api_management_name
+  resource_group_name = azurerm_api_management_api.maccas-v2.resource_group_name
+}
+
+resource "azurerm_api_management_api_operation" "config-patch-operation" {
+  operation_id = "PatchConfig"
+  display_name = "Patch User Config"
+  url_template = "/user/config"
+  method       = "PATCH"
+
+  api_name            = azurerm_api_management_api.maccas-v2.name
+  api_management_name = azurerm_api_management_api.maccas-v2.api_management_name
+  resource_group_name = azurerm_api_management_api.maccas-v2.resource_group_name
+}
+
+resource "azurerm_api_management_api_operation" "config-post-operation" {
+  operation_id = "PostConfig"
+  display_name = "POST User Config"
+  url_template = "/user/config"
+  method       = "POST"
+
+  api_name            = azurerm_api_management_api.maccas-v2.name
+  api_management_name = azurerm_api_management_api.maccas-v2.api_management_name
+  resource_group_name = azurerm_api_management_api.maccas-v2.resource_group_name
+}
+
+resource "azurerm_api_management_api_operation_policy" "config-get-operation-policy" {
+  api_name            = azurerm_api_management_api_operation.config-get-operation.api_name
+  api_management_name = azurerm_api_management_api_operation.config-get-operation.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.config-get-operation.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.config-get-operation.operation_id
+
+  xml_content = file("policy/user.config.v2.policy.xml")
+}
+
+resource "azurerm_api_management_api_operation_policy" "config-patch-operation-policy" {
+  api_name            = azurerm_api_management_api_operation.config-patch-operation.api_name
+  api_management_name = azurerm_api_management_api_operation.config-patch-operation.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.config-patch-operation.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.config-patch-operation.operation_id
+
+  xml_content = file("policy/user.config.v2.policy.xml")
+}
+
+resource "azurerm_api_management_api_operation_policy" "config-post-operation-policy" {
+  api_name            = azurerm_api_management_api_operation.config-post-operation.api_name
+  api_management_name = azurerm_api_management_api_operation.config-post-operation.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.config-post-operation.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.config-post-operation.operation_id
+
+  xml_content = file("policy/user.config.v2.policy.xml")
+}
