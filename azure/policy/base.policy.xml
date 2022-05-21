@@ -26,6 +26,8 @@
         <forward-request />
     </backend>
     <outbound>
+        <set-header name="X-Api-Key" exists-action="delete" />
+        <set-header name="Ocp-Apim-Subscription-Key" exists-action="delete" />
         <set-header name="Strict-Transport-Security" exists-action="override">
             <value>max-age=31536000</value>
         </set-header>
