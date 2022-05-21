@@ -17,3 +17,8 @@ resource "aws_lambda_function" "api" {
   memory_size   = 256
   runtime       = "provided.al2"
 }
+
+resource "aws_cloudwatch_log_group" "api-refresh-log" {
+  name              = "/aws/lambda/${aws_lambda_function.api.function_name}"
+  retention_in_days = 14
+}
