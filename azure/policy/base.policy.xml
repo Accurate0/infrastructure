@@ -10,6 +10,7 @@
                 <method>GET</method>
                 <method>POST</method>
                 <method>DELETE</method>
+                <method>PATCH</method>
             </allowed-methods>
             <allowed-headers>
                 <header>*</header>
