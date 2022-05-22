@@ -35,4 +35,44 @@ resource "azurerm_api_management_api_diagnostic" "api-diag" {
   log_client_ip             = true
   verbosity                 = "verbose"
   http_correlation_protocol = "W3C"
+
+  frontend_request {
+    body_bytes = 128
+    headers_to_log = [
+      "content-type",
+      "accept",
+      "origin",
+      "Correlation-Id",
+    ]
+  }
+
+  frontend_response {
+    body_bytes = 128
+    headers_to_log = [
+      "content-type",
+      "content-length",
+      "origin",
+      "Correlation-Id",
+    ]
+  }
+
+  backend_request {
+    body_bytes = 128
+    headers_to_log = [
+      "content-type",
+      "accept",
+      "origin",
+      "Correlation-Id",
+    ]
+  }
+
+  backend_response {
+    body_bytes = 128
+    headers_to_log = [
+      "content-type",
+      "content-length",
+      "origin",
+      "Correlation-Id",
+    ]
+  }
 }
