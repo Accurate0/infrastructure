@@ -1,7 +1,8 @@
 
 resource "aws_cloudwatch_event_rule" "refresh-every-6-hours" {
   name                = "MaccasRefresh6Hours"
-  schedule_expression = "rate(3 hours)"
+  schedule_expression = "cron(0 */3 * * ? *)"
+
 }
 
 resource "aws_lambda_permission" "cloudwatch-call-maccas-service" {
