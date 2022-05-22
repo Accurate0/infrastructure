@@ -112,7 +112,7 @@ resource "aws_lambda_function" "api-refresh" {
   runtime       = "provided.al2"
 }
 
-resource "aws_lambda_function_url" "lambda-url" {
-  function_name      = aws_lambda_function.api-refresh.function_name
-  authorization_type = "NONE"
-}
+# resource "aws_lambda_function_url" "lambda-url" {
+#   function_name      = aws_lambda_function.api-refresh.function_name
+#   authorization_type = "NONE"
+# }

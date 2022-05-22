@@ -39,3 +39,15 @@ resource "aws_dynamodb_table" "maccas-api-offer-id-db" {
     type = "S"
   }
 }
+
+data "aws_dynamodb_table" "maccas-api-db-v1" {
+  name = "MaccasApiDb"
+}
+
+data "aws_dynamodb_table" "maccas-api-cache-db-v1" {
+  name = "MaccasApiCache"
+}
+
+data "aws_dynamodb_table" "maccas-api-offer-id-db-v1" {
+  name = "MaccasApiOfferId"
+}
