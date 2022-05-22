@@ -42,7 +42,7 @@ resource "azurerm_api_management_api_diagnostic" "api-diag" {
       "content-type",
       "accept",
       "origin",
-      "Correlation-Id",
+      "traceparent",
     ]
   }
 
@@ -52,7 +52,7 @@ resource "azurerm_api_management_api_diagnostic" "api-diag" {
       "content-type",
       "content-length",
       "origin",
-      "Correlation-Id",
+      "traceparent",
     ]
   }
 
@@ -62,7 +62,7 @@ resource "azurerm_api_management_api_diagnostic" "api-diag" {
       "content-type",
       "accept",
       "origin",
-      "Correlation-Id",
+      "traceparent",
     ]
   }
 
@@ -72,7 +72,7 @@ resource "azurerm_api_management_api_diagnostic" "api-diag" {
       "content-type",
       "content-length",
       "origin",
-      "Correlation-Id",
+      "traceparent",
     ]
   }
 }
