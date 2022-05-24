@@ -24,6 +24,9 @@
         <base />
     </backend>
     <outbound>
+        <set-header name="Cache-Control" exists-action="skip">
+            <value>no-cache</value>
+        </set-header>
         <base />
     </outbound>
     <on-error>
