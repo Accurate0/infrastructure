@@ -17,6 +17,7 @@ resource "azurerm_api_management_subscription" "maccas-v2-subscription" {
   api_id              = azurerm_api_management_api.maccas-v2.id
   display_name        = "Maccas Web API (public)"
   state               = "active"
+  allow_tracing       = false
 }
 
 resource "azurerm_api_management_named_value" "maccas-api-public-id" {
