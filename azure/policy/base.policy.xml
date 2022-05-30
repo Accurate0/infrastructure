@@ -1,24 +1,5 @@
 <policies>
     <inbound>
-        <cors allow-credentials="true">
-            <allowed-origins>
-                <origin>http://localhost:3000/</origin>
-                <origin>https://isitww3yet.com/</origin>
-                <origin>https://maccas.anurag.sh/</origin>
-            </allowed-origins>
-            <allowed-methods preflight-result-max-age="300">
-                <method>GET</method>
-                <method>POST</method>
-                <method>DELETE</method>
-                <method>PATCH</method>
-            </allowed-methods>
-            <allowed-headers>
-                <header>*</header>
-            </allowed-headers>
-            <expose-headers>
-                <header>*</header>
-            </expose-headers>
-        </cors>
         <set-header name="traceparent" exists-action="skip">
             <value>@($"00-{context.RequestId.ToString("N")}-0000000000000000-01")</value>
         </set-header>

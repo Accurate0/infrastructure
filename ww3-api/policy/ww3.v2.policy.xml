@@ -1,6 +1,21 @@
 <policies>
     <inbound>
         <base />
+        <cors>
+            <allowed-origins>
+                <origin>http://localhost:3000/</origin>
+                <origin>https://isitww3yet.com/</origin>
+            </allowed-origins>
+            <allowed-methods preflight-result-max-age="300">
+                <method>GET</method>
+            </allowed-methods>
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+            <expose-headers>
+                <header>*</header>
+            </expose-headers>
+        </cors>
         <set-header name="X-API-Key" exists-action="override">
             <value>{{WW3LambdaApiKey}}</value>
         </set-header>
