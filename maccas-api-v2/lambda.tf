@@ -91,16 +91,6 @@ resource "aws_lambda_function" "api" {
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
   timeout       = 30
-  memory_size   = 128
-  runtime       = "provided.al2"
-}
-
-resource "aws_lambda_function" "api-deals" {
-  function_name = "MaccasApi-deals-v2"
-  handler       = "bootstrap"
-  role          = aws_iam_role.iam.arn
-  filename      = data.archive_file.dummy.output_path
-  timeout       = 30
-  memory_size   = 128
+  memory_size   = 256
   runtime       = "provided.al2"
 }

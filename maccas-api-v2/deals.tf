@@ -33,7 +33,7 @@ resource "aws_api_gateway_integration" "deals-api-integration" {
   http_method             = aws_api_gateway_method.deals-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_resource" "locations-api-resource" {
@@ -180,7 +180,7 @@ resource "aws_api_gateway_integration" "locations-get-api-integration" {
   http_method             = aws_api_gateway_method.locations-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "locations-search-post-api-integration" {
@@ -189,7 +189,7 @@ resource "aws_api_gateway_integration" "locations-search-post-api-integration" {
   http_method             = aws_api_gateway_method.locations-search-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "user-config-get-api-integration" {
@@ -198,7 +198,7 @@ resource "aws_api_gateway_integration" "user-config-get-api-integration" {
   http_method             = aws_api_gateway_method.user-config-get-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "user-config-patch-api-integration" {
@@ -207,7 +207,7 @@ resource "aws_api_gateway_integration" "user-config-patch-api-integration" {
   http_method             = aws_api_gateway_method.user-config-patch-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "lock-post-api-integration" {
@@ -216,7 +216,7 @@ resource "aws_api_gateway_integration" "lock-post-api-integration" {
   http_method             = aws_api_gateway_method.lock-post-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "lock-delete-api-integration" {
@@ -225,7 +225,7 @@ resource "aws_api_gateway_integration" "lock-delete-api-integration" {
   http_method             = aws_api_gateway_method.lock-delete-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_integration" "last-refresh-api-integration" {
@@ -234,7 +234,7 @@ resource "aws_api_gateway_integration" "last-refresh-api-integration" {
   http_method             = aws_api_gateway_method.last-refresh-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.api-deals.invoke_arn
+  uri                     = aws_lambda_function.api.invoke_arn
 }
 
 resource "aws_api_gateway_resource" "deals-dealid-post-api-resource" {
