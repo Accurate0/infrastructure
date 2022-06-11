@@ -101,18 +101,3 @@ resource "aws_lambda_function" "api-deals" {
   memory_size   = 128
   runtime       = "provided.al2"
 }
-
-resource "aws_lambda_function" "api-refresh" {
-  function_name = "MaccasApi-refresh"
-  handler       = "bootstrap"
-  role          = aws_iam_role.iam.arn
-  filename      = data.archive_file.dummy.output_path
-  timeout       = 120
-  memory_size   = 256
-  runtime       = "provided.al2"
-}
-
-# resource "aws_lambda_function_url" "lambda-url" {
-#   function_name      = aws_lambda_function.api-refresh.function_name
-#   authorization_type = "NONE"
-# }
