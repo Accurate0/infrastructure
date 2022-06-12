@@ -5,11 +5,12 @@ data "azurerm_api_management_product" "maccas-bot" {
 }
 
 resource "azurerm_api_management_product" "maccas-web-api-public" {
-  product_id          = "MaccasApiPublic"
-  display_name        = "Maccas Web API (public)"
-  published           = true
-  api_management_name = data.azurerm_api_management.general-apim.name
-  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
+  product_id            = "MaccasApiPublic"
+  display_name          = "Maccas Web API (public)"
+  published             = true
+  api_management_name   = data.azurerm_api_management.general-apim.name
+  resource_group_name   = data.azurerm_api_management.general-apim.resource_group_name
+  subscription_required = false
 }
 
 resource "azurerm_api_management_product_api" "maccas-web-api" {
@@ -25,15 +26,6 @@ resource "azurerm_api_management_product_policy" "maccas-web-api-public" {
   resource_group_name = azurerm_api_management_product.maccas-web-api-public.resource_group_name
 
   xml_content = file("policy/public.policy.xml")
-}
-
-resource "azurerm_api_management_subscription" "maccas-v2-subscription" {
-  api_management_name = data.azurerm_api_management.general-apim.name
-  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
-  product_id          = azurerm_api_management_product.maccas-web-api-public.id
-  display_name        = "Maccas Web API (public)"
-  state               = "active"
-  allow_tracing       = false
 }
 
 resource "azurerm_api_management_product" "maccas-policy-apim" {
