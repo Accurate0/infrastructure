@@ -16,3 +16,14 @@ services:
     depends_on:
       - ww3
     container_name: nginx
+
+  znc:
+    image: znc:1.8.2-slim
+    ports:
+      - "12345:12345"
+    restart: always
+    container_name: znc
+    volumes:
+      - znc-cfg:/znc-data
+volumes:
+  znc-cfg:
