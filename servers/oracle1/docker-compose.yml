@@ -20,7 +20,7 @@ services:
   znc:
     image: znc:1.8.2-slim
     ports:
-      - "12345:12345"
+      - "6667:6667"
     restart: always
     container_name: znc
     volumes:
