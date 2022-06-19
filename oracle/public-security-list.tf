@@ -28,6 +28,18 @@ resource "oci_core_security_list" "public-security-list" {
     source_type = "CIDR_BLOCK"
     protocol    = "6"
     tcp_options {
+      min = 6667
+      max = 6667
+    }
+  }
+
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6"
+    tcp_options {
       min = 443
       max = 443
     }
