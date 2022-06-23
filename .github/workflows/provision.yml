@@ -96,6 +96,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       TF_VAR_cloudflare_zone_id: ${{ secrets.TF_VAR_cloudflare_zone_id }}
       TF_VAR_home_assistant_api_key: ${{ secrets.TF_VAR_home_assistant_api_key }}
+      VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
