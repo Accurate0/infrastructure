@@ -101,3 +101,10 @@ resource "tfe_workspace" "maccas-api-v2" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "anurag-sh" {
+  name           = "anurag-sh"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
