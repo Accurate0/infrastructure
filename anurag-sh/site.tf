@@ -8,6 +8,16 @@ resource "cloudflare_record" "root" {
   allow_overwrite = true
 }
 
+resource "cloudflare_record" "www" {
+  zone_id         = var.cloudflare_zone_id
+  name            = "www"
+  value           = "anurag.sh"
+  type            = "CNAME"
+  proxied         = true
+  ttl             = 1
+  allow_overwrite = true
+}
+
 resource "vercel_project" "anurag-sh" {
   name      = "anurag-sh"
   framework = "create-react-app"
