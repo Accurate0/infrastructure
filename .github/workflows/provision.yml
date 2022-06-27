@@ -67,6 +67,7 @@ jobs:
           - anurag-sh
           - ww3-api
           - weather-api
+          - dota2-api
           - light-api
           - cloudflare
           - sandbox

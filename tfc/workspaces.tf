@@ -108,3 +108,10 @@ resource "tfe_workspace" "anurag-sh" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "dota2-api" {
+  name           = "dota2-api"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
