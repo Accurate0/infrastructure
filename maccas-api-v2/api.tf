@@ -44,10 +44,13 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_integration.user-config-get-api-integration,
     aws_api_gateway_integration.user-config-post-api-integration,
     aws_api_gateway_integration.last-refresh-api-integration,
+
+    module.statistics,
+    module.account,
   ]
 
   triggers = {
-    redeployment = jsonencode([filesha1("deals.tf"), filesha1("api.tf")])
+    redeployment = jsonencode([filesha1("deals.tf"), filesha1("api.tf"), filesha1("endpoints.tf")])
   }
 
   lifecycle {
