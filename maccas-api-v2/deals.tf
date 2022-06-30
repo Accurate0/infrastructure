@@ -107,10 +107,10 @@ resource "aws_api_gateway_method" "user-config-get-api-method" {
   authorization    = "NONE"
 }
 
-resource "aws_api_gateway_method" "user-config-patch-api-method" {
+resource "aws_api_gateway_method" "user-config-post-api-method" {
   rest_api_id      = aws_api_gateway_rest_api.api.id
   resource_id      = aws_api_gateway_resource.users-config-api-resource.id
-  http_method      = "PATCH"
+  http_method      = "POST"
   api_key_required = true
   authorization    = "NONE"
 }
@@ -201,10 +201,10 @@ resource "aws_api_gateway_integration" "user-config-get-api-integration" {
   uri                     = aws_lambda_function.api.invoke_arn
 }
 
-resource "aws_api_gateway_integration" "user-config-patch-api-integration" {
+resource "aws_api_gateway_integration" "user-config-post-api-integration" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.users-config-api-resource.id
-  http_method             = aws_api_gateway_method.user-config-patch-api-method.http_method
+  http_method             = aws_api_gateway_method.user-config-post-api-method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.api.invoke_arn

@@ -55,11 +55,11 @@ resource "azurerm_api_management_api_operation" "config-get-operation" {
   resource_group_name = azurerm_api_management_api.maccas-v2.resource_group_name
 }
 
-resource "azurerm_api_management_api_operation" "config-patch-operation" {
-  operation_id = "PatchConfig"
-  display_name = "Patch User Config"
+resource "azurerm_api_management_api_operation" "config-post-operation" {
+  operation_id = "UpdateConfig"
+  display_name = "Update User Config"
   url_template = "/user/config"
-  method       = "PATCH"
+  method       = "POST"
 
   api_name            = azurerm_api_management_api.maccas-v2.name
   api_management_name = azurerm_api_management_api.maccas-v2.api_management_name
@@ -75,11 +75,11 @@ resource "azurerm_api_management_api_operation_policy" "config-get-operation-pol
   xml_content = file("policy/config.policy.xml")
 }
 
-resource "azurerm_api_management_api_operation_policy" "config-patch-operation-policy" {
-  api_name            = azurerm_api_management_api_operation.config-patch-operation.api_name
-  api_management_name = azurerm_api_management_api_operation.config-patch-operation.api_management_name
-  resource_group_name = azurerm_api_management_api_operation.config-patch-operation.resource_group_name
-  operation_id        = azurerm_api_management_api_operation.config-patch-operation.operation_id
+resource "azurerm_api_management_api_operation_policy" "config-post-operation-policy" {
+  api_name            = azurerm_api_management_api_operation.config-post-operation.api_name
+  api_management_name = azurerm_api_management_api_operation.config-post-operation.api_management_name
+  resource_group_name = azurerm_api_management_api_operation.config-post-operation.resource_group_name
+  operation_id        = azurerm_api_management_api_operation.config-post-operation.operation_id
 
   xml_content = file("policy/config.policy.xml")
 }

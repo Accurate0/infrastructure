@@ -16,6 +16,19 @@ resource "aws_dynamodb_table" "maccas-api-cache-db" {
   }
 }
 
+resource "aws_dynamodb_table" "maccas-api-user-config-db" {
+  name           = "MaccasApiUserConfig-v2"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 3
+  write_capacity = 1
+  hash_key       = "user_id"
+
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
+}
+
 data "aws_dynamodb_table" "maccas-api-db-v1" {
   name = "MaccasApiDb"
 }

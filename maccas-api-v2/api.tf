@@ -31,7 +31,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_method.lock-delete-api-method,
     aws_api_gateway_method.locations-search-api-method,
     aws_api_gateway_method.user-config-get-api-method,
-    aws_api_gateway_method.user-config-patch-api-method,
+    aws_api_gateway_method.user-config-post-api-method,
     aws_api_gateway_method.last-refresh-api-method,
 
     aws_api_gateway_integration.deals-api-integration,
@@ -42,7 +42,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_integration.lock-delete-api-integration,
     aws_api_gateway_integration.locations-search-post-api-integration,
     aws_api_gateway_integration.user-config-get-api-integration,
-    aws_api_gateway_integration.user-config-patch-api-integration,
+    aws_api_gateway_integration.user-config-post-api-integration,
     aws_api_gateway_integration.last-refresh-api-integration,
   ]
 
