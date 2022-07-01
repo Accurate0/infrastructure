@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam" {
-  name = "iam_for_MaccasApi"
+  name = "iam_for_MaccasApi-v2"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -15,55 +15,59 @@ resource "aws_iam_role" "iam" {
   })
 }
 
-resource "aws_iam_policy" "dynamodb-access" {
-  name   = "maccas-api-dynamodb-access"
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ListAndDescribe",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:List*",
-                "dynamodb:DescribeReservedCapacity*",
-                "dynamodb:DescribeLimits",
-                "dynamodb:DescribeTimeToLive"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "SpecificTable",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:BatchGet*",
-                "dynamodb:DescribeStream",
-                "dynamodb:DescribeTable",
-                "dynamodb:Get*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:BatchWrite*",
-                "dynamodb:CreateTable",
-                "dynamodb:Delete*",
-                "dynamodb:Update*",
-                "dynamodb:PutItem"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-db.id}",
-                "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db.id}",
-                "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-offer-id-db.id}"
-            ]
+resource "aws_iam_policy" "resource-access" {
+  name = "maccas-api-resource-access-v2"
+  policy = jsonencode({
+    "Version" = "2012-10-17"
 
-        }
-    ]
+    "Statement" = [{
+      "Sid"    = "ListAndDescribe"
+      "Effect" = "Allow"
+      "Action" = [
+        "dynamodb:List*",
+        "dynamodb:DescribeReservedCapacity*",
+        "dynamodb:DescribeLimits",
+        "dynamodb:DescribeTimeToLive"
+      ]
+      "Resource" = "*"
+      },
+      {
+        "Sid"    = "SpecificTable"
+        "Effect" = "Allow"
+        "Action" = [
+          "dynamodb:BatchGet*",
+          "dynamodb:DescribeStream",
+          "dynamodb:DescribeTable",
+          "dynamodb:Get*",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchWrite*",
+          "dynamodb:CreateTable",
+          "dynamodb:Delete*",
+          "dynamodb:Update*",
+          "dynamodb:PutItem"
+        ]
+        "Resource" = [
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-db.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-user-config-db.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db-v1.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-offer-id-db.id}",
+        ]
+      },
+      {
+        "Effect" = "Allow"
+        "Action" = [
+          "s3:GetObject",
+        ]
+        "Resource" = ["${aws_s3_bucket.config.arn}", "${aws_s3_bucket.config.arn}/*"]
+    }]
+  })
 }
-EOF
 
-}
-
-resource "aws_iam_role_policy_attachment" "dynamodb-full-access-attachment" {
+resource "aws_iam_role_policy_attachment" "resource-full-access-attachment" {
   role       = aws_iam_role.iam.name
-  policy_arn = aws_iam_policy.dynamodb-access.arn
+  policy_arn = aws_iam_policy.resource-access.arn
 }
 
 
@@ -83,21 +87,11 @@ data "archive_file" "dummy" {
 }
 
 resource "aws_lambda_function" "api" {
-  function_name = "MaccasApi"
+  function_name = "MaccasApi-v2"
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
   timeout       = 30
-  memory_size   = 128
-  runtime       = "provided.al2"
-}
-
-resource "aws_lambda_function" "api-deals" {
-  function_name = "MaccasApi-deals"
-  handler       = "bootstrap"
-  role          = aws_iam_role.iam.arn
-  filename      = data.archive_file.dummy.output_path
-  timeout       = 30
-  memory_size   = 128
+  memory_size   = 256
   runtime       = "provided.al2"
 }

@@ -17,7 +17,10 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_resource.deals-dealid-post-api-resource,
     aws_api_gateway_resource.locations-api-resource,
     aws_api_gateway_resource.lock-api-resource,
-    aws_api_gateway_resource.lock-dealid-get-api-resource,
+    aws_api_gateway_resource.users-api-resource,
+    aws_api_gateway_resource.users-config-api-resource,
+    aws_api_gateway_resource.locations-search-api-resource,
+    aws_api_gateway_resource.last-refresh-api-resource,
 
     aws_api_gateway_method.deals-api-method,
     aws_api_gateway_method.code-api-method,
@@ -26,6 +29,10 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_method.locations-api-method,
     aws_api_gateway_method.lock-post-api-method,
     aws_api_gateway_method.lock-delete-api-method,
+    aws_api_gateway_method.locations-search-api-method,
+    aws_api_gateway_method.user-config-get-api-method,
+    aws_api_gateway_method.user-config-post-api-method,
+    aws_api_gateway_method.last-refresh-api-method,
 
     aws_api_gateway_integration.deals-api-integration,
     aws_api_gateway_integration.deals-delete-api-integration,
@@ -33,10 +40,18 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     aws_api_gateway_integration.locations-get-api-integration,
     aws_api_gateway_integration.lock-post-api-integration,
     aws_api_gateway_integration.lock-delete-api-integration,
+    aws_api_gateway_integration.locations-search-post-api-integration,
+    aws_api_gateway_integration.user-config-get-api-integration,
+    aws_api_gateway_integration.user-config-post-api-integration,
+    aws_api_gateway_integration.last-refresh-api-integration,
+
+    module.statistics,
+    module.account,
+    module.total-accounts,
   ]
 
   triggers = {
-    redeployment = jsonencode([filesha1("deals.tf"), filesha1("api.tf")])
+    redeployment = jsonencode([filesha1("deals.tf"), filesha1("api.tf"), filesha1("endpoints.tf")])
   }
 
   lifecycle {
@@ -80,15 +95,6 @@ resource "aws_lambda_permission" "api-gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.api.function_name
-  principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
-}
-
-resource "aws_lambda_permission" "api-deals-gw" {
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.api-deals.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"

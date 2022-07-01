@@ -60,13 +60,6 @@ resource "tfe_workspace" "sandbox" {
   queue_all_runs = false
 }
 
-resource "tfe_workspace" "maccas-api" {
-  name           = "maccas-api"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-}
-
 resource "tfe_workspace" "places-api" {
   name           = "places-api"
   execution_mode = "local"
@@ -95,8 +88,8 @@ resource "tfe_workspace" "aws" {
   queue_all_runs = false
 }
 
-resource "tfe_workspace" "maccas-api-v2" {
-  name           = "maccas-api-v2"
+resource "tfe_workspace" "maccas-api" {
+  name           = "maccas-api"
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false

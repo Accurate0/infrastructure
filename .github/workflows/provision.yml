@@ -72,7 +72,6 @@ jobs:
           - cloudflare
           - sandbox
           - maccas-api
-          - maccas-api-v2
           - places-api
           - kvp-api
           - log-api

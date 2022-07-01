@@ -8,6 +8,14 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.0.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "3.10.1"
+    }
+    vercel = {
+      source  = "vercel/vercel"
+      version = "~> 0.3"
+    }
   }
 
   cloud {
@@ -22,8 +30,3 @@ provider "azurerm" {
 }
 
 provider "aws" {}
-
-provider "aws" {
-  alias  = "singapore"
-  region = "ap-southeast-1"
-}
