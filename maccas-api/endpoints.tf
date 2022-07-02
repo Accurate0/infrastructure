@@ -20,6 +20,41 @@ module "deal" {
   methods          = []
 }
 
+module "points" {
+  source           = "Accurate0/serverless-resource/aws"
+  version          = "2.1.0"
+  api_key_required = true
+  api              = aws_api_gateway_rest_api.api.id
+  root_resource    = aws_api_gateway_rest_api.api.root_resource_id
+  resource         = "points"
+  cors             = false
+  methods = [
+    {
+      method     = "GET"
+      type       = null
+      invoke_arn = aws_lambda_function.api.invoke_arn
+    }
+  ]
+}
+
+module "accountId" {
+  source           = "Accurate0/serverless-resource/aws"
+  version          = "2.1.0"
+  api_key_required = true
+  api              = aws_api_gateway_rest_api.api.id
+  root_resource    = module.points.resource
+  resource         = "{accountId}"
+  cors             = false
+  methods = [
+    {
+      method     = "GET"
+      type       = null
+      invoke_arn = aws_lambda_function.api.invoke_arn
+    }
+  ]
+}
+
+
 module "dealId" {
   source           = "Accurate0/serverless-resource/aws"
   version          = "2.1.0"

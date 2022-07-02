@@ -69,3 +69,15 @@ resource "aws_dynamodb_table" "maccas-api-offer-id-db" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "maccas-api-point-db" {
+  name           = "MaccasApiPointDb"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 4
+  write_capacity = 2
+  hash_key       = "account_hash"
+  attribute {
+    name = "account_hash"
+    type = "S"
+  }
+}

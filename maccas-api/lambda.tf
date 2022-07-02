@@ -53,6 +53,7 @@ resource "aws_iam_policy" "resource-access" {
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-user-config-db.id}",
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db-v1.id}",
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-offer-id-db.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-point-db.id}",
         ]
       },
       {
