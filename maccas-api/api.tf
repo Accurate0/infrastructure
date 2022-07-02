@@ -48,6 +48,8 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     module.statistics,
     module.account,
     module.total-accounts,
+    module.deal,
+    module.dealId,
   ]
 
   triggers = {
