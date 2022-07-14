@@ -2,7 +2,7 @@ resource "aws_dynamodb_table" "maccas-api-cache-db" {
   name           = "MaccasApiCache-v2"
   billing_mode   = "PROVISIONED"
   read_capacity  = 6
-  write_capacity = 3
+  write_capacity = 6
   hash_key       = "deal_uuid"
 
   ttl {
