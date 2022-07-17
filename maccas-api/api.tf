@@ -52,6 +52,8 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     module.dealId,
     module.points,
     module.accountId,
+    module.docs,
+    module.openapi,
   ]
 
   triggers = {
