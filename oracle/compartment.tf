@@ -1,5 +1,5 @@
-resource "oci_identity_compartment" "paste" {
+resource "oci_identity_compartment" "arm" {
   compartment_id = var.root_compartment_id
-  description    = "pastebin"
-  name           = "paste"
+  description    = "arm"
+  name           = "arm"
 }

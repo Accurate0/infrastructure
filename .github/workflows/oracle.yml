@@ -7,7 +7,6 @@ on:
       - oracle/**
       - .github/workflows/oracle.yml
       - .github/workflows/call-terraform-remote.yml
-      - servers/oracle1/**
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
@@ -15,8 +14,7 @@ concurrency:
 
 env:
   USERNAME: ubuntu
-  ORACLE1_HOST: oracle1.anurag.sh
-  ORACLE2_HOST: oracle2.anurag.sh
+  ORACLE_HOST: oracle.anurag.sh
 
 jobs:
   provision:
@@ -36,7 +34,7 @@ jobs:
       - name: install/update dependencies
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: ${{ env.ORACLE1_HOST }},${{ env.ORACLE2_HOST }}
+          host: ${{ env.ORACLE_HOST }}
           sync: true
           username: ${{ env.USERNAME }}
           key: ${{ secrets.INSTANCE_KEY }}
@@ -61,33 +59,3 @@ jobs:
             sudo systemctl enable --now --no-block docker.service
             sudo usermod -a -G docker ubuntu
             sudo pip install docker-compose
-
-  deploy-oracle1:
-    needs: update-install
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
-      - name: deploy
-        uses: Burnett01/rsync-deployments@5.2
-        with:
-          switches: -avz --delete --progress
-          remote_path: /home/${{ env.USERNAME }}/
-          remote_host: ${{ env.ORACLE1_HOST }}
-          remote_user: ${{ env.USERNAME }}
-          remote_key: ${{ secrets.INSTANCE_KEY }}
-          path: servers/oracle1
-
-      - name: activate deployment
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ env.ORACLE1_HOST }}
-          username: ${{ env.USERNAME }}
-          key: ${{ secrets.INSTANCE_KEY }}
-          script: |
-            cd oracle1
-            docker-compose up --build -d --remove-orphans
-            docker ps
