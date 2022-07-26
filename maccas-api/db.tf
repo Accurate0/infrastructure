@@ -48,6 +48,11 @@ resource "aws_dynamodb_table" "maccas-api-cache-db-v1" {
   write_capacity = 3
   hash_key       = "account_name"
 
+  ttl {
+    enabled        = true
+    attribute_name = "ttl"
+  }
+
   attribute {
     name = "account_name"
     type = "S"
