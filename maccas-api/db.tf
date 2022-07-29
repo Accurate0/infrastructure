@@ -86,3 +86,15 @@ resource "aws_dynamodb_table" "maccas-api-point-db" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
+  name           = "MaccasRefreshTrackingDb"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "region"
+  attribute {
+    name = "region"
+    type = "S"
+  }
+}
