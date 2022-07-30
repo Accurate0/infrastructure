@@ -46,6 +46,7 @@
         <set-header name="x-amz-apigw-id" exists-action="delete"/>
         <set-header name="x-amzn-RequestId" exists-action="delete"/>
         <set-header name="X-Amzn-Trace-Id" exists-action="delete"/>
+        <set-header name="X-amzn-remapped-server" exists-action="delete"/>
     </outbound>
     <on-error />
 </policies>
