@@ -1,7 +1,7 @@
 resource "aws_dynamodb_table" "maccas-api-cache-db" {
   name           = "MaccasApiCache-v2"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 6
+  read_capacity  = 2
   write_capacity = 6
   hash_key       = "deal_uuid"
 
@@ -19,7 +19,7 @@ resource "aws_dynamodb_table" "maccas-api-cache-db" {
 resource "aws_dynamodb_table" "maccas-api-user-config-db" {
   name           = "MaccasApiUserConfig-v2"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 3
+  read_capacity  = 2
   write_capacity = 1
   hash_key       = "user_id"
 
@@ -78,7 +78,7 @@ resource "aws_dynamodb_table" "maccas-api-offer-id-db" {
 resource "aws_dynamodb_table" "maccas-api-point-db" {
   name           = "MaccasApiPointDb"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 4
+  read_capacity  = 2
   write_capacity = 2
   hash_key       = "account_hash"
   attribute {
