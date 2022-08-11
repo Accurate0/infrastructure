@@ -69,7 +69,7 @@ resource "aws_iam_policy" "resource-access" {
         "Action" = [
           "s3:PutObject",
           "s3:ListBucket",
-          "s3:HeadObject",
+          "s3:GetObject",
         ]
         "Resource" = ["${aws_s3_bucket.image-bucket.arn}", "${aws_s3_bucket.image-bucket.arn}/*"]
     }]
