@@ -63,6 +63,15 @@ resource "aws_iam_policy" "resource-access" {
           "s3:GetObject",
         ]
         "Resource" = ["${aws_s3_bucket.config.arn}", "${aws_s3_bucket.config.arn}/*"]
+      },
+      {
+        "Effect" = "Allow"
+        "Action" = [
+          "s3:PutObject",
+          "s3:ListBucket",
+          "s3:HeadObject",
+        ]
+        "Resource" = ["${aws_s3_bucket.image-bucket.arn}", "${aws_s3_bucket.image-bucket.arn}/*"]
     }]
   })
 }
