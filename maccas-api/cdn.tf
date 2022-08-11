@@ -55,17 +55,10 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
     max_ttl                = 604800
   }
 
-  custom_error_response {
-    error_code            = 403
-    error_caching_min_ttl = 21600
-    response_code         = 200
-    response_page_path    = "/404.jpg"
-  }
-
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["AU"]
+      restriction_type = "none"
+      locations        = []
     }
   }
 
