@@ -50,9 +50,16 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 86400
-    default_ttl            = 86400
-    max_ttl                = 86400
+    min_ttl                = 604800
+    default_ttl            = 604800
+    max_ttl                = 604800
+  }
+
+  custom_error_response {
+    error_code            = 403
+    error_caching_min_ttl = 21600
+    response_code         = 200
+    response_page_path    = "/404.jpg"
   }
 
   restrictions {
