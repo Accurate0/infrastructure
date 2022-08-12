@@ -37,4 +37,5 @@ resource "azurerm_api_management_subscription" "maccas-policy-apim-subscription"
   product_id          = azurerm_api_management_product.maccas-policy-apim.id
   display_name        = "Maccas API Key (internal usage)"
   state               = "active"
+  allow_tracing       = false
 }
