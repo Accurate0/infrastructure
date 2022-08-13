@@ -1,6 +1,6 @@
 default_config:
 
-automation: !include automations.yaml
+automation: !include automations.yml
 
 http:
   use_x_forwarded_for: true
