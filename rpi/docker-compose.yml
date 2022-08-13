@@ -7,7 +7,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - ww3
+      - homeassistant
     restart: always
     network_mode: host
 
