@@ -1,0 +1,37 @@
+- id: light_off
+  alias: light off
+  description: ""
+  trigger:
+    - platform: device
+      device_id: 7a49e694a71c6657fbc5c8ba16321e85
+      domain: device_tracker
+      entity_id: device_tracker.pixel_5
+      type: leaves
+      zone: zone.home
+  condition: []
+  action:
+    - type: turn_off
+      device_id: 95f29f99fbaeeb1c2944f5f4c5eff8c4
+      entity_id: light.0x0017880103525874
+      domain: light
+    - type: turn_off
+      device_id: b69dad7f4a95003ee32aa15c45be2caf
+      entity_id: light.0x001788010381ef5d
+      domain: light
+  mode: single
+
+- id: sunset
+  alias: sunset
+  description: ""
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "0"
+  condition: []
+  action:
+    - type: turn_on
+      device_id: b69dad7f4a95003ee32aa15c45be2caf
+      entity_id: light.0x001788010381ef5d
+      domain: light
+      brightness_pct: 100
+  mode: single
