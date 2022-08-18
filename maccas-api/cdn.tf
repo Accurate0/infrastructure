@@ -22,6 +22,27 @@ locals {
   s3_origin_id = "image-bucket"
 }
 
+resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
+  name        = "maccas-image-cache-policy"
+  default_ttl = 2592000
+  max_ttl     = 2592000
+  min_ttl     = 2592000
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
+  }
+}
+
 resource "aws_cloudfront_distribution" "image-s3-distribution" {
   origin {
     domain_name = aws_s3_bucket.image-bucket.bucket_regional_domain_name
@@ -41,18 +62,8 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
 
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 604800
-    default_ttl            = 604800
-    max_ttl                = 604800
+    cache_policy_id        = aws_cloudfront_cache_policy.maccas-image-cache.id
   }
 
   restrictions {
