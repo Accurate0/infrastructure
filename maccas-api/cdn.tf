@@ -19,14 +19,15 @@ resource "aws_s3_bucket_policy" "image-bucket" {
 }
 
 locals {
-  s3_origin_id = "image-bucket"
+  s3_origin_id         = "image-bucket"
+  one_month_in_seconds = 2592000
 }
 
 resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
   name        = "maccas-image-cache-policy"
-  default_ttl = 2592000
-  max_ttl     = 2592000
-  min_ttl     = 2592000
+  default_ttl = local.one_month_in_seconds
+  max_ttl     = local.one_month_in_seconds
+  min_ttl     = local.one_month_in_seconds
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "none"
