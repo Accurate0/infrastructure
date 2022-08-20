@@ -264,3 +264,54 @@ module "user-config" {
     }
   ]
 }
+
+module "admin" {
+  source           = "Accurate0/serverless-resource/aws"
+  version          = "2.1.0"
+  api_key_required = true
+  api              = aws_api_gateway_rest_api.api.id
+  root_resource    = aws_api_gateway_rest_api.api.root_resource_id
+  resource         = "admin"
+  cors             = false
+  methods          = []
+}
+
+module "admin-locked-deals" {
+  source           = "Accurate0/serverless-resource/aws"
+  version          = "2.1.0"
+  api_key_required = true
+  api              = aws_api_gateway_rest_api.api.id
+  root_resource    = module.admin.resource
+  resource         = "locked-deals"
+  cors             = false
+  methods = [
+    {
+      method     = "GET"
+      type       = null
+      invoke_arn = aws_lambda_function.api.invoke_arn
+    },
+  ]
+}
+
+module "admin-locked-deals-dealid" {
+  source           = "Accurate0/serverless-resource/aws"
+  version          = "2.1.0"
+  api_key_required = true
+  api              = aws_api_gateway_rest_api.api.id
+  root_resource    = module.admin-locked-deals.resource
+  resource         = "{dealId}"
+  cors             = false
+  methods = [
+
+    {
+      method     = "POST"
+      type       = null
+      invoke_arn = aws_lambda_function.api.invoke_arn
+    },
+    {
+      method     = "DELETE"
+      type       = null
+      invoke_arn = aws_lambda_function.api.invoke_arn
+    }
+  ]
+}

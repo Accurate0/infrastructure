@@ -32,7 +32,10 @@ resource "aws_api_gateway_deployment" "api-deployment" {
     module.locations-search,
     module.deals-last-refresh,
     module.user,
-    module.user-config
+    module.user-config,
+    module.admin,
+    module.admin-locked-deals,
+    module.admin-locked-deals-dealid,
   ]
 
   triggers = {
