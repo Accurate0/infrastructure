@@ -1,0 +1,5 @@
+<fragment>
+    <set-header name="X-Maccas-JWT-Bypass" exists-action="override">
+        <value>{{MaccasJwtBypass}}</value>
+    </set-header>
+</fragment>

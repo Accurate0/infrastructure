@@ -16,6 +16,10 @@ terraform {
       source  = "vercel/vercel"
       version = "~> 0.3"
     }
+    azapi = {
+      source  = "Azure/azapi"
+      version = "0.5.0"
+    }
   }
 
   cloud {
@@ -25,6 +29,10 @@ terraform {
     }
   }
 }
+
+provider "azapi" {
+}
+
 provider "azurerm" {
   features {}
 }

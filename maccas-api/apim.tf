@@ -85,3 +85,17 @@ resource "azurerm_api_management_api_operation_policy" "config-post-operation-po
 
   xml_content = file("policy/config.policy.xml")
 }
+
+resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
+  type      = "Microsoft.ApiManagement/service/policyFragments@2021-12-01-preview"
+  name      = "maccas-jwt-bypass-policy"
+  parent_id = data.azurerm_api_management.general-apim.id
+
+  body = jsonencode({
+    properties = {
+      description = "maccas-jwt-bypass-policy"
+      format      = "rawxml"
+      value       = file("policy/bypass.fragment.policy.xml")
+    }
+  })
+}
