@@ -1,6 +1,6 @@
 [
     {
-        "name": "Locations",
+        "name": "GetLocations",
         "displayName": "Get Locations",
         "method": "GET",
         "urlTemplate": "/locations",
@@ -23,7 +23,7 @@
         ]
     },
     {
-        "name": "Search-Locations",
+        "name": "SearchLocations",
         "displayName": "Search Location",
         "method": "GET",
         "urlTemplate": "/locations/search",
@@ -63,7 +63,7 @@
         "templateParameters": []
     },
     {
-        "name": "Deals-GET",
+        "name": "GetDeal",
         "displayName": "Get Specific Deal",
         "method": "GET",
         "urlTemplate": "/deals/{dealId}",
@@ -77,7 +77,7 @@
         "queryParameters": []
     },
     {
-        "name": "Deals-POST",
+        "name": "AddDeal",
         "displayName": "Add Deal",
         "method": "POST",
         "urlTemplate": "/deals/{dealId}",
@@ -97,7 +97,7 @@
         ]
     },
     {
-        "name": "Deals-DELETE",
+        "name": "RemoveDeal",
         "displayName": "Remove Deals",
         "method": "DELETE",
         "urlTemplate": "/deals/{dealId}",
@@ -117,14 +117,14 @@
         ]
     },
     {
-        "name": "Last-Refresh",
+        "name": "LastRefresh",
         "displayName": "Get Last Refresh",
         "method": "GET",
         "urlTemplate": "/deals/last-refresh",
         "templateParameters": []
     },
     {
-        "name": "Statistics-Account",
+        "name": "StatisticsAccount",
         "dependsOn": [],
         "displayName": "Get Account Stats",
         "method": "GET",
@@ -132,14 +132,14 @@
         "templateParameters": []
     },
     {
-        "name": "Total-Accounts",
+        "name": "StatisticsTotalAccount",
         "displayName": "Get Account Count",
         "method": "GET",
         "urlTemplate": "/statistics/total-accounts",
         "templateParameters": []
     },
     {
-        "name": "Get-Points",
+        "name": "Points",
         "dependsOn": [],
         "displayName": "Get Point List",
         "method": "GET",
@@ -147,7 +147,7 @@
         "templateParameters": []
     },
     {
-        "name": "Points-AccountId-GET",
+        "name": "GetPoints",
         "displayName": "Get Random Code for Point Account",
         "method": "GET",
         "urlTemplate": "/points/{accountId}",
@@ -167,14 +167,14 @@
         ]
     },
     {
-        "name": "Docs-OpenApi-GET",
+        "name": "GetOpenApi",
         "displayName": "Get OpenApi spec",
         "method": "GET",
         "urlTemplate": "/docs/openapi",
         "templateParameters": []
     },
     {
-        "name": "Admin-Lock-Deal-POST",
+        "name": "LockDeal",
         "displayName": "Lock the account without using it",
         "method": "POST",
         "urlTemplate": "/admin/locked-deals/{dealId}",
@@ -194,7 +194,7 @@
         ]
     },
     {
-        "name": "Admin-Unlock-Deal-DELETE",
+        "name": "UnlockDeal",
         "displayName": "Unlock the account without using it",
         "method": "DELETE",
         "urlTemplate": "/admin/locked-deals/{dealId}",
@@ -207,7 +207,7 @@
         ]
     },
     {
-        "name": "Admin-Get-Locked-Deals-GET",
+        "name": "GetLockedDeals",
         "displayName": "Get all currently locked deals",
         "method": "GET",
         "urlTemplate": "/admin/locked-deals"
