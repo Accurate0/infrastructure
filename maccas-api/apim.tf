@@ -34,6 +34,10 @@ resource "azurerm_api_management_api" "maccas-v1" {
   }
 }
 
+locals {
+  endpoints = jsondecode(file("apim-endpoints.json"))
+}
+
 resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   api_name            = azurerm_api_management_api.maccas-v1.name
   api_management_name = data.azurerm_api_management.general-apim.name
@@ -45,23 +49,33 @@ resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   xml_content = file("policy/maccas.v1.policy.xml")
 }
 
+resource "azurerm_api_management_api_operation" "api-operation" {
+  for_each = { for x in local.endpoints : x.name => x }
 
-resource "azurerm_api_management_api_operation" "config-get-operation" {
-  operation_id = "GetConfig"
-  display_name = "Get User Config"
-  url_template = "/user/config"
-  method       = "GET"
+  operation_id = each.value.name
+  display_name = each.value.displayName
+  url_template = each.value.urlTemplate
+  method       = each.value.method
 
-  api_name            = azurerm_api_management_api.maccas-v1.name
-  api_management_name = azurerm_api_management_api.maccas-v1.api_management_name
-  resource_group_name = azurerm_api_management_api.maccas-v1.resource_group_name
-}
+  request {
+    dynamic "query_parameter" {
+      for_each = { for x in try(each.value.queryParameters, []) : x.name => x }
+      content {
+        name     = query_parameter.value.name
+        type     = query_parameter.value.type
+        required = query_parameter.value.required
+      }
+    }
+  }
 
-resource "azurerm_api_management_api_operation" "config-post-operation" {
-  operation_id = "UpdateConfig"
-  display_name = "Update User Config"
-  url_template = "/user/config"
-  method       = "POST"
+  dynamic "template_parameter" {
+    for_each = { for x in try(each.value.templateParameters, []) : x.name => x }
+    content {
+      name     = template_parameter.value.name
+      type     = template_parameter.value.type
+      required = template_parameter.value.required
+    }
+  }
 
   api_name            = azurerm_api_management_api.maccas-v1.name
   api_management_name = azurerm_api_management_api.maccas-v1.api_management_name
@@ -69,19 +83,19 @@ resource "azurerm_api_management_api_operation" "config-post-operation" {
 }
 
 resource "azurerm_api_management_api_operation_policy" "config-get-operation-policy" {
-  api_name            = azurerm_api_management_api_operation.config-get-operation.api_name
-  api_management_name = azurerm_api_management_api_operation.config-get-operation.api_management_name
-  resource_group_name = azurerm_api_management_api_operation.config-get-operation.resource_group_name
-  operation_id        = azurerm_api_management_api_operation.config-get-operation.operation_id
+  api_name            = azurerm_api_management_api_operation.api-operation["GetConfig"].api_name
+  api_management_name = azurerm_api_management_api_operation.api-operation["GetConfig"].api_management_name
+  resource_group_name = azurerm_api_management_api_operation.api-operation["GetConfig"].resource_group_name
+  operation_id        = azurerm_api_management_api_operation.api-operation["GetConfig"].operation_id
 
   xml_content = file("policy/config.policy.xml")
 }
 
 resource "azurerm_api_management_api_operation_policy" "config-post-operation-policy" {
-  api_name            = azurerm_api_management_api_operation.config-post-operation.api_name
-  api_management_name = azurerm_api_management_api_operation.config-post-operation.api_management_name
-  resource_group_name = azurerm_api_management_api_operation.config-post-operation.resource_group_name
-  operation_id        = azurerm_api_management_api_operation.config-post-operation.operation_id
+  api_name            = azurerm_api_management_api_operation.api-operation["UpdateConfig"].api_name
+  api_management_name = azurerm_api_management_api_operation.api-operation["UpdateConfig"].api_management_name
+  resource_group_name = azurerm_api_management_api_operation.api-operation["UpdateConfig"].resource_group_name
+  operation_id        = azurerm_api_management_api_operation.api-operation["UpdateConfig"].operation_id
 
   xml_content = file("policy/config.policy.xml")
 }

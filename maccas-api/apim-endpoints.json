@@ -1,0 +1,227 @@
+[
+    {
+        "name": "Locations",
+        "displayName": "Get Locations",
+        "method": "GET",
+        "urlTemplate": "/locations",
+        "queryParameters": [
+            {
+                "name": "distance",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "latitude",
+                "type": "string",
+                "required": true
+            },
+            {
+                "name": "longitude",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Search-Locations",
+        "displayName": "Search Location",
+        "method": "GET",
+        "urlTemplate": "/locations/search",
+        "queryParameters": [
+            {
+                "name": "text",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Code",
+        "displayName": "Get Code for Deal",
+        "method": "GET",
+        "urlTemplate": "/code/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": [
+            {
+                "name": "store",
+                "type": "number",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Deals",
+        "displayName": "Get Deals",
+        "method": "GET",
+        "urlTemplate": "/deals",
+        "templateParameters": []
+    },
+    {
+        "name": "Deals-GET",
+        "displayName": "Get Specific Deal",
+        "method": "GET",
+        "urlTemplate": "/deals/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": []
+    },
+    {
+        "name": "Deals-POST",
+        "displayName": "Add Deal",
+        "method": "POST",
+        "urlTemplate": "/deals/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": [
+            {
+                "name": "store",
+                "type": "number",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Deals-DELETE",
+        "displayName": "Remove Deals",
+        "method": "DELETE",
+        "urlTemplate": "/deals/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": [
+            {
+                "name": "store",
+                "type": "number",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Last-Refresh",
+        "displayName": "Get Last Refresh",
+        "method": "GET",
+        "urlTemplate": "/deals/last-refresh",
+        "templateParameters": []
+    },
+    {
+        "name": "Statistics-Account",
+        "dependsOn": [],
+        "displayName": "Get Account Stats",
+        "method": "GET",
+        "urlTemplate": "/statistics/account",
+        "templateParameters": []
+    },
+    {
+        "name": "Total-Accounts",
+        "displayName": "Get Account Count",
+        "method": "GET",
+        "urlTemplate": "/statistics/total-accounts",
+        "templateParameters": []
+    },
+    {
+        "name": "Get-Points",
+        "dependsOn": [],
+        "displayName": "Get Point List",
+        "method": "GET",
+        "urlTemplate": "/points",
+        "templateParameters": []
+    },
+    {
+        "name": "Points-AccountId-GET",
+        "displayName": "Get Random Code for Point Account",
+        "method": "GET",
+        "urlTemplate": "/points/{accountId}",
+        "templateParameters": [
+            {
+                "name": "accountId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": [
+            {
+                "name": "store",
+                "type": "number",
+                "required": false
+            }
+        ]
+    },
+    {
+        "name": "Docs-OpenApi-GET",
+        "displayName": "Get OpenApi spec",
+        "method": "GET",
+        "urlTemplate": "/docs/openapi",
+        "templateParameters": []
+    },
+    {
+        "name": "Admin-Lock-Deal-POST",
+        "displayName": "Lock the account without using it",
+        "method": "POST",
+        "urlTemplate": "/admin/locked-deals/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "queryParameters": [
+            {
+                "name": "duration",
+                "type": "number",
+                "required": false
+            }
+        ]
+    },
+    {
+        "name": "Admin-Unlock-Deal-DELETE",
+        "displayName": "Unlock the account without using it",
+        "method": "DELETE",
+        "urlTemplate": "/admin/locked-deals/{dealId}",
+        "templateParameters": [
+            {
+                "name": "dealId",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "Admin-Get-Locked-Deals-GET",
+        "displayName": "Get all currently locked deals",
+        "method": "GET",
+        "urlTemplate": "/admin/locked-deals"
+    },
+    {
+        "name": "GetConfig",
+        "displayName": "Get current user config",
+        "method": "GET",
+        "urlTemplate": "/user/config"
+    },
+    {
+        "name": "UpdateConfig",
+        "displayName": "Update current user config",
+        "method": "POST",
+        "urlTemplate": "/user/config"
+    }
+]
