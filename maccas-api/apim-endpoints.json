@@ -162,7 +162,7 @@
             {
                 "name": "store",
                 "type": "number",
-                "required": false
+                "required": true
             }
         ]
     },
