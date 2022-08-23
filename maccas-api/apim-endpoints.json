@@ -148,7 +148,7 @@
     },
     {
         "name": "GetPoints",
-        "displayName": "Get Random Code for Point Account",
+        "displayName": "Get Points for Account",
         "method": "GET",
         "urlTemplate": "/points/{accountId}",
         "templateParameters": [
@@ -175,7 +175,7 @@
     },
     {
         "name": "LockDeal",
-        "displayName": "Lock the account without using it",
+        "displayName": "Lock deal",
         "method": "POST",
         "urlTemplate": "/admin/locked-deals/{dealId}",
         "templateParameters": [
@@ -195,7 +195,7 @@
     },
     {
         "name": "UnlockDeal",
-        "displayName": "Unlock the account without using it",
+        "displayName": "Unlock deal",
         "method": "DELETE",
         "urlTemplate": "/admin/locked-deals/{dealId}",
         "templateParameters": [
@@ -208,7 +208,7 @@
     },
     {
         "name": "GetLockedDeals",
-        "displayName": "Get all currently locked deals",
+        "displayName": "Get locked deals",
         "method": "GET",
         "urlTemplate": "/admin/locked-deals"
     },
