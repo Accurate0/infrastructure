@@ -36,6 +36,10 @@ resource "azurerm_api_management_api" "maccas-v1" {
 
 locals {
   endpoints = jsondecode(file("apim-endpoints.json"))
+  config_endpoints = [
+    azurerm_api_management_api_operation.api-operation["GetConfig"],
+    azurerm_api_management_api_operation.api-operation["UpdateConfig"]
+  ]
 }
 
 resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
@@ -82,20 +86,12 @@ resource "azurerm_api_management_api_operation" "api-operation" {
   resource_group_name = azurerm_api_management_api.maccas-v1.resource_group_name
 }
 
-resource "azurerm_api_management_api_operation_policy" "config-get-operation-policy" {
-  api_name            = azurerm_api_management_api_operation.api-operation["GetConfig"].api_name
-  api_management_name = azurerm_api_management_api_operation.api-operation["GetConfig"].api_management_name
-  resource_group_name = azurerm_api_management_api_operation.api-operation["GetConfig"].resource_group_name
-  operation_id        = azurerm_api_management_api_operation.api-operation["GetConfig"].operation_id
-
-  xml_content = file("policy/config.policy.xml")
-}
-
-resource "azurerm_api_management_api_operation_policy" "config-post-operation-policy" {
-  api_name            = azurerm_api_management_api_operation.api-operation["UpdateConfig"].api_name
-  api_management_name = azurerm_api_management_api_operation.api-operation["UpdateConfig"].api_management_name
-  resource_group_name = azurerm_api_management_api_operation.api-operation["UpdateConfig"].resource_group_name
-  operation_id        = azurerm_api_management_api_operation.api-operation["UpdateConfig"].operation_id
+resource "azurerm_api_management_api_operation_policy" "config-operation-policy" {
+  count               = length(local.config_endpoints)
+  api_name            = local.config_endpoints[count.index].api_name
+  api_management_name = local.config_endpoints[count.index].api_management_name
+  resource_group_name = local.config_endpoints[count.index].resource_group_name
+  operation_id        = local.config_endpoints[count.index].operation_id
 
   xml_content = file("policy/config.policy.xml")
 }

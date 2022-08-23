@@ -1,5 +1,9 @@
+locals {
+  public_product_id = "MaccasApiPublic"
+}
+
 resource "azurerm_api_management_product" "maccas-web-api-public" {
-  product_id            = "MaccasApiPublic"
+  product_id            = local.public_product_id
   display_name          = "Maccas Web API (public)"
   published             = true
   api_management_name   = data.azurerm_api_management.general-apim.name
