@@ -14,6 +14,10 @@ resource "cloudflare_record" "validation-record" {
   type            = each.value.type
   value           = each.value.record
   ttl             = 1
+
+  lifecycle {
+    ignore_changes = [value]
+  }
 }
 
 resource "cloudflare_record" "i-maccas" {
