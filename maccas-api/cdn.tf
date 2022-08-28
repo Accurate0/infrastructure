@@ -21,6 +21,7 @@ resource "aws_s3_bucket_policy" "image-bucket" {
 locals {
   s3_origin_id         = "image-bucket"
   one_month_in_seconds = 2592000
+  one_week_in_seconds  = 604800
 }
 
 resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
@@ -44,6 +45,35 @@ resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
   }
 }
 
+resource "aws_cloudfront_response_headers_policy" "maccas-image-response-headers" {
+  name = "maccas-image-response-header-policy"
+
+  cors_config {
+    access_control_allow_credentials = false
+    access_control_allow_headers {
+      items = ["GET"]
+    }
+
+    access_control_allow_methods {
+      items = ["GET"]
+    }
+
+    access_control_allow_origins {
+      items = ["maccas.anurag.sh"]
+    }
+
+    origin_override = true
+  }
+
+  custom_headers_config {
+    items {
+      header   = "Cache-Control"
+      value    = "max-age=${local.one_week_in_seconds}"
+      override = true
+    }
+  }
+}
+
 resource "aws_cloudfront_distribution" "image-s3-distribution" {
   origin {
     domain_name = aws_s3_bucket.image-bucket.bucket_regional_domain_name
@@ -57,14 +87,16 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
   enabled         = true
   is_ipv6_enabled = true
   aliases         = ["i.maccas.anurag.sh"]
+  http_version    = "http2and3"
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
 
-    viewer_protocol_policy = "redirect-to-https"
-    cache_policy_id        = aws_cloudfront_cache_policy.maccas-image-cache.id
+    viewer_protocol_policy     = "redirect-to-https"
+    cache_policy_id            = aws_cloudfront_cache_policy.maccas-image-cache.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.maccas-image-response-headers.id
   }
 
   restrictions {
