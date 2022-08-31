@@ -17,7 +17,8 @@
 
             if(body["status"].ToObject<string>() == "OK") {
                 response.Add(new JProperty("result", body["candidates"][0]));
-                return response.ToString();
+            } else {
+                response.Add(new JProperty("result", null));
             }
 
             return response.ToString();
