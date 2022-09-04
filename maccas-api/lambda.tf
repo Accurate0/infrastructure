@@ -79,7 +79,8 @@ resource "aws_iam_policy" "resource-access" {
           "sqs:SendMessage",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes"
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl"
         ],
         "Resource" = ["${aws_sqs_queue.maccas-cleanup-queue.arn}"]
       }
