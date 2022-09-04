@@ -72,7 +72,18 @@ resource "aws_iam_policy" "resource-access" {
           "s3:GetObject",
         ]
         "Resource" = ["${aws_s3_bucket.image-bucket.arn}", "${aws_s3_bucket.image-bucket.arn}/*"]
-    }]
+      },
+      {
+        "Effect" = "Allow"
+        "Action" = [
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ],
+        "Resource" = ["${aws_sqs_queue.maccas-cleanup-queue.arn}"]
+      }
+    ]
   })
 }
 
@@ -80,7 +91,6 @@ resource "aws_iam_role_policy_attachment" "resource-full-access-attachment" {
   role       = aws_iam_role.iam.name
   policy_arn = aws_iam_policy.resource-access.arn
 }
-
 
 resource "aws_iam_role_policy_attachment" "lambda-basic-execution" {
   role       = aws_iam_role.iam.name
@@ -104,5 +114,15 @@ resource "aws_lambda_function" "api" {
   filename      = data.archive_file.dummy.output_path
   timeout       = 30
   memory_size   = 256
+  runtime       = "provided.al2"
+}
+
+resource "aws_lambda_function" "cleanup" {
+  function_name = "MaccasApi-cleanup"
+  handler       = "bootstrap"
+  role          = aws_iam_role.iam.arn
+  filename      = data.archive_file.dummy.output_path
+  timeout       = 15
+  memory_size   = 128
   runtime       = "provided.al2"
 }
