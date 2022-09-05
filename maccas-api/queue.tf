@@ -7,9 +7,27 @@ resource "aws_sqs_queue" "maccas-cleanup-queue" {
   sqs_managed_sse_enabled   = true
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.maccas-cleanup-dlq.arn
+    deadLetterTargetArn = aws_sqs_queue.maccas-dlq.arn
     maxReceiveCount     = 2
   })
+}
+
+resource "aws_sqs_queue" "maccas-accounts-queue" {
+  name                      = "maccas-accounts-queue"
+  delay_seconds             = 600
+  max_message_size          = 2048
+  message_retention_seconds = 86400
+  receive_wait_time_seconds = 10
+  sqs_managed_sse_enabled   = true
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.maccas-dlq.arn
+    maxReceiveCount     = 2
+  })
+}
+
+resource "aws_sqs_queue" "maccas-dlq" {
+  name = "maccas-dlq"
 }
 
 resource "aws_lambda_event_source_mapping" "maccas-cleanup-event-mapping" {
@@ -19,6 +37,9 @@ resource "aws_lambda_event_source_mapping" "maccas-cleanup-event-mapping" {
   batch_size       = 1
 }
 
-resource "aws_sqs_queue" "maccas-cleanup-dlq" {
-  name = "maccas-cleanup-dlq"
+resource "aws_lambda_event_source_mapping" "maccas-accounts-event-mapping" {
+  event_source_arn = aws_sqs_queue.maccas-accounts-queue.arn
+  enabled          = true
+  function_name    = aws_lambda_function.accounts.function_name
+  batch_size       = 1
 }
