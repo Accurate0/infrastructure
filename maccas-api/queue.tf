@@ -5,6 +5,11 @@ resource "aws_sqs_queue" "maccas-cleanup-queue" {
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
   sqs_managed_sse_enabled   = true
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.maccas-cleanup-dlq.arn
+    maxReceiveCount     = 2
+  })
 }
 
 resource "aws_lambda_event_source_mapping" "maccas-cleanup-event-mapping" {
@@ -12,4 +17,8 @@ resource "aws_lambda_event_source_mapping" "maccas-cleanup-event-mapping" {
   enabled          = true
   function_name    = aws_lambda_function.cleanup.function_name
   batch_size       = 1
+}
+
+resource "aws_sqs_queue" "maccas-cleanup-dlq" {
+  name = "maccas-cleanup-dlq"
 }
