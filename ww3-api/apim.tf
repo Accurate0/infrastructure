@@ -15,12 +15,12 @@ resource "azurerm_api_management_api_version_set" "ww3-segment-version" {
   versioning_scheme   = "Segment"
 }
 
-resource "azurerm_api_management_api" "ww3-v2" {
-  name                  = "WW3-API-v2"
+resource "azurerm_api_management_api" "ww3-v1" {
+  name                  = "WW3-API-v1"
   resource_group_name   = data.azurerm_resource_group.general-api-group.name
   api_management_name   = data.azurerm_api_management.general-apim.name
   revision              = "1"
-  version               = "v2"
+  version               = "v1"
   display_name          = "WW3 API"
   path                  = "ww3"
   protocols             = ["https", "http"]
@@ -29,15 +29,15 @@ resource "azurerm_api_management_api" "ww3-v2" {
   version_set_id        = azurerm_api_management_api_version_set.ww3-segment-version.id
 }
 
-resource "azurerm_api_management_api_policy" "ww3-v2-policy" {
-  api_name            = azurerm_api_management_api.ww3-v2.name
+resource "azurerm_api_management_api_policy" "ww3-v1-policy" {
+  api_name            = azurerm_api_management_api.ww3-v1.name
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 
   depends_on = [
     azurerm_api_management_named_value.ww3-lambda-api-key
   ]
-  xml_content = file("policy/ww3.v2.policy.xml")
+  xml_content = file("policy/ww3.v1.policy.xml")
 }
 
 resource "azurerm_api_management_named_value" "ww3-lambda-api-key" {
