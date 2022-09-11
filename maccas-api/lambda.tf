@@ -83,8 +83,9 @@ resource "aws_iam_policy" "resource-access" {
           "sqs:GetQueueUrl"
         ],
         "Resource" = [
-            "${aws_sqs_queue.maccas-cleanup-queue.arn}",
-            "${aws_sqs_queue.maccas-accounts-queue.arn}"
+          "${aws_sqs_queue.maccas-cleanup-queue.arn}",
+          "${aws_sqs_queue.maccas-accounts-queue.arn}",
+          "${aws_sqs_queue.maccas-images-queue.arn}",
         ]
       }
     ]
@@ -112,7 +113,7 @@ data "archive_file" "dummy" {
 }
 
 resource "aws_lambda_function" "api" {
-  function_name = "MaccasApi-v2"
+  function_name = "MaccasApi-api"
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
@@ -133,6 +134,16 @@ resource "aws_lambda_function" "cleanup" {
 
 resource "aws_lambda_function" "accounts" {
   function_name = "MaccasApi-accounts"
+  handler       = "bootstrap"
+  role          = aws_iam_role.iam.arn
+  filename      = data.archive_file.dummy.output_path
+  timeout       = 15
+  memory_size   = 128
+  runtime       = "provided.al2"
+}
+
+resource "aws_lambda_function" "images" {
+  function_name = "MaccasApi-images"
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path

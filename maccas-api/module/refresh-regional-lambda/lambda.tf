@@ -9,7 +9,7 @@ data "archive_file" "dummy" {
 }
 
 resource "aws_lambda_function" "api" {
-  function_name = "MaccasApi-refresh-v2"
+  function_name = "MaccasApi-refresh"
   handler       = "bootstrap"
   role          = var.role_arn
   filename      = data.archive_file.dummy.output_path
