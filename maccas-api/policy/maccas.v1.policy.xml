@@ -5,6 +5,7 @@
             <allowed-origins>
                 <origin>http://localhost:3000/</origin>
                 <origin>https://maccas.anurag.sh/</origin>
+                <origin>https://dev.maccas.anurag.sh/</origin>
             </allowed-origins>
             <allowed-methods preflight-result-max-age="300">
                 <method>GET</method>

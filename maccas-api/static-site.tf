@@ -8,6 +8,15 @@ resource "cloudflare_record" "maccas" {
   allow_overwrite = true
 }
 
+resource "cloudflare_record" "dev-maccas" {
+  zone_id         = var.cloudflare_zone_id
+  name            = "dev.maccas"
+  value           = "cname.vercel-dns.com"
+  type            = "CNAME"
+  proxied         = false
+  ttl             = 1
+  allow_overwrite = true
+}
 variable "cloudflare_zone_id" {
   type      = string
   sensitive = true
