@@ -24,9 +24,20 @@
             <query specified-parameter-action="prevent" unspecified-parameter-action="prevent" />
             <path specified-parameter-action="prevent" />
         </validate-parameters>
-        <set-header name="X-API-Key" exists-action="override">
-            <value>{{MaccasLambdav2ApiKey}}</value>
-        </set-header>
+        <set-variable name="isDev" value="@(context.Request.Headers.GetValueOrDefault("Origin", "").Contains("dev.maccas.anurag.sh"))" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<bool>("isDev", false))">
+                <set-backend-service base-url="{{MaccasDevBackendUrl}}" />
+                <set-header name="X-API-Key" exists-action="override">
+                    <value>{{MaccasLambdaDevApiKey}}</value>
+                </set-header>
+            </when>
+            <otherwise>
+                <set-header name="X-API-Key" exists-action="override">
+                    <value>{{MaccasLambdav2ApiKey}}</value>
+                </set-header>
+            </otherwise>
+        </choose>
     </inbound>
     <backend>
         <base />
