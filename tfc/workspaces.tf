@@ -108,3 +108,10 @@ resource "tfe_workspace" "dota2-api" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "upbank-shame" {
+  name           = "upbank-shame"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

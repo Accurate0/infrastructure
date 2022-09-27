@@ -1,0 +1,25 @@
+<policies>
+    <inbound>
+        <base />
+        <validate-parameters specified-parameter-action="prevent" unspecified-parameter-action="prevent" errors-variable-name="validationErrors">
+            <headers specified-parameter-action="ignore" unspecified-parameter-action="ignore" />
+            <query specified-parameter-action="prevent" unspecified-parameter-action="prevent" />
+            <path specified-parameter-action="prevent" />
+        </validate-parameters>
+        <set-header name="X-API-Key" exists-action="override">
+            <value>{{UpBankShameApiKey}}</value>
+        </set-header>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <set-header name="Cache-Control" exists-action="skip">
+            <value>no-cache</value>
+        </set-header>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
