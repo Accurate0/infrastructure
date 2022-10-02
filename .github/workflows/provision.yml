@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ww3-api/**
+      - anurag-sh/**
       - weather-api/**
       - cloudflare/**
       - light-api/**
@@ -12,7 +13,6 @@ on:
       - aws/**
       - tfc/**
       - maccas-api/**
-      - maccas-api-v2/**
       - places-api/**
       - kvp-api/**
       - log-api/**
