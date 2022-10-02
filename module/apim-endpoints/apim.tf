@@ -1,4 +1,3 @@
-
 resource "azurerm_api_management_api_operation" "api-operation" {
   for_each = { for x in var.api_definition : x.name => x }
 
