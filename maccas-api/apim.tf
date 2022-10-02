@@ -35,10 +35,9 @@ resource "azurerm_api_management_api" "maccas-v1" {
 }
 
 locals {
-  endpoints = jsondecode(file("apim-endpoints.json"))
   config_endpoints = [
-    azurerm_api_management_api_operation.api-operation["GetConfig"],
-    azurerm_api_management_api_operation.api-operation["UpdateConfig"]
+    module.apim-endpoints.apim_definitions["GetConfig"],
+    module.apim-endpoints.apim_definitions["UpdateConfig"]
   ]
 }
 
@@ -54,37 +53,12 @@ resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   xml_content = file("policy/maccas.v1.policy.xml")
 }
 
-resource "azurerm_api_management_api_operation" "api-operation" {
-  for_each = { for x in local.endpoints : x.name => x }
-
-  operation_id = each.value.name
-  display_name = each.value.displayName
-  url_template = each.value.urlTemplate
-  method       = each.value.method
-
-  request {
-    dynamic "query_parameter" {
-      for_each = { for x in try(each.value.queryParameters, []) : x.name => x }
-      content {
-        name     = query_parameter.value.name
-        type     = query_parameter.value.type
-        required = query_parameter.value.required
-      }
-    }
-  }
-
-  dynamic "template_parameter" {
-    for_each = { for x in try(each.value.templateParameters, []) : x.name => x }
-    content {
-      name     = template_parameter.value.name
-      type     = template_parameter.value.type
-      required = template_parameter.value.required
-    }
-  }
-
+module "apim-endpoints" {
+  source              = "../module/apim-endpoints"
   api_name            = azurerm_api_management_api.maccas-v1.name
   api_management_name = azurerm_api_management_api.maccas-v1.api_management_name
   resource_group_name = azurerm_api_management_api.maccas-v1.resource_group_name
+  api_definition      = jsondecode(file("apim-endpoints.json"))
 }
 
 resource "azurerm_api_management_api_operation_policy" "config-operation-policy" {
