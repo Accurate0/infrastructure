@@ -34,13 +34,6 @@ resource "azurerm_api_management_api" "maccas-v1" {
   }
 }
 
-locals {
-  config_endpoints = [
-    module.apim-endpoints.apim_definitions["GetConfig"],
-    module.apim-endpoints.apim_definitions["UpdateConfig"]
-  ]
-}
-
 resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   api_name            = azurerm_api_management_api.maccas-v1.name
   api_management_name = data.azurerm_api_management.general-apim.name
@@ -59,16 +52,10 @@ module "apim-endpoints" {
   api_management_name = azurerm_api_management_api.maccas-v1.api_management_name
   resource_group_name = azurerm_api_management_api.maccas-v1.resource_group_name
   api_definition      = jsondecode(file("apim-endpoints.json"))
-}
 
-resource "azurerm_api_management_api_operation_policy" "config-operation-policy" {
-  count               = length(local.config_endpoints)
-  api_name            = local.config_endpoints[count.index].api_name
-  api_management_name = local.config_endpoints[count.index].api_management_name
-  resource_group_name = local.config_endpoints[count.index].resource_group_name
-  operation_id        = local.config_endpoints[count.index].operation_id
-
-  xml_content = file("policy/config.policy.xml")
+  depends_on = [
+    azapi_resource.maccas-jwt-verification-policy-fragment
+  ]
 }
 
 resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
@@ -81,6 +68,20 @@ resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
       description = "maccas-jwt-bypass-policy"
       format      = "rawxml"
       value       = file("policy/bypass.fragment.policy.xml")
+    }
+  })
+}
+
+resource "azapi_resource" "maccas-jwt-verification-policy-fragment" {
+  type      = "Microsoft.ApiManagement/service/policyFragments@2021-12-01-preview"
+  name      = "maccas-jwt-verification-policy"
+  parent_id = data.azurerm_api_management.general-apim.id
+
+  body = jsonencode({
+    properties = {
+      description = "maccas-jwt-verification-policy"
+      format      = "rawxml"
+      value       = file("policy/verification.fragment.policy.xml")
     }
   })
 }

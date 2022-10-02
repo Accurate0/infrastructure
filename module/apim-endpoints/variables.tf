@@ -13,10 +13,9 @@ variable "resource_group_name" {
 variable "api_definition" {
   type = list(object(
     {
-      name        = string,
-      displayName = string,
-      method      = string,
-      urlTemplate = string,
+      name   = string,
+      method = string,
+      url    = string,
       queryParameters = list(object({
         name     = string,
         type     = string,
@@ -27,6 +26,7 @@ variable "api_definition" {
         type     = string,
         required = bool,
       }))
+      policyFile = optional(string),
     }
   ))
 }

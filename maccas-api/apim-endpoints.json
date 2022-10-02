@@ -1,9 +1,8 @@
 [
     {
         "name": "GetLocations",
-        "displayName": "Get Locations",
         "method": "GET",
-        "urlTemplate": "/locations",
+        "url": "/locations",
         "queryParameters": [
             {
                 "name": "distance",
@@ -25,9 +24,8 @@
     },
     {
         "name": "SearchLocations",
-        "displayName": "Search Location",
         "method": "GET",
-        "urlTemplate": "/locations/search",
+        "url": "/locations/search",
         "queryParameters": [
             {
                 "name": "text",
@@ -39,9 +37,8 @@
     },
     {
         "name": "Code",
-        "displayName": "Get Code for Deal",
         "method": "GET",
-        "urlTemplate": "/code/{dealId}",
+        "url": "/code/{dealId}",
         "templateParameters": [
             {
                 "name": "dealId",
@@ -59,17 +56,15 @@
     },
     {
         "name": "Deals",
-        "displayName": "Get Deals",
         "method": "GET",
-        "urlTemplate": "/deals",
+        "url": "/deals",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "GetDeal",
-        "displayName": "Get Specific Deal",
         "method": "GET",
-        "urlTemplate": "/deals/{dealId}",
+        "url": "/deals/{dealId}",
         "templateParameters": [
             {
                 "name": "dealId",
@@ -81,9 +76,8 @@
     },
     {
         "name": "AddDeal",
-        "displayName": "Add Deal",
         "method": "POST",
-        "urlTemplate": "/deals/{dealId}",
+        "url": "/deals/{dealId}",
         "templateParameters": [
             {
                 "name": "dealId",
@@ -101,9 +95,8 @@
     },
     {
         "name": "RemoveDeal",
-        "displayName": "Remove Deals",
         "method": "DELETE",
-        "urlTemplate": "/deals/{dealId}",
+        "url": "/deals/{dealId}",
         "templateParameters": [
             {
                 "name": "dealId",
@@ -121,43 +114,38 @@
     },
     {
         "name": "LastRefresh",
-        "displayName": "Get Last Refresh",
         "method": "GET",
-        "urlTemplate": "/deals/last-refresh",
+        "url": "/deals/last-refresh",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "StatisticsAccount",
         "dependsOn": [],
-        "displayName": "Get Account Stats",
         "method": "GET",
-        "urlTemplate": "/statistics/account",
+        "url": "/statistics/account",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "StatisticsTotalAccount",
-        "displayName": "Get Account Count",
         "method": "GET",
-        "urlTemplate": "/statistics/total-accounts",
+        "url": "/statistics/total-accounts",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "Points",
         "dependsOn": [],
-        "displayName": "Get Point List",
         "method": "GET",
-        "urlTemplate": "/points",
+        "url": "/points",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "GetPoints",
-        "displayName": "Get Points for Account",
         "method": "GET",
-        "urlTemplate": "/points/{accountId}",
+        "url": "/points/{accountId}",
         "templateParameters": [
             {
                 "name": "accountId",
@@ -175,17 +163,15 @@
     },
     {
         "name": "GetOpenApi",
-        "displayName": "Get OpenApi spec",
         "method": "GET",
-        "urlTemplate": "/docs/openapi",
+        "url": "/docs/openapi",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "LockDeal",
-        "displayName": "Lock deal",
         "method": "POST",
-        "urlTemplate": "/admin/locked-deals/{dealId}",
+        "url": "/admin/locked-deals/{dealId}",
         "templateParameters": [
             {
                 "name": "dealId",
@@ -203,9 +189,8 @@
     },
     {
         "name": "UnlockDeal",
-        "displayName": "Unlock deal",
         "method": "DELETE",
-        "urlTemplate": "/admin/locked-deals/{dealId}",
+        "url": "/admin/locked-deals/{dealId}",
         "queryParameters": [],
         "templateParameters": [
             {
@@ -217,26 +202,25 @@
     },
     {
         "name": "GetLockedDeals",
-        "displayName": "Get locked deals",
         "method": "GET",
-        "urlTemplate": "/admin/locked-deals",
+        "url": "/admin/locked-deals",
         "queryParameters": [],
         "templateParameters": []
     },
     {
         "name": "GetConfig",
-        "displayName": "Get current user config",
         "method": "GET",
-        "urlTemplate": "/user/config",
+        "url": "/user/config",
         "queryParameters": [],
-        "templateParameters": []
+        "templateParameters": [],
+        "policyFile": "./policy/config.policy.xml"
     },
     {
         "name": "UpdateConfig",
-        "displayName": "Update current user config",
         "method": "POST",
-        "urlTemplate": "/user/config",
+        "url": "/user/config",
         "queryParameters": [],
-        "templateParameters": []
+        "templateParameters": [],
+        "policyFile": "./policy/config.policy.xml"
     }
 ]

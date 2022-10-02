@@ -1,11 +1,6 @@
 <policies>
     <inbound>
-        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Unauthorized. Access token is missing or invalid.">
-            <openid-config url="https://apib2clogin.b2clogin.com/login.anurag.sh/B2C_1_SignIn/v2.0/.well-known/openid-configuration" />
-            <audiences>
-                <audience>f285a3b9-c589-4fae-971e-edd635df6b96</audience>
-            </audiences>
-        </validate-jwt>
+        <include-fragment fragment-id="maccas-jwt-verification-policy" />
         <base />
     </inbound>
     <backend>

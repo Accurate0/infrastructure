@@ -24,6 +24,10 @@ resource "azurerm_api_management_product_policy" "maccas-web-api-public" {
   resource_group_name = azurerm_api_management_product.maccas-web-api-public.resource_group_name
 
   xml_content = file("policy/public.policy.xml")
+
+  depends_on = [
+    azapi_resource.maccas-jwt-verification-policy-fragment
+  ]
 }
 
 resource "azurerm_api_management_product" "maccas-policy-apim" {
