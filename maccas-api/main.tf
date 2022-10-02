@@ -20,6 +20,14 @@ terraform {
       source  = "Azure/azapi"
       version = "0.5.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = "5.3.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.4.3"
+    }
   }
 
   cloud {
@@ -30,8 +38,7 @@ terraform {
   }
 }
 
-provider "azapi" {
-}
+provider "azapi" {}
 
 provider "azurerm" {
   features {}
@@ -43,3 +50,7 @@ provider "aws" {
   region = "us-east-1"
   alias  = "us-east-1"
 }
+
+provider "github" {}
+
+provider "random" {}

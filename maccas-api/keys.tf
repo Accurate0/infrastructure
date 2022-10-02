@@ -31,9 +31,10 @@ resource "azurerm_api_management_named_value" "maccas-apim-jwt-bypass" {
   api_management_name = data.azurerm_api_management.general-apim.name
   display_name        = "MaccasJwtBypass"
   secret              = true
-  value               = "VALUE_REPLACED_IN_PORTAL"
+  value               = random_password.jwt-bypass-token.result
+}
 
-  lifecycle {
-    ignore_changes = [value]
-  }
+resource "random_password" "jwt-bypass-token" {
+  length  = 128
+  special = true
 }
