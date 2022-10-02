@@ -1,8 +1,0 @@
-[
-    {
-        "name": "WebhookEventReceive",
-        "displayName": "Webhook Event Receive",
-        "method": "POST",
-        "urlTemplate": "/webhook"
-    }
-]

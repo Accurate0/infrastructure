@@ -74,7 +74,6 @@ jobs:
           - places-api
           - kvp-api
           - log-api
-          - upbank-shame
 
     name: ${{ matrix.directory }}
     runs-on: ubuntu-latest
