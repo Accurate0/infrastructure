@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam" {
-  name = "iam_for_MaccasApi-v2"
+  name = "iam_for_MaccasApi"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -16,7 +16,7 @@ resource "aws_iam_role" "iam" {
 }
 
 resource "aws_iam_policy" "resource-access" {
-  name = "maccas-api-resource-access-v2"
+  name = "maccas-api-resource-access"
   policy = jsonencode({
     "Version" = "2012-10-17"
 

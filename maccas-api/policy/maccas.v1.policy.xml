@@ -34,7 +34,7 @@
             </when>
             <otherwise>
                 <set-header name="X-API-Key" exists-action="override">
-                    <value>{{MaccasLambdav2ApiKey}}</value>
+                    <value>{{MaccasLambdaApiKey}}</value>
                 </set-header>
             </otherwise>
         </choose>

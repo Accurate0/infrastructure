@@ -48,7 +48,8 @@ resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 
   depends_on = [
-    azurerm_api_management_named_value.maccas-lambda-api-key
+    azurerm_api_management_named_value.maccas-lambda-api-key,
+    azurerm_api_management_named_value.maccas-lambda-dev-api-key
   ]
   xml_content = file("policy/maccas.v1.policy.xml")
 }
