@@ -32,26 +32,21 @@ jobs:
       directory: tfc
     secrets: inherit
 
-  azure:
-    needs: tfc
+  shared:
+    name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: azure
+      directory: ${{ matrix.directory }}
     secrets: inherit
+    needs: tfc
 
-  aws:
-    needs: tfc
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: aws
-    secrets: inherit
-
-  cloudflare:
-    needs: tfc
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: cloudflare
-    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        directory:
+          - azure
+          - aws
+          - cloudflare
 
   projects:
     name: ${{ matrix.directory }}
@@ -59,10 +54,7 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs:
-      - azure
-      - aws
-      - cloudflare
+    needs: shared
 
     strategy:
       fail-fast: false
