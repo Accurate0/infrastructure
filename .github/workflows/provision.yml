@@ -46,6 +46,13 @@ jobs:
       directory: aws
     secrets: inherit
 
+  cloudflare:
+    needs: tfc
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: cloudflare
+    secrets: inherit
+
   projects:
     name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
@@ -55,6 +62,7 @@ jobs:
     needs:
       - azure
       - aws
+      - cloudflare
 
     strategy:
       fail-fast: false
@@ -65,7 +73,6 @@ jobs:
           - weather-api
           - dota2-api
           - light-api
-          - cloudflare
           - sandbox
           - maccas-api
           - places-api
