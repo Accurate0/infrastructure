@@ -5,27 +5,6 @@ on:
       directory:
         type: string
         required: true
-    secrets:
-      TFE_TOKEN:
-        required: false
-      TF_TOKEN:
-        required: false
-      ARM_CLIENT_ID:
-        required: false
-      ARM_CLIENT_SECRET:
-        required: false
-      ARM_SUBSCRIPTION_ID:
-        required: false
-      ARM_TENANT_ID:
-        required: false
-      AWS_ACCESS_KEY_ID:
-        required: false
-      AWS_SECRET_ACCESS_KEY:
-        required: false
-      AWS_REGION:
-        required: false
-      CLOUDFLARE_API_TOKEN:
-        required: false
 
 env:
   TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
@@ -37,6 +16,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
 
 jobs:
   apply:
