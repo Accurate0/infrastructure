@@ -48,23 +48,6 @@ resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
 resource "aws_cloudfront_response_headers_policy" "maccas-image-response-headers" {
   name = "maccas-image-response-header-policy"
 
-  cors_config {
-    access_control_allow_credentials = false
-    access_control_allow_headers {
-      items = ["GET"]
-    }
-
-    access_control_allow_methods {
-      items = ["GET"]
-    }
-
-    access_control_allow_origins {
-      items = ["maccas.anurag.sh"]
-    }
-
-    origin_override = true
-  }
-
   custom_headers_config {
     items {
       header   = "Cache-Control"
