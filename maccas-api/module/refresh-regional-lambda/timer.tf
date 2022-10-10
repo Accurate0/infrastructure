@@ -1,8 +1,6 @@
-
-resource "aws_cloudwatch_event_rule" "refresh-every-6-hours" {
-  name                = "MaccasRefresh6Hours"
+resource "aws_cloudwatch_event_rule" "refresh-interval" {
+  name                = "maccas-refresh-interval"
   schedule_expression = "cron(0 */3 * * ? *)"
-
 }
 
 resource "aws_lambda_permission" "cloudwatch-call-maccas-service" {
@@ -10,10 +8,10 @@ resource "aws_lambda_permission" "cloudwatch-call-maccas-service" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.api.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.refresh-every-6-hours.arn
+  source_arn    = aws_cloudwatch_event_rule.refresh-interval.arn
 }
 
 resource "aws_cloudwatch_event_target" "maccas-refresh-invoke-target" {
-  rule = aws_cloudwatch_event_rule.refresh-every-6-hours.name
+  rule = aws_cloudwatch_event_rule.refresh-interval.name
   arn  = aws_lambda_function.api.arn
 }
