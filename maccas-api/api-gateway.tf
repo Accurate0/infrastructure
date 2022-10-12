@@ -22,7 +22,7 @@ resource "aws_api_gateway_deployment" "api-deployment" {
   ]
 
   triggers = {
-    redeployment = jsonencode([filesha1("api.tf"), filesha1("lambda.tf")])
+    redeployment = jsonencode([filesha1("api-gateway.tf"), filesha1("lambda.tf")])
   }
 
   lifecycle {
