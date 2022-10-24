@@ -17,6 +17,7 @@ resource "cloudflare_record" "dev-maccas" {
   ttl             = 1
   allow_overwrite = true
 }
+
 variable "cloudflare_zone_id" {
   type      = string
   sensitive = true

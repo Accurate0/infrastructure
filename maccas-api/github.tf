@@ -9,3 +9,9 @@ resource "github_actions_secret" "jwt-bypass-secret" {
   secret_name     = "API_CONFIG_JWT_BYPASS_KEY"
   plaintext_value = random_password.jwt-bypass-token.result
 }
+
+resource "github_actions_secret" "vercen-project-id" {
+  repository      = "maccas-web"
+  secret_name     = "VERCEL_PROJECT_ID"
+  plaintext_value = vercel_project.maccas-web.id
+}
