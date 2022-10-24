@@ -44,7 +44,7 @@ resource "aws_dynamodb_table" "maccas-api-db" {
 resource "aws_dynamodb_table" "maccas-api-cache-db-v1" {
   name           = "MaccasApiCache"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 6
+  read_capacity  = 8
   write_capacity = 3
   hash_key       = "account_name"
 
