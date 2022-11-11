@@ -7,7 +7,7 @@ resource "github_actions_secret" "api-key-secret" {
 resource "github_actions_secret" "jwt-bypass-secret" {
   repository      = "maccas-api"
   secret_name     = "API_CONFIG_JWT_BYPASS_KEY"
-  plaintext_value = random_password.jwt-bypass-token.result
+  plaintext_value = base64encode(random_password.jwt-bypass-token.result)
 }
 
 resource "github_actions_secret" "vercen-project-id" {
