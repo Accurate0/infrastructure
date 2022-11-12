@@ -13,11 +13,6 @@ resource "aws_cloudwatch_log_group" "cleanup-log" {
   retention_in_days = 14
 }
 
-resource "aws_cloudwatch_log_group" "accounts-log" {
-  name              = "/aws/lambda/${aws_lambda_function.accounts.function_name}"
-  retention_in_days = 14
-}
-
 resource "aws_cloudwatch_log_group" "images-log" {
   name              = "/aws/lambda/${aws_lambda_function.images.function_name}"
   retention_in_days = 14
