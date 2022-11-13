@@ -14,8 +14,6 @@ on:
       - tfc/**
       - maccas-api/**
       - places-api/**
-      - kvp-api/**
-      - log-api/**
       - sandbox/**
       - module/**
       - .github/workflows/call-terraform.yml
@@ -63,10 +61,7 @@ jobs:
           - anurag-sh
           - ww3-api
           - weather-api
-          - dota2-api
           - light-api
           - sandbox
           - maccas-api
           - places-api
-          - kvp-api
-          - log-api
