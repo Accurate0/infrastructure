@@ -67,20 +67,6 @@ resource "tfe_workspace" "places-api" {
   queue_all_runs = false
 }
 
-resource "tfe_workspace" "kvp-api" {
-  name           = "kvp-api"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-}
-
-resource "tfe_workspace" "log-api" {
-  name           = "log-api"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-}
-
 resource "tfe_workspace" "aws" {
   name           = "aws"
   execution_mode = "local"
@@ -97,13 +83,6 @@ resource "tfe_workspace" "maccas-api" {
 
 resource "tfe_workspace" "anurag-sh" {
   name           = "anurag-sh"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-}
-
-resource "tfe_workspace" "dota2-api" {
-  name           = "dota2-api"
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
