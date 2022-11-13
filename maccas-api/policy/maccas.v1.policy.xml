@@ -40,7 +40,16 @@
         </choose>
     </inbound>
     <backend>
-        <base />
+        <retry
+            condition="@(context.Response.StatusCode > 500)"
+            count="3"
+            interval="3"
+            max-interval="30"
+            first-fast-retry="true"
+            delta="5"
+        >
+            <forward-request buffer-request-body="true" />
+        </retry>
     </backend>
     <outbound>
         <set-header name="Cache-Control" exists-action="skip">
