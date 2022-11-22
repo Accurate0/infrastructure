@@ -70,6 +70,10 @@ resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
       value       = file("policy/bypass.fragment.policy.xml")
     }
   })
+
+  lifecycle {
+    ignore_changes = [output]
+  }
 }
 
 resource "azapi_resource" "maccas-jwt-verification-policy-fragment" {
@@ -84,4 +88,8 @@ resource "azapi_resource" "maccas-jwt-verification-policy-fragment" {
       value       = file("policy/verification.fragment.policy.xml")
     }
   })
+
+  lifecycle {
+    ignore_changes = [output]
+  }
 }

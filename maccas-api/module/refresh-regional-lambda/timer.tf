@@ -1,6 +1,10 @@
+locals {
+  hours_between_refresh = 5
+}
+
 resource "aws_cloudwatch_event_rule" "refresh-interval" {
   name                = "maccas-refresh-interval"
-  schedule_expression = "cron(0 */3 * * ? *)"
+  schedule_expression = "cron(0 */${local.hours_between_refresh} * * ? *)"
 }
 
 resource "aws_lambda_permission" "cloudwatch-call-maccas-service" {
