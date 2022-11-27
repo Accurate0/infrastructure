@@ -104,9 +104,9 @@ resource "aws_dynamodb_table" "maccas-audit-db" {
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "offer_id"
+  hash_key       = "deal_uuid"
   attribute {
-    name = "offer_id"
+    name = "deal_uuid"
     type = "S"
   }
 }
