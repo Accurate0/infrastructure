@@ -98,3 +98,15 @@ resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "maccas-audit-db" {
+  name           = "MaccasAudit"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "offer_id"
+  attribute {
+    name = "offer_id"
+    type = "S"
+  }
+}
