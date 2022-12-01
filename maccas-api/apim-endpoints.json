@@ -213,7 +213,7 @@
         "url": "/user/config",
         "queryParameters": [],
         "templateParameters": [],
-        "policyFile": "./policy/config.policy.xml"
+        "policyFile": "./policy/user.policy.xml"
     },
     {
         "name": "UpdateConfig",
@@ -221,6 +221,14 @@
         "url": "/user/config",
         "queryParameters": [],
         "templateParameters": [],
-        "policyFile": "./policy/config.policy.xml"
+        "policyFile": "./policy/user.policy.xml"
+    },
+    {
+        "name": "GetUserSpending",
+        "method": "GET",
+        "url": "/user/spending",
+        "queryParameters": [],
+        "templateParameters": [],
+        "policyFile": "./policy/user.policy.xml"
     }
 ]

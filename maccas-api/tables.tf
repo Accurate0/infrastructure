@@ -109,4 +109,17 @@ resource "aws_dynamodb_table" "maccas-audit-db" {
     name = "operation_id"
     type = "S"
   }
+
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "UserIdIndex"
+    hash_key        = "user_id"
+    write_capacity  = 1
+    read_capacity   = 1
+    projection_type = "ALL"
+  }
 }
