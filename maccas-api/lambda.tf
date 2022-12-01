@@ -56,6 +56,7 @@ resource "aws_iam_policy" "resource-access" {
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-point-db.id}",
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-refresh-tracking-db.id}",
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-audit-db.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-audit-db.id}/index/*",
         ]
       },
       {
