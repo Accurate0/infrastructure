@@ -335,6 +335,15 @@ resource "aws_iam_group_policy" "terraform-group-policy-3" {
         ],
         "Effect" : "Allow",
         "Resource" : "*"
+      },
+      {
+        "Action" : [
+          "ec2:*",
+          "ecs:*",
+          "ecr:*"
+        ],
+        "Effect" : "Allow",
+        "Resource" : "*"
       }
     ]
   })

@@ -87,3 +87,10 @@ resource "tfe_workspace" "anurag-sh" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "replybot" {
+  name           = "replybot"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
