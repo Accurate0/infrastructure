@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "this" {
         name      = "replybot-task",
         image     = "${aws_ecr_repository.this.repository_url}",
         essential = true,
-        memory    = 512,
+        memory    = 128,
         cpu       = 256,
         logConfiguration = {
           logDriver = "awslogs",
