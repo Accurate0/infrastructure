@@ -94,3 +94,10 @@ resource "tfe_workspace" "replybot" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "openai" {
+  name           = "openai"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Completions",
+        "method": "POST",
+        "url": "/completions",
+        "queryParameters": [],
+        "templateParameters": []
+    }
+]
