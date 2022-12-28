@@ -42,7 +42,7 @@
     <backend>
         <retry
             condition="@(context.Response.StatusCode > 500)"
-            count="3"
+            count="5"
             interval="3"
             max-interval="30"
             first-fast-retry="true"
