@@ -1,0 +1,30 @@
+<policies>
+    <inbound>
+        <base />
+        <send-request mode="new" response-variable-name="tokenResponse" timeout="20" ignore-error="false">
+            <set-url>https://login.microsoftonline.com/{{B2CTenantId}}/oauth2/v2.0/token</set-url>
+            <set-method>POST</set-method>
+            <set-header name="Content-Type" exists-action="override">
+                <value>application/x-www-form-urlencoded</value>
+            </set-header>
+            <set-body>@{
+                return "client_id={{B2CClientId}}&client_secret={{B2CClientSecret}}&scope={{B2CClientScope}}&grant_type=client_credentials";
+            }</set-body>
+        </send-request>
+        <set-header name="Authorization">
+            <value>@{
+                var accessToken = ((IResponse)context.Variables["tokenResponse"]).Body.As<JObject>()["access_token"];
+                return $"Bearer {accessToken}";
+            }</value>
+        </set-header>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

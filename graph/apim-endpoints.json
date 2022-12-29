@@ -1,0 +1,35 @@
+[
+    {
+        "name": "GetUser",
+        "method": "GET",
+        "url": "/users/{UserId}",
+        "queryParameters": [],
+        "templateParameters": [
+            {
+                "name": "UserId",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "PatchUser",
+        "method": "PATCH",
+        "url": "/users/{UserId}",
+        "queryParameters": [],
+        "templateParameters": [
+            {
+                "name": "UserId",
+                "type": "string",
+                "required": true
+            }
+        ]
+    },
+    {
+        "name": "GetUsers",
+        "method": "GET",
+        "url": "/users",
+        "queryParameters": [],
+        "templateParameters": []
+    }
+]

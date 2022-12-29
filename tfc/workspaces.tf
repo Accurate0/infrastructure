@@ -101,3 +101,10 @@ resource "tfe_workspace" "openai" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "graph" {
+  name           = "graph"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
