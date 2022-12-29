@@ -15,6 +15,7 @@ on:
       - maccas-api/**
       - places-api/**
       - sandbox/**
+      - graph/**
       - openai/**
       - module/**
       - .github/workflows/call-terraform.yml
@@ -67,3 +68,4 @@ jobs:
           - maccas-api
           - places-api
           - openai
+          - graph

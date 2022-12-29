@@ -59,7 +59,6 @@ provider "github" {}
 
 provider "random" {}
 
-
 variable "ARM_B2C_CLIENT_ID" {
   type = string
 }
