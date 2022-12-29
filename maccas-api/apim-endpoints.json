@@ -208,6 +208,13 @@
         "templateParameters": []
     },
     {
+        "name": "GetAllUserSpending",
+        "method": "GET",
+        "url": "/admin/user/spending",
+        "queryParameters": [],
+        "templateParameters": []
+    },
+    {
         "name": "GetConfig",
         "method": "GET",
         "url": "/user/config",
