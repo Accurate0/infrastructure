@@ -108,3 +108,10 @@ resource "tfe_workspace" "graph" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "ip" {
+  name           = "ip"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}

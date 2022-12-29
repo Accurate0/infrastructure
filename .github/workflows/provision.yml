@@ -69,3 +69,4 @@ jobs:
           - places-api
           - openai
           - graph
+          - ip
