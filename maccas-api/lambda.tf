@@ -121,6 +121,15 @@ resource "aws_lambda_function" "api" {
   timeout       = 30
   memory_size   = 256
   runtime       = "provided.al2"
+  layers        = ["arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:10"]
+  environment {
+    variables = {
+      "AWS_LAMBDA_EXEC_WRAPPER" = "/opt/bootstrap"
+      "RUST_LOG"                = "info"
+      "PORT"                    = "8000"
+      "READINESS_CHECK_PATH"    = "/health/status"
+    }
+  }
 }
 
 resource "aws_lambda_function" "cleanup" {
