@@ -13,7 +13,7 @@ resource "aws_lambda_function" "api" {
   handler       = "bootstrap"
   role          = var.role_arn
   filename      = data.archive_file.dummy.output_path
-  timeout       = 120
+  timeout       = 240
   memory_size   = 256
   runtime       = "provided.al2"
 }
