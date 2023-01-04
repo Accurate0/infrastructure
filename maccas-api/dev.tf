@@ -11,7 +11,7 @@ resource "aws_lambda_function" "api-dev" {
   environment {
     variables = {
       "AWS_LAMBDA_EXEC_WRAPPER" = "/opt/bootstrap"
-      "RUST_LOG"                = "info"
+      "RUST_LOG"                = "debug"
       "PORT"                    = "8000"
       "READINESS_CHECK_PATH"    = "/health/status"
     }
