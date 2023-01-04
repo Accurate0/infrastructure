@@ -102,7 +102,7 @@ resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
 resource "aws_dynamodb_table" "maccas-audit-db" {
   name           = "MaccasAudit"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
+  read_capacity  = 5
   write_capacity = 1
   hash_key       = "operation_id"
   attribute {
@@ -118,8 +118,8 @@ resource "aws_dynamodb_table" "maccas-audit-db" {
   global_secondary_index {
     name            = "UserIdIndex"
     hash_key        = "user_id"
+    read_capacity   = 5
     write_capacity  = 1
-    read_capacity   = 1
     projection_type = "ALL"
   }
 }
