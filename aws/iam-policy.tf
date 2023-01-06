@@ -342,7 +342,8 @@ resource "aws_iam_group_policy" "terraform-group-policy-3" {
           "ecs:*",
           "ecr:*",
           "ssm:*",
-          "appconfig:*"
+          "appconfig:*",
+          "secretsmanager:*"
         ],
         "Effect" : "Allow",
         "Resource" : "*"

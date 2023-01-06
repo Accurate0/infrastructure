@@ -88,6 +88,19 @@ resource "aws_iam_policy" "resource-access" {
           "${aws_sqs_queue.maccas-cleanup-queue.arn}",
           "${aws_sqs_queue.maccas-images-queue.arn}",
         ]
+      },
+      {
+        "Effect" = "Allow",
+        "Action" = [
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:ListSecretVersionIds"
+        ],
+        "Resource" = [
+          "${aws_secretsmanager_secret.api-secret-apim-api-key.arn}",
+          "${aws_secretsmanager_secret.api-secret-jwt-bypass.arn}"
+        ]
       }
     ]
   })
