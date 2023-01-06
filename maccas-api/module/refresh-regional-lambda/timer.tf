@@ -1,5 +1,5 @@
 locals {
-  hours_between_refresh = 4
+  hours_between_refresh = 3
 }
 
 resource "aws_cloudwatch_event_rule" "refresh-interval" {
