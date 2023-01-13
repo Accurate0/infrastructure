@@ -18,6 +18,9 @@ resource "aws_iam_group_membership" "terraform-main-membership" {
   group = aws_iam_group.terraform-main.name
 }
 
+resource "aws_iam_access_key" "terraform-access-key" {
+  user = "terraform"
+}
 
 resource "aws_iam_user" "actions" {
   name = "actions"

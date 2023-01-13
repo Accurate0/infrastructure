@@ -17,3 +17,15 @@ resource "github_actions_secret" "repos-with-actions-secret" {
   secret_name     = "AWS_SECRET_ACCESS_KEY"
   plaintext_value = aws_iam_access_key.actions-access-key.secret
 }
+
+resource "github_actions_secret" "infra-repo-key-id" {
+  repository      = "infrastructure"
+  secret_name     = "AWS_ACCESS_KEY_ID"
+  plaintext_value = aws_iam_access_key.terraform-access-key.id
+}
+
+resource "github_actions_secret" "infra-repo-secret" {
+  repository      = "infrastructure"
+  secret_name     = "AWS_SECRET_ACCESS_KEY"
+  plaintext_value = aws_iam_access_key.terraform-access-key.secret
+}
