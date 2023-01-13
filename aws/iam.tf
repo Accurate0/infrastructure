@@ -4,34 +4,39 @@ resource "aws_iam_user" "terraform" {
   name = "terraform"
 }
 
-resource "aws_iam_group" "terraform-users" {
-  name = "terraform-users"
+resource "aws_iam_group" "terraform-main" {
+  name = "terraform-main"
 }
 
-resource "aws_iam_group" "terraform-users-2" {
-  name = "terraform-users-2"
-}
-
-resource "aws_iam_group_membership" "terraform-group" {
-  name = "terraform-group"
+resource "aws_iam_group_membership" "terraform-main-membership" {
+  name = "terraform-main-membership"
 
   users = [
     aws_iam_user.terraform.name,
   ]
 
-  group = aws_iam_group.terraform-users.name
+  group = aws_iam_group.terraform-main.name
 }
 
-resource "aws_iam_group_membership" "terraform-group-2" {
-  name = "terraform-group-2"
-
-  users = [
-    aws_iam_user.terraform.name,
-  ]
-
-  group = aws_iam_group.terraform-users-2.name
-}
 
 resource "aws_iam_user" "actions" {
   name = "actions"
+}
+
+resource "aws_iam_access_key" "actions-access-key" {
+  user = "actions"
+}
+
+resource "aws_iam_group" "actions-main" {
+  name = "actions-main"
+}
+
+resource "aws_iam_group_membership" "actions-main-membership" {
+  name = "actions-main-membership"
+
+  users = [
+    aws_iam_user.actions.name,
+  ]
+
+  group = aws_iam_group.actions-main.name
 }
