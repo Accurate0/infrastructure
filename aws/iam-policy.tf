@@ -46,6 +46,7 @@ resource "aws_iam_group_policy" "actions-main-group-policy" {
           "s3:*",
           "ec2:*",
           "ecr:*",
+          "ecs:*",
         ],
         "Effect" : "Allow",
         "Resource" : "*"
