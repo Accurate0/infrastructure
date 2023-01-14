@@ -68,7 +68,6 @@ resource "azuread_application" "actions" {
   }
 }
 
-
 resource "azuread_application" "terraform" {
   device_only_auth_enabled       = false
   display_name                   = "terraform"
