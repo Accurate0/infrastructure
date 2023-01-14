@@ -22,3 +22,8 @@ resource "aws_cloudwatch_log_group" "refresh-failure-log" {
   name              = "/aws/lambda/${aws_lambda_function.refresh-failure.function_name}"
   retention_in_days = 14
 }
+
+resource "aws_cloudwatch_log_group" "refresh-worker-log" {
+  name              = "/aws/ecs/refresh-worker"
+  retention_in_days = 14
+}
