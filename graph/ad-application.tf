@@ -94,3 +94,7 @@ resource "azuread_application" "this" {
     }
   }
 }
+
+resource "azuread_application_password" "this" {
+  application_object_id = azuread_application.this.object_id
+}

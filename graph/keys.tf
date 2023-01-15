@@ -22,10 +22,7 @@ resource "azurerm_api_management_named_value" "client-secret" {
   api_management_name = data.azurerm_api_management.general-apim.name
   display_name        = "B2CClientSecret"
   secret              = true
-  value               = "VALUE_REPLACED_IN_PORTAL"
-  lifecycle {
-    ignore_changes = [value]
-  }
+  value               = azuread_application_password.this.value
 }
 
 resource "azurerm_api_management_named_value" "scope" {
