@@ -8,7 +8,6 @@ on:
       - anurag-sh/**
       - weather-api/**
       - cloudflare/**
-      - light-api/**
       - azure/**
       - aws/**
       - tfc/**
@@ -63,7 +62,6 @@ jobs:
           - anurag-sh
           - ww3-api
           - weather-api
-          - light-api
           - sandbox
           - maccas-api
           - places-api

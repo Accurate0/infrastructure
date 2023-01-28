@@ -22,13 +22,6 @@ resource "tfe_workspace" "cloudflare" {
   queue_all_runs = false
 }
 
-resource "tfe_workspace" "light-api" {
-  name           = "light-api"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-}
-
 resource "tfe_workspace" "oracle" {
   name                  = "oracle"
   execution_mode        = "remote"
