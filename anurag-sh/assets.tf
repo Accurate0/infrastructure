@@ -167,8 +167,9 @@ resource "aws_s3_bucket_public_access_block" "assets-bucket-public-block" {
 }
 
 resource "aws_s3_object" "not-found-page" {
-  bucket = aws_s3_bucket.assets-bucket.id
-  key    = "404.html"
-  source = "resources/404.html"
-  etag   = filemd5("resources/404.html")
+  bucket       = aws_s3_bucket.assets-bucket.id
+  key          = "404.html"
+  content_type = "text/html"
+  content      = file("resources/404.html")
+  etag         = filemd5("resources/404.html")
 }
