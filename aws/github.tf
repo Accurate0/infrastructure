@@ -1,5 +1,5 @@
 locals {
-  repos = toset(["maccas-api", "replybot", "isitww3yet-api"])
+  repos = toset(["maccas-api", "replybot", "isitww3yet-api", "resume"])
 }
 
 resource "github_actions_secret" "repos-with-actions-key-id" {
