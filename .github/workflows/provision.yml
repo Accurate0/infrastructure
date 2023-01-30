@@ -13,6 +13,7 @@ on:
       - tfc/**
       - maccas-api/**
       - places-api/**
+      - replybot/**
       - sandbox/**
       - graph/**
       - openai/**
