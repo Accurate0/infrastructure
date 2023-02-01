@@ -36,7 +36,7 @@
         "templateParameters": []
     },
     {
-        "name": "Code",
+        "name": "GetCode",
         "method": "GET",
         "url": "/code/{dealId}",
         "templateParameters": [
@@ -55,7 +55,7 @@
         ]
     },
     {
-        "name": "Deals",
+        "name": "GetDeals",
         "method": "GET",
         "url": "/deals",
         "queryParameters": [],
@@ -113,14 +113,14 @@
         ]
     },
     {
-        "name": "LastRefresh",
+        "name": "GetLastRefresh",
         "method": "GET",
         "url": "/deals/last-refresh",
         "queryParameters": [],
         "templateParameters": []
     },
     {
-        "name": "StatisticsAccount",
+        "name": "GetStatisticsForAccount",
         "dependsOn": [],
         "method": "GET",
         "url": "/statistics/account",
@@ -128,14 +128,14 @@
         "templateParameters": []
     },
     {
-        "name": "StatisticsTotalAccount",
+        "name": "GetTotalAccounts",
         "method": "GET",
         "url": "/statistics/total-accounts",
         "queryParameters": [],
         "templateParameters": []
     },
     {
-        "name": "Points",
+        "name": "GetPoints",
         "dependsOn": [],
         "method": "GET",
         "url": "/points",
@@ -143,7 +143,7 @@
         "templateParameters": []
     },
     {
-        "name": "GetPoints",
+        "name": "GetPointsForAccount",
         "method": "GET",
         "url": "/points/{accountId}",
         "templateParameters": [
