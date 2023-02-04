@@ -44,7 +44,7 @@
             condition="@(context.Response.StatusCode >= 500)"
             count="5"
             interval="3"
-            max-interval="30"
+            max-interval="15"
             first-fast-retry="true"
             delta="5"
         >
