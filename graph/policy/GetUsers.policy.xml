@@ -1,0 +1,17 @@
+<policies>
+    <inbound>
+        <base />
+        <rewrite-uri template="@{
+            return "/users?$select={{GraphUserPropertySelect}}";
+        }" copy-unmatched-params="false" />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

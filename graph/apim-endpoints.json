@@ -10,7 +10,8 @@
                 "type": "string",
                 "required": true
             }
-        ]
+        ],
+        "policyFile": "./policy/GetUser.policy.xml"
     },
     {
         "name": "PatchUser",
@@ -30,6 +31,7 @@
         "method": "GET",
         "url": "/users",
         "queryParameters": [],
-        "templateParameters": []
+        "templateParameters": [],
+        "policyFile": "./policy/GetUsers.policy.xml"
     }
 ]

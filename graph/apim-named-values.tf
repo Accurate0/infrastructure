@@ -1,3 +1,13 @@
+
+resource "azurerm_api_management_named_value" "graph-user-property-select" {
+  name                = "graph-user-property-select"
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
+  api_management_name = data.azurerm_api_management.general-apim.name
+  display_name        = "GraphUserPropertySelect"
+  secret              = false
+  value               = "displayName,givenName,surname,extension_0bc691a1eb4c42f49cdf50357f8505b3_Role,id"
+}
+
 resource "azurerm_api_management_named_value" "tenant-id" {
   name                = "b2c-tenant-id"
   resource_group_name = data.azurerm_resource_group.general-api-group.name
