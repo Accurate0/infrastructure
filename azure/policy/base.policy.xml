@@ -47,6 +47,8 @@
         <set-header name="x-amzn-RequestId" exists-action="delete"/>
         <set-header name="X-Amzn-Trace-Id" exists-action="delete"/>
         <set-header name="X-amzn-remapped-server" exists-action="delete"/>
+        <set-header name="x-amzn-remapped-content-length" exists-action="delete" />
+        <set-header name="x-amzn-remapped-date" exists-action="delete" />
     </outbound>
     <on-error />
 </policies>
