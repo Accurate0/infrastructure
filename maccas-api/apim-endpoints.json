@@ -237,5 +237,12 @@
         "queryParameters": [],
         "templateParameters": [],
         "policyFile": "./policy/user.policy.xml"
+    },
+    {
+        "name": "GetHealthStatus",
+        "method": "GET",
+        "url": "/health/status",
+        "queryParameters": [],
+        "templateParameters": []
     }
 ]
