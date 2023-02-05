@@ -28,7 +28,7 @@ resource "aws_sqs_queue" "maccas-images-queue" {
 
 resource "aws_sqs_queue" "maccas-refresh-failure-queue" {
   name                      = "maccas-refresh-failure-queue"
-  delay_seconds             = 15
+  delay_seconds             = 600
   max_message_size          = 20480
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
@@ -44,7 +44,7 @@ resource "aws_sqs_queue" "maccas-refresh-failure-queue" {
 
 resource "aws_sqs_queue" "maccas-accounts-queue" {
   name                      = "maccas-accounts-queue"
-  delay_seconds             = 0
+  delay_seconds             = 30
   max_message_size          = 20480
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
