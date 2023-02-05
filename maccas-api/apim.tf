@@ -66,7 +66,7 @@ resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
   body = jsonencode({
     properties = {
       description = "maccas-jwt-bypass-policy"
-      format      = "rawxml"
+      format      = "xml"
       value       = file("policy/bypass.fragment.policy.xml")
     }
   })
@@ -80,7 +80,7 @@ resource "azapi_resource" "maccas-jwt-verification-policy-fragment" {
   body = jsonencode({
     properties = {
       description = "maccas-jwt-verification-policy"
-      format      = "rawxml"
+      format      = "xml"
       value       = file("policy/verification.fragment.policy.xml")
     }
   })
