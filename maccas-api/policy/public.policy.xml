@@ -1,6 +1,14 @@
 <policies>
     <inbound>
-        <include-fragment fragment-id="maccas-jwt-verification-policy" />
+        <set-variable name="IsHealthCheck" value="@(context.Operation.UrlTemplate == "/health/status")" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<bool>("IsHealthCheck", false))">
+                <!-- Do nothing -->
+            </when>
+            <otherwise>
+                <include-fragment fragment-id="maccas-jwt-verification-policy" />
+            </otherwise>
+            </choose>
         <base />
     </inbound>
     <backend>
