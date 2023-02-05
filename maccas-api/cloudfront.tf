@@ -1,27 +1,14 @@
-resource "aws_cloudfront_origin_access_identity" "image-bucket" {
-}
-
-data "aws_iam_policy_document" "image-bucket-s3-policy" {
-  statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.image-bucket.arn}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.image-bucket.iam_arn]
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "image-bucket" {
-  bucket = aws_s3_bucket.image-bucket.id
-  policy = data.aws_iam_policy_document.image-bucket-s3-policy.json
-}
-
 locals {
   s3_origin_id         = "image-bucket"
   one_month_in_seconds = 2592000
   one_week_in_seconds  = 604800
+}
+
+resource "aws_cloudfront_origin_access_control" "images" {
+  name                              = "maccas-images-policy"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
 resource "aws_cloudfront_cache_policy" "maccas-image-cache" {
@@ -61,10 +48,6 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
   origin {
     domain_name = aws_s3_bucket.image-bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
-
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.image-bucket.cloudfront_access_identity_path
-    }
   }
 
   enabled         = true

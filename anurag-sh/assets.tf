@@ -72,14 +72,14 @@ resource "aws_s3_bucket_policy" "assets-bucket" {
 
 locals {
   s3_origin_id        = "assets-bucket"
-  one_hour_in_seconds = 3600
+  fifteen_mins_in_seconds = 900
 }
 
 resource "aws_cloudfront_cache_policy" "assets-cache-policy" {
   name        = "anurag-sh-assets-cache-policy"
-  default_ttl = local.one_hour_in_seconds
-  max_ttl     = local.one_hour_in_seconds
-  min_ttl     = local.one_hour_in_seconds
+  default_ttl = local.fifteen_mins_in_seconds
+  max_ttl     = local.fifteen_mins_in_seconds
+  min_ttl     = local.fifteen_mins_in_seconds
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "none"
@@ -102,7 +102,7 @@ resource "aws_cloudfront_response_headers_policy" "assets-response-headers" {
   custom_headers_config {
     items {
       header   = "Cache-Control"
-      value    = "max-age=${local.one_hour_in_seconds}"
+      value    = "no-cache"
       override = true
     }
   }

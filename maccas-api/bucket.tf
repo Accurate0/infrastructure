@@ -33,3 +33,26 @@ resource "aws_s3_bucket_public_access_block" "image-bucket-public-block" {
   restrict_public_buckets = true
   ignore_public_acls      = true
 }
+
+data "aws_iam_policy_document" "image-bucket-s3-policy" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.image-bucket.arn}/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+
+      values = [aws_cloudfront_distribution.image-s3-distribution.arn]
+    }
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "image-bucket" {
+  bucket = aws_s3_bucket.image-bucket.id
+  policy = data.aws_iam_policy_document.image-bucket-s3-policy.json
+}
