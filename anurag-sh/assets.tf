@@ -98,14 +98,6 @@ resource "aws_cloudfront_cache_policy" "assets-cache-policy" {
 
 resource "aws_cloudfront_response_headers_policy" "assets-response-headers" {
   name = "anurag-sh-assets-response-header-policy"
-
-  custom_headers_config {
-    items {
-      header   = "Cache-Control"
-      value    = "no-cache"
-      override = true
-    }
-  }
 }
 
 resource "aws_cloudfront_distribution" "assets-s3-distribution" {
