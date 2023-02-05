@@ -71,7 +71,7 @@ resource "aws_s3_bucket_policy" "assets-bucket" {
 }
 
 locals {
-  s3_origin_id        = "assets-bucket"
+  s3_origin_id            = "assets-bucket"
   fifteen_mins_in_seconds = 900
 }
 
@@ -96,8 +96,8 @@ resource "aws_cloudfront_cache_policy" "assets-cache-policy" {
   }
 }
 
-resource "aws_cloudfront_response_headers_policy" "assets-response-headers" {
-  name = "anurag-sh-assets-response-header-policy"
+data "aws_cloudfront_response_headers_policy" "policy" {
+  name = "Managed-CORS-with-preflight-and-SecurityHeadersPolicy"
 }
 
 resource "aws_cloudfront_distribution" "assets-s3-distribution" {
@@ -119,7 +119,7 @@ resource "aws_cloudfront_distribution" "assets-s3-distribution" {
 
     viewer_protocol_policy     = "redirect-to-https"
     cache_policy_id            = aws_cloudfront_cache_policy.assets-cache-policy.id
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.assets-response-headers.id
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.policy.id
   }
 
   restrictions {

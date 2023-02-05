@@ -48,6 +48,7 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
   origin {
     domain_name = aws_s3_bucket.image-bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.images.id
   }
 
   enabled         = true
