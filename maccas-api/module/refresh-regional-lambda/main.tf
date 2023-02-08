@@ -2,13 +2,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.52.0"
+      version = "4.53.0"
     }
   }
 }
 
 provider "aws" {
-  region = var.region
+  region                 = var.region
+  skip_region_validation = true
 }
 
 variable "region" {
