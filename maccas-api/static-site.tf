@@ -1,27 +1,7 @@
-resource "cloudflare_record" "maccas" {
-  zone_id         = var.cloudflare_zone_id
-  name            = "maccas"
-  value           = "cname.vercel-dns.com"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "dev-maccas" {
-  zone_id         = var.cloudflare_zone_id
-  name            = "dev.maccas"
-  value           = "cname.vercel-dns.com"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-variable "cloudflare_zone_id" {
+variable "cloudflare_zone_id_maccas_one" {
   type      = string
   sensitive = true
-  default   = "ccdf653cce6321100fecab81f8f2d9ff"
+  default   = "7104890048c02e9a312f6ebbc8a8359a"
 }
 
 resource "vercel_project" "maccas-web" {
@@ -33,7 +13,7 @@ resource "vercel_project" "maccas-web" {
   }
 }
 
-resource "vercel_project_domain" "maccas-web-domain" {
+resource "vercel_project_domain" "maccas-one-web-domain" {
   project_id = vercel_project.maccas-web.id
-  domain     = "maccas.anurag.sh"
+  domain     = "maccas.one"
 }

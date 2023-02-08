@@ -64,11 +64,11 @@ resource "azuread_application" "this" {
     redirect_uris = [
       "http://localhost:3000/",
       "http://localhost:3000/login",
-      "https://dev.maccas.anurag.sh/",
-      "https://dev.maccas.anurag.sh/login",
       "https://jwt.ms/",
-      "https://maccas.anurag.sh/",
-      "https://maccas.anurag.sh/login",
+      "https://maccas.one/login",
+      "https://maccas.one/",
+      "https://dev.maccas.one/login",
+      "https://dev.maccas.one/"
     ]
   }
 

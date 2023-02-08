@@ -44,16 +44,16 @@ resource "aws_cloudfront_response_headers_policy" "maccas-image-response-headers
   }
 }
 
-resource "aws_cloudfront_distribution" "image-s3-distribution" {
+resource "aws_cloudfront_distribution" "image-s3-distribution-maccas-one" {
   origin {
-    domain_name = aws_s3_bucket.image-bucket.bucket_regional_domain_name
-    origin_id   = local.s3_origin_id
+    domain_name              = aws_s3_bucket.image-bucket.bucket_regional_domain_name
+    origin_id                = local.s3_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.images.id
   }
 
   enabled         = true
   is_ipv6_enabled = true
-  aliases         = ["i.maccas.anurag.sh"]
+  aliases         = ["i.maccas.one"]
   http_version    = "http2and3"
 
   default_cache_behavior {
@@ -74,7 +74,7 @@ resource "aws_cloudfront_distribution" "image-s3-distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cert.arn
+    acm_certificate_arn = aws_acm_certificate.cert-maccas-one.arn
     ssl_support_method  = "sni-only"
   }
 }

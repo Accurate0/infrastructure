@@ -1,5 +1,5 @@
-resource "aws_acm_certificate" "cert" {
-  domain_name       = "i.maccas.anurag.sh"
+resource "aws_acm_certificate" "cert-maccas-one" {
+  domain_name       = "i.maccas.one"
   validation_method = "DNS"
 
   lifecycle {

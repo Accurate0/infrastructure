@@ -42,7 +42,9 @@ data "aws_iam_policy_document" "image-bucket-s3-policy" {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
 
-      values = [aws_cloudfront_distribution.image-s3-distribution.arn]
+      values = [
+        aws_cloudfront_distribution.image-s3-distribution-maccas-one.arn
+      ]
     }
 
     principals {

@@ -4,8 +4,8 @@
         <cors>
             <allowed-origins>
                 <origin>http://localhost:3000/</origin>
-                <origin>https://maccas.anurag.sh/</origin>
-                <origin>https://dev.maccas.anurag.sh/</origin>
+                <origin>https://dev.maccas.one/</origin>
+                <origin>https://maccas.one/</origin>
             </allowed-origins>
             <allowed-methods preflight-result-max-age="300">
                 <method>GET</method>
@@ -24,7 +24,7 @@
             <query specified-parameter-action="prevent" unspecified-parameter-action="prevent" />
             <path specified-parameter-action="prevent" />
         </validate-parameters>
-        <set-variable name="isDev" value="@(context.Request.Headers.GetValueOrDefault("Origin", "").Contains("dev.maccas.anurag.sh"))" />
+        <set-variable name="isDev" value="@(context.Request.Headers.GetValueOrDefault("Origin", "").Contains("dev.maccas.one"))" />
         <choose>
             <when condition="@(context.Variables.GetValueOrDefault<bool>("isDev", false))">
                 <set-backend-service base-url="{{MaccasDevBackendUrl}}" />
