@@ -8,7 +8,9 @@ terraform {
 }
 
 provider "aws" {
-  region                 = var.region
+  region = var.region
+  # until ap-southeast-4 is added
+  # https://github.com/hashicorp/terraform-provider-aws/pull/29271
   skip_region_validation = true
 }
 
