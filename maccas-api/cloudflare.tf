@@ -50,3 +50,13 @@ resource "cloudflare_record" "dev-maccas-one" {
   ttl             = 1
   allow_overwrite = true
 }
+
+resource "cloudflare_record" "www-maccas-one" {
+  zone_id         = var.cloudflare_zone_id_maccas_one
+  name            = "www"
+  value           = "maccas.one"
+  type            = "CNAME"
+  proxied         = false
+  ttl             = 1
+  allow_overwrite = true
+}
