@@ -135,3 +135,15 @@ resource "aws_dynamodb_table" "maccas-audit-data" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "maccas-user-accounts" {
+  name           = "MaccasUserAccounts"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "account_name"
+  attribute {
+    name = "account_name"
+    type = "S"
+  }
+}
