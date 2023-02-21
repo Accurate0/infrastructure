@@ -139,8 +139,8 @@ resource "aws_dynamodb_table" "maccas-audit-data" {
 resource "aws_dynamodb_table" "maccas-user-accounts" {
   name           = "MaccasUserAccounts"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 1
-  write_capacity = 1
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "account_name"
   attribute {
     name = "account_name"
