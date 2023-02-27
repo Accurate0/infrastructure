@@ -41,7 +41,7 @@
     </inbound>
     <backend>
         <retry
-            condition="@(context.Response.StatusCode >= 500)"
+            condition="@(context.Response.StatusCode > 500)"
             count="5"
             interval="3"
             max-interval="5"
