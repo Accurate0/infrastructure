@@ -5,5 +5,12 @@
         "url": "/completions",
         "queryParameters": [],
         "templateParameters": []
+    },
+    {
+        "name": "ChatCompletions",
+        "method": "POST",
+        "url": "/chat/completions",
+        "queryParameters": [],
+        "templateParameters": []
     }
 ]
