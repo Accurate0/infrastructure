@@ -8,9 +8,9 @@ resource "aws_ecs_cluster" "this" {
 }
 
 resource "aws_ecs_task_definition" "this" {
-  family = "replybot-task"
+  family       = "replybot-task"
+  network_mode = "host"
   container_definitions = jsonencode(
-
     [
       {
         name      = "replybot-task",
