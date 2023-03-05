@@ -17,7 +17,28 @@ resource "aws_ecs_task_definition" "this" {
         image     = "${aws_ecr_repository.this.repository_url}",
         essential = true,
         memory    = 128,
-        cpu       = 256,
+        cpu       = 128,
+        logConfiguration = {
+          logDriver = "awslogs",
+          options = {
+            awslogs-group         = "${aws_cloudwatch_log_group.replybot-log.name}",
+            awslogs-region        = "ap-southeast-2",
+            awslogs-stream-prefix = "ecs"
+          }
+        },
+        dependsOn = [
+          {
+            containerName = "replybot-cache",
+            condition     = "START"
+          }
+        ]
+      },
+      {
+        name      = "replybot-cache",
+        image     = "redis:alpine",
+        essential = true,
+        memory    = 128,
+        cpu       = 128,
         logConfiguration = {
           logDriver = "awslogs",
           options = {
@@ -26,7 +47,7 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-stream-prefix = "ecs"
           }
         }
-      }
+      },
     ]
   )
   requires_compatibilities = ["EC2"]
