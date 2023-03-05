@@ -14,7 +14,6 @@ resource "aws_iam_role" "ecs-agent" {
   assume_role_policy = data.aws_iam_policy_document.ecs-agent.json
 }
 
-
 resource "aws_iam_role_policy_attachment" "ecs-agent" {
   role       = aws_iam_role.ecs-agent.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
@@ -44,4 +43,38 @@ data "aws_iam_policy_document" "assume_role_policy" {
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy" {
   role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+
+resource "aws_iam_role" "ecs-container-iam-role" {
+  name               = "replybot-ecs-container-iam-role"
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "ecs-container-resource-access" {
+  role       = aws_iam_role.ecs-container-iam-role.name
+  policy_arn = aws_iam_policy.resource-access.arn
+}
+
+resource "aws_iam_policy" "resource-access" {
+  name = "replybot-resource-access"
+  policy = jsonencode({
+    "Version" = "2012-10-17"
+
+    "Statement" = [
+      {
+        "Effect" = "Allow",
+        "Action" = [
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:ListSecretVersionIds"
+        ],
+        "Resource" = [
+          "${aws_secretsmanager_secret.bot-secret-apim-api-key.arn}",
+          "${aws_secretsmanager_secret.bot-secret-discord-token.arn}",
+        ]
+      }
+    ]
+  })
 }
