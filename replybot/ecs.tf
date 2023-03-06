@@ -9,7 +9,7 @@ resource "aws_ecs_cluster" "this" {
 
 resource "aws_ecs_task_definition" "this" {
   family       = "replybot-task"
-  network_mode = "host"
+  network_mode = "bridge"
   container_definitions = jsonencode(
     [
       {
@@ -25,21 +25,13 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-region        = "ap-southeast-2",
             awslogs-stream-prefix = "ecs"
           }
-        }
-      }
-    ]
-  )
-  requires_compatibilities = ["EC2"]
-  execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
-  task_role_arn            = aws_iam_role.ecs-container-iam-role.arn
-}
-
-
-resource "aws_ecs_task_definition" "redis-cache-task" {
-  family       = "replybot-cache"
-  network_mode = "host"
-  container_definitions = jsonencode(
-    [
+        },
+        dependsOn = [{
+          containerName : "replybot-cache",
+          condition : "START"
+        }],
+        links = ["replybot-cache:replybot-cache"]
+      },
       {
         name      = "replybot-cache",
         image     = "redis:alpine",
@@ -59,19 +51,12 @@ resource "aws_ecs_task_definition" "redis-cache-task" {
   )
   requires_compatibilities = ["EC2"]
   execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
+  task_role_arn            = aws_iam_role.ecs-container-iam-role.arn
 }
-
 
 resource "aws_ecs_service" "this" {
   name            = "replybot-service"
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.this.arn
-  desired_count   = 1
-}
-
-resource "aws_ecs_service" "redis-cache-service" {
-  name            = "replybot-cache"
-  cluster         = aws_ecs_cluster.this.id
-  task_definition = aws_ecs_task_definition.redis-cache-task.arn
   desired_count   = 1
 }
