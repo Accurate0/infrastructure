@@ -12,5 +12,12 @@
         "url": "/chat/completions",
         "queryParameters": [],
         "templateParameters": []
+    },
+    {
+        "name": "ImageGenerations",
+        "method": "POST",
+        "url": "/image/generations",
+        "queryParameters": [],
+        "templateParameters": []
     }
 ]
