@@ -68,4 +68,5 @@ jobs:
           - places-api
           - openai
           - graph
+          - replybot
           - ip
