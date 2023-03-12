@@ -48,11 +48,22 @@ provider "azurerm" {
   features {}
 }
 
-provider "aws" {}
+provider "aws" {
+  default_tags {
+    tags = {
+      Project = "Maccas API"
+    }
+  }
+}
 
 provider "aws" {
   region = "us-east-1"
   alias  = "us-east-1"
+  default_tags {
+    tags = {
+      Project = "Maccas API"
+    }
+  }
 }
 
 provider "github" {}
