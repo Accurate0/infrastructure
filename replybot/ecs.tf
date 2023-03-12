@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "this" {
   container_definitions = jsonencode(
     [
       {
-        name      = "replybot-task",
+        name      = "replybot",
         image     = "${aws_ecr_repository.this.repository_url}",
         essential = true,
         memory    = 128,
