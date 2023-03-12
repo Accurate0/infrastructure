@@ -1,10 +1,5 @@
-resource "aws_ecs_cluster" "this" {
-  name = "replybot-cluster"
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
-  }
+data "aws_ecs_cluster" "this" {
+  cluster_name = "default-cluster"
 }
 
 resource "aws_ecs_task_definition" "this" {
@@ -56,7 +51,7 @@ resource "aws_ecs_task_definition" "this" {
 
 resource "aws_ecs_service" "this" {
   name            = "replybot-service"
-  cluster         = aws_ecs_cluster.this.id
+  cluster         = data.aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = 1
 }
