@@ -67,6 +67,7 @@ resource "aws_iam_policy" "resource-access" {
         ]
         "Resource" = [
           "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.replybot-interaction.id}",
+          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.replybot-interaction.id}/index/*",
         ]
       },
     ]
