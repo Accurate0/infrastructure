@@ -30,7 +30,6 @@ resource "cloudflare_record" "i-maccas-one" {
   ttl             = 1
 }
 
-
 resource "cloudflare_record" "maccas-one" {
   zone_id         = var.cloudflare_zone_id_maccas_one
   name            = "@"
