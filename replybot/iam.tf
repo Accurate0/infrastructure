@@ -42,11 +42,23 @@ resource "aws_iam_policy" "resource-access" {
           "secretsmanager:GetResourcePolicy",
           "secretsmanager:GetSecretValue",
           "secretsmanager:DescribeSecret",
-          "secretsmanager:ListSecretVersionIds"
+          "secretsmanager:ListSecretVersionIds",
+          "secretsmanager:ListSecrets"
         ],
         "Resource" = [
           "${aws_secretsmanager_secret.bot-secret-apim-api-key.arn}",
           "${aws_secretsmanager_secret.bot-secret-discord-token.arn}",
+          "${aws_secretsmanager_secret.bot-secret-discord-token-dev.arn}",
+        ]
+      },
+      {
+        // need to allow listing all secerets to do the prefix search
+        "Effect" = "Allow",
+        "Action" = [
+          "secretsmanager:ListSecrets"
+        ],
+        "Resource" = [
+          "*"
         ]
       },
       {
