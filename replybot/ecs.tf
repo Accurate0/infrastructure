@@ -25,7 +25,21 @@ resource "aws_ecs_task_definition" "this" {
           containerName : "replybot-cache",
           condition : "START"
         }],
-        links = ["replybot-cache:replybot-cache"]
+        links = ["replybot-cache:replybot-cache"],
+        environment = [
+          {
+            name  = "REPLYBOT_REDIS_CONNECTION_STRING"
+            value = "redis://replybot-cache/"
+          },
+          {
+            name  = "REPLYBOT_INTERACTION_TABLE_NAME"
+            value = aws_dynamodb_table.replybot-interaction.name
+          },
+          {
+            name  = "REPLYBOT_INTERACTION_TABLE_USER_INDEX_NAME"
+            value = var.interaction-table-user-id-index
+          },
+        ]
       },
       {
         name      = "replybot-cache",
