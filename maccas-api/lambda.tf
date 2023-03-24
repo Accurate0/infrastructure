@@ -106,7 +106,17 @@ resource "aws_iam_policy" "resource-access" {
           "${aws_secretsmanager_secret.api-secret-jwt-bypass.arn}",
           "${aws_secretsmanager_secret.api-secret-application-audience.arn}"
         ]
-      }
+      },
+      {
+        // need to allow listing all secerets to do the prefix search
+        "Effect" = "Allow",
+        "Action" = [
+          "secretsmanager:ListSecrets"
+        ],
+        "Resource" = [
+          "*"
+        ]
+      },
     ]
   })
 }
