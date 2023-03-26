@@ -108,3 +108,10 @@ resource "tfe_workspace" "ip" {
   organization   = tfe_organization.server.name
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "ozb" {
+  name           = "ozb"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+}
