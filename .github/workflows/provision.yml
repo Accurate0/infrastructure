@@ -18,6 +18,7 @@ on:
       - graph/**
       - openai/**
       - module/**
+      - ozb/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
@@ -70,3 +71,4 @@ jobs:
           - graph
           - replybot
           - ip
+          - ozb
