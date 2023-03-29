@@ -75,7 +75,7 @@ resource "mongodbatlas_database_user" "ozb-user-dev" {
 resource "mongodbatlas_event_trigger" "ozb-insert-trigger" {
   # where is app id from?
   app_id                      = "641ffb40af360b467e274794"
-  config_collection           = "Posts"
+  config_collection           = "TriggerIds"
   config_database             = "ozb-db"
   config_full_document        = true
   config_full_document_before = false
