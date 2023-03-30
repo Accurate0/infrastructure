@@ -21,4 +21,8 @@ resource "azurerm_cosmosdb_account" "general-api-db" {
     location          = azurerm_resource_group.general-api-group.location
     failover_priority = 0
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
