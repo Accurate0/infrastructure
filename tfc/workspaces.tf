@@ -5,6 +5,10 @@ resource "tfe_workspace" "tfc" {
   organization       = tfe_organization.server.name
   queue_all_runs     = false
   allow_destroy_plan = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "azure" {
@@ -13,6 +17,10 @@ resource "tfe_workspace" "azure" {
   organization              = tfe_organization.server.name
   queue_all_runs            = false
   remote_state_consumer_ids = [tfe_workspace.weather-api.id]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "cloudflare" {
@@ -20,6 +28,10 @@ resource "tfe_workspace" "cloudflare" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "oracle" {
@@ -30,6 +42,10 @@ resource "tfe_workspace" "oracle" {
   queue_all_runs        = false
   speculative_enabled   = false
   file_triggers_enabled = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "weather-api" {
@@ -37,6 +53,10 @@ resource "tfe_workspace" "weather-api" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "ww3-api" {
@@ -44,6 +64,10 @@ resource "tfe_workspace" "ww3-api" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "sandbox" {
@@ -51,6 +75,10 @@ resource "tfe_workspace" "sandbox" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "places-api" {
@@ -58,6 +86,10 @@ resource "tfe_workspace" "places-api" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "aws" {
@@ -65,6 +97,10 @@ resource "tfe_workspace" "aws" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "maccas-api" {
@@ -72,6 +108,10 @@ resource "tfe_workspace" "maccas-api" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "anurag-sh" {
@@ -79,6 +119,10 @@ resource "tfe_workspace" "anurag-sh" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "replybot" {
@@ -86,6 +130,10 @@ resource "tfe_workspace" "replybot" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "openai" {
@@ -93,6 +141,10 @@ resource "tfe_workspace" "openai" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "graph" {
@@ -100,6 +152,10 @@ resource "tfe_workspace" "graph" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "ip" {
@@ -107,6 +163,10 @@ resource "tfe_workspace" "ip" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "tfe_workspace" "ozb" {
@@ -114,4 +174,8 @@ resource "tfe_workspace" "ozb" {
   execution_mode = "local"
   organization   = tfe_organization.server.name
   queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
