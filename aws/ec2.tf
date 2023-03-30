@@ -10,4 +10,8 @@ ECS_CLUSTER=${aws_ecs_cluster.this.name}
 ECS_ENABLE_SPOT_INSTANCE_DRAINING=true
 EOF
 EOT
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }

@@ -10,6 +10,10 @@ resource "azurerm_api_management" "general-apim" {
   }
 
   sku_name = "Consumption_0"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_api_management_custom_domain" "general-apim-custom-domain" {
