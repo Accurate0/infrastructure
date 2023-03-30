@@ -14,6 +14,10 @@ resource "aws_dynamodb_table" "maccas-api-cache-db" {
     name = "deal_uuid"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "maccas-api-user-config-db" {
@@ -27,6 +31,10 @@ resource "aws_dynamodb_table" "maccas-api-user-config-db" {
     name = "user_id"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 resource "aws_dynamodb_table" "maccas-api-db" {
   name           = "MaccasApiDb"
@@ -38,6 +46,10 @@ resource "aws_dynamodb_table" "maccas-api-db" {
   attribute {
     name = "account_name"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
@@ -57,6 +69,10 @@ resource "aws_dynamodb_table" "maccas-api-cache-db-v1" {
     name = "account_name"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "maccas-api-offer-id-db" {
@@ -69,9 +85,14 @@ resource "aws_dynamodb_table" "maccas-api-offer-id-db" {
     enabled        = true
     attribute_name = "ttl"
   }
+
   attribute {
     name = "offer_id"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
@@ -85,6 +106,10 @@ resource "aws_dynamodb_table" "maccas-api-point-db" {
     name = "account_hash"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
@@ -96,6 +121,10 @@ resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
   attribute {
     name = "region"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
@@ -122,6 +151,10 @@ resource "aws_dynamodb_table" "maccas-audit-db" {
     write_capacity  = 1
     projection_type = "ALL"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "maccas-audit-data" {
@@ -134,6 +167,10 @@ resource "aws_dynamodb_table" "maccas-audit-data" {
     name = "key"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "maccas-user-accounts" {
@@ -145,5 +182,9 @@ resource "aws_dynamodb_table" "maccas-user-accounts" {
   attribute {
     name = "account_name"
     type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }

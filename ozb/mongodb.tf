@@ -19,6 +19,9 @@ variable "posts-collection" {
 resource "mongodbatlas_project" "this" {
   name   = "ozb"
   org_id = data.mongodbatlas_roles_org_id.current-org.org_id
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "mongodbatlas_cluster" "this" {
@@ -29,6 +32,10 @@ resource "mongodbatlas_cluster" "this" {
   backing_provider_name       = "AWS"
   provider_region_name        = "AP_SOUTHEAST_2"
   provider_instance_size_name = "M0"
+
+    lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "mongodbatlas_project_ip_access_list" "anywhere-access" {
@@ -51,6 +58,10 @@ resource "mongodbatlas_database_user" "ozb-user" {
   scopes {
     name = mongodbatlas_cluster.this.name
     type = "CLUSTER"
+  }
+
+    lifecycle {
+    prevent_destroy = true
   }
 }
 

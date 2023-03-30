@@ -25,4 +25,8 @@ resource "aws_dynamodb_table" "replybot-interaction" {
     write_capacity  = 1
     projection_type = "ALL"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
