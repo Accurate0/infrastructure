@@ -40,8 +40,8 @@ resource "azurerm_api_management_api_policy" "maccas-v1-policy" {
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 
   depends_on = [
-    azurerm_api_management_named_value.maccas-lambda-api-key,
-    azurerm_api_management_named_value.maccas-lambda-dev-api-key
+    module.maccas-lambda-api-key,
+    module.maccas-lambda-dev-api-key
   ]
   xml_content = file("policy/maccas.v1.policy.xml")
 }
@@ -70,6 +70,10 @@ resource "azapi_resource" "maccas-jwt-bypass-policy-fragment" {
       value       = file("policy/bypass.fragment.policy.xml")
     }
   })
+
+  depends_on = [
+    module.maccas-apim-jwt-bypass
+  ]
 }
 
 resource "azapi_resource" "maccas-jwt-verification-policy-fragment" {

@@ -1,0 +1,9 @@
+[
+    {
+        "name": "GetStatus",
+        "method": "GET",
+        "url": "/status",
+        "queryParameters": [],
+        "templateParameters": []
+    }
+]

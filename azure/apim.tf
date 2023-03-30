@@ -11,17 +11,13 @@ resource "azurerm_api_management" "general-apim" {
 
   sku_name = "Consumption_0"
 
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.apim.id]
+  }
+
   lifecycle {
     prevent_destroy = true
-  }
-}
-
-resource "azurerm_api_management_custom_domain" "general-apim-custom-domain" {
-  api_management_id = azurerm_api_management.general-apim.id
-  gateway {
-    default_ssl_binding          = true
-    host_name                    = "api.anurag.sh"
-    negotiate_client_certificate = false
   }
 }
 

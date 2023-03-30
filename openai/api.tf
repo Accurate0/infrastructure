@@ -39,5 +39,9 @@ resource "azurerm_api_management_api_policy" "openai-v1-policy" {
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_resource_group.general-api-group.name
 
+  depends_on = [
+    module.openai-api-key
+  ]
+
   xml_content = file("policy/base.policy.xml")
 }

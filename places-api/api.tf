@@ -68,7 +68,7 @@ resource "azurerm_api_management_api_operation_policy" "search-operation-policy"
   operation_id        = azurerm_api_management_api_operation.search-operation.operation_id
 
   depends_on = [
-    azurerm_api_management_named_value.google-places-api-key
+    module.google-places-api-key
   ]
 
   xml_content = file("policy/search.policy.xml")
