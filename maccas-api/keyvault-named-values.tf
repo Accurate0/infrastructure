@@ -9,12 +9,12 @@ module "maccas-lambda-dev-api-key" {
   source       = "../module/keyvault-named-value"
   named_value  = "MaccasLambdaDevApiKey"
   secret_name  = "maccas-lambda-dev-api-key"
-  secret_value = base64encode(random_password.jwt-bypass-token.result)
+  secret_value = aws_api_gateway_api_key.api-dev-key.value
 }
 
 module "maccas-lambda-api-key" {
   source       = "../module/keyvault-named-value"
   named_value  = "MaccasLambdaApiKey"
   secret_name  = "maccas-lambda-api-key"
-  secret_value = base64encode(random_password.jwt-bypass-token.result)
+  secret_value = aws_api_gateway_api_key.api-key.value
 }
