@@ -38,3 +38,22 @@ resource "aws_lambda_permission" "cloudwatch-call-trigger" {
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.mongodb.arn
 }
+
+resource "aws_cloudwatch_event_rule" "timed-interval" {
+  name = "ozb-timed-interval"
+  # 3am run in UTC
+  schedule_expression = "cron(0 19 * * ? *)"
+}
+
+resource "aws_lambda_permission" "cloudwatch-call-timed" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.timed.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.timed-interval.arn
+}
+
+resource "aws_cloudwatch_event_target" "timed-invoke-target" {
+  rule = aws_cloudwatch_event_rule.timed-interval.name
+  arn  = aws_lambda_function.timed.arn
+}
