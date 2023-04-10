@@ -17,6 +17,7 @@ on:
       - sandbox/**
       - graph/**
       - openai/**
+      - upstash/**
       - module/**
       - ozb/**
       - .github/workflows/call-terraform.yml
@@ -48,6 +49,7 @@ jobs:
           - azure
           - aws
           - cloudflare
+          - upstash
 
   projects:
     name: ${{ matrix.directory }}

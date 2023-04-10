@@ -21,15 +21,10 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-stream-prefix = "ecs"
           }
         },
-        dependsOn = [{
-          containerName : "replybot-cache",
-          condition : "START"
-        }],
-        links = ["replybot-cache:replybot-cache"],
         environment = [
           {
             name  = "REPLYBOT_REDIS_CONNECTION_STRING"
-            value = "redis://replybot-cache/"
+            value = module.redis.connection_string
           },
           {
             name  = "REPLYBOT_INTERACTION_TABLE_NAME"
@@ -40,22 +35,7 @@ resource "aws_ecs_task_definition" "this" {
             value = var.interaction-table-user-id-index
           },
         ]
-      },
-      {
-        name      = "replybot-cache",
-        image     = "redis:alpine",
-        essential = true,
-        memory    = 128,
-        cpu       = 128,
-        logConfiguration = {
-          logDriver = "awslogs",
-          options = {
-            awslogs-group         = "${aws_cloudwatch_log_group.replybot-log.name}",
-            awslogs-region        = "ap-southeast-2",
-            awslogs-stream-prefix = "ecs"
-          }
-        }
-      },
+      }
     ]
   )
   requires_compatibilities = ["EC2"]
