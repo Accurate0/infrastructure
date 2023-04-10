@@ -27,3 +27,13 @@ resource "aws_lambda_function" "timed" {
   memory_size   = 128
   runtime       = "provided.al2"
 }
+
+resource "aws_lambda_function" "daemon" {
+  function_name = "Ozb-Daemon"
+  handler       = "bootstrap"
+  role          = aws_iam_role.iam.arn
+  filename      = data.archive_file.dummy.output_path
+  timeout       = 300
+  memory_size   = 128
+  runtime       = "provided.al2"
+}

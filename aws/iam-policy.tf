@@ -25,6 +25,7 @@ resource "aws_iam_group_policy" "terraform-main-group-policy" {
           "organizations:*",
           "events:*",
           "apigateway:*",
+          "scheduler:*",
         ],
         "Effect" : "Allow",
         "Resource" : "*"

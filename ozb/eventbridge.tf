@@ -57,3 +57,21 @@ resource "aws_cloudwatch_event_target" "timed-invoke-target" {
   rule = aws_cloudwatch_event_rule.timed-interval.name
   arn  = aws_lambda_function.timed.arn
 }
+
+resource "aws_scheduler_schedule" "daemon-schedule" {
+  name = "ozb-daemon-schedule"
+
+  flexible_time_window {
+    mode = "OFF"
+  }
+
+  schedule_expression = "rate(3 minutes)"
+
+  target {
+    arn      = aws_lambda_function.daemon.arn
+    role_arn = aws_iam_role.scheduler-execution-role.arn
+    retry_policy {
+      maximum_retry_attempts = 0
+    }
+  }
+}

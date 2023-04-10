@@ -2,9 +2,6 @@ data "aws_ecs_cluster" "this" {
   cluster_name = "default-cluster"
 }
 
-locals {
-  env = []
-}
 
 resource "aws_ecs_task_definition" "this" {
   family       = "ozb-task"
@@ -24,25 +21,7 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-region        = "ap-southeast-2",
             awslogs-stream-prefix = "ecs"
           }
-        },
-        environment = local.env
-      },
-      {
-        name      = "ozbd",
-        image     = "${aws_ecr_repository.this.repository_url}",
-        essential = true,
-        memory    = 128,
-        cpu       = 128,
-        logConfiguration = {
-          logDriver = "awslogs",
-          options = {
-            awslogs-group         = "${aws_cloudwatch_log_group.this.name}",
-            awslogs-region        = "ap-southeast-2",
-            awslogs-stream-prefix = "ecs"
-          }
-        },
-        environment = local.env,
-        command     = ["--daemon"]
+        }
       },
     ]
   )

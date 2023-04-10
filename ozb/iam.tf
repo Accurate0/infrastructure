@@ -50,6 +50,7 @@ resource "aws_iam_policy" "resource-access" {
           "${aws_secretsmanager_secret.bot-secret-discord-token-dev.arn}",
           "${aws_secretsmanager_secret.mongodb-connection-string.arn}",
           "${aws_secretsmanager_secret.mongodb-connection-string-dev.arn}",
+          "${aws_secretsmanager_secret.redis-connection-string.arn}",
         ]
       },
       {
@@ -67,7 +68,7 @@ resource "aws_iam_policy" "resource-access" {
 }
 
 resource "aws_iam_role" "iam" {
-  name = "iam-role-for-ozb-trigger"
+  name = "iam-role-for-ozb"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -81,6 +82,46 @@ resource "aws_iam_role" "iam" {
       }
     ]
   })
+}
+
+resource "aws_iam_role" "scheduler-execution-role" {
+  name = "iam-ozb-scheduler-exec"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "scheduler.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "call-daemon" {
+  name = "iam-ozb-exec-daemon"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "lambda:InvokeFunction"
+        ],
+        "Resource" : [
+          "${aws_lambda_function.daemon.arn}:*",
+          "${aws_lambda_function.daemon.arn}"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "execution-attchment" {
+  role       = aws_iam_role.scheduler-execution-role.name
+  policy_arn = aws_iam_policy.call-daemon.arn
 }
 
 resource "aws_iam_role_policy_attachment" "resource-full-access-attachment" {
