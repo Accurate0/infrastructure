@@ -1,19 +1,30 @@
 <policies>
     <inbound>
         <base />
-        <send-request mode="new" response-variable-name="tokenResponse" timeout="20" ignore-error="false">
-            <set-url>https://login.microsoftonline.com/{{B2CTenantId}}/oauth2/v2.0/token</set-url>
-            <set-method>POST</set-method>
-            <set-header name="Content-Type" exists-action="override">
-                <value>application/x-www-form-urlencoded</value>
-            </set-header>
-            <set-body>@{
-                return "client_id={{B2CClientId}}&client_secret={{B2CClientSecret}}&scope={{B2CClientScope}}&grant_type=client_credentials";
-            }</set-body>
-        </send-request>
+        <cache-lookup-value key="APIM_GRAPH_API_TOKEN_RESPONSE" variable-name="storedToken" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("storedToken", null) == null)">
+                <send-request mode="new" response-variable-name="tokenResponse" timeout="20" ignore-error="false">
+                    <set-url>https://login.microsoftonline.com/{{B2CTenantId}}/oauth2/v2.0/token</set-url>
+                    <set-method>POST</set-method>
+                    <set-header name="Content-Type" exists-action="override">
+                        <value>application/x-www-form-urlencoded</value>
+                    </set-header>
+                    <set-body>@{
+                        return "client_id={{B2CClientId}}&client_secret={{B2CClientSecret}}&scope={{B2CClientScope}}&grant_type=client_credentials";
+                    }</set-body>
+                </send-request>
+                <set-variable name="storedToken" value="@(((IResponse)context.Variables["tokenResponse"]).Body.As<JObject>()["access_token"].ToObject<string>())" />
+                <cache-store-value key="APIM_GRAPH_API_TOKEN_RESPONSE" value="@((string)context.Variables["storedToken"])" duration="3000" />
+            </when>
+            <otherwise>
+                <!-- cache hit, do nothing -->
+            </otherwise>
+        </choose>
+
         <set-header name="Authorization">
             <value>@{
-                var accessToken = ((IResponse)context.Variables["tokenResponse"]).Body.As<JObject>()["access_token"];
+                var accessToken = context.Variables.GetValueOrDefault<string>("storedToken", null);
                 return $"Bearer {accessToken}";
             }</value>
         </set-header>

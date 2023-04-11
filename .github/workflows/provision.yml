@@ -28,11 +28,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  tfc:
+  pre-step:
+    name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: tfc
+      directory: ${{ matrix.directory }}
     secrets: inherit
+
+    strategy:
+      fail-fast: false
+      matrix:
+        directory:
+          - tfc
+          - upstash
 
   shared:
     name: ${{ matrix.directory }}
@@ -40,7 +48,7 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs: tfc
+    needs: pre-step
 
     strategy:
       fail-fast: false
@@ -49,7 +57,6 @@ jobs:
           - azure
           - aws
           - cloudflare
-          - upstash
 
   projects:
     name: ${{ matrix.directory }}

@@ -21,6 +21,13 @@ resource "azurerm_api_management" "general-apim" {
   }
 }
 
+resource "azurerm_api_management_redis_cache" "general-apim-redis" {
+  name              = "general-apim-redis"
+  api_management_id = azurerm_api_management.general-apim.id
+  connection_string = "${module.redis.endpoint}:${module.redis.port},ssl=true,password=${module.redis.password}"
+  cache_location    = azurerm_resource_group.general-api-group.location
+}
+
 resource "azurerm_resource_group" "general-api-group" {
   name     = "general-api-group"
   location = "australiaeast"

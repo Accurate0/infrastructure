@@ -1,9 +1,12 @@
 <policies>
     <inbound>
+        <base />
+        <cache-lookup vary-by-developer="false" vary-by-developer-groups="false">
+            <vary-by-query-parameter>text</vary-by-query-parameter>
+        </cache-lookup>
         <rewrite-uri template="@{
             return "/findplacefromtext/json?inputtype=textquery&amp;fields=formatted_address,name,geometry&amp;key={{GooglePlacesApiKey}}&amp;input=" + context.Request.OriginalUrl.Query.GetValueOrDefault("text");
         }" copy-unmatched-params="false" />
-        <base />
     </inbound>
     <backend>
         <base />
@@ -23,6 +26,7 @@
 
             return response.ToString();
         }</set-body>
+        <cache-store duration="300" />
     </outbound>
     <on-error>
         <base />
