@@ -50,7 +50,7 @@ resource "aws_iam_policy" "resource-access" {
           "${aws_secretsmanager_secret.bot-secret-discord-token-dev.arn}",
           "${aws_secretsmanager_secret.mongodb-connection-string.arn}",
           "${aws_secretsmanager_secret.mongodb-connection-string-dev.arn}",
-          "${aws_secretsmanager_secret.redis-connection-string.arn}",
+          "${data.aws_secretsmanager_secret.redis-connection-string.arn}",
         ]
       },
       {

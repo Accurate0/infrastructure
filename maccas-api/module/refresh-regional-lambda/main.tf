@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.54.0"
+      version = "~> 4"
     }
   }
 }
@@ -22,4 +22,8 @@ variable "region" {
 
 variable "role_arn" {
   type = string
+}
+
+output "lambda_arn" {
+  value = aws_lambda_function.api.arn
 }

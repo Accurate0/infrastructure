@@ -33,25 +33,3 @@ resource "aws_iam_group_policy" "terraform-main-group-policy" {
     ]
   })
 }
-
-resource "aws_iam_group_policy" "actions-main-group-policy" {
-  name  = "actions-main-group-policy"
-  group = aws_iam_group.actions-main.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        "Action" : [
-          "lambda:*",
-          "s3:*",
-          "ec2:*",
-          "ecr:*",
-          "ecs:*",
-        ],
-        "Effect" : "Allow",
-        "Resource" : "*"
-      }
-    ]
-  })
-}

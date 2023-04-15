@@ -2,7 +2,6 @@ data "aws_ecs_cluster" "this" {
   cluster_name = "default-cluster"
 }
 
-
 resource "aws_ecs_task_definition" "this" {
   family       = "ozb-task"
   network_mode = "bridge"

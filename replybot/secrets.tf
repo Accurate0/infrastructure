@@ -36,3 +36,7 @@ resource "aws_secretsmanager_secret_version" "bot-secret-discord-token-dev" {
     ]
   }
 }
+
+data "aws_secretsmanager_secret" "redis-connection-string" {
+  name = "Shared-RedisConnectionString"
+}

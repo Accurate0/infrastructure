@@ -23,10 +23,6 @@ resource "aws_ecs_task_definition" "this" {
         },
         environment = [
           {
-            name  = "REPLYBOT_REDIS_CONNECTION_STRING"
-            value = module.redis.connection_string
-          },
-          {
             name  = "REPLYBOT_INTERACTION_TABLE_NAME"
             value = aws_dynamodb_table.replybot-interaction.name
           },

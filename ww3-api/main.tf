@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.5.0"
+      version = "4.62.0"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -11,6 +11,10 @@ terraform {
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "3.10.1"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "5.22.0"
     }
   }
   cloud {
@@ -26,7 +30,7 @@ provider "azurerm" {
   features {}
 }
 module "lambda" {
-  source         = "../module/aws-lambda-rest-trigger"
+  source         = "../module/deprecated/aws-lambda-rest-trigger"
   api_name       = "WW3Api"
   api_version    = "v2"
   lambda_runtime = "go1.x"
