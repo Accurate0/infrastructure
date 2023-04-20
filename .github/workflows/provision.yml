@@ -28,19 +28,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  pre-step:
-    name: ${{ matrix.directory }}
+  tfc:
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: ${{ matrix.directory }}
+      directory: tfc
     secrets: inherit
 
-    strategy:
-      fail-fast: false
-      matrix:
-        directory:
-          - tfc
-          - upstash
+  upstash:
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: upstash
+    secrets: inherit
+    needs: tfc
 
   shared:
     name: ${{ matrix.directory }}
@@ -48,7 +47,7 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs: pre-step
+    needs: [tfc, upstash]
 
     strategy:
       fail-fast: false
