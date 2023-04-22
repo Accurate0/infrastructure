@@ -52,11 +52,11 @@ resource "aws_iam_role_policy_attachment" "deploy-role-resource-access" {
   policy_arn = var.resource_access_arn
 }
 
-resource "github_actions_variable" "deploy-role" {
-  for_each      = var.allowed_repos
-  repository    = each.key
-  variable_name = "AWS_DEPLOY_ROLE_ARN"
-  value         = aws_iam_role.deploy-role.arn
+resource "github_actions_secret" "deploy-role" {
+  for_each        = var.allowed_repos
+  repository      = each.key
+  secret_name     = "AWS_DEPLOY_ROLE_ARN"
+  plaintext_value = aws_iam_role.deploy-role.arn
 }
 
 resource "github_actions_variable" "deploy-region" {
