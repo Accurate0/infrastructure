@@ -48,7 +48,6 @@ resource "aws_iam_policy" "resource-access" {
         "Resource" = [
           "${aws_secretsmanager_secret.bot-secret-apim-api-key.arn}",
           "${aws_secretsmanager_secret.bot-secret-discord-token.arn}",
-          "${aws_secretsmanager_secret.bot-secret-discord-token-dev.arn}",
           "${data.aws_secretsmanager_secret.redis-connection-string.arn}",
         ]
       },

@@ -22,21 +22,6 @@ resource "aws_secretsmanager_secret_version" "bot-secret-discord-token" {
   }
 }
 
-resource "aws_secretsmanager_secret" "bot-secret-discord-token-dev" {
-  name = "Replybot-DiscordAuthToken-dev"
-}
-
-resource "aws_secretsmanager_secret_version" "bot-secret-discord-token-dev" {
-  secret_id     = aws_secretsmanager_secret.bot-secret-discord-token-dev.id
-  secret_string = "REPLACED_IN_PORTAL"
-
-  lifecycle {
-    ignore_changes = [
-      secret_string
-    ]
-  }
-}
-
 data "aws_secretsmanager_secret" "redis-connection-string" {
   name = "Shared-RedisConnectionString"
 }
