@@ -34,7 +34,7 @@ resource "azurerm_api_management_product" "maccas-policy-apim" {
   product_id            = "MaccasApiKey"
   api_management_name   = data.azurerm_api_management.general-apim.name
   resource_group_name   = data.azurerm_api_management.general-apim.resource_group_name
-  display_name          = "Maccas API Key (internal usage)"
+  display_name          = "Maccas API Key (Internal)"
   subscription_required = true
   published             = true
 }
@@ -49,7 +49,7 @@ resource "azurerm_api_management_subscription" "maccas-policy-apim-subscription"
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
   product_id          = azurerm_api_management_product.maccas-policy-apim.id
-  display_name        = "Maccas API Key (internal usage)"
+  display_name        = "Maccas API Key (Internal)"
   state               = "active"
   allow_tracing       = false
 }
