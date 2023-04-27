@@ -39,6 +39,12 @@ resource "azurerm_api_management_product" "maccas-policy-apim" {
   published             = true
 }
 
+module "product-apis" {
+  source     = "../module/apim-product-apis"
+  api_list   = ["Places-API-v1", "Graph-API-v1"]
+  product_id = azurerm_api_management_product.maccas-policy-apim.product_id
+}
+
 resource "azurerm_api_management_subscription" "maccas-policy-apim-subscription" {
   api_management_name = data.azurerm_api_management.general-apim.name
   resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
@@ -46,37 +52,4 @@ resource "azurerm_api_management_subscription" "maccas-policy-apim-subscription"
   display_name        = "Maccas API Key (internal usage)"
   state               = "active"
   allow_tracing       = false
-}
-
-resource "azurerm_api_management_product" "maccas-web-api-test" {
-  product_id            = "MaccasAPITest"
-  display_name          = "Maccas API (test key)"
-  published             = true
-  api_management_name   = data.azurerm_api_management.general-apim.name
-  resource_group_name   = data.azurerm_api_management.general-apim.resource_group_name
-  subscription_required = true
-}
-
-resource "azurerm_api_management_product_api" "maccas-api" {
-  api_name            = azurerm_api_management_api.maccas-v1.name
-  product_id          = azurerm_api_management_product.maccas-web-api-test.product_id
-  api_management_name = data.azurerm_api_management.general-apim.name
-  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
-}
-
-resource "azurerm_api_management_product_policy" "maccas-web-api-test" {
-  product_id          = azurerm_api_management_product.maccas-web-api-test.product_id
-  api_management_name = azurerm_api_management_product.maccas-web-api-test.api_management_name
-  resource_group_name = azurerm_api_management_product.maccas-web-api-test.resource_group_name
-
-  xml_content = file("policy/test.policy.xml")
-}
-
-resource "azurerm_api_management_subscription" "maccas-web-api-test-subscription" {
-  api_management_name = data.azurerm_api_management.general-apim.name
-  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
-  product_id          = azurerm_api_management_product.maccas-web-api-test.id
-  display_name        = "Maccas API Key (test key)"
-  state               = "active"
-  allow_tracing       = true
 }

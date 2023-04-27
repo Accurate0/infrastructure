@@ -41,7 +41,7 @@ jobs:
     secrets: inherit
     needs: tfc
 
-  shared:
+  cloud:
     name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
     with:
@@ -56,6 +56,23 @@ jobs:
           - azure
           - aws
           - cloudflare
+
+  shared:
+    name: ${{ matrix.directory }}
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: ${{ matrix.directory }}
+    secrets: inherit
+    needs: cloud
+
+    strategy:
+      fail-fast: false
+      matrix:
+        directory:
+          - places-api
+          - graph
+          - openai
+          - ip
 
   projects:
     name: ${{ matrix.directory }}
@@ -74,9 +91,5 @@ jobs:
           - weather-api
           - sandbox
           - maccas-api
-          - places-api
-          - openai
-          - graph
           - replybot
-          - ip
           - ozb

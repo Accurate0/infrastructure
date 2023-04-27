@@ -15,3 +15,9 @@ resource "azurerm_api_management_subscription" "internal-policy-apim-subscriptio
   state               = "active"
   allow_tracing       = false
 }
+
+module "product-apis" {
+  source     = "../module/apim-product-apis"
+  api_list   = ["OpenAI-API-v1"]
+  product_id = azurerm_api_management_product.internal-policy-apim.product_id
+}
