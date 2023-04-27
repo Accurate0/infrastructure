@@ -12,6 +12,9 @@ resource "oci_core_instance" "ubuntu_arm_oracle" {
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
   compartment_id      = oci_identity_compartment.arm.id
   shape               = "VM.Standard.A1.Flex"
+  # dude what the fuck is wrong with oracle
+  # they just stop instances
+  state = "RUNNING"
   shape_config {
     memory_in_gbs = "24"
     ocpus         = "4"
