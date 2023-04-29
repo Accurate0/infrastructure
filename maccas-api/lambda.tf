@@ -149,13 +149,15 @@ resource "aws_lambda_function" "api" {
   timeout       = 30
   memory_size   = 256
   runtime       = "provided.al2"
-  layers        = ["arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:10"]
+  layers        = ["arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:16"]
   environment {
     variables = {
-      "AWS_LAMBDA_EXEC_WRAPPER" = "/opt/bootstrap"
-      "RUST_LOG"                = "info"
-      "PORT"                    = "8000"
-      "READINESS_CHECK_PATH"    = "/health/status"
+      "AWS_LAMBDA_EXEC_WRAPPER"      = "/opt/bootstrap"
+      "RUST_LOG"                     = "info"
+      "AWS_LWA_PORT"                 = "8000"
+      "PORT"                         = "8000"
+      "AWS_LWA_READINESS_CHECK_PATH" = "/health/status"
+      "AWS_LWA_ENABLE_COMPRESSION"   = "true"
     }
   }
 }
