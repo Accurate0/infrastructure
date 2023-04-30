@@ -8,7 +8,8 @@
             <otherwise>
                 <include-fragment fragment-id="maccas-jwt-verification-policy" />
             </otherwise>
-            </choose>
+        </choose>
+        <include-fragment fragment-id="maccas-jwt-bypass-policy" />
         <base />
     </inbound>
     <backend>
