@@ -1,6 +1,10 @@
 name: call-terraform-remote
 on:
   workflow_dispatch:
+    inputs:
+      directory:
+        type: string
+        required: true
   workflow_call:
     inputs:
       directory:
