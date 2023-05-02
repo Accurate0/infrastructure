@@ -5,8 +5,8 @@ variable "interaction-table-user-id-index" {
 resource "aws_dynamodb_table" "replybot-interaction" {
   name           = "ReplybotInteraction"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 3
-  write_capacity = 3
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "hash"
   attribute {
     name = "hash"
@@ -21,7 +21,7 @@ resource "aws_dynamodb_table" "replybot-interaction" {
   global_secondary_index {
     name            = var.interaction-table-user-id-index
     hash_key        = "discord_id"
-    read_capacity   = 5
+    read_capacity   = 1
     write_capacity  = 1
     projection_type = "ALL"
   }

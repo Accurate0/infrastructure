@@ -56,7 +56,7 @@ resource "aws_dynamodb_table" "maccas-api-db" {
 resource "aws_dynamodb_table" "maccas-api-cache-db-v1" {
   name           = "MaccasApiCache"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 6
+  read_capacity  = 3
   write_capacity = 3
   hash_key       = "account_name"
 
@@ -131,7 +131,7 @@ resource "aws_dynamodb_table" "maccas-refresh-tracking-db" {
 resource "aws_dynamodb_table" "maccas-audit-db" {
   name           = "MaccasAudit"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 5
+  read_capacity  = 3
   write_capacity = 1
   hash_key       = "operation_id"
   attribute {
@@ -147,7 +147,7 @@ resource "aws_dynamodb_table" "maccas-audit-db" {
   global_secondary_index {
     name            = "UserIdIndex"
     hash_key        = "user_id"
-    read_capacity   = 5
+    read_capacity   = 2
     write_capacity  = 1
     projection_type = "ALL"
   }
@@ -176,8 +176,8 @@ resource "aws_dynamodb_table" "maccas-audit-data" {
 resource "aws_dynamodb_table" "maccas-user-accounts" {
   name           = "MaccasUserAccounts"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 5
-  write_capacity = 5
+  read_capacity  = 3
+  write_capacity = 3
   hash_key       = "account_name"
   attribute {
     name = "account_name"
