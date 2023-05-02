@@ -1,5 +1,5 @@
 resource "aws_spot_instance_request" "worker" {
-  ami                         = "ami-039894e835f6017fd"
+  ami                         = "ami-05357471aaf3a2be5"
   instance_type               = "t2.micro"
   user_data_replace_on_change = true
   iam_instance_profile        = aws_iam_instance_profile.ecs-agent.name
