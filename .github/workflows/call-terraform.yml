@@ -43,7 +43,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: "recursive"
+          fetch-depth: 0
+
+      - name: Check if files changed
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ${{ inputs.directory }}/*.tf
+            .github/**
+
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_hostname: app.terraform.io
@@ -60,4 +69,5 @@ jobs:
         run: terraform validate
 
       - name: terraform apply
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: terraform apply -auto-approve
