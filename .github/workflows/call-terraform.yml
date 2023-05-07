@@ -11,27 +11,6 @@ on:
         type: string
         required: true
 
-env:
-  TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
-  VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
-  TF_VAR_ARM_B2C_CLIENT_ID: ${{ secrets.ARM_B2C_CLIENT_ID }}
-  TF_VAR_ARM_B2C_CLIENT_SECRET: ${{ secrets.ARM_B2C_CLIENT_SECRET }}
-  TF_VAR_ARM_B2C_TENANT_ID: ${{ secrets.ARM_B2C_TENANT_ID }}
-  MONGODB_ATLAS_PUBLIC_KEY: ${{ secrets.MONGODB_ATLAS_PUBLIC_KEY }}
-  MONGODB_ATLAS_PRIVATE_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
-  GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-  TF_VAR_UPSTASH_API_KEY: ${{ secrets.TF_VAR_UPSTASH_API_KEY }}
-  TF_VAR_UPSTASH_EMAIL: ${{ secrets.TF_VAR_UPSTASH_EMAIL }}
-
 jobs:
   apply:
     runs-on: ubuntu-latest
@@ -53,9 +32,30 @@ jobs:
 
       - name: terraform init
         run: terraform init
+        env:
+          TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
       - name: terraform validate
         run: terraform validate
 
       - name: terraform apply
         run: terraform apply -auto-approve
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
+          VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
+          TF_VAR_ARM_B2C_CLIENT_ID: ${{ secrets.ARM_B2C_CLIENT_ID }}
+          TF_VAR_ARM_B2C_CLIENT_SECRET: ${{ secrets.ARM_B2C_CLIENT_SECRET }}
+          TF_VAR_ARM_B2C_TENANT_ID: ${{ secrets.ARM_B2C_TENANT_ID }}
+          MONGODB_ATLAS_PUBLIC_KEY: ${{ secrets.MONGODB_ATLAS_PUBLIC_KEY }}
+          MONGODB_ATLAS_PRIVATE_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          TF_VAR_UPSTASH_API_KEY: ${{ secrets.TF_VAR_UPSTASH_API_KEY }}
+          TF_VAR_UPSTASH_EMAIL: ${{ secrets.TF_VAR_UPSTASH_EMAIL }}
