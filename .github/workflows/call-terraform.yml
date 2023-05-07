@@ -32,8 +32,6 @@ jobs:
 
       - name: terraform init
         run: terraform init
-        env:
-          TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
 
       - name: terraform validate
         run: terraform validate
@@ -41,6 +39,7 @@ jobs:
       - name: terraform apply
         run: terraform apply -auto-approve
         env:
+          TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
