@@ -158,17 +158,6 @@ resource "tfe_workspace" "graph" {
   }
 }
 
-resource "tfe_workspace" "ip" {
-  name           = "ip"
-  execution_mode = "local"
-  organization   = tfe_organization.server.name
-  queue_all_runs = false
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "tfe_workspace" "ozb" {
   name           = "ozb"
   execution_mode = "local"

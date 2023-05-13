@@ -72,7 +72,6 @@ jobs:
           - places-api
           - graph
           - openai
-          - ip
 
   projects:
     name: ${{ matrix.directory }}
