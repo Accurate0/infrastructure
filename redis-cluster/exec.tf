@@ -13,7 +13,7 @@ resource "null_resource" "setup-machines" {
       "FLY_MACHINE_ID_SIN" = fly_machine.this["sin"].id
     }
 
-    command = "pushd ./config && ./scripts/fly-machines.sh && popd"
+    command = "cd ./config && ./scripts/fly-machines.sh"
   }
 }
 
@@ -31,7 +31,7 @@ resource "null_resource" "setup-secret" {
       "REDIS_PASSWORD" = random_password.redis-password.result
     }
 
-    command = "pushd ./config && ./scripts/fly-secrets.sh && popd"
+    command = "cd ./config && ./scripts/fly-secrets.sh"
   }
 }
 
@@ -48,6 +48,6 @@ resource "null_resource" "deploy" {
   depends_on = [null_resource.setup-machines, null_resource.setup-secret]
 
   provisioner "local-exec" {
-    command = "pushd ./config && ./scripts/fly-deploy.sh && popd"
+    command = "cd ./config && ./scripts/fly-deploy.sh"
   }
 }
