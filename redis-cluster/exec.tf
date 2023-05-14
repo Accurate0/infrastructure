@@ -42,7 +42,6 @@ resource "null_resource" "deploy" {
     redis-config = filesha1("./config/redis.conf")
     redis-script = filesha1("./config/start-redis-server.sh")
     script       = filesha1("./config/scripts/fly-deploy.sh")
-    secret       = random_password.redis-password.result
   }
 
   depends_on = [null_resource.setup-machines, null_resource.setup-secret]
