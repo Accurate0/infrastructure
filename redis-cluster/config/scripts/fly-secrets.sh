@@ -1,2 +1,2 @@
 #!/bin/sh
-flyctl set REDIS_PASSWORD="$REDIS_PASSWORD"
+flyctl secrets set REDIS_PASSWORD="$REDIS_PASSWORD"
