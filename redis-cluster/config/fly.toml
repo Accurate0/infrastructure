@@ -1,0 +1,28 @@
+app = "redis-cluster"
+
+[experimental]
+auto_rollback = false
+
+[env]
+PRIMARY_REGION = "syd"
+
+[mounts]
+destination = "/data"
+source = "redisclustervolume"
+
+[metrics]
+port = 9091
+path = "/metrics"
+
+[[services]]
+internal_port = 6379
+protocol = "tcp"
+
+[[services.ports]]
+port = "6379"
+
+[[services.tcp_checks]]
+grace_period = "1s"
+interval = "5s"
+restart_limit = 10
+timeout = "3s"

@@ -1,0 +1,42 @@
+terraform {
+  required_providers {
+    fly = {
+      source  = "fly-apps/fly"
+      version = "0.0.21"
+    }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "3.10.1"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.4.3"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3"
+    }
+  }
+
+
+  cloud {
+    organization = "server"
+    workspaces {
+      name = "redis-cluster"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+provider "fly" {
+  useinternaltunnel    = true
+  internaltunnelorg    = "redis-cluster"
+  internaltunnelregion = "syd"
+}

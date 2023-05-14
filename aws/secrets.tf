@@ -4,5 +4,5 @@ resource "aws_secretsmanager_secret" "redis-connection-string" {
 
 resource "aws_secretsmanager_secret_version" "redis-connection-string" {
   secret_id     = aws_secretsmanager_secret.redis-connection-string.id
-  secret_string = module.redis.connection_string
+  secret_string = module.redis.cluster_connection_string
 }

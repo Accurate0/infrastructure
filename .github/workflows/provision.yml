@@ -14,6 +14,7 @@ on:
       - maccas-api/**
       - places-api/**
       - replybot/**
+      - redis-cluster/**
       - sandbox/**
       - graph/**
       - openai/**
@@ -41,13 +42,23 @@ jobs:
     secrets: inherit
     needs: tfc
 
+  redis-cluster:
+    uses: ./.github/workflows/call-terraform-fly-io.yml
+    with:
+      directory: redis-cluster
+    secrets: inherit
+    needs: tfc
+
   cloud:
     name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs: [tfc, upstash]
+    needs:
+      - tfc
+      - upstash
+      - redis-cluster
 
     strategy:
       fail-fast: false
@@ -79,7 +90,8 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs: shared
+    needs:
+      - shared
 
     strategy:
       fail-fast: false

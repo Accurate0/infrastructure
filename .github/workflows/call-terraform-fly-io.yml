@@ -20,6 +20,7 @@ jobs:
         working-directory: ${{ inputs.directory }}
 
     steps:
+      - uses: superfly/flyctl-actions/setup-flyctl@master
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
         with:

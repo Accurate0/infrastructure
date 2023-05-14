@@ -179,3 +179,14 @@ resource "tfe_workspace" "upstash" {
     prevent_destroy = true
   }
 }
+
+resource "tfe_workspace" "redis-cluster" {
+  name           = "redis-cluster"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
