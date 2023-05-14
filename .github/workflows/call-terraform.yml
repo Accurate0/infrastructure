@@ -5,11 +5,17 @@ on:
       directory:
         type: string
         required: true
+      use-fly:
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       directory:
         type: string
         required: true
+      use-fly:
+        type: boolean
+        default: false
 
 jobs:
   apply:
@@ -20,6 +26,8 @@ jobs:
         working-directory: ${{ inputs.directory }}
 
     steps:
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+        if: ${{ inputs.use-fly }}
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
         with:

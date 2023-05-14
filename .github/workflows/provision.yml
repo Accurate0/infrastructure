@@ -43,9 +43,10 @@ jobs:
     needs: tfc
 
   redis-cluster:
-    uses: ./.github/workflows/call-terraform-fly-io.yml
+    uses: ./.github/workflows/call-terraform.yml
     with:
       directory: redis-cluster
+      use-fly: true
     secrets: inherit
     needs: tfc
 
