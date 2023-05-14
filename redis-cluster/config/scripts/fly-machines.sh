@@ -1,3 +1,3 @@
 #!/bin/sh
-fly machine update --metadata fly_platform_version=v2 "$FLY_MACHINE_ID_SYD" --yes
-fly machine update --metadata fly_platform_version=v2 "$FLY_MACHINE_ID_SIN" --yes
+flyctl machine update --metadata fly_platform_version=v2 "$FLY_MACHINE_ID_SYD" --yes
+flyctl machine update --metadata fly_platform_version=v2 "$FLY_MACHINE_ID_SIN" --yes
