@@ -5,5 +5,5 @@ output "cluster_connection_string" {
 
 output "cluster_stackexchange_connection_string" {
   sensitive = true
-  value     = "redis.anurag.sh:6379,ssl=false,password=${data.azurerm_key_vault_secret.redis-cluster-password.value}"
+  value     = "redis.anurag.sh:6379,ssl=false,user=default,password=${data.azurerm_key_vault_secret.redis-cluster-password.value}"
 }
