@@ -25,5 +25,4 @@ provider "azurerm" {
 
 
 provider "google" {
-  project = "axiomatic-grove-348612"
 }
