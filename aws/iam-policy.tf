@@ -26,6 +26,7 @@ resource "aws_iam_group_policy" "terraform-main-group-policy" {
           "events:*",
           "apigateway:*",
           "scheduler:*",
+          "elasticfilesystem:*",
         ],
         "Effect" : "Allow",
         "Resource" : "*"

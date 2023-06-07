@@ -21,6 +21,7 @@ on:
       - upstash/**
       - module/**
       - ozb/**
+      - vpn/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
@@ -105,3 +106,4 @@ jobs:
           - maccas-api
           - replybot
           - ozb
+          - vpn

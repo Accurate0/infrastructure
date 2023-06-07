@@ -1,5 +1,6 @@
-resource "aws_spot_instance_request" "worker" {
-  ami                         = "ami-05357471aaf3a2be5"
+resource "aws_instance" "worker" {
+  # amazon linux 2023 ecs
+  ami                         = "ami-0d1e33803b3832773"
   instance_type               = "t2.micro"
   user_data_replace_on_change = true
   iam_instance_profile        = aws_iam_instance_profile.ecs-agent.name
@@ -7,11 +8,47 @@ resource "aws_spot_instance_request" "worker" {
 #!/bin/bash
 cat <<'EOF' >> /etc/ecs/ecs.config
 ECS_CLUSTER=${aws_ecs_cluster.this.name}
-ECS_ENABLE_SPOT_INSTANCE_DRAINING=true
 EOF
 EOT
 
-  lifecycle {
-    prevent_destroy = true
+  network_interface {
+    network_interface_id = aws_network_interface.worker-internal.id
+    device_index         = 0
   }
+
+  key_name = aws_key_pair.local.key_name
+
+  tags = {
+    Name = "ecs-worker"
+  }
+}
+
+resource "aws_key_pair" "local" {
+  key_name   = "worker-local-key"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKuIXS2XvWQ6kXXzvRmlRkf6gMEcapcQTSf/dBRtGLU2 server@anurag.sh"
+}
+
+resource "aws_network_interface" "worker-internal" {
+  subnet_id = aws_subnet.internal-subnet-syda.id
+  security_groups = [
+    aws_security_group.internal-sg.id,
+    aws_security_group.internal-wireguard-sg.id,
+    aws_security_group.internal-ssh-sg.id
+  ]
+
+  source_dest_check = false
+
+  tags = {
+    Name = "worker-internal-interface"
+  }
+}
+
+resource "aws_eip" "worker-eip" {
+  network_interface = aws_network_interface.worker-internal.id
+
+  tags = {
+    Name = "worker-static-ip"
+  }
+
+  depends_on = [aws_internet_gateway.internal-gw]
 }

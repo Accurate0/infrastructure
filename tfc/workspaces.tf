@@ -190,3 +190,14 @@ resource "tfe_workspace" "redis-cluster" {
     prevent_destroy = true
   }
 }
+
+resource "tfe_workspace" "vpn" {
+  name           = "vpn"
+  execution_mode = "local"
+  organization   = tfe_organization.server.name
+  queue_all_runs = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}

@@ -29,3 +29,23 @@ resource "cloudflare_record" "aws-api" {
   value           = aws_apigatewayv2_domain_name.this.domain_name_configuration[0].target_domain_name
   ttl             = 1
 }
+
+resource "cloudflare_record" "worker" {
+  zone_id         = var.cloudflare_zone_id
+  allow_overwrite = true
+  proxied         = false
+  name            = "worker"
+  type            = "A"
+  value           = aws_eip.worker-eip.public_ip
+  ttl             = 1
+}
+
+resource "cloudflare_record" "vpn" {
+  zone_id         = var.cloudflare_zone_id
+  allow_overwrite = true
+  proxied         = false
+  name            = "vpn"
+  type            = "A"
+  value           = aws_eip.worker-eip.public_ip
+  ttl             = 1
+}
