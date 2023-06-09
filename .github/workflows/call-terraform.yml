@@ -16,6 +16,9 @@ on:
       use-fly:
         type: boolean
         default: false
+      use-backend-config:
+        type: boolean
+        default: true
 
 jobs:
   apply:
@@ -40,6 +43,11 @@ jobs:
 
       - name: terraform init
         run: terraform init -backend-config=../backend-config.tf
+        if: ${{ inputs.use-backend-config }}
+
+      - name: terraform init
+        run: terraform init
+        if: not(${{ inputs.use-backend-config }})
 
       - name: terraform validate
         run: terraform validate

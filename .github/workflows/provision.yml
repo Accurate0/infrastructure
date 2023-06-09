@@ -21,7 +21,7 @@ on:
       - upstash/**
       - module/**
       - ozb/**
-      - vpn/**
+      - wireguard/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
@@ -34,6 +34,7 @@ jobs:
     uses: ./.github/workflows/call-terraform.yml
     with:
       directory: tfc
+      use-backend-config: false
     secrets: inherit
 
   upstash:
@@ -43,10 +44,10 @@ jobs:
     secrets: inherit
     needs: tfc
 
-  redis-cluster:
+  redis:
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: redis-cluster
+      directory: redis
       use-fly: true
     secrets: inherit
     needs: tfc
@@ -60,7 +61,7 @@ jobs:
     needs:
       - tfc
       - upstash
-      - redis-cluster
+      - redis
 
     strategy:
       fail-fast: false
@@ -106,4 +107,4 @@ jobs:
           - maccas
           - replybot
           - ozb
-          - vpn
+          - wireguard
