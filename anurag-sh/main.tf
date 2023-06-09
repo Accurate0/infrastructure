@@ -18,11 +18,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "anurag-sh"
-    }
+  backend "s3" {
+    key = "anurag-sh/terraform.tfstate"
   }
 }
 

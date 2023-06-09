@@ -34,11 +34,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "maccas-api"
-    }
+  backend "s3" {
+    key = "maccas/terraform.tfstate"
   }
 }
 

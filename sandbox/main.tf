@@ -6,11 +6,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "sandbox"
-    }
+  backend "s3" {
+    key = "sandbox/terraform.tfstate"
   }
 }
 

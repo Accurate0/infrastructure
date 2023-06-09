@@ -10,11 +10,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "graph"
-    }
+  backend "s3" {
+    key = "graph/terraform.tfstate"
   }
 }
 

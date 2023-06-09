@@ -6,18 +6,15 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "vpn"
-    }
+  backend "s3" {
+    key = "wireguard/terraform.tfstate"
   }
 }
 
 provider "aws" {
   default_tags {
     tags = {
-      Project = "VPN"
+      Project = "Wireguard"
     }
   }
 }

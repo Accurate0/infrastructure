@@ -6,11 +6,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "openai"
-    }
+  backend "s3" {
+    key = "openai/terraform.tfstate"
   }
 }
 

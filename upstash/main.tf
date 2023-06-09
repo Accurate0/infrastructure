@@ -6,11 +6,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "upstash"
-    }
+  backend "s3" {
+    key = "upstash/terraform.tfstate"
   }
 }
 

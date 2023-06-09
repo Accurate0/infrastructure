@@ -6,11 +6,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "cloudflare"
-    }
+  backend "s3" {
+    key = "cloudflare/terraform.tfstate"
   }
 }
 

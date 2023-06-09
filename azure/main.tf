@@ -18,11 +18,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "azure"
-    }
+  backend "s3" {
+    key = "azure/terraform.tfstate"
   }
 }
 

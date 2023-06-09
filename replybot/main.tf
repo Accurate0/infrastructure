@@ -14,11 +14,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "replybot"
-    }
+  backend "s3" {
+    key = "replybot/terraform.tfstate"
   }
 }
 

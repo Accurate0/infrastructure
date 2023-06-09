@@ -10,11 +10,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "weather-api"
-    }
+  backend "s3" {
+    key = "weather/terraform.tfstate"
   }
 }
 

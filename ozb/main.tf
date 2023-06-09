@@ -22,11 +22,8 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "ozb"
-    }
+  backend "s3" {
+    key = "ozb/terraform.tfstate"
   }
 }
 

@@ -4,15 +4,15 @@ on:
   push:
     branches: [main]
     paths:
-      - ww3-api/**
+      - ww3/**
       - anurag-sh/**
-      - weather-api/**
+      - weather/**
       - cloudflare/**
       - azure/**
       - aws/**
       - tfc/**
-      - maccas-api/**
-      - places-api/**
+      - maccas/**
+      - places/**
       - replybot/**
       - redis-cluster/**
       - sandbox/**
@@ -82,7 +82,7 @@ jobs:
       fail-fast: false
       matrix:
         directory:
-          - places-api
+          - places
           - graph
           - openai
 
@@ -100,10 +100,10 @@ jobs:
       matrix:
         directory:
           - anurag-sh
-          - ww3-api
-          - weather-api
+          - ww3
+          - weather
           - sandbox
-          - maccas-api
+          - maccas
           - replybot
           - ozb
           - vpn

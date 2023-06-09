@@ -22,12 +22,8 @@ terraform {
     }
   }
 
-
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "redis-cluster"
-    }
+  backend "s3" {
+    key = "redis/terraform.tfstate"
   }
 }
 

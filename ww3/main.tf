@@ -17,18 +17,18 @@ terraform {
       version = "5.22.0"
     }
   }
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "ww3-api"
-    }
+
+  backend "s3" {
+    key = "ww3/terraform.tfstate"
   }
 }
 
 provider "aws" {}
+
 provider "azurerm" {
   features {}
 }
+
 module "lambda" {
   source         = "../module/deprecated/aws-lambda-rest-trigger"
   api_name       = "WW3Api"

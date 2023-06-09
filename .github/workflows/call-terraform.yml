@@ -39,7 +39,7 @@ jobs:
         run: terraform fmt -recursive
 
       - name: terraform init
-        run: terraform init
+        run: terraform init -backend-config=../backend-config.tf
 
       - name: terraform validate
         run: terraform validate

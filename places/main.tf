@@ -11,18 +11,14 @@ terraform {
     }
   }
 
-  cloud {
-    organization = "server"
-    workspaces {
-      name = "places-api"
-    }
+  backend "s3" {
+    key = "places/terraform.tfstate"
   }
 }
 
 provider "azurerm" {
   features {}
 }
-
 
 provider "google" {
 }
