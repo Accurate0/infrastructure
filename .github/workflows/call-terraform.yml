@@ -41,7 +41,7 @@ jobs:
       - name: terraform fmt
         run: terraform fmt -recursive
 
-      - name: terraform init
+      - name: terraform init (backend-config)
         run: terraform init -backend-config=../backend-config.tf
         if: ${{ inputs.use-backend-config }}
 
