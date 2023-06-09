@@ -51,7 +51,7 @@ jobs:
 
       - name: terraform init
         run: terraform init
-        if: not(${{ inputs.use-backend-config }})
+        if: ${{ !inputs.use-backend-config }}
 
       - name: terraform validate
         run: terraform validate
