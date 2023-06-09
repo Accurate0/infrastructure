@@ -24,6 +24,6 @@ resource "azurerm_app_service" "weather-api" {
   connection_string {
     name  = "Database"
     type  = "Custom"
-    value = data.terraform_remote_state.database.outputs.readonly_connection_string
+    value = module.cosmodb-readonly-connection-string.secret_value
   }
 }

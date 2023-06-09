@@ -39,7 +39,7 @@ resource "aws_lambda_function" "weather-service" {
   memory_size   = 256
   environment {
     variables = {
-      cosmosdb_connection_string = sensitive(data.terraform_remote_state.database.outputs.connection_string)
+      cosmosdb_connection_string = sensitive(module.cosmodb-connection-string.secret_value)
     }
   }
 
