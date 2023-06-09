@@ -10,7 +10,7 @@ on:
       - cloudflare/**
       - azure/**
       - aws/**
-      - tfc/**
+      - tf-state/**
       - maccas/**
       - places/**
       - replybot/**
@@ -30,10 +30,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  tfc:
+  tf-state:
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: tfc
+      directory: tf-state
       use-backend-config: false
     secrets: inherit
 
@@ -42,7 +42,7 @@ jobs:
     with:
       directory: upstash
     secrets: inherit
-    needs: tfc
+    needs: tf-state
 
   redis:
     uses: ./.github/workflows/call-terraform.yml
@@ -50,7 +50,7 @@ jobs:
       directory: redis
       use-fly: true
     secrets: inherit
-    needs: tfc
+    needs: tf-state
 
   cloud:
     name: ${{ matrix.directory }}
@@ -59,7 +59,7 @@ jobs:
       directory: ${{ matrix.directory }}
     secrets: inherit
     needs:
-      - tfc
+      - tf-state
       - upstash
       - redis
 
