@@ -1,8 +1,8 @@
 resource "aws_dynamodb_table" "tf-state-lock" {
   name           = "shared-tf-state-lock"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 2
-  write_capacity = 2
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "LockID"
 
   attribute {
