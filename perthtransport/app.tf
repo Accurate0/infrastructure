@@ -1,14 +1,14 @@
 resource "fly_app" "redis" {
-  name = "pta-redis"
+  name = "perthtransport-redis"
   org  = "pta"
 }
 
 resource "fly_app" "api" {
-  name = "pta-api"
+  name = "perthtransport-api"
   org  = "pta"
 }
 
 resource "fly_app" "worker" {
-  name = "pta-worker"
+  name = "perthtransport-worker"
   org  = "pta"
 }

@@ -1,7 +1,7 @@
 resource "fly_machine" "redis" {
   app        = fly_app.redis.name
   region     = "syd"
-  name       = "pta-redis"
+  name       = "perthtransport-redis"
   image      = "redis:alpine"
   cpus       = 1
   memorymb   = 256
@@ -15,7 +15,7 @@ resource "fly_machine" "redis" {
 resource "fly_machine" "api" {
   app        = fly_app.api.name
   region     = "syd"
-  name       = "pta-api"
+  name       = "perthtransport-api"
   image      = "redis:alpine"
   cpus       = 1
   memorymb   = 256
@@ -24,12 +24,20 @@ resource "fly_machine" "api" {
   lifecycle {
     ignore_changes = [image, services, env]
   }
+
+  provisioner "local-exec" {
+    environment = {
+      "FLY_MACHINE_ID" = self.id
+    }
+
+    command = "./scripts/fly-machines.sh"
+  }
 }
 
 resource "fly_machine" "worker" {
   app        = fly_app.worker.name
   region     = "syd"
-  name       = "pta-worker"
+  name       = "perthtransport-worker"
   image      = "redis:alpine"
   cpus       = 1
   memorymb   = 256
@@ -37,5 +45,13 @@ resource "fly_machine" "worker" {
 
   lifecycle {
     ignore_changes = [image, services, env]
+  }
+
+  provisioner "local-exec" {
+    environment = {
+      "FLY_MACHINE_ID" = self.id
+    }
+
+    command = "./scripts/fly-machines.sh"
   }
 }

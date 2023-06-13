@@ -19,7 +19,7 @@ terraform {
   }
 
   backend "s3" {
-    key = "pta/terraform.tfstate"
+    key = "perthtransport/terraform.tfstate"
   }
 }
 

@@ -20,7 +20,7 @@ on:
       - openai/**
       - upstash/**
       - module/**
-      - pta/**
+      - perthtransport/**
       - ozb/**
       - wireguard/**
       - .github/workflows/call-terraform.yml
@@ -109,4 +109,4 @@ jobs:
           - replybot
           - ozb
           - wireguard
-          - pta
+          - perthtransport
