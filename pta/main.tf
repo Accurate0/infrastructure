@@ -8,6 +8,14 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "4.7.1"
     }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.1"
+    }
   }
 
   backend "s3" {
@@ -19,4 +27,8 @@ provider "fly" {
   useinternaltunnel    = true
   internaltunnelorg    = "pta"
   internaltunnelregion = "syd"
+}
+
+provider "azurerm" {
+  features {}
 }
