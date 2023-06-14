@@ -20,6 +20,10 @@ terraform {
       source  = "vercel/vercel"
       version = "~> 0.13"
     }
+    google = {
+      source  = "hashicorp/google"
+      version = "4.59.0"
+    }
   }
 
   backend "s3" {
