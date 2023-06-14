@@ -1,7 +1,6 @@
 resource "vercel_project" "perthtransport" {
   name                       = "perthtransport-web"
   framework                  = "nextjs"
-  root_directory             = "perthtransport-web"
   serverless_function_region = "syd1"
   git_repository = {
     type = "github"
