@@ -8,6 +8,11 @@ module "reference-data-api-key" {
   secret_name = "pta-reference-data-api-key"
 }
 
+module "vercel-org-id" {
+  source      = "../module/keyvault-value-output"
+  secret_name = "vercel-org-id"
+}
+
 module "google-maps-api-key" {
   source       = "../module/keyvault-value"
   secret_name  = "pta-maps-js-api-key"
@@ -37,7 +42,7 @@ resource "null_resource" "secrets" {
 
 resource "vercel_project_environment_variable" "maps-js-api-key" {
   project_id = vercel_project.perthtransport.id
-  key        = "NEXT_PUBLIC_MAPS_API_KEY"
+  key        = "VITE_MAPS_API_KEY"
   value      = google_apikeys_key.this.key_string
   target     = ["production"]
 }

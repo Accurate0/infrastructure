@@ -24,6 +24,10 @@ terraform {
       source  = "hashicorp/google"
       version = "4.59.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = "5.22.0"
+    }
   }
 
   backend "s3" {
