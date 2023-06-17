@@ -12,6 +12,10 @@ resource "google_apikeys_key" "this" {
       methods = []
       service = "maps-backend.googleapis.com"
     }
+
+    browser_key_restrictions {
+      allowed_referrers = ["https://perthtransport.xyz"]
+    }
   }
 }
 
