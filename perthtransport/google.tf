@@ -14,7 +14,7 @@ resource "google_apikeys_key" "this" {
     }
 
     browser_key_restrictions {
-      allowed_referrers = ["https://perthtransport.xyz"]
+      allowed_referrers = ["https://perthtransport.xyz", "http://localhost:5173"]
     }
   }
 }
