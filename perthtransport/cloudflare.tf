@@ -4,7 +4,7 @@ resource "cloudflare_record" "api" {
   value   = fly_ip.api.address
   type    = "A"
   ttl     = 1
-  proxied = false
+  proxied = true
 }
 
 resource "cloudflare_record" "cert-validation" {
