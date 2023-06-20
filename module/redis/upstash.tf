@@ -1,6 +1,6 @@
 data "upstash_redis_database_data" "this" {
   # change if db recreated
-  database_id = "d263a12a-8d5d-4338-8c44-ea534d15d4e9"
+  database_id = "2f3df07f-1e18-460d-9830-e8836b2daff1"
 }
 
 output "upstash_connection_string" {

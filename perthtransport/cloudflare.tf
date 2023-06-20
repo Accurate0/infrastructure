@@ -1,10 +1,10 @@
 resource "cloudflare_record" "api" {
   zone_id = var.cloudflare_perthtransport_zone_id
   name    = "api"
-  value   = fly_ip.api.address
-  type    = "A"
+  value   = "oracle.anurag.sh"
+  type    = "CNAME"
   ttl     = 1
-  proxied = false
+  proxied = true
 }
 
 resource "cloudflare_record" "cert-validation" {

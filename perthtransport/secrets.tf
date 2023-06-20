@@ -21,8 +21,8 @@ module "google-maps-api-key" {
 
 resource "null_resource" "secrets" {
   triggers = {
-    api                = fly_machine.api.id
-    worker             = fly_machine.worker.id
+    # api                = fly_machine.api.id
+    # worker             = fly_machine.worker.id
     script             = filesha1("./scripts/fly-secrets.sh")
     real_time_key      = module.realtime-api-key.secret_value
     reference_data_key = module.reference-data-api-key.secret_value
@@ -37,7 +37,7 @@ resource "null_resource" "secrets" {
     command = "./scripts/fly-secrets.sh"
   }
 
-  depends_on = [fly_machine.api, fly_machine.worker]
+  #   depends_on = [fly_machine.api, fly_machine.worker]
 }
 
 resource "vercel_project_environment_variable" "maps-js-api-key" {
