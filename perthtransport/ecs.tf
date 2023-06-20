@@ -102,4 +102,7 @@ resource "aws_ecs_service" "this" {
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = 1
   launch_type     = "EXTERNAL"
+  # port binding?
+  deployment_minimum_healthy_percent = 0
+  deployment_maximum_percent         = 100
 }
