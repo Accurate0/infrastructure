@@ -6,3 +6,12 @@ resource "aws_ecs_cluster" "this" {
     value = "disabled"
   }
 }
+
+resource "aws_ecs_cluster" "oracle" {
+  name = "oracle-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+}

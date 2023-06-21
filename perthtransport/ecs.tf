@@ -1,5 +1,5 @@
 data "aws_ecs_cluster" "this" {
-  cluster_name = "default-cluster"
+  cluster_name = "oracle-cluster"
 }
 
 resource "aws_ecs_task_definition" "this" {
