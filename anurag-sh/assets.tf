@@ -164,4 +164,5 @@ resource "aws_s3_object" "not-found-page" {
   content_type = "text/html"
   content      = file("resources/404.html")
   etag         = filemd5("resources/404.html")
+  acl          = "private"
 }
