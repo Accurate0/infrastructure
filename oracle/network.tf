@@ -7,10 +7,10 @@ module "vcn" {
   vcn_dns_label  = "armvcndns"
 
   # Optional
-  internet_gateway_enabled = true
-  nat_gateway_enabled      = false
-  service_gateway_enabled  = false
-  vcn_cidr                 = "10.0.0.0/16"
+  create_internet_gateway = true
+  create_nat_gateway      = false
+  create_service_gateway  = false
+  vcn_cidrs               = ["10.0.0.0/16"]
 }
 
 resource "oci_core_subnet" "arm-public-subnet" {
