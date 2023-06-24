@@ -2,11 +2,11 @@ terraform {
   required_providers {
     oci = {
       source  = "hashicorp/oci"
-      version = "4.33.0"
+      version = "5.2.1"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"
-      version = "2.2.0"
+      version = "2.3.2"
     }
     template = {
       source  = "hashicorp/template"
@@ -14,7 +14,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "3.10.1"
+      version = "4.8.0"
     }
   }
 

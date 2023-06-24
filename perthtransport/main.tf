@@ -2,11 +2,11 @@ terraform {
   required_providers {
     fly = {
       source  = "fly-apps/fly"
-      version = "0.0.22"
+      version = "0.0.23"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.7.1"
+      version = "4.8.0"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -26,11 +26,11 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "5.22.0"
+      version = "5.28.1"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "5.1.0"
+      version = "5.5.0"
     }
   }
 
