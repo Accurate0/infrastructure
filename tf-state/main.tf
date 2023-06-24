@@ -6,7 +6,7 @@ terraform {
     }
     tfe = {
       source  = "hashicorp/tfe"
-      version = "0.30.2"
+      version = "0.45.0"
     }
   }
   cloud {
