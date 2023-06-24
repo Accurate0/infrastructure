@@ -32,7 +32,4 @@ provider "azurerm" {
 }
 
 provider "fly" {
-  useinternaltunnel    = true
-  internaltunnelorg    = "redis-cluster"
-  internaltunnelregion = "syd"
 }

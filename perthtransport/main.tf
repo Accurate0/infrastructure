@@ -40,9 +40,6 @@ terraform {
 }
 
 provider "fly" {
-  useinternaltunnel    = true
-  internaltunnelorg    = "pta"
-  internaltunnelregion = "syd"
 }
 
 provider "azurerm" {
