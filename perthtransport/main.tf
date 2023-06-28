@@ -6,7 +6,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.8.0"
+      version = "4.9.0"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -22,7 +22,7 @@ terraform {
     }
     google = {
       source  = "hashicorp/google"
-      version = "4.70.0"
+      version = "4.71.0"
     }
     github = {
       source  = "integrations/github"
