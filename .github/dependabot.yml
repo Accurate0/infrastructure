@@ -22,11 +22,6 @@ updates:
       interval: "weekly"
 
   - package-ecosystem: "terraform"
-    directory: "/cloudflare"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "terraform"
     directory: "/graph"
     schedule:
       interval: "weekly"

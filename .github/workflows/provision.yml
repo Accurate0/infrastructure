@@ -7,7 +7,6 @@ on:
       - ww3/**
       - anurag-sh/**
       - weather/**
-      - cloudflare/**
       - azure/**
       - aws/**
       - tf-state/**
@@ -43,6 +42,8 @@ jobs:
       directory: redis
       use-backend-config: false
     secrets: inherit
+    needs:
+      - tf-state
 
   cloud:
     name: ${{ matrix.directory }}
@@ -60,7 +61,6 @@ jobs:
         directory:
           - azure
           - aws
-          - cloudflare
 
   shared:
     name: ${{ matrix.directory }}
