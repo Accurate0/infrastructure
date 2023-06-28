@@ -12,5 +12,5 @@ module "redis-password" {
 module "upstash-redis-id" {
   source       = "../module/keyvault-value"
   secret_name  = "upstash-redis-id"
-  secret_value = upstash_redis_database.this.id
+  secret_value = upstash_redis_database.this.database_id
 }

@@ -87,11 +87,6 @@ updates:
       interval: "weekly"
 
   - package-ecosystem: "terraform"
-    directory: "/upstash"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "terraform"
     directory: "/weather"
     schedule:
       interval: "weekly"
