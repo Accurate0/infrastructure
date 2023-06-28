@@ -41,7 +41,7 @@ jobs:
     uses: ./.github/workflows/call-terraform.yml
     with:
       directory: redis
-      use-backend-config: false
+
     secrets: inherit
     needs:
       - tf-state
