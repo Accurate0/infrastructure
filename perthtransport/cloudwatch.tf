@@ -28,4 +28,5 @@ resource "aws_cloudwatch_metric_alarm" "perthtransport-error-alarm" {
   alarm_description   = "Error counts in Perth Transport API"
   treat_missing_data  = "notBreaching"
   alarm_actions       = [aws_sns_topic.alert-notification.arn]
+  ok_actions          = [aws_sns_topic.alert-notification.arn]
 }
