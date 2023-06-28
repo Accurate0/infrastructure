@@ -43,6 +43,8 @@ jobs:
       directory: redis
       use-backend-config: false
     secrets: inherit
+    needs:
+      - tf-state
 
   cloud:
     name: ${{ matrix.directory }}
