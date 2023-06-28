@@ -18,7 +18,6 @@ on:
       - sandbox/**
       - graph/**
       - openai/**
-      - upstash/**
       - module/**
       - perthtransport/**
       - ozb/**
@@ -38,21 +37,6 @@ jobs:
       use-backend-config: false
     secrets: inherit
 
-  upstash:
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: upstash
-    secrets: inherit
-    needs: tf-state
-
-  redis:
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: redis
-      use-fly: true
-    secrets: inherit
-    needs: tf-state
-
   cloud:
     name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
@@ -61,8 +45,6 @@ jobs:
     secrets: inherit
     needs:
       - tf-state
-      - upstash
-      - redis
 
     strategy:
       fail-fast: false
@@ -87,6 +69,7 @@ jobs:
           - places
           - graph
           - openai
+          - redis
 
   projects:
     name: ${{ matrix.directory }}

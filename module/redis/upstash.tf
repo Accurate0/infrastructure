@@ -1,6 +1,6 @@
 data "upstash_redis_database_data" "this" {
   # change if db recreated
-  database_id = "2f3df07f-1e18-460d-9830-e8836b2daff1"
+  database_id = data.azurerm_key_vault_secret.upstash-redis-id
 }
 
 output "upstash_connection_string" {
