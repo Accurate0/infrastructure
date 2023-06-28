@@ -28,6 +28,7 @@ resource "aws_iam_group_policy" "terraform-main-group-policy" {
           "scheduler:*",
           "elasticfilesystem:*",
           "kms:*",
+          "sns:*",
         ],
         "Effect" : "Allow",
         "Resource" : "*"
