@@ -95,3 +95,8 @@ updates:
     directory: "/ww3"
     schedule:
       interval: "weekly"
+
+  - package-ecosystem: "terraform"
+    directory: "/statuspage"
+    schedule:
+      interval: "weekly"
