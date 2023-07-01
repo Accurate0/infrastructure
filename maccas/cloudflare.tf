@@ -35,7 +35,7 @@ resource "cloudflare_record" "maccas-one" {
   name            = "@"
   value           = "76.76.21.21"
   type            = "A"
-  proxied         = false
+  proxied         = true
   ttl             = 1
   allow_overwrite = true
 }
