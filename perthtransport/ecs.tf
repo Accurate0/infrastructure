@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-stream-prefix = "ecs"
           }
         },
-        links = ["perthtransport-redis:perthtransport-redis"],
+        links = ["perthtransport-redis:perthtransport-redis", "perthtransport-worker:worker"],
         environment = [
           {
             name  = "PTA_REALTIME_API_KEY"
@@ -39,6 +39,10 @@ resource "aws_ecs_task_definition" "this" {
           {
             name  = "PTA_REDIS_CONNECTION_STRING"
             value = "redis://perthtransport-redis"
+          },
+          {
+            name  = "PTA_WORKER_API_BASE"
+            value = "http://worker:8000/v1"
           }
         ]
       },
