@@ -24,7 +24,7 @@ terraform {
       source  = "upstash/upstash"
       version = "1.4.0"
     }
-        aws = {
+    aws = {
       source  = "hashicorp/aws"
       version = "5.6.2"
     }
