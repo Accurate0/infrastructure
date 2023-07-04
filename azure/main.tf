@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.62.1"
+      version = "3.63.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -14,7 +14,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "5.28.1"
+      version = "5.29.0"
     }
   }
 

@@ -2,11 +2,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.62.1"
+      version = "3.63.0"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "5.5.0"
+      version = "5.6.2"
     }
   }
 
