@@ -2,8 +2,8 @@ variable "name" {
   type = string
 }
 
-variable "resource_access_arn" {
-  type = string
+variable "resource_access_policy" {
+  type = any
 }
 
 variable "region" {

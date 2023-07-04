@@ -1,13 +1,7 @@
 module "aws-oidc-deploy" {
-  source              = "../module/aws-oidc-deploy"
-  name                = "perthtransport"
-  resource_access_arn = aws_iam_policy.deploy-resource-access.arn
-  allowed_repos       = ["perth-transport-map"]
-}
-
-resource "aws_iam_policy" "deploy-resource-access" {
-  name = "perthtransport-deploy-resource-access"
-  policy = jsonencode({
+  source = "../module/aws-oidc-deploy"
+  name   = "perthtransport"
+  resource_access_policy = {
     "Version" = "2012-10-17"
 
     "Statement" = [
@@ -40,7 +34,8 @@ resource "aws_iam_policy" "deploy-resource-access" {
         "Resource" : "${aws_ecs_service.this.id}"
       },
     ]
-  })
+  }
+  allowed_repos = ["perth-transport-map"]
 }
 
 resource "github_actions_variable" "ecr-registry-api-url" {

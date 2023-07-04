@@ -38,18 +38,20 @@ data "aws_iam_policy_document" "deploy-role" {
   }
 }
 
-locals {
-  deployment_role_name = "${var.name}-deploy-role"
+resource "aws_iam_role" "deploy-role" {
+  name               = "${var.name}-deploy-role"
+  assume_role_policy = data.aws_iam_policy_document.deploy-role.json
 }
 
-resource "aws_iam_role" "deploy-role" {
-  name               = local.deployment_role_name
-  assume_role_policy = data.aws_iam_policy_document.deploy-role.json
+
+resource "aws_iam_policy" "deploy-resource-access" {
+  name   = "${var.name}-deploy-resource-access"
+  policy = jsonencode(var.resource_access_policy)
 }
 
 resource "aws_iam_role_policy_attachment" "deploy-role-resource-access" {
   role       = aws_iam_role.deploy-role.name
-  policy_arn = var.resource_access_arn
+  policy_arn = aws_iam_policy.deploy-resource-access.arn
 }
 
 resource "github_actions_secret" "deploy-role" {
