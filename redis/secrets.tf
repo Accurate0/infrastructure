@@ -14,3 +14,12 @@ module "upstash-redis-id" {
   secret_name  = "upstash-redis-id"
   secret_value = upstash_redis_database.this.database_id
 }
+
+resource "aws_secretsmanager_secret" "redis-connection-string" {
+  name = "Shared-RedisConnectionString"
+}
+
+resource "aws_secretsmanager_secret_version" "redis-connection-string" {
+  secret_id     = aws_secretsmanager_secret.redis-connection-string.id
+  secret_string = "redis://default:${random_password.redis-password.result}@redis.anurag.sh:6379"
+}

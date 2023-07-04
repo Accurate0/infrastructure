@@ -37,15 +37,6 @@ jobs:
       use-backend-config: false
     secrets: inherit
 
-  redis:
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: redis
-
-    secrets: inherit
-    needs:
-      - tf-state
-
   cloud:
     name: ${{ matrix.directory }}
     uses: ./.github/workflows/call-terraform.yml
@@ -54,7 +45,6 @@ jobs:
     secrets: inherit
     needs:
       - tf-state
-      - redis
 
     strategy:
       fail-fast: false
@@ -78,6 +68,7 @@ jobs:
           - places
           - graph
           - openai
+          - redis
 
   projects:
     name: ${{ matrix.directory }}
