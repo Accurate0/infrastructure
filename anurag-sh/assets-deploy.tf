@@ -1,13 +1,7 @@
 module "aws-oidc-deploy" {
   source              = "../module/aws-oidc-deploy"
   name                = "assets"
-  resource_access_arn = aws_iam_policy.deploy-resource-access.arn
-  allowed_repos       = ["resume"]
-}
-
-resource "aws_iam_policy" "deploy-resource-access" {
-  name = "assets-deploy-resource-access"
-  policy = jsonencode({
+  resource_access_policy = {
     "Version" = "2012-10-17"
 
     "Statement" = [
@@ -21,5 +15,6 @@ resource "aws_iam_policy" "deploy-resource-access" {
         ]
       }
     ]
-  })
+  }
+  allowed_repos       = ["resume"]
 }
