@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "perthtransport-error-alarm" {
   namespace           = "PerthTransport"
   period              = 30
   statistic           = "Sum"
-  threshold           = 30
+  threshold           = 60
   alarm_description   = "Error counts in Perth Transport API"
   treat_missing_data  = "notBreaching"
   alarm_actions       = [aws_sns_topic.alert-notification.arn]
