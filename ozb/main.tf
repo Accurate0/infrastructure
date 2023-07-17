@@ -14,7 +14,7 @@ terraform {
     }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
-      version = "1.10.0"
+      version = "1.10.1"
     }
     random = {
       source  = "hashicorp/random"
