@@ -2,248 +2,107 @@
     {
         "name": "GetLocations",
         "method": "GET",
-        "url": "/locations",
-        "queryParameters": [
-            {
-                "name": "distance",
-                "type": "string",
-                "required": true
-            },
-            {
-                "name": "latitude",
-                "type": "string",
-                "required": true
-            },
-            {
-                "name": "longitude",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "templateParameters": []
+        "url": "/locations"
     },
     {
         "name": "SearchLocations",
         "method": "GET",
-        "url": "/locations/search",
-        "queryParameters": [
-            {
-                "name": "text",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "templateParameters": []
+        "url": "/locations/search"
     },
     {
         "name": "GetCode",
         "method": "GET",
-        "url": "/code/{dealId}",
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": [
-            {
-                "name": "store",
-                "type": "number",
-                "required": true
-            }
-        ]
+        "url": "/code/{dealId}"
     },
     {
         "name": "GetDeals",
         "method": "GET",
-        "url": "/deals",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/deals"
     },
     {
         "name": "GetDeal",
         "method": "GET",
-        "url": "/deals/{dealId}",
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": []
+        "url": "/deals/{dealId}"
     },
     {
         "name": "AddDeal",
         "method": "POST",
-        "url": "/deals/{dealId}",
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": [
-            {
-                "name": "store",
-                "type": "number",
-                "required": true
-            }
-        ]
+        "url": "/deals/{dealId}"
     },
     {
         "name": "RemoveDeal",
         "method": "DELETE",
-        "url": "/deals/{dealId}",
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": [
-            {
-                "name": "store",
-                "type": "number",
-                "required": true
-            }
-        ]
+        "url": "/deals/{dealId}"
     },
     {
         "name": "GetLastRefresh",
         "method": "GET",
-        "url": "/deals/last-refresh",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/deals/last-refresh"
     },
     {
         "name": "GetStatisticsForAccount",
-        "dependsOn": [],
         "method": "GET",
-        "url": "/statistics/account",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/statistics/account"
     },
     {
         "name": "GetTotalAccounts",
         "method": "GET",
-        "url": "/statistics/total-accounts",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/statistics/total-accounts"
     },
     {
         "name": "GetPoints",
-        "dependsOn": [],
         "method": "GET",
-        "url": "/points",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/points"
     },
     {
         "name": "GetPointsForAccount",
         "method": "GET",
-        "url": "/points/{accountId}",
-        "templateParameters": [
-            {
-                "name": "accountId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": [
-            {
-                "name": "store",
-                "type": "number",
-                "required": true
-            }
-        ]
+        "url": "/points/{accountId}"
     },
     {
         "name": "GetOpenApi",
         "method": "GET",
-        "url": "/docs/openapi",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/docs/openapi"
     },
     {
         "name": "LockDeal",
         "method": "POST",
-        "url": "/admin/locked-deals/{dealId}",
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ],
-        "queryParameters": [
-            {
-                "name": "duration",
-                "type": "number",
-                "required": false
-            }
-        ]
+        "url": "/admin/locked-deals/{dealId}"
     },
     {
         "name": "UnlockDeal",
         "method": "DELETE",
-        "url": "/admin/locked-deals/{dealId}",
-        "queryParameters": [],
-        "templateParameters": [
-            {
-                "name": "dealId",
-                "type": "string",
-                "required": true
-            }
-        ]
+        "url": "/admin/locked-deals/{dealId}"
     },
     {
         "name": "GetLockedDeals",
         "method": "GET",
-        "url": "/admin/locked-deals",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/admin/locked-deals"
     },
     {
         "name": "GetAllUserSpending",
         "method": "GET",
-        "url": "/admin/user/spending",
-        "queryParameters": [],
-        "templateParameters": []
+        "url": "/admin/user/spending"
     },
     {
         "name": "GetConfig",
         "method": "GET",
-        "url": "/user/config",
-        "queryParameters": [],
-        "templateParameters": [],
-        "policyFile": "./policy/user.policy.xml"
+        "url": "/user/config"
     },
     {
         "name": "UpdateConfig",
         "method": "POST",
-        "url": "/user/config",
-        "queryParameters": [],
-        "templateParameters": [],
-        "policyFile": "./policy/user.policy.xml"
+        "url": "/user/config"
     },
     {
         "name": "GetUserSpending",
         "method": "GET",
-        "url": "/user/spending",
-        "queryParameters": [],
-        "templateParameters": [],
-        "policyFile": "./policy/user.policy.xml"
+        "url": "/user/spending"
     },
     {
         "name": "GetHealthStatus",
         "method": "GET",
         "url": "/health/status",
-        "queryParameters": [],
-        "templateParameters": [],
         "disableAuthorization": true
     }
 ]
