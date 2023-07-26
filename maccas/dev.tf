@@ -63,14 +63,14 @@ resource "aws_apigatewayv2_integration" "this-dev" {
 }
 
 resource "aws_apigatewayv2_route" "this-dev" {
-  for_each = { for x in jsondecode(file("endpoints.json")) : x.name => x }
+  for_each = { for x in jsondecode(file("endpoints.json")) : "${x.method} ${x.url}" => x }
 
   api_id             = aws_apigatewayv2_api.this-dev.id
   route_key          = "${each.value.method} ${each.value.url}"
   target             = "integrations/${aws_apigatewayv2_integration.this-dev.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this-dev.id
+  authorizer_id      = try(each.value.disableAuthorization, false) == true ? null : aws_apigatewayv2_authorizer.this-dev.id
   operation_name     = each.key
-  authorization_type = "JWT"
+  authorization_type = try(each.value.disableAuthorization, false) == true ? "NONE" : "JWT"
 }
 
 resource "aws_apigatewayv2_stage" "this-dev" {

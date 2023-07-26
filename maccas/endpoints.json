@@ -1,106 +1,85 @@
 [
     {
-        "name": "GetLocations",
         "method": "GET",
         "url": "/locations"
     },
     {
-        "name": "SearchLocations",
         "method": "GET",
         "url": "/locations/search"
     },
     {
-        "name": "GetCode",
         "method": "GET",
         "url": "/code/{dealId}"
     },
     {
-        "name": "GetDeals",
         "method": "GET",
         "url": "/deals"
     },
     {
-        "name": "GetDeal",
         "method": "GET",
         "url": "/deals/{dealId}"
     },
     {
-        "name": "AddDeal",
         "method": "POST",
         "url": "/deals/{dealId}"
     },
     {
-        "name": "RemoveDeal",
         "method": "DELETE",
         "url": "/deals/{dealId}"
     },
     {
-        "name": "GetLastRefresh",
         "method": "GET",
         "url": "/deals/last-refresh"
     },
     {
-        "name": "GetStatisticsForAccount",
         "method": "GET",
         "url": "/statistics/account"
     },
     {
-        "name": "GetTotalAccounts",
         "method": "GET",
         "url": "/statistics/total-accounts"
     },
     {
-        "name": "GetPoints",
         "method": "GET",
         "url": "/points"
     },
     {
-        "name": "GetPointsForAccount",
         "method": "GET",
         "url": "/points/{accountId}"
     },
     {
-        "name": "GetOpenApi",
         "method": "GET",
         "url": "/docs/openapi"
     },
     {
-        "name": "LockDeal",
         "method": "POST",
         "url": "/admin/locked-deals/{dealId}"
     },
     {
-        "name": "UnlockDeal",
         "method": "DELETE",
         "url": "/admin/locked-deals/{dealId}"
     },
     {
-        "name": "GetLockedDeals",
         "method": "GET",
         "url": "/admin/locked-deals"
     },
     {
-        "name": "GetAllUserSpending",
         "method": "GET",
         "url": "/admin/user/spending"
     },
     {
-        "name": "GetConfig",
         "method": "GET",
         "url": "/user/config"
     },
     {
-        "name": "UpdateConfig",
         "method": "POST",
         "url": "/user/config"
     },
     {
-        "name": "GetUserSpending",
         "method": "GET",
         "url": "/user/spending"
     },
     {
-        "name": "GetHealthStatus",
         "method": "GET",
         "url": "/health/status",
         "disableAuthorization": true
