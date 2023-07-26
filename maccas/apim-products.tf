@@ -1,33 +1,10 @@
-locals {
-  public_product_id = "MaccasApiPublic"
+data "azurerm_resource_group" "general-api-group" {
+  name = "general-api-group"
 }
 
-resource "azurerm_api_management_product" "maccas-web-api-public" {
-  product_id            = local.public_product_id
-  display_name          = "Maccas Web API (public)"
-  published             = true
-  api_management_name   = data.azurerm_api_management.general-apim.name
-  resource_group_name   = data.azurerm_api_management.general-apim.resource_group_name
-  subscription_required = false
-}
-
-resource "azurerm_api_management_product_api" "maccas-web-api" {
-  api_name            = azurerm_api_management_api.maccas-v1.name
-  product_id          = azurerm_api_management_product.maccas-web-api-public.product_id
-  api_management_name = data.azurerm_api_management.general-apim.name
-  resource_group_name = data.azurerm_api_management.general-apim.resource_group_name
-}
-
-resource "azurerm_api_management_product_policy" "maccas-web-api-public" {
-  product_id          = azurerm_api_management_product.maccas-web-api-public.product_id
-  api_management_name = azurerm_api_management_product.maccas-web-api-public.api_management_name
-  resource_group_name = azurerm_api_management_product.maccas-web-api-public.resource_group_name
-
-  xml_content = file("policy/public.policy.xml")
-
-  depends_on = [
-    azapi_resource.maccas-jwt-verification-policy-fragment
-  ]
+data "azurerm_api_management" "general-apim" {
+  name                = "general-apim"
+  resource_group_name = data.azurerm_resource_group.general-api-group.name
 }
 
 resource "azurerm_api_management_product" "maccas-policy-apim" {
