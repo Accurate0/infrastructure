@@ -49,7 +49,7 @@ resource "aws_apigatewayv2_route" "this" {
   target             = "integrations/${aws_apigatewayv2_integration.this.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   operation_name     = each.key
-  authorization_type = "JWT"
+  authorization_type = try(each.value.disableAuthorization, false) == true ? "NONE" : "JWT"
 }
 
 resource "aws_apigatewayv2_stage" "this" {

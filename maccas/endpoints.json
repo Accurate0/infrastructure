@@ -243,6 +243,7 @@
         "method": "GET",
         "url": "/health/status",
         "queryParameters": [],
-        "templateParameters": []
+        "templateParameters": [],
+        "disableAuthorization": true
     }
 ]
