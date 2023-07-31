@@ -44,7 +44,7 @@ resource "aws_apigatewayv2_api" "this-dev" {
     allow_credentials = true
     allow_methods     = ["GET", "DELETE", "POST"]
     allow_origins     = ["http://localhost:3000", "https://dev.maccas.one"]
-    allow_headers     = ["Authorization"]
+    allow_headers     = ["Authorization", "Content-Type"]
     max_age           = 259200
   }
 }
