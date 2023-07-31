@@ -7,20 +7,11 @@ resource "aws_secretsmanager_secret_version" "api-secret-apim-api-key" {
   secret_string = azurerm_api_management_subscription.maccas-policy-apim-subscription.primary_key
 }
 
-resource "aws_secretsmanager_secret" "api-secret-jwt-bypass" {
-  name = "MaccasApi-JwtBypassKey"
+resource "aws_secretsmanager_secret" "api-secret-places-api-key" {
+  name = "MaccasApi-PlacesApiKey"
 }
 
-resource "aws_secretsmanager_secret_version" "api-secret-jwt-bypass" {
-  secret_id     = aws_secretsmanager_secret.api-secret-jwt-bypass.id
-  secret_string = base64encode(random_password.jwt-bypass-token.result)
-}
-
-resource "aws_secretsmanager_secret" "api-secret-application-audience" {
-  name = "MaccasApi-ApplicationAudience"
-}
-
-resource "aws_secretsmanager_secret_version" "api-secret-application-audience" {
-  secret_id     = aws_secretsmanager_secret.api-secret-application-audience.id
-  secret_string = azuread_application.this.application_id
+resource "aws_secretsmanager_secret_version" "api-secret-places-api-key" {
+  secret_id     = aws_secretsmanager_secret.api-secret-places-api-key.id
+  secret_string = google_apikeys_key.this.key_string
 }

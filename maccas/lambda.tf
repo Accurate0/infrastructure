@@ -103,8 +103,7 @@ resource "aws_iam_policy" "resource-access" {
         ],
         "Resource" = [
           "${aws_secretsmanager_secret.api-secret-apim-api-key.arn}",
-          "${aws_secretsmanager_secret.api-secret-jwt-bypass.arn}",
-          "${aws_secretsmanager_secret.api-secret-application-audience.arn}"
+          "${aws_secretsmanager_secret.api-secret-places-api-key.arn}",
         ]
       },
       {
