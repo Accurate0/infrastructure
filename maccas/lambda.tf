@@ -48,17 +48,8 @@ resource "aws_iam_policy" "resource-access" {
           "dynamodb:PutItem"
         ]
         "Resource" = [
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-user-config-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-cache-db-v1.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-offer-id-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-api-point-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-refresh-tracking-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-audit-db.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-audit-db.id}/index/*",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-audit-data.id}",
-          "arn:aws:dynamodb:*:*:table/${aws_dynamodb_table.maccas-user-accounts.id}",
+          "arn:aws:dynamodb:*:*:table/MaccasApi-*",
+          "arn:aws:dynamodb:*:*:table/MaccasApi-*/index/*",
         ]
       },
       {
@@ -102,7 +93,7 @@ resource "aws_iam_policy" "resource-access" {
           "secretsmanager:ListSecretVersionIds"
         ],
         "Resource" = [
-          "${aws_secretsmanager_secret.api-secret-apim-api-key.arn}",
+          "${aws_secretsmanager_secret.api-secret-ad-client.arn}",
           "${aws_secretsmanager_secret.api-secret-places-api-key.arn}",
         ]
       },
