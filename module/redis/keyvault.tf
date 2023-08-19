@@ -16,8 +16,3 @@ data "azurerm_key_vault_secret" "redis-cluster-password" {
   name         = "redis-cluster-password"
   key_vault_id = data.azurerm_key_vault.kv.id
 }
-
-data "azurerm_key_vault_secret" "upstash-redis-id" {
-  name         = "upstash-redis-id"
-  key_vault_id = data.azurerm_key_vault.kv.id
-}

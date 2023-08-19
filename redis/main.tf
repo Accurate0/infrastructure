@@ -24,6 +24,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.6.2"
     }
+    upstash = {
+      source  = "upstash/upstash"
+      version = "1.4.1"
+    }
   }
 
   backend "s3" {
