@@ -4,17 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - ww3/**
       - anurag-sh/**
-      - weather/**
       - azure/**
       - aws/**
       - tf-state/**
       - maccas/**
       - replybot/**
-      - redis-cluster/**
+      - redis/**
       - sandbox/**
-      - openai/**
       - module/**
       - perthtransport/**
       - statuspage/**
@@ -63,7 +60,6 @@ jobs:
       fail-fast: false
       matrix:
         directory:
-          - openai
           - redis
 
   projects:
@@ -80,8 +76,6 @@ jobs:
       matrix:
         directory:
           - anurag-sh
-          - ww3
-          - weather
           - sandbox
           - maccas
           - replybot

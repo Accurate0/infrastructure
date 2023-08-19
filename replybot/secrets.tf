@@ -1,10 +1,14 @@
-resource "aws_secretsmanager_secret" "bot-secret-apim-api-key" {
-  name = "Replybot-ApimApiKey"
+resource "aws_secretsmanager_secret" "bot-secret-openai-key" {
+  name = "Replybot-OpenAiKey"
 }
 
-resource "aws_secretsmanager_secret_version" "bot-secret-apim-bot-key" {
-  secret_id     = aws_secretsmanager_secret.bot-secret-apim-api-key.id
-  secret_string = azurerm_api_management_subscription.internal-policy-apim-subscription.primary_key
+resource "aws_secretsmanager_secret_version" "bot-secret-openai-key" {
+  secret_id     = aws_secretsmanager_secret.bot-secret-openai-key.id
+  secret_string = "undefined"
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
 }
 
 resource "aws_secretsmanager_secret" "bot-secret-discord-token" {

@@ -41,16 +41,3 @@ provider "azurerm" {
 
 provider "fly" {
 }
-
-provider "upstash" {
-  api_key = var.UPSTASH_API_KEY
-  email   = var.UPSTASH_EMAIL
-}
-
-variable "UPSTASH_API_KEY" {
-  type = string
-}
-
-variable "UPSTASH_EMAIL" {
-  type = string
-}

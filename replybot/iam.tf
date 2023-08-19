@@ -46,7 +46,7 @@ resource "aws_iam_policy" "resource-access" {
           "secretsmanager:ListSecrets"
         ],
         "Resource" = [
-          "${aws_secretsmanager_secret.bot-secret-apim-api-key.arn}",
+          "${aws_secretsmanager_secret.bot-secret-openai-key.arn}",
           "${aws_secretsmanager_secret.bot-secret-discord-token.arn}",
           "${data.aws_secretsmanager_secret.redis-connection-string.arn}",
         ]
