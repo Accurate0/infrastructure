@@ -20,10 +20,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>3"
     }
-    upstash = {
-      source  = "upstash/upstash"
-      version = "1.4.0"
-    }
     aws = {
       source  = "hashicorp/aws"
       version = "5.6.2"
