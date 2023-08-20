@@ -18,10 +18,15 @@ resource "aws_security_group" "internal-ssh-sg" {
   vpc_id      = aws_vpc.internal-vpc.id
 }
 
+module "home-ip-kv" {
+  source      = "../module/keyvault-value-output"
+  secret_name = "home-static-ip"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "allow-ssh" {
   security_group_id = aws_security_group.internal-ssh-sg.id
 
-  cidr_ipv4   = "220.233.44.1/32"
+  cidr_ipv4   = "${module.home-ip-kv.secret_value}/32"
   from_port   = 22
   ip_protocol = "tcp"
   to_port     = 22

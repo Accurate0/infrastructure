@@ -23,6 +23,10 @@ terraform {
   }
 }
 
+provider "azurerm" {
+  features {}
+}
+
 provider "aws" {
   default_tags {
     tags = {
