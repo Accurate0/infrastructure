@@ -14,7 +14,6 @@ on:
       - sandbox/**
       - module/**
       - perthtransport/**
-      - statuspage/**
       - ozb/**
       - wireguard/**
       - .github/workflows/call-terraform.yml
@@ -82,4 +81,3 @@ jobs:
           - ozb
           - wireguard
           - perthtransport
-          - statuspage
