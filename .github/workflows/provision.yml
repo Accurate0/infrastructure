@@ -47,19 +47,13 @@ jobs:
           - azure
           - aws
 
-  shared:
-    name: ${{ matrix.directory }}
+  redos:
+    name: redis
     uses: ./.github/workflows/call-terraform.yml
     with:
-      directory: ${{ matrix.directory }}
+      directory: redis
     secrets: inherit
     needs: cloud
-
-    strategy:
-      fail-fast: false
-      matrix:
-        directory:
-          - redis
 
   projects:
     name: ${{ matrix.directory }}
@@ -68,7 +62,7 @@ jobs:
       directory: ${{ matrix.directory }}
     secrets: inherit
     needs:
-      - shared
+      - redis
 
     strategy:
       fail-fast: false
