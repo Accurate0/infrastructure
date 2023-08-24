@@ -47,7 +47,7 @@ jobs:
           - azure
           - aws
 
-  redos:
+  redis:
     name: redis
     uses: ./.github/workflows/call-terraform.yml
     with:
