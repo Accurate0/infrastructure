@@ -29,6 +29,7 @@ resource "aws_iam_group_policy" "terraform-main-group-policy" {
           "elasticfilesystem:*",
           "kms:*",
           "sns:*",
+          "route53:*",
         ],
         "Effect" : "Allow",
         "Resource" : "*"
