@@ -33,7 +33,8 @@ resource "aws_network_interface" "worker-internal" {
   security_groups = [
     aws_security_group.internal-sg.id,
     aws_security_group.internal-wireguard-sg.id,
-    aws_security_group.internal-ssh-sg.id
+    aws_security_group.internal-ssh-sg.id,
+    aws_security_group.internal-shared-applications-sg.id,
   ]
 
   source_dest_check = false

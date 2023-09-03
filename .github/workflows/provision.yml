@@ -75,3 +75,4 @@ jobs:
           - ozb
           - wireguard
           - perthtransport
+          - shared-applications

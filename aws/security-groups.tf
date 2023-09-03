@@ -47,6 +47,21 @@ resource "aws_vpc_security_group_ingress_rule" "allow-wireguard" {
   to_port     = 51820
 }
 
+resource "aws_security_group" "internal-shared-applications-sg" {
+  name        = "internal-shared-applications-sg"
+  description = "shared-applications rules for internal apps"
+  vpc_id      = aws_vpc.internal-vpc.id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow-shared-applications" {
+  security_group_id = aws_security_group.internal-shared-applications-sg.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = 80
+  ip_protocol = "tcp"
+  to_port     = 80
+}
+
 resource "aws_security_group" "internal-efs-sg" {
   name        = "internal-efs-sg"
   description = "Rules for EFS access"
