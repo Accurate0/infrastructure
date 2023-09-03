@@ -39,7 +39,7 @@ module "aws-oidc-deploy" {
           "${aws_s3_bucket.config.arn}/*",
         ]
       },
-
+      # State Access
       {
         "Effect" = "Allow",
         "Action" = [
@@ -72,6 +72,7 @@ module "aws-oidc-deploy" {
           "${data.aws_dynamodb_table.tf-state-lock.arn}",
         ]
       },
+      # Resource Access
       {
         "Effect" = "Allow",
         "Action" = [
