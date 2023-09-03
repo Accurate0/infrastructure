@@ -1,5 +1,3 @@
-# TODO: dev url
-
 resource "aws_lambda_function" "api-dev" {
   function_name = "MaccasApi-api-dev"
   handler       = "bootstrap"
@@ -62,17 +60,6 @@ resource "aws_apigatewayv2_integration" "this-dev" {
   }
 }
 
-resource "aws_apigatewayv2_route" "this-dev" {
-  for_each = { for x in jsondecode(file("endpoints.json")) : "${x.method} ${x.url}" => x }
-
-  api_id             = aws_apigatewayv2_api.this-dev.id
-  route_key          = "${each.value.method} ${each.value.url}"
-  target             = "integrations/${aws_apigatewayv2_integration.this-dev.id}"
-  authorizer_id      = try(each.value.disableAuthorization, false) == true ? null : aws_apigatewayv2_authorizer.this-dev.id
-  operation_name     = each.key
-  authorization_type = try(each.value.disableAuthorization, false) == true ? "NONE" : "JWT"
-}
-
 resource "aws_apigatewayv2_stage" "this-dev" {
   api_id      = aws_apigatewayv2_api.this-dev.id
   name        = "v1"
@@ -89,15 +76,4 @@ resource "aws_lambda_permission" "api-gateway-dev" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.this-dev.execution_arn}/*/*"
-}
-
-resource "aws_apigatewayv2_authorizer" "this-dev" {
-  api_id           = aws_apigatewayv2_api.this-dev.id
-  authorizer_type  = "JWT"
-  identity_sources = ["$request.header.Authorization"]
-  name             = "maccas-jwt-dev"
-  jwt_configuration {
-    audience = [azuread_application.this.application_id]
-    issuer   = "https://apib2clogin.b2clogin.com/tfp/b1f3a0a4-f4e2-4300-b952-88f3dc55ee9b/b2c_1_signin/v2.0/"
-  }
 }
