@@ -77,10 +77,11 @@ module "aws-oidc-deploy" {
         "Effect" = "Allow",
         "Action" = [
           "apigateway:POST",
+          "apigateway:DELETE",
         ],
         "Resource" = [
-          "${aws_apigatewayv2_api.this.arn}/authorizers",
-          "${aws_apigatewayv2_api.this-dev.arn}/authorizers",
+          "${aws_apigatewayv2_api.this.arn}/routes/*",
+          "${aws_apigatewayv2_api.this-dev.arn}/routes/*",
           "${aws_apigatewayv2_api.this.arn}/routes",
           "${aws_apigatewayv2_api.this-dev.arn}/routes",
         ]

@@ -77,3 +77,14 @@ resource "aws_lambda_permission" "api-gateway-dev" {
 
   source_arn = "${aws_apigatewayv2_api.this-dev.execution_arn}/*/*"
 }
+
+resource "aws_apigatewayv2_authorizer" "this-dev" {
+  api_id           = aws_apigatewayv2_api.this-dev.id
+  authorizer_type  = "JWT"
+  identity_sources = ["$request.header.Authorization"]
+  name             = "maccas-api-jwt-dev"
+  jwt_configuration {
+    audience = [azuread_application.this.application_id]
+    issuer   = "https://apib2clogin.b2clogin.com/tfp/b1f3a0a4-f4e2-4300-b952-88f3dc55ee9b/b2c_1_signin/v2.0/"
+  }
+}

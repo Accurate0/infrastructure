@@ -4,32 +4,44 @@ resource "github_actions_secret" "vercen-project-id" {
   plaintext_value = vercel_project.maccas-web.id
 }
 
-resource "github_actions_secret" "api-gateway-id" {
+resource "github_actions_environment_secret" "api-gateway-id" {
+  environment     = "production-infra"
   repository      = "maccas-api"
   secret_name     = "AWS_API_GATEWAY_ID"
   plaintext_value = aws_apigatewayv2_api.this.id
 }
 
-resource "github_actions_secret" "api-gateway-id-dev" {
+resource "github_actions_environment_secret" "api-gateway-id-dev" {
+  environment     = "development-infra"
   repository      = "maccas-api"
-  secret_name     = "AWS_API_GATEWAY_ID_DEV"
+  secret_name     = "AWS_API_GATEWAY_ID"
   plaintext_value = aws_apigatewayv2_api.this-dev.id
 }
 
-resource "github_actions_secret" "integration-id" {
+resource "github_actions_environment_secret" "integration-id" {
+  environment     = "production-infra"
   repository      = "maccas-api"
   secret_name     = "AWS_INTEGRATION_ID"
   plaintext_value = aws_apigatewayv2_integration.this.id
 }
 
-resource "github_actions_secret" "integration-id-dev" {
+resource "github_actions_environment_secret" "integration-id-dev" {
+  environment     = "development-infra"
   repository      = "maccas-api"
-  secret_name     = "AWS_INTEGRATION_ID_DEV"
+  secret_name     = "AWS_INTEGRATION_ID"
   plaintext_value = aws_apigatewayv2_integration.this-dev.id
 }
 
-resource "github_actions_secret" "adb2c-application-id" {
+resource "github_actions_environment_secret" "authorizer-id" {
+  environment     = "production-infra"
   repository      = "maccas-api"
-  secret_name     = "ADB2C_APPLICATION_ID"
-  plaintext_value = azuread_application.this.application_id
+  secret_name     = "AWS_AUTHORIZER_ID"
+  plaintext_value = aws_apigatewayv2_authorizer.this.id
+}
+
+resource "github_actions_environment_secret" "authorizer-id-dev" {
+  environment     = "development-infra"
+  repository      = "maccas-api"
+  secret_name     = "AWS_AUTHORIZER_ID"
+  plaintext_value = aws_apigatewayv2_authorizer.this-dev.id
 }
