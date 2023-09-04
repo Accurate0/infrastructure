@@ -52,6 +52,10 @@ resource "aws_ecs_task_definition" "this" {
           {
             containerPath = "/app/data",
             sourceVolume  = "Uptime-Data"
+          },
+          {
+            containerPath = "/var/run/docker.sock",
+            sourceVolume  = "Docker-Socket"
           }
         ],
       },
@@ -70,14 +74,21 @@ resource "aws_ecs_task_definition" "this" {
     }
   }
 
+  volume {
+    name      = "Docker-Socket"
+    host_path = "/var/run/docker.sock"
+  }
+
   requires_compatibilities = ["EC2"]
   execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
   task_role_arn            = aws_iam_role.ecs-container-iam-role.arn
 }
 
 resource "aws_ecs_service" "this" {
-  name            = "shared-applications-service"
-  cluster         = data.aws_ecs_cluster.this.id
-  task_definition = aws_ecs_task_definition.this.arn
-  desired_count   = 1
+  name                               = "shared-applications-service"
+  cluster                            = data.aws_ecs_cluster.this.id
+  task_definition                    = aws_ecs_task_definition.this.arn
+  desired_count                      = 1
+  deployment_minimum_healthy_percent = 0
+  deployment_maximum_percent         = 100
 }
