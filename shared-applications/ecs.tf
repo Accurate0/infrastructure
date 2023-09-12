@@ -53,10 +53,6 @@ resource "aws_ecs_task_definition" "this" {
             containerPath = "/app/data",
             sourceVolume  = "Uptime-Data"
           },
-          {
-            containerPath = "/var/run/docker.sock",
-            sourceVolume  = "Docker-Socket"
-          }
         ],
       },
     ]
@@ -72,11 +68,6 @@ resource "aws_ecs_task_definition" "this" {
         iam             = "ENABLED"
       }
     }
-  }
-
-  volume {
-    name      = "Docker-Socket"
-    host_path = "/var/run/docker.sock"
   }
 
   requires_compatibilities = ["EC2"]
