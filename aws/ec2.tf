@@ -1,7 +1,7 @@
 resource "aws_instance" "worker" {
   # amazon linux 2023 ecs
-  ami                         = "ami-0d1e33803b3832773"
-  instance_type               = "t2.micro"
+  ami                         = "ami-0131729fe2781f22c"
+  instance_type               = "t3.micro"
   user_data_replace_on_change = true
   iam_instance_profile        = aws_iam_instance_profile.ecs-agent.name
   user_data                   = <<EOT
