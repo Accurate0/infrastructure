@@ -33,7 +33,7 @@ resource "mongodbatlas_cluster" "this" {
   provider_region_name        = "AP_SOUTHEAST_2"
   provider_instance_size_name = "M0"
 
-    lifecycle {
+  lifecycle {
     prevent_destroy = true
   }
 }
@@ -60,7 +60,7 @@ resource "mongodbatlas_database_user" "ozb-user" {
     type = "CLUSTER"
   }
 
-    lifecycle {
+  lifecycle {
     prevent_destroy = true
   }
 }
