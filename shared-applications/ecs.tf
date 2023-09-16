@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "this" {
         name      = "nginx",
         image     = "${aws_ecr_repository.nginx.repository_url}",
         essential = true,
-        memory    = 256,
+        memory    = 128,
         cpu       = 256,
         portMappings = [{
           hostPort      = 80
@@ -38,7 +38,7 @@ resource "aws_ecs_task_definition" "this" {
         name      = "uptime",
         image     = "louislam/uptime-kuma:1",
         essential = true,
-        memory    = 512,
+        memory    = 128,
         cpu       = 512,
         logConfiguration = {
           logDriver = "awslogs",
