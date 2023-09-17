@@ -8,11 +8,11 @@ resource "aws_ecs_task_definition" "this" {
   container_definitions = jsonencode(
     [
       {
-        name      = "vpn",
-        image     = "lscr.io/linuxserver/wireguard:latest",
-        essential = true,
-        memory    = 64,
-        cpu       = 64,
+        name              = "vpn",
+        image             = "lscr.io/linuxserver/wireguard:latest",
+        essential         = true,
+        memoryReservation = 128,
+        cpu               = 256,
         portMappings = [{
           hostPort      = 51820
           containerPort = 51820
