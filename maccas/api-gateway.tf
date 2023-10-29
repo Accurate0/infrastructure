@@ -70,6 +70,7 @@ resource "aws_lambda_permission" "api-gateway-jwt" {
 resource "aws_apigatewayv2_authorizer" "this" {
   api_id                            = aws_apigatewayv2_api.this.id
   authorizer_type                   = "REQUEST"
+  identity_sources                  = ["$request.header.Authorization"]
   name                              = "maccas-api-jwt"
   authorizer_uri                    = aws_lambda_function.jwt.invoke_arn
   authorizer_payload_format_version = "2.0"
