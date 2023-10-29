@@ -1,7 +1,7 @@
 resource "github_actions_secret" "vercen-project-id" {
   repository      = "maccas-web"
   secret_name     = "VERCEL_PROJECT_ID"
-  plaintext_value = vercel_project.maccas-web.id
+  plaintext_value = vercel_project.maccas-web-v2.id
 }
 
 resource "github_actions_environment_secret" "api-gateway-id" {
@@ -44,4 +44,19 @@ resource "github_actions_environment_secret" "authorizer-id-dev" {
   repository      = "maccas-api"
   secret_name     = "AWS_AUTHORIZER_ID"
   plaintext_value = aws_apigatewayv2_authorizer.this-dev.id
+}
+
+module "github-env" {
+  source = "../module/github-environments"
+  repo   = "maccas-api"
+  environments = [
+    { name = "production-api" },
+    { name = "production-cleanup" },
+    { name = "production-images" },
+    { name = "production-refresh" },
+    { name = "production-refresh-failure" },
+    { name = "production-accounts" },
+    { name = "production-jwt" },
+    { name = "production-config" },
+  ]
 }

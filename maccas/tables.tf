@@ -183,3 +183,83 @@ resource "aws_dynamodb_table" "maccas-useraccounts" {
     prevent_destroy = true
   }
 }
+
+resource "aws_dynamodb_table" "maccas-users" {
+  name                        = "MaccasApi-Users"
+  billing_mode                = "PAY_PER_REQUEST"
+  hash_key                    = "username"
+  deletion_protection_enabled = true
+
+  attribute {
+    name = "username"
+    type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_dynamodb_table" "maccas-user-tokens" {
+  name                        = "MaccasApi-UserTokens"
+  billing_mode                = "PAY_PER_REQUEST"
+  hash_key                    = "username"
+  deletion_protection_enabled = true
+
+  ttl {
+    enabled        = true
+    attribute_name = "ttl"
+  }
+
+  attribute {
+    name = "username"
+    type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_dynamodb_table" "maccas-deals-db" {
+  name                        = "MaccasApi-Deals-v3"
+  billing_mode                = "PAY_PER_REQUEST"
+  hash_key                    = "deal_uuid"
+  deletion_protection_enabled = true
+
+  ttl {
+    enabled        = true
+    attribute_name = "ttl"
+  }
+
+  attribute {
+    name = "deal_uuid"
+    type = "S"
+  }
+
+  attribute {
+    name = "offer_proposition_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "account_name"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "OfferPropositionIdIndex"
+    hash_key        = "offer_proposition_id"
+    projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "AccountNameIndex"
+    hash_key        = "account_name"
+    projection_type = "ALL"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}

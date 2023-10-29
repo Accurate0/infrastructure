@@ -28,6 +28,11 @@ resource "aws_cloudwatch_log_group" "accounts-log" {
   retention_in_days = 14
 }
 
+resource "aws_cloudwatch_log_group" "jwt-log" {
+  name              = "/aws/lambda/${aws_lambda_function.jwt.function_name}"
+  retention_in_days = 14
+}
+
 resource "aws_cloudwatch_log_group" "api-gateway-log" {
   name              = "/aws/api-gateway/maccas-v1"
   retention_in_days = 14

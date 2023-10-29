@@ -6,7 +6,7 @@ resource "aws_lambda_function" "api-dev" {
   timeout       = 30
   memory_size   = 256
   runtime       = "provided.al2"
-  layers        = ["arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:16"]
+  layers        = ["arn:aws:lambda:ap-southeast-2:753240598075:layer:LambdaAdapterLayerX86:17"]
   environment {
     variables = {
       "AWS_LAMBDA_EXEC_WRAPPER"      = "/opt/bootstrap"
@@ -41,7 +41,7 @@ resource "aws_apigatewayv2_api" "this-dev" {
   cors_configuration {
     allow_credentials = true
     allow_methods     = ["GET", "DELETE", "POST"]
-    allow_origins     = ["http://localhost:3000", "https://dev.maccas.one"]
+    allow_origins     = ["http://localhost:5173", "https://dev.maccas.one"]
     allow_headers     = ["Authorization", "Content-Type"]
     max_age           = 259200
   }
@@ -78,13 +78,20 @@ resource "aws_lambda_permission" "api-gateway-dev" {
   source_arn = "${aws_apigatewayv2_api.this-dev.execution_arn}/*/*"
 }
 
+resource "aws_lambda_permission" "api-gateway-jwt-dev" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.jwt.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.this-dev.execution_arn}/*/*"
+}
+
 resource "aws_apigatewayv2_authorizer" "this-dev" {
-  api_id           = aws_apigatewayv2_api.this-dev.id
-  authorizer_type  = "JWT"
-  identity_sources = ["$request.header.Authorization"]
-  name             = "maccas-api-jwt-dev"
-  jwt_configuration {
-    audience = [azuread_application.this.application_id]
-    issuer   = "https://apib2clogin.b2clogin.com/tfp/b1f3a0a4-f4e2-4300-b952-88f3dc55ee9b/b2c_1_signin/v2.0/"
-  }
+  api_id                            = aws_apigatewayv2_api.this-dev.id
+  authorizer_type                   = "REQUEST"
+  name                              = "maccas-api-jwt-dev"
+  authorizer_uri                    = aws_lambda_function.jwt.invoke_arn
+  authorizer_payload_format_version = "2.0"
+  enable_simple_responses           = true
+  authorizer_result_ttl_in_seconds  = 0
 }

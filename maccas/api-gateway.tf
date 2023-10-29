@@ -59,13 +59,20 @@ resource "aws_lambda_permission" "api-gateway" {
   source_arn = "${aws_apigatewayv2_api.this.execution_arn}/*/*"
 }
 
+resource "aws_lambda_permission" "api-gateway-jwt" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.jwt.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.this.execution_arn}/*/*"
+}
+
 resource "aws_apigatewayv2_authorizer" "this" {
-  api_id           = aws_apigatewayv2_api.this.id
-  authorizer_type  = "JWT"
-  identity_sources = ["$request.header.Authorization"]
-  name             = "maccas-api-jwt"
-  jwt_configuration {
-    audience = [azuread_application.this.application_id]
-    issuer   = "https://apib2clogin.b2clogin.com/tfp/b1f3a0a4-f4e2-4300-b952-88f3dc55ee9b/b2c_1_signin/v2.0/"
-  }
+  api_id                            = aws_apigatewayv2_api.this.id
+  authorizer_type                   = "REQUEST"
+  name                              = "maccas-api-jwt"
+  authorizer_uri                    = aws_lambda_function.jwt.invoke_arn
+  authorizer_payload_format_version = "2.0"
+  enable_simple_responses           = true
+  authorizer_result_ttl_in_seconds  = 0
 }

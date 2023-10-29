@@ -16,6 +16,10 @@ terraform {
       source  = "integrations/github"
       version = "5.22.0"
     }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3"
+    }
   }
 
   backend "s3" {
@@ -34,4 +38,8 @@ provider "aws" {}
 provider "aws" {
   region = "us-east-1"
   alias  = "us-east-1"
+}
+
+provider "azurerm" {
+  features {}
 }

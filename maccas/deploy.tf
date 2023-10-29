@@ -25,6 +25,7 @@ module "aws-oidc-deploy" {
           "${aws_lambda_function.refresh-failure.arn}",
           "${aws_lambda_function.accounts.arn}",
           "${aws_lambda_function.api-dev.arn}",
+          "${aws_lambda_function.jwt.arn}",
           "${module.refresh-syd.lambda_arn}",
           "${module.refresh-mel.lambda_arn}",
           "${module.refresh-sng.lambda_arn}",
@@ -78,6 +79,7 @@ module "aws-oidc-deploy" {
         "Action" = [
           "apigateway:POST",
           "apigateway:DELETE",
+          "apigateway:PATCH",
         ],
         "Resource" = [
           "${aws_apigatewayv2_api.this.arn}/routes/*",

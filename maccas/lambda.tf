@@ -95,6 +95,7 @@ resource "aws_iam_policy" "resource-access" {
         "Resource" = [
           "${aws_secretsmanager_secret.api-secret-ad-client.arn}",
           "${aws_secretsmanager_secret.api-secret-places-api-key.arn}",
+          "${aws_secretsmanager_secret.api-secret-key.arn}",
         ]
       },
       {
@@ -184,6 +185,16 @@ resource "aws_lambda_function" "refresh-failure" {
 
 resource "aws_lambda_function" "accounts" {
   function_name = "MaccasApi-accounts"
+  handler       = "bootstrap"
+  role          = aws_iam_role.iam.arn
+  filename      = data.archive_file.dummy.output_path
+  timeout       = 300
+  memory_size   = 128
+  runtime       = "provided.al2"
+}
+
+resource "aws_lambda_function" "jwt" {
+  function_name = "MaccasApi-jwt"
   handler       = "bootstrap"
   role          = aws_iam_role.iam.arn
   filename      = data.archive_file.dummy.output_path
