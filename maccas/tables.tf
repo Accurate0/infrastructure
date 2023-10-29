@@ -221,6 +221,27 @@ resource "aws_dynamodb_table" "maccas-user-tokens" {
   }
 }
 
+resource "aws_dynamodb_table" "maccas-registration-tokens" {
+  name                        = "MaccasApi-RegistrationTokens"
+  billing_mode                = "PAY_PER_REQUEST"
+  hash_key                    = "token"
+  deletion_protection_enabled = true
+
+  ttl {
+    enabled        = true
+    attribute_name = "ttl"
+  }
+
+  attribute {
+    name = "token"
+    type = "S"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "aws_dynamodb_table" "maccas-deals-db" {
   name                        = "MaccasApi-Deals-v3"
   billing_mode                = "PAY_PER_REQUEST"
