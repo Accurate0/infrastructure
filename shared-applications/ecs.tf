@@ -31,15 +31,15 @@ resource "aws_ecs_task_definition" "this" {
             awslogs-stream-prefix = "ecs"
           }
         }
-        links     = ["uptime:uptime"],
-        dependsOn = [{ containerName = "uptime", condition = "START" }]
+        links     = ["uptime:uptime", "umami:umami"],
+        dependsOn = [{ containerName = "uptime", condition = "START" }, { containerName = "umami", condition = "START" }]
       },
       {
         name              = "uptime",
         image             = "louislam/uptime-kuma:1",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 512,
+        cpu               = 256,
         logConfiguration = {
           logDriver = "awslogs",
           options = {
@@ -55,6 +55,35 @@ resource "aws_ecs_task_definition" "this" {
           },
         ],
       },
+      {
+        name              = "umami",
+        image             = "ghcr.io/umami-software/umami:postgresql-latest",
+        essential         = true,
+        memoryReservation = 256,
+        cpu               = 256,
+        logConfiguration = {
+          logDriver = "awslogs",
+          options = {
+            awslogs-group         = "${aws_cloudwatch_log_group.umami.name}",
+            awslogs-region        = "ap-southeast-2",
+            awslogs-stream-prefix = "ecs"
+          }
+        },
+        environment = [
+          {
+            name  = "DATABASE_URL",
+            value = module.umami-database-connection.secret_value
+          },
+          {
+            name  = "DATABASE_TYPE",
+            value = "postgresql"
+          },
+          {
+            name  = "APP_SECRET",
+            value = module.umami-app-secret.secret_value
+          }
+        ],
+      }
     ]
   )
 
