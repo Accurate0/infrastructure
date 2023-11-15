@@ -61,8 +61,8 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    # needs:
-    #   - redis
+    needs:
+      - cloud
 
     strategy:
       fail-fast: false
