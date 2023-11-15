@@ -47,13 +47,13 @@ jobs:
           - azure
           - aws
 
-  redis:
-    name: redis
-    uses: ./.github/workflows/call-terraform.yml
-    with:
-      directory: redis
-    secrets: inherit
-    needs: cloud
+  # redis:
+  #   name: redis
+  #   uses: ./.github/workflows/call-terraform.yml
+  #   with:
+  #     directory: redis
+  #   secrets: inherit
+  #   needs: cloud
 
   projects:
     name: ${{ matrix.directory }}
@@ -61,8 +61,8 @@ jobs:
     with:
       directory: ${{ matrix.directory }}
     secrets: inherit
-    needs:
-      - redis
+    # needs:
+    #   - redis
 
     strategy:
       fail-fast: false

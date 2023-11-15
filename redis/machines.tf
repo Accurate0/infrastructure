@@ -13,6 +13,6 @@ resource "fly_machine" "this" {
   }]
 
   lifecycle {
-    ignore_changes = [image, services, env]
+    ignore_changes = [image, services, env, name, region, mounts, memorymb, cpus]
   }
 }
