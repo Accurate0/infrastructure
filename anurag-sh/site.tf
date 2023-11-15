@@ -20,7 +20,7 @@ resource "cloudflare_record" "www" {
 
 resource "vercel_project" "anurag-sh" {
   name      = "anurag-sh"
-  framework = "create-react-app"
+  framework = "sveltekit-1"
   git_repository = {
     type = "github"
     repo = "Accurate0/anurag.sh"
