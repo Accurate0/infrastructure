@@ -47,8 +47,9 @@ resource "github_actions_environment_secret" "authorizer-id-dev" {
 }
 
 module "github-env" {
-  source = "../module/github-environments"
-  repo   = "maccas-api"
+  source   = "../module/github-environments"
+  repo     = "maccas-api"
+  branches = ["main", "v2.x"]
   environments = [
     { name = "production-api" },
     { name = "production-cleanup" },
