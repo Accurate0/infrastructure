@@ -51,6 +51,7 @@ module "github-env" {
   repo     = "maccas-api"
   branches = ["main", "v2.x"]
   environments = [
+    { name = "production" },
     { name = "production-api" },
     { name = "production-cleanup" },
     { name = "production-images" },
