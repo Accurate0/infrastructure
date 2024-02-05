@@ -16,6 +16,7 @@ on:
       - perthtransport/**
       - ozb/**
       - wireguard/**
+      - shared-applications/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
