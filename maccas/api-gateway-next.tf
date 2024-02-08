@@ -23,8 +23,8 @@ resource "aws_apigatewayv2_integration" "v2" {
   api_id           = aws_apigatewayv2_api.v2.id
   integration_type = "HTTP_PROXY"
 
-  integration_method     = "ANY"
-  integration_uri        = "https://maccas-api.fly.dev"
+  integration_method = "ANY"
+  integration_uri    = "https://maccas-api.fly.dev"
 
   request_parameters = {
     "overwrite:path" = "/v1/$request.path"

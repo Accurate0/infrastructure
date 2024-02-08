@@ -15,5 +15,5 @@ resource "vercel_project" "maccas-web-v2" {
 
 resource "vercel_project_domain" "maccas-one-web-domain" {
   project_id = vercel_project.maccas-web-v2.id
-  domain     = "maccas.one"
+  domain     = "old.maccas.one"
 }

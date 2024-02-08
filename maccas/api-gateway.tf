@@ -22,7 +22,7 @@ resource "aws_apigatewayv2_api" "this" {
   cors_configuration {
     allow_credentials = true
     allow_methods     = ["GET", "DELETE", "POST"]
-    allow_origins     = ["http://localhost:3000", "https://maccas.one"]
+    allow_origins     = ["http://localhost:3000", "https://old.maccas.one"]
     allow_headers     = ["Authorization", "Content-Type"]
     max_age           = 259200
   }

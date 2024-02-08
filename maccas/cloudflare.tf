@@ -42,28 +42,6 @@ resource "cloudflare_record" "validation-record-api" {
   }
 }
 
-resource "cloudflare_record" "validation-record-api-dev" {
-  for_each = {
-    for item in aws_acm_certificate.cert-api-dev.domain_validation_options : item.domain_name => {
-      name   = item.resource_record_name
-      record = item.resource_record_value
-      type   = item.resource_record_type
-    }
-  }
-
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  allow_overwrite = true
-  proxied         = false
-  name            = each.value.name
-  type            = each.value.type
-  value           = each.value.record
-  ttl             = 1
-
-  lifecycle {
-    ignore_changes = [value]
-  }
-}
-
 resource "cloudflare_record" "maccas-one-api" {
   zone_id         = var.cloudflare_zone_id_maccas_one
   allow_overwrite = true
@@ -71,16 +49,6 @@ resource "cloudflare_record" "maccas-one-api" {
   name            = "api"
   type            = "CNAME"
   value           = aws_apigatewayv2_domain_name.this.domain_name_configuration[0].target_domain_name
-  ttl             = 1
-}
-
-resource "cloudflare_record" "maccas-one-api-dev" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  allow_overwrite = true
-  proxied         = false
-  name            = "api.dev"
-  type            = "CNAME"
-  value           = aws_apigatewayv2_domain_name.this-dev.domain_name_configuration[0].target_domain_name
   ttl             = 1
 }
 
@@ -94,26 +62,6 @@ resource "cloudflare_record" "i-maccas-one" {
   ttl             = 1
 }
 
-resource "cloudflare_record" "maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "@"
-  value           = "76.76.21.21"
-  type            = "A"
-  proxied         = true
-  ttl             = 1
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "dev-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "dev"
-  value           = "cname.vercel-dns.com"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
 resource "cloudflare_record" "www-maccas-one" {
   zone_id         = var.cloudflare_zone_id_maccas_one
   name            = "www"
@@ -124,20 +72,20 @@ resource "cloudflare_record" "www-maccas-one" {
   allow_overwrite = true
 }
 
-resource "cloudflare_record" "next-maccas-one" {
+resource "cloudflare_record" "old-maccas-one" {
   zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "next"
-  value           = "maccas-web.fly.dev"
+  name            = "old"
+  value           = "cname.vercel-dns.com"
   type            = "CNAME"
   proxied         = false
   ttl             = 1
   allow_overwrite = true
 }
 
-resource "cloudflare_record" "api-next-maccas-one" {
+resource "cloudflare_record" "next-maccas-one" {
   zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "api.next"
-  value           = "maccas-api.fly.dev"
+  name            = "@"
+  value           = "maccas-web.fly.dev"
   type            = "CNAME"
   proxied         = false
   ttl             = 1
@@ -146,7 +94,7 @@ resource "cloudflare_record" "api-next-maccas-one" {
 
 resource "cloudflare_record" "dashboard-next-maccas-one" {
   zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "dashboard.next"
+  name            = "dashboard"
   value           = "maccas-dashboard.fly.dev"
   type            = "CNAME"
   proxied         = false
@@ -160,19 +108,6 @@ resource "cloudflare_record" "aws-wild" {
   data {
     flags = "0"
     tag   = "issuewild"
-    value = "awstrust.com"
-  }
-  type            = "CAA"
-  ttl             = 1
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "aws-api-dev" {
-  zone_id = var.cloudflare_zone_id_maccas_one
-  name    = "api.dev"
-  data {
-    flags = "0"
-    tag   = "issue"
     value = "awstrust.com"
   }
   type            = "CAA"

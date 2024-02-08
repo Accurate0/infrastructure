@@ -7,15 +7,6 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = var.region
-  default_tags {
-    tags = {
-      Project = "Maccas API"
-    }
-  }
-}
-
 variable "region" {
   type = string
 }
