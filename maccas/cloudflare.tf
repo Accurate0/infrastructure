@@ -102,6 +102,38 @@ resource "cloudflare_record" "dashboard-next-maccas-one" {
   allow_overwrite = true
 }
 
+resource "cloudflare_record" "batch-next-maccas-one" {
+  zone_id         = var.cloudflare_zone_id_maccas_one
+  name            = "batch"
+  value           = "maccas-batch.fly.dev"
+  type            = "CNAME"
+  proxied         = false
+  ttl             = 1
+  allow_overwrite = true
+}
+
+
+resource "cloudflare_record" "event-next-maccas-one" {
+  zone_id         = var.cloudflare_zone_id_maccas_one
+  name            = "event"
+  value           = "maccas-event.fly.dev"
+  type            = "CNAME"
+  proxied         = false
+  ttl             = 1
+  allow_overwrite = true
+}
+
+
+resource "cloudflare_record" "database-next-maccas-one" {
+  zone_id         = var.cloudflare_zone_id_maccas_one
+  name            = "database"
+  value           = "maccas-db.fly.dev"
+  type            = "CNAME"
+  proxied         = false
+  ttl             = 1
+  allow_overwrite = true
+}
+
 resource "cloudflare_record" "aws-wild" {
   zone_id = var.cloudflare_zone_id_maccas_one
   name    = "@"
