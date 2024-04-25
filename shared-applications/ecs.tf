@@ -12,7 +12,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "${aws_ecr_repository.nginx.repository_url}",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 256,
         portMappings = [{
           hostPort      = 80
           containerPort = 80
@@ -39,7 +38,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "louislam/uptime-kuma:1",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 256,
         logConfiguration = {
           logDriver = "awslogs",
           options = {
