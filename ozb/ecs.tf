@@ -12,7 +12,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "${aws_ecr_repository.this.repository_url}",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 128,
         logConfiguration = {
           logDriver = "awslogs",
           options = {

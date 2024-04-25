@@ -12,7 +12,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "${aws_ecr_repository.perthtransport-api.repository_url}",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 1024,
         portMappings = [{
           hostPort      = 80
           containerPort = 8000
@@ -52,7 +51,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "${aws_ecr_repository.perthtransport-worker.repository_url}",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 1024,
         logConfiguration = {
           logDriver = "awslogs",
           options = {
@@ -82,7 +80,6 @@ resource "aws_ecs_task_definition" "this" {
         image             = "redis:alpine",
         essential         = true,
         memoryReservation = 128,
-        cpu               = 512,
         logConfiguration = {
           logDriver = "awslogs",
           options = {
