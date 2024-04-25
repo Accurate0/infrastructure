@@ -134,16 +134,6 @@ resource "cloudflare_record" "database-next-maccas-one" {
   allow_overwrite = true
 }
 
-resource "cloudflare_record" "status-next-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "status"
-  value           = "worker.anurag.sh"
-  type            = "CNAME"
-  proxied         = true
-  ttl             = 1
-  allow_overwrite = true
-}
-
 resource "cloudflare_record" "aws-wild" {
   zone_id = var.cloudflare_zone_id_maccas_one
   name    = "@"
