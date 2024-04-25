@@ -94,7 +94,6 @@ resource "aws_iam_policy" "resource-access" {
         ],
         "Resource" = [
           "${aws_secretsmanager_secret.api-secret-ad-client.arn}",
-          "${aws_secretsmanager_secret.api-secret-places-api-key.arn}",
           "${aws_secretsmanager_secret.api-secret-key.arn}",
         ]
       },
