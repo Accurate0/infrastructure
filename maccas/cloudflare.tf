@@ -4,28 +4,6 @@ variable "cloudflare_zone_id_maccas_one" {
   default   = "7104890048c02e9a312f6ebbc8a8359a"
 }
 
-resource "cloudflare_record" "validation-record-maccas-one" {
-  for_each = {
-    for item in aws_acm_certificate.cert-maccas-one.domain_validation_options : item.domain_name => {
-      name   = item.resource_record_name
-      record = item.resource_record_value
-      type   = item.resource_record_type
-    }
-  }
-
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  allow_overwrite = true
-  proxied         = false
-  name            = each.value.name
-  type            = each.value.type
-  value           = each.value.record
-  ttl             = 1
-
-  lifecycle {
-    ignore_changes = [value]
-  }
-}
-
 resource "cloudflare_record" "validation-record-api" {
   for_each = {
     for item in aws_acm_certificate.cert-api.domain_validation_options : item.domain_name => {
