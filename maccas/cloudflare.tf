@@ -1,3 +1,9 @@
+variable "cloudflare_zone_id_maccas_one" {
+  type      = string
+  sensitive = true
+  default   = "7104890048c02e9a312f6ebbc8a8359a"
+}
+
 resource "cloudflare_record" "validation-record-maccas-one" {
   for_each = {
     for item in aws_acm_certificate.cert-maccas-one.domain_validation_options : item.domain_name => {
@@ -49,16 +55,6 @@ resource "cloudflare_record" "maccas-one-api" {
   name            = "api"
   type            = "CNAME"
   value           = aws_apigatewayv2_domain_name.this.domain_name_configuration[0].target_domain_name
-  ttl             = 1
-}
-
-resource "cloudflare_record" "i-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  allow_overwrite = true
-  proxied         = false
-  name            = "i"
-  type            = "CNAME"
-  value           = aws_cloudfront_distribution.image-s3-distribution-maccas-one.domain_name
   ttl             = 1
 }
 
