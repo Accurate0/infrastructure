@@ -49,9 +49,6 @@ resource "vercel_project" "og" {
     type = "github"
     repo = "Accurate0/vercel-og-nextjs"
   }
-  vercel_authentication = {
-    protect_production = false
-  }
 }
 
 resource "vercel_project_domain" "og-domain" {

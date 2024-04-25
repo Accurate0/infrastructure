@@ -11,10 +11,3 @@ resource "vercel_project_environment_variable" "dev-url" {
   target     = ["preview"]
 }
 
-resource "vercel_project_domain" "base" {
-  project_id = vercel_project.maccas-web-v2.id
-  domain     = "maccas-web-v2.vercel.app"
-
-  redirect             = vercel_project_domain.maccas-one-web-domain.domain
-  redirect_status_code = 308
-}
