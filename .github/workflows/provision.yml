@@ -16,7 +16,6 @@ on:
       - perthtransport/**
       - ozb/**
       - wireguard/**
-      - shared-applications/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
@@ -76,4 +75,3 @@ jobs:
           - ozb
           - wireguard
           - perthtransport
-          - shared-applications
