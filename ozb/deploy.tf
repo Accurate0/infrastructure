@@ -28,13 +28,6 @@ module "aws-oidc-deploy" {
       },
       {
         "Action" : [
-          "ecs:UpdateService",
-        ],
-        "Effect" : "Allow",
-        "Resource" : "${aws_ecs_service.this.id}"
-      },
-      {
-        "Action" : [
           "lambda:UpdateFunctionCode",
         ],
         "Effect" : "Allow",

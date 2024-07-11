@@ -15,7 +15,6 @@ on:
       - module/**
       - perthtransport/**
       - ozb/**
-      - wireguard/**
       - .github/workflows/call-terraform.yml
       - .github/workflows/provision.yml
 
@@ -73,5 +72,4 @@ jobs:
           - maccas
           - replybot
           - ozb
-          - wireguard
           - perthtransport

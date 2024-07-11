@@ -15,5 +15,9 @@ resource "aws_secretsmanager_secret" "redis-connection-string" {
 
 resource "aws_secretsmanager_secret_version" "redis-connection-string" {
   secret_id     = aws_secretsmanager_secret.redis-connection-string.id
-  secret_string = "redis://default:${random_password.redis-password.result}@redis.anurag.sh:6379"
+  secret_string = "REPLACED"
+
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
 }
