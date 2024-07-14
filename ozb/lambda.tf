@@ -16,6 +16,13 @@ resource "aws_lambda_function" "trigger" {
   timeout       = 300
   memory_size   = 128
   runtime       = "provided.al2"
+
+  environment {
+    variables = {
+      AXIOM_TOKEN   = module.axiom-token.secret_value
+      AXIOM_DATASET = "main"
+    }
+  }
 }
 
 resource "aws_lambda_function" "timed" {
@@ -26,6 +33,13 @@ resource "aws_lambda_function" "timed" {
   timeout       = 300
   memory_size   = 128
   runtime       = "provided.al2"
+
+  environment {
+    variables = {
+      AXIOM_TOKEN   = module.axiom-token.secret_value
+      AXIOM_DATASET = "main"
+    }
+  }
 }
 
 resource "aws_lambda_function" "daemon" {
@@ -36,4 +50,11 @@ resource "aws_lambda_function" "daemon" {
   timeout       = 300
   memory_size   = 128
   runtime       = "provided.al2"
+
+  environment {
+    variables = {
+      AXIOM_TOKEN   = module.axiom-token.secret_value
+      AXIOM_DATASET = "main"
+    }
+  }
 }
