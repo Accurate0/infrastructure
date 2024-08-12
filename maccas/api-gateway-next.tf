@@ -24,7 +24,7 @@ resource "aws_apigatewayv2_integration" "v2" {
   integration_type = "HTTP_PROXY"
 
   integration_method = "ANY"
-  integration_uri    = "https://maccas-api.fly.dev"
+  integration_uri    = "https://graphql.maccas.one"
 
   request_parameters = {
     "overwrite:path" = "/v1/$request.path"
