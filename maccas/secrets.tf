@@ -19,3 +19,8 @@ resource "aws_secretsmanager_secret_version" "api-secret-key" {
   secret_id     = aws_secretsmanager_secret.api-secret-key.id
   secret_string = random_password.secret-key.result
 }
+
+module "perth-static-ip" {
+  source      = "../module/keyvault-value-output"
+  secret_name = "perth-static-ip"
+}

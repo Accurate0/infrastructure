@@ -56,54 +56,14 @@ resource "cloudflare_record" "old-maccas-one" {
   allow_overwrite = true
 }
 
-resource "cloudflare_record" "next-maccas-one" {
+
+resource "cloudflare_record" "main-server" {
+  for_each        = toset(["event", "batch", "@", "graphql", "dashboard"])
   zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "@"
-  value           = "maccas-web.fly.dev"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "dashboard-next-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "dashboard"
-  value           = "maccas-dashboard.fly.dev"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "batch-next-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "batch"
-  value           = "maccas-batch.fly.dev"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-
-resource "cloudflare_record" "event-next-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "event"
-  value           = "maccas-event.fly.dev"
-  type            = "CNAME"
-  proxied         = false
-  ttl             = 1
-  allow_overwrite = true
-}
-
-
-resource "cloudflare_record" "database-next-maccas-one" {
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = "database"
-  value           = "maccas-db.fly.dev"
-  type            = "CNAME"
-  proxied         = false
+  name            = each.key
+  value           = module.perth-static-ip.secret_value
+  type            = "A"
+  proxied         = true
   ttl             = 1
   allow_overwrite = true
 }
@@ -119,4 +79,43 @@ resource "cloudflare_record" "aws-wild" {
   type            = "CAA"
   ttl             = 1
   allow_overwrite = true
+}
+
+
+resource "cloudflare_record" "aws-api-issue" {
+  zone_id = var.cloudflare_zone_id_maccas_one
+  name    = "api"
+  data {
+    flags = "0"
+    tag   = "issue"
+    value = "awstrust.com"
+  }
+  type            = "CAA"
+  ttl             = 1
+  allow_overwrite = true
+}
+
+
+resource "cloudflare_ruleset" "ssl" {
+  zone_id = var.cloudflare_zone_id_maccas_one
+  name    = "Maccas SSL"
+  kind    = "zone"
+  phase   = "http_config_settings"
+
+  rules {
+    action = "set_config"
+    action_parameters {
+      ssl = "full"
+    }
+    expression = <<EOF
+            (http.host eq "batch.maccas.one")
+         or (http.host eq "dashboard.maccas.one")
+         or (http.host eq "graphql.maccas.one")
+         or (http.host eq "maccas.one")
+         or (http.host eq "event.maccas.one")
+EOF
+
+    description = "Maccas Full SSL"
+    enabled     = true
+  }
 }

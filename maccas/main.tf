@@ -79,3 +79,7 @@ provider "azuread" {
   tenant_id     = var.ARM_B2C_TENANT_ID
   alias         = "adb2c"
 }
+
+provider "azurerm" {
+  features {}
+}
