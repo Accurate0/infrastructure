@@ -36,7 +36,7 @@ resource "cloudflare_ruleset" "api-perthtransport" {
   rules {
     action = "set_config"
     action_parameters {
-      ssl = "flexible"
+      ssl = "full"
     }
     expression  = "(http.request.full_uri contains \"api.perthtransport.xyz\")"
     description = "API Backend Flexible"
