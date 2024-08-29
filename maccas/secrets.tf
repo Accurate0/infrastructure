@@ -24,3 +24,13 @@ module "perth-static-ip" {
   source      = "../module/keyvault-value-output"
   secret_name = "perth-static-ip"
 }
+
+module "coolify-api-readonly-secret" {
+  source      = "../module/keyvault-value-output"
+  secret_name = "coolify-api-deploy-secret"
+}
+
+module "coolify-api-webhook" {
+  source      = "../module/keyvault-value-output"
+  secret_name = "coolify-api-maccas-webhook-url"
+}
