@@ -6,27 +6,6 @@ module "aws-oidc-deploy" {
 
     "Statement" = [
       {
-        "Effect" = "Allow",
-        "Action" = [
-          "ecr:GetAuthorizationToken",
-        ],
-        "Resource" = [
-          "*",
-        ]
-      },
-      {
-        "Action" : [
-          "ecr:BatchGetImage",
-          "ecr:CompleteLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:InitiateLayerUpload",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:PutImage"
-        ],
-        "Effect" : "Allow",
-        "Resource" : "${aws_ecr_repository.this.arn}"
-      },
-      {
         "Action" : [
           "lambda:UpdateFunctionCode",
         ],
@@ -40,10 +19,4 @@ module "aws-oidc-deploy" {
     ]
   }
   allowed_repos = ["ozb"]
-}
-
-resource "github_actions_variable" "ecr-registry-url" {
-  repository    = "ozb"
-  variable_name = "AWS_ECR_REGISTRY"
-  value         = aws_ecr_repository.this.repository_url
 }
