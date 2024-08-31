@@ -6,6 +6,7 @@ on:
     paths:
       - anurag-sh/**
       - azure/**
+      - binarylane/**
       - aws/**
       - tf-state/**
       - maccas/**
@@ -45,6 +46,7 @@ jobs:
         directory:
           - azure
           - aws
+          - binarylane
 
   # redis:
   #   name: redis
