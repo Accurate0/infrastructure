@@ -14,7 +14,6 @@ resource "binarylane_server" "perth-uptime" {
   region            = "per"
   size              = "std-min"
   port_blocking     = true
-  wait_for_create   = 300
   vpc_id            = binarylane_vpc.perth-vpc.id
   public_ipv4_count = 1
 }
