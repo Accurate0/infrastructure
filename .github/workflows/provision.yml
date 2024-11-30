@@ -10,6 +10,7 @@ on:
       - aws/**
       - tf-state/**
       - maccas/**
+      - tailscale/**
       - replybot/**
       - summarise/**
       - redis/**
@@ -77,3 +78,4 @@ jobs:
           - replybot
           - ozb
           - perthtransport
+          - tailscale

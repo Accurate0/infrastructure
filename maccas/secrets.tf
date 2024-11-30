@@ -34,13 +34,3 @@ module "coolify-api-webhook" {
   source      = "../module/keyvault-value-output"
   secret_name = "coolify-api-maccas-webhook-url"
 }
-
-module "tailscale-client-id" {
-  source      = "../module/keyvault-value-output"
-  secret_name = "tailscale-client-id"
-}
-
-module "tailscale-client-secret" {
-  source      = "../module/keyvault-value-output"
-  secret_name = "tailscale-client-secret"
-}
