@@ -2,35 +2,39 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.6.2"
+      version = "~>5"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.9.0"
+      version = "~>4"
     }
     vercel = {
       source  = "vercel/vercel"
-      version = "~> 1.0.0"
+      version = "~>1"
     }
     github = {
       source  = "integrations/github"
-      version = "5.40.0"
+      version = "~>5"
     }
     random = {
       source  = "hashicorp/random"
-      version = "3.5.1"
+      version = "~>3"
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = "2.39.0"
+      version = "~>2"
     }
     google = {
       source  = "hashicorp/google"
-      version = "4.71.0"
+      version = "~>4"
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.9.1"
+      version = "~>0.9"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>4"
     }
   }
 

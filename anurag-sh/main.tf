@@ -2,23 +2,23 @@ terraform {
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "3.10.1"
+      version = "~>3"
     }
     vercel = {
       source  = "vercel/vercel"
-      version = "~> 1.0.0"
+      version = "~>1"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "5.1.0"
+      version = "~>5"
     }
     github = {
       source  = "integrations/github"
-      version = "5.22.0"
+      version = "~>5"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3"
+      version = "~>4"
     }
   }
 

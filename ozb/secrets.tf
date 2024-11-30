@@ -32,10 +32,6 @@ resource "random_password" "ozb-user-password-dev" {
   special = false
 }
 
-data "aws_secretsmanager_secret" "redis-connection-string" {
-  name = "Shared-RedisConnectionString"
-}
-
 module "axiom-token" {
   source      = "../module/keyvault-value-output"
   secret_name = "ozb-axiom-token"

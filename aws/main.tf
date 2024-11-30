@@ -2,23 +2,23 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.6.2"
+      version = "~>5"
     }
     github = {
       source  = "integrations/github"
-      version = "5.29.0"
+      version = "~>5"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.9.0"
+      version = "~>4"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3"
+      version = "~>4"
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.9.1"
+      version = "~>0.9"
     }
   }
 

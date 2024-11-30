@@ -6,31 +6,31 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.9.0"
+      version = "~>4"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3"
+      version = "~>4"
     }
     null = {
       source  = "hashicorp/null"
-      version = "3.2.1"
+      version = "~>3"
     }
     vercel = {
       source  = "vercel/vercel"
-      version = "~> 1.0"
+      version = "~>1"
     }
     google = {
       source  = "hashicorp/google"
-      version = "4.71.0"
+      version = "~>4"
     }
     github = {
       source  = "integrations/github"
-      version = "5.29.0"
+      version = "~>5"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "5.6.2"
+      version = "~>5"
     }
   }
 

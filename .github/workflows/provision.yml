@@ -13,7 +13,6 @@ on:
       - tailscale/**
       - replybot/**
       - summarise/**
-      - redis/**
       - sandbox/**
       - module/**
       - perthtransport/**
@@ -49,14 +48,6 @@ jobs:
           - azure
           - aws
           - binarylane
-
-  # redis:
-  #   name: redis
-  #   uses: ./.github/workflows/call-terraform.yml
-  #   with:
-  #     directory: redis
-  #   secrets: inherit
-  #   needs: cloud
 
   projects:
     name: ${{ matrix.directory }}
