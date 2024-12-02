@@ -1,0 +1,29 @@
+- name: Setup HAProxy
+  hosts: proxy
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Install HAProxy
+      ansible.builtin.apt:
+        package:
+          - haproxy
+
+    - name: Copy HAProxy config
+      ansible.builtin.copy:
+        src: ../config/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        mode: "0644"
+
+    - name: Copy allowed-domains.txt
+      ansible.builtin.copy:
+        src: ../config/allowed-domains.txt
+        dest: /etc/haproxy/allowed-domains.txt
+        owner: root
+        mode: "0644"
+
+    - name: Restart HAProxy
+      ansible.builtin.systemd_service:
+        name: "haproxy"
+        state: "restarted"

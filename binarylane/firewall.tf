@@ -116,3 +116,4 @@ resource "binarylane_server_firewall_rules" "perth-uptime" {
     },
   ]
 }
+

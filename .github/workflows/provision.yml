@@ -10,6 +10,7 @@ on:
       - aws/**
       - tf-state/**
       - maccas/**
+      - github/**
       - tailscale/**
       - replybot/**
       - summarise/**
@@ -48,6 +49,7 @@ jobs:
           - azure
           - aws
           - binarylane
+          - github
 
   projects:
     name: ${{ matrix.directory }}

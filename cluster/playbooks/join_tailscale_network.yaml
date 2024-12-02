@@ -1,0 +1,19 @@
+- name: Join tailscale network
+  hosts: proxy
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Get Service Status
+      ansible.builtin.command:
+        cmd: "tailscale status"
+      tags:
+        - skip_ansible_lint
+      register: tailscale_service_status
+      ignore_errors: true
+
+    - name: Join network
+      ansible.builtin.command: tailscale up --auth-key="{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+      tags:
+        - skip_ansible_lint
+      when: tailscale_service_status.stdout == 'Logged out.'

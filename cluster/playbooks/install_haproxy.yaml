@@ -1,0 +1,16 @@
+- name: Install k3s agent
+  hosts: worker
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Get Service Status
+      ansible.builtin.systemd:
+        name: "haproxy"
+      register: haproxy_service_status
+
+    - name: Install haproxy
+      ansible.builtin.apt:
+        name:
+          - haproxy
+      when: k3s_service_status.status.ActiveState != 'active'

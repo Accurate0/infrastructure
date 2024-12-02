@@ -1,0 +1,17 @@
+- name: Install k3s agent
+  hosts: worker
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Get Service Status
+      ansible.builtin.systemd:
+        name: "k3s"
+      register: k3s_service_status
+
+    - name: Copy and Execute the script
+      ansible.builtin.shell:
+        cmd: curl -sfL https://get.k3s.io | K3S_URL="https://{{ k3s_url }}:6443" K3S_TOKEN="{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}" sh -s - --vpn-auth="name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+      tags:
+        - skip_ansible_lint
+      when: k3s_service_status.status.ActiveState != 'active'

@@ -1,0 +1,19 @@
+"all":
+  "children":
+    "control": {}
+    "proxy": {}
+    "worker": {}
+"control":
+  "hosts":
+    "k8s-control-1":
+      "ansible_host": "112.213.33.21"
+"proxy":
+  "hosts":
+    "k8s-proxy-1":
+      "ansible_host": "175.45.183.150"
+"worker":
+  "hosts":
+    "k8s-worker-1":
+      "ansible_host": "103.100.38.55"
+    "k8s-worker-2":
+      "ansible_host": "103.100.38.209"

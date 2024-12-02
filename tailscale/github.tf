@@ -1,5 +1,5 @@
 locals {
-  repos = toset(["maccas-api"])
+  repos = toset(["maccas-api", "spotify-sync"])
 }
 
 resource "github_actions_secret" "tailscale-client-id" {
