@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudnative-pg-cluster
+  namespace: argocd
+spec:
+  ignoreDifferences:
+    - group: postgresql.cnpg.io
+      kind: Cluster
+      jsonPointers:
+        - /spec/bootstrap/initdb/postInitApplicationSQL
+        - /spec/managed
+        - /spec/postgresql/shared_preload_libraries
+        - /spec/priorityClassName
+        - /spec/storage/storageClass
+        - /spec/postgresql/pg_hba
+        - /spec/postgresql/pg_ident
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: cluster
+      repoURL: https://cloudnative-pg.github.io/charts
+      targetRevision: 0.1.0
+      helm:
+        valuesObject:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system

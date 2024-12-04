@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infisical
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: infisical-standalone
+      repoURL: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts
+      targetRevision: 1.4.0
+      helm:
+        valuesObject:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+            nginx:
+              enabled: false
+            hostName: vault.internal.anurag.sh
+            tls:
+              - secretName: vault-internal-anurag-sh-tls
+                hosts:
+                  - vault.internal.anurag.sh
+          postgresql:
+            enabled: false
+          redis:
+            enabled: false
+          infisical:
+            autoDatabaseSchemaMigration: true
+            image:
+              repository: infisical/infisical
+              tag: "v0.96.1-postgres"
+              pullPolicy: IfNotPresent
+    - chart: secrets-operator
+      repoURL: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts
+      targetRevision: 0.7.4
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infisical
+
+operation:
+  sync:
+    prune: true
+    syncStrategy:
+      hook: {}
