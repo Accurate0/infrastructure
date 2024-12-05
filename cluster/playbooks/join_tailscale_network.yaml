@@ -1,5 +1,5 @@
 - name: Join tailscale network
-  hosts: proxy
+  hosts: all
   remote_user: root
   become: true
 
@@ -16,4 +16,4 @@
       ansible.builtin.command: tailscale up --auth-key="{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
       tags:
         - skip_ansible_lint
-      when: tailscale_service_status.stdout == 'Logged out.'
+      when: "'Logged out' in tailscale_service_status.stdout"

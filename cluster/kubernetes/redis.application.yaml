@@ -4,10 +4,15 @@ metadata:
   name: redis
   namespace: argocd
 spec:
+  ignoreDifferences:
+    - group: "*"
+      kind: Secret
+      name: redis
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - RespectIgnoreDifferences=true
   project: default
   sources:
     - chart: redis
@@ -15,8 +20,11 @@ spec:
       targetRevision: 20.4.0
       helm:
         valuesObject:
+          auth:
+            existingSecret: redis
+            existingSecretPasswordKey: redis-password
           replica:
-            replicaCount: 1
+            replicaCount: 2
 
   destination:
     server: https://kubernetes.default.svc
