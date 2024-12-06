@@ -56,18 +56,6 @@ resource "cloudflare_record" "old-maccas-one" {
   allow_overwrite = true
 }
 
-
-resource "cloudflare_record" "main-server" {
-  for_each        = toset(["event", "batch", "@", "graphql", "dashboard"])
-  zone_id         = var.cloudflare_zone_id_maccas_one
-  name            = each.key
-  value           = module.perth-static-ip.secret_value
-  type            = "A"
-  proxied         = true
-  ttl             = 1
-  allow_overwrite = true
-}
-
 resource "cloudflare_record" "aws-wild" {
   zone_id = var.cloudflare_zone_id_maccas_one
   name    = "@"
