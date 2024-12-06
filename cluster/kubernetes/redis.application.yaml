@@ -20,11 +20,16 @@ spec:
       targetRevision: 20.4.0
       helm:
         valuesObject:
+          replica:
+            persistence:
+              size: 1Gi
+            replicaCount: 2
+          master:
+            persistence:
+              size: 1Gi
           auth:
             existingSecret: redis
             existingSecretPasswordKey: redis-password
-          replica:
-            replicaCount: 2
 
   destination:
     server: https://kubernetes.default.svc

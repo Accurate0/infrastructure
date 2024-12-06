@@ -13,9 +13,17 @@ spec:
       repoURL: https://charts.longhorn.io/
       targetRevision: v1.7.2 # Replace with the Longhorn version you'd like to install or upgrade to
       helm:
-        values: |
+        valuesObject:
           preUpgradeChecker:
             jobEnabled: false
+          ingress:
+            enabled: true
+            secureBackends: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+            host: longhorn.internal.anurag.sh
+            tls: true
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
