@@ -1,22 +1,3 @@
-resource "cloudflare_record" "api" {
-  zone_id = var.cloudflare_perthtransport_zone_id
-  name    = "api"
-  value   = "oracle.anurag.sh"
-  type    = "CNAME"
-  ttl     = 1
-  proxied = true
-}
-
-resource "cloudflare_record" "perthtransport" {
-  zone_id         = var.cloudflare_perthtransport_zone_id
-  name            = "@"
-  value           = "oracle.anurag.sh"
-  type            = "CNAME"
-  proxied         = true
-  ttl             = 1
-  allow_overwrite = true
-}
-
 resource "cloudflare_record" "www-perthtransport" {
   zone_id         = var.cloudflare_perthtransport_zone_id
   name            = "www"

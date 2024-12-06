@@ -1,3 +1,8 @@
 spotify-sync.anurag.sh
 api.perthtransport.xyz
 perthtransport.xyz
+maccas.one
+dashboard.maccas.one
+graphql.maccas.one
+event.maccas.one
+batch.maccas.one

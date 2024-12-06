@@ -27,6 +27,11 @@ spec:
       targetRevision: 0.1.0
       helm:
         valuesObject:
+          cluster:
+            postgresql:
+              parameters:
+                pg_stat_statements.max: "10000"
+                pg_stat_statements.track: all
   destination:
     server: https://kubernetes.default.svc
     namespace: cnpg-system
