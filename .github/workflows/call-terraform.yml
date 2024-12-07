@@ -19,6 +19,9 @@ on:
       use-backend-config:
         type: boolean
         default: true
+      backend-config:
+        type: string
+        default: ../backend-config.tf
 
 jobs:
   apply:
@@ -42,7 +45,7 @@ jobs:
         run: terraform fmt -recursive
 
       - name: terraform init (backend-config)
-        run: terraform init -backend-config=../backend-config.tf
+        run: terraform init -backend-config=${{ inputs.backend-config }}
         if: ${{ inputs.use-backend-config }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

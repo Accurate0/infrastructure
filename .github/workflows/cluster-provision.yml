@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/call-terraform.yml
     with:
       directory: cluster/terraform
+      backend-config: ../../backend-config.tf
     secrets: inherit
 
   playbooks:
