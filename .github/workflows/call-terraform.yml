@@ -8,12 +8,6 @@ on:
       use-fly:
         type: boolean
         default: false
-      output:
-        type: boolean
-        default: false
-      output-name:
-        type: string
-        default: ""
   workflow_call:
     inputs:
       directory:
@@ -28,6 +22,12 @@ on:
       backend-config:
         type: string
         default: ../backend-config.tf
+      output:
+        type: boolean
+        default: false
+      output-name:
+        type: string
+        default: ""
 
 jobs:
   apply:
