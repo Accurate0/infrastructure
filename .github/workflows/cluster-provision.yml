@@ -30,12 +30,37 @@ jobs:
 
       - name: Get output from terraform
         run: |
-          echo '::add-mask::${{ needs.terraform.outputs.json }}'
           echo '${{ needs.terraform.outputs.json }}' | jq .inventory.value | yq  >> cluster/inventory.yaml
 
-      - name: Run playbooks
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.INSTANCE_KEY }}
+
+      - name: Install ansible
         run: |
-          cat cluster/inventory.yaml
+          sudo apt update
+          sudo apt install software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sudo apt install ansible
+
+      - name: Run playbooks
+        env:
+          K3S_CLUSTER_TOKEN: ${{ secrets.K3S_CLUSTER_TOKEN }}
+          TAILSCALE_K8S_AUTH_KEY: ${{ secrets.TAILSCALE_K8S_AUTH_KEY }}
+        run: |
+          cd cluster
+
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          ansible all -m ping -i inventory.yaml
+
+          ansible-playbook -i inventory.yaml playbooks/disable_password_authentication.yaml
+          ansible-playbook -i inventory.yaml playbooks/install_tailscale.yaml
+          ansible-playbook -i inventory.yaml playbooks/join_tailscale_network.yaml
+          ansible-playbook -i inventory.yaml playbooks/install_k3s_server.yaml
+          ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml
+          ansible-playbook -i inventory.yaml playbooks/install_haproxy.yaml
+          ansible-playbook -i inventory.yaml playbooks/setup_haproxy.yaml
 
   provision:
     name: provision applications
