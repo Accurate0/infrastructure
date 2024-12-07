@@ -10,6 +10,7 @@ spec:
       - RespectIgnoreDifferences=true
       - CreateNamespace=true
       - ServerSideApply=true
+      - Replace=true
   project: default
   sources:
     - chart: cloudnative-pg
