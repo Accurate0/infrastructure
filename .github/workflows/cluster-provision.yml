@@ -53,7 +53,10 @@ jobs:
           cd cluster
 
           export ANSIBLE_HOST_KEY_CHECKING=False
+
+          echo "::group::Check connectivity"
           ansible all -m ping -i inventory.yaml -u root
+          echo "::endgroup::"
 
           echo "::group::Disable password authentication"
           ansible-playbook -i inventory.yaml playbooks/disable_password_authentication.yaml
