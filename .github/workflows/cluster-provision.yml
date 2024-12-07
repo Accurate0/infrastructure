@@ -5,6 +5,7 @@ on:
     paths:
       - cluster/**
       - .github/workflows/cluster-provision.yml
+      - .github/workflows/call-terraform.yml
 
 concurrency:
   group: environment-${{ github.ref }}-${{ github.workflow }}
