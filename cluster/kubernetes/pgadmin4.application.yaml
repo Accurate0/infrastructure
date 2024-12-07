@@ -36,3 +36,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: pgadmin4
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    prune: true
+    syncStrategy:
+      hook: {}

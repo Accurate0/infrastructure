@@ -17,3 +17,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: cnpg-system
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    prune: true
+    syncStrategy:
+      hook: {}

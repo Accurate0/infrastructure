@@ -27,3 +27,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    prune: true
+    syncStrategy:
+      hook: {}
