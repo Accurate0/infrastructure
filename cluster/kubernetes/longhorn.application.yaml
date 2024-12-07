@@ -17,6 +17,8 @@ spec:
       targetRevision: v1.7.2 # Replace with the Longhorn version you'd like to install or upgrade to
       helm:
         valuesObject:
+          longhornUI:
+            replicas: 1
           preUpgradeChecker:
             jobEnabled: false
           ingress:
