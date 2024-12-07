@@ -6,6 +6,10 @@ on:
       - cluster/**
       - .github/workflows/cluster-provision.yml
 
+concurrency:
+  group: environment-${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   terraform:
     uses: ./.github/workflows/call-terraform.yml
