@@ -90,7 +90,7 @@ jobs:
       - name: terraform output
         if: ${{ inputs.output }}
         run: |
-          OUTPUT=$(terraform output -raw ${{ inputs.output-name }})
+          OUTPUT=$(terraform-bin output -raw ${{ inputs.output-name }})
           echo "${{ inputs.output-name }}=$OUTPUT" >> "$GITHUB_OUTPUT"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
