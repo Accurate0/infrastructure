@@ -6,7 +6,10 @@ metadata:
 spec:
   syncPolicy:
     syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
       - CreateNamespace=true
+      - ServerSideApply=true
   project: default
   sources:
     - chart: cert-manager
@@ -25,6 +28,5 @@ operation:
   initiatedBy:
     username: github-actions
   sync:
-    prune: true
     syncStrategy:
       hook: {}

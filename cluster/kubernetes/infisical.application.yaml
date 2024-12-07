@@ -6,6 +6,8 @@ metadata:
 spec:
   syncPolicy:
     syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
       - CreateNamespace=true
       - ServerSideApply=true
   project: default
@@ -46,6 +48,5 @@ spec:
 
 operation:
   sync:
-    prune: true
     syncStrategy:
       hook: {}

@@ -1,4 +1,5 @@
 output "inventory" {
+  sensitive = true
   value = yamlencode({
     "all" : {
       children : {

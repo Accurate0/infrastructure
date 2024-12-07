@@ -10,9 +10,10 @@ spec:
       name: redis
   syncPolicy:
     syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
       - CreateNamespace=true
       - ServerSideApply=true
-      - RespectIgnoreDifferences=true
   project: default
   sources:
     - chart: redis
@@ -39,6 +40,5 @@ operation:
   initiatedBy:
     username: github-actions
   sync:
-    prune: true
     syncStrategy:
       hook: {}

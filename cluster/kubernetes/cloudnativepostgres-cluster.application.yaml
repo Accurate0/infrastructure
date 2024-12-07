@@ -17,6 +17,7 @@ spec:
         - /spec/postgresql/pg_ident
   syncPolicy:
     syncOptions:
+      - ApplyOutOfSyncOnly=true
       - RespectIgnoreDifferences=true
       - CreateNamespace=true
       - ServerSideApply=true
@@ -40,6 +41,5 @@ operation:
   initiatedBy:
     username: github-actions
   sync:
-    prune: true
     syncStrategy:
       hook: {}
