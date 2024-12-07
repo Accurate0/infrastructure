@@ -9,6 +9,9 @@ on:
         type: boolean
         default: false
   workflow_call:
+    outputs:
+      json:
+        value: ${{ jobs.apply.outputs.json }}
     inputs:
       directory:
         type: string
@@ -25,13 +28,12 @@ on:
       output:
         type: boolean
         default: false
-      output-name:
-        type: string
-        default: ""
 
 jobs:
   apply:
     runs-on: ubuntu-latest
+    outputs:
+      json: ${{ steps.terraform-output.outputs.json }}
 
     defaults:
       run:
@@ -87,11 +89,17 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           BINARYLANE_API_TOKEN: ${{ secrets.BINARYLANE_API_TOKEN }}
+
       - name: terraform output
+        id: terraform-output
         if: ${{ inputs.output }}
         run: |
-          OUTPUT=$(terraform-bin output -raw ${{ inputs.output-name }})
-          echo "${{ inputs.output-name }}=$OUTPUT" >> "$GITHUB_OUTPUT"
+          {
+            echo 'json<<EOF'
+            terraform-bin output -json
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

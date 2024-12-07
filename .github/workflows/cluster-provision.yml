@@ -18,7 +18,6 @@ jobs:
       directory: cluster/terraform
       backend-config: ../../backend-config.tf
       output: true
-      output-name: inventory
     secrets: inherit
 
   playbooks:
@@ -30,7 +29,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get output from terraform
-        run: echo "${{ needs.terraform.outputs.inventory }}" >> cluster/inventory.yaml
+        run: |
+          echo '::add-mask::${{ needs.terraform.outputs.json }}'
+          echo '${{ needs.terraform.outputs.json }}' | jq .inventory.value | yq  >> cluster/inventory.yaml
 
       - name: Run playbooks
         run: |
