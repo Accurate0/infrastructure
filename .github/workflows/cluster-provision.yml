@@ -1,0 +1,49 @@
+name: Provison Cluster
+on:
+  push:
+    branches: [main]
+    paths:
+      - cluster/**
+      - .github/workflows/cluster-provision.yml
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/call-terraform.yml
+    with:
+      directory: cluster/terraform
+    secrets: inherit
+
+  playbooks:
+    name: run playbooks
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+  provision:
+    name: Provision
+    needs: playbooks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          version: 1.76.6
+
+      - name: Deploy to k8s
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          if [ ! -d "$HOME/.kube" ]; then
+            mkdir -p $HOME/.kube
+          fi
+
+          echo -n "$KUBE_CONFIG" | base64 -di > $HOME/.kube/config
+          kubectl apply -f cluster/kubernetes

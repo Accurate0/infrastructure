@@ -1,5 +1,13 @@
 locals {
-  repos = toset(["spotify-sync", "replybot", "tldr-bot", "ozb", "maccas-api", "perth-transport-map"])
+  repos = toset([
+    "spotify-sync",
+    "replybot",
+    "tldr-bot",
+    "ozb",
+    "maccas-api",
+    "perth-transport-map",
+    "infrastructure",
+  ])
 }
 
 resource "github_actions_secret" "kubeconfig" {
