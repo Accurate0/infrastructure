@@ -6,6 +6,7 @@ output "inventory" {
         control = {},
         worker  = {},
         proxy   = {}
+        agent   = {}
       }
     }
     "control" : {
@@ -24,6 +25,13 @@ output "inventory" {
 
     "worker" : {
       hosts : { for s in binarylane_server.worker : s.name => {
+        "ansible_host" : s.public_ipv4_addresses[0]
+        }
+      }
+    }
+
+    "agent" : {
+      hosts : { for s in binarylane_server.agent : s.name => {
         "ansible_host" : s.public_ipv4_addresses[0]
         }
       }

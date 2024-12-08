@@ -1,5 +1,7 @@
 - name: Install k3s server
-  hosts: control
+  hosts:
+    - control
+    - worker
   remote_user: root
   become: true
 
@@ -11,7 +13,7 @@
 
     - name: Copy and Execute the script
       ansible.builtin.shell:
-        cmd: curl -sfL https://get.k3s.io | K3S_TOKEN="{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}" sh -s - --vpn-auth="name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}" --disable=traefik
+        cmd: curl -sfL https://get.k3s.io | K3S_TOKEN="{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}" sh -s - server --vpn-auth="name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}" --disable=traefik --cluster-init
       tags:
         - skip_ansible_lint
       when: k3s_service_status.status.ActiveState != 'active'

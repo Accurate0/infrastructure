@@ -1,5 +1,5 @@
 - name: Install k3s agent
-  hosts: worker
+  hosts: agent
   remote_user: root
   become: true
 
