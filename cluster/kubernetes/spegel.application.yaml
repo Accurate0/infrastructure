@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spegel
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: spegel
+      repoURL: ghcr.io/spegel-org/helm-charts
+      targetRevision: v0.0.27
+      helm:
+        valuesObject:
+          spegel:
+            containerdSock: /run/k3s/containerd/containerd.sock
+            containerdContentPath: /var/lib/rancher/k3s/agent/containerd/io.containerd.content.v1.content
+            containerdRegistryConfigPath: /var/lib/rancher/k3s/agent/etc/containerd/certs.d
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: spegel
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    syncStrategy:
+      hook: {}
