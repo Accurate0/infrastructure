@@ -5,7 +5,7 @@ resource "binarylane_server" "control" {
   region            = "per"
   memory            = 8192
   disk              = 40
-  size              = "std-2vcpu"
+  size              = "std-4vcpu"
   port_blocking     = false
   public_ipv4_count = 1
   vpc_id            = binarylane_vpc.kubernetes-vpc.id
@@ -15,7 +15,7 @@ resource "binarylane_server" "control" {
 locals {
   control_count = 1
   worker_count  = 2
-  agent_count   = 1
+  agent_count   = 0
   proxy_count   = 1
 }
 
@@ -24,9 +24,9 @@ resource "binarylane_server" "worker" {
   image             = "ubuntu-24.04"
   name              = "k8s-worker-${count.index + 1}"
   region            = "per"
-  memory            = 4096
+  memory            = 8192
   disk              = 40
-  size              = "std-2vcpu"
+  size              = "std-4vcpu"
   port_blocking     = false
   public_ipv4_count = 1
   vpc_id            = binarylane_vpc.kubernetes-vpc.id
