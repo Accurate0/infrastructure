@@ -4,7 +4,7 @@ resource "binarylane_server" "control" {
   name              = "k8s-control-${count.index + 1}"
   region            = "per"
   memory            = 8192
-  disk              = 40
+  disk              = 100
   size              = "std-4vcpu"
   port_blocking     = false
   public_ipv4_count = 1
@@ -25,7 +25,7 @@ resource "binarylane_server" "worker" {
   name              = "k8s-worker-${count.index + 1}"
   region            = "per"
   memory            = 8192
-  disk              = 40
+  disk              = 100
   size              = "std-4vcpu"
   port_blocking     = false
   public_ipv4_count = 1
@@ -39,7 +39,7 @@ resource "binarylane_server" "agent" {
   name              = "k8s-agent-${count.index + 1}"
   region            = "per"
   memory            = 4096
-  disk              = 40
+  disk              = 100
   size              = "std-2vcpu"
   port_blocking     = false
   public_ipv4_count = 1
