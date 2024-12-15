@@ -29,6 +29,8 @@ spec:
       helm:
         valuesObject:
           cluster:
+            storage:
+              size: "30Gi"
             postgresql:
               parameters:
                 pg_stat_statements.max: "10000"

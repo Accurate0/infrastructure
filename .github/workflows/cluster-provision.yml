@@ -71,10 +71,10 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Install k3s on control"
-          ansible-playbook -i inventory.yaml playbooks/install_k3s_server.yaml
+          ansible-playbook -i inventory.yaml playbooks/install_k3s_control.yaml
           echo "::endgroup::"
 
-          echo "::group::Install k3s on workers"
+          echo "::group::Install k3s on agents"
           ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml --extra-vars="k3s_url=$K3S_URL"
           echo "::endgroup::"
 

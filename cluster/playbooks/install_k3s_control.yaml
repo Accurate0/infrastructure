@@ -1,0 +1,30 @@
+- name: Install k3s server (control)
+  hosts:
+    - control
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Get Service Status
+      ansible.builtin.systemd:
+        name: "k3s"
+      register: k3s_service_status
+
+    - name: Get Service Status
+      ansible.builtin.command: "tailscale ip -4"
+      register: tailscale_ip
+      tags:
+        - skip_ansible_lint
+
+    - name: Template and copy config
+      ansible.builtin.template:
+        src: ../config/control-k3s.yaml
+        dest: /etc/rancher/k3s/config.yaml
+        owner: root
+        mode: "0644"
+
+    - name: Copy and Execute the script
+      ansible.builtin.shell:
+        cmd: curl -sfL https://get.k3s.io | sh -s - server
+      tags:
+        - skip_ansible_lint

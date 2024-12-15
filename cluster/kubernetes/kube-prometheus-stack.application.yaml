@@ -17,6 +17,17 @@ spec:
       targetRevision: 66.3.1
       helm:
         valuesObject:
+          kubeEtcd:
+            enabled: true
+            endpoints:
+              - 100.70.180.118
+              - 100.89.112.112
+              - 100.115.217.79
+              - 100.66.108.81
+            service:
+              enabled: true
+              port: 2381
+              targetPort: 2381
           alertmanager:
             enabled: false
           grafana:

@@ -1,0 +1,9 @@
+vpn-auth: "name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }},extraArgs=--advertise-exit-node"
+disable:
+  - traefik
+node-external-ip: "{{ tailscale_ip.stdout }}"
+node-ip: "{{ tailscale_ip.stdout }}"
+tls-san: "100.97.97.24"
+etcd-expose-metrics: true
+cluster-init: true
+token: "{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}"
