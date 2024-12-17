@@ -18,7 +18,19 @@ spec:
       helm:
         valuesObject:
           prometheus:
+            ingress:
+              enabled: false
+              ingressClassName: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-prod
+              hosts:
+                - prometheus.internal.anurag.sh
+              tls:
+                - secretName: prometheus-server-tls
+                  hosts:
+                    - prometheus.internal.anurag.sh
             prometheusSpec:
+              externalUrl: "https://prometheus.internal.anurag.sh"
               retention: 7d
               retentionSize: "5GB"
               storageSpec:
@@ -95,10 +107,3 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-
-operation:
-  initiatedBy:
-    username: github-actions
-  sync:
-    syncStrategy:
-      hook: {}

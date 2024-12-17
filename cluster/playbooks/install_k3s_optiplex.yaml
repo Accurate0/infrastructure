@@ -6,11 +6,6 @@
 
   tasks:
     - name: Get Service Status
-      ansible.builtin.systemd:
-        name: "k3s"
-      register: k3s_service_status
-
-    - name: Get Service Status
       ansible.builtin.command: "tailscale ip -4"
       register: tailscale_ip
       tags:
@@ -28,3 +23,8 @@
         cmd: curl -sfL https://get.k3s.io | sh -s - server
       tags:
         - skip_ansible_lint
+
+    - name: Restart K3S
+      ansible.builtin.systemd_service:
+        name: "k3s"
+        state: "restarted"
