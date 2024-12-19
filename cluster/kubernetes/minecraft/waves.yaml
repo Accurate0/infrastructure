@@ -47,6 +47,8 @@ spec:
           env:
             - name: EULA
               value: "TRUE"
+            - name: MOTD
+              value: "Brandon made me do this"
           ports:
             - containerPort: 25565
           volumeMounts:
