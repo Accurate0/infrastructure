@@ -56,7 +56,6 @@ jobs:
 
           echo "::group::Check connectivity"
           ansible all -m ping -i inventory.yaml -u root
-          ansible all -m ping -i inventory-optiplex.yaml -u janitor
           ansible all -m ping -i inventory-oracle.yaml
           echo "::endgroup::"
 
