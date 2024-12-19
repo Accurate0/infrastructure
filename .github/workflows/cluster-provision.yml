@@ -78,8 +78,8 @@ jobs:
           ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml --extra-vars="k3s_url=$K3S_URL"
           echo "::endgroup::"
 
-          echo "::group::Setup haproxy"
-          ansible-playbook -i inventory.yaml playbooks/setup_haproxy.yaml
+          echo "::group::Setup proxy"
+          ansible-playbook -i inventory.yaml playbooks/setup_proxy.yaml
           echo "::endgroup::"
 
   provision:
