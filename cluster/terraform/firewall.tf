@@ -113,7 +113,7 @@ resource "binarylane_server_firewall_rules" "kubernetes-proxy-firewall" {
       protocol              = "all"
       source_addresses      = ["0.0.0.0/0"]
       destination_addresses = ["0.0.0.0/0"]
-      destination_ports     = ["25565", "25577"]
+      destination_ports     = ["25565"]
       action                = "accept"
     },
     {
