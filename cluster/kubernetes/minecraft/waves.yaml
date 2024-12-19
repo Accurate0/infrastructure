@@ -29,6 +29,11 @@ spec:
       labels:
         run: waves
     spec:
+      tolerations:
+        - key: "group"
+          operator: "Equal"
+          value: "arm64perf"
+          effect: "NoSchedule"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
