@@ -1,0 +1,5 @@
+vpn-auth: "name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }},extraArgs=--advertise-exit-node"
+node-external-ip: "{{ tailscale_ip.stdout }}"
+node-ip: "{{ tailscale_ip.stdout }}"
+server: https://100.66.108.81:6443
+token: "{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}"

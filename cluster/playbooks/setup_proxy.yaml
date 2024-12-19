@@ -1,18 +1,27 @@
-- name: Setup HAProxy
+- name: Setup Proxy
   hosts: proxy
   remote_user: root
   become: true
 
   tasks:
-    - name: Install HAProxy
+    - name: Install Packages
       ansible.builtin.apt:
         package:
           - haproxy
+          - nginx
+          - libnginx-mod-stream
 
     - name: Copy HAProxy config
       ansible.builtin.copy:
         src: ../config/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
+        owner: root
+        mode: "0644"
+
+    - name: Copy nginx config
+      ansible.builtin.copy:
+        src: ../config/nginx.conf
+        dest: /etc/nginx/nginx.conf
         owner: root
         mode: "0644"
 
@@ -26,4 +35,9 @@
     - name: Restart HAProxy
       ansible.builtin.systemd_service:
         name: "haproxy"
+        state: "restarted"
+
+    - name: Restart Nginx
+      ansible.builtin.systemd_service:
+        name: "nginx"
         state: "restarted"

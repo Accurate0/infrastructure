@@ -1,0 +1,9 @@
+all:
+  children:
+    agent: {}
+
+agent:
+  hosts:
+    oracle:
+      ansible_host: oracle.anurag.sh
+      ansible_user: ubuntu

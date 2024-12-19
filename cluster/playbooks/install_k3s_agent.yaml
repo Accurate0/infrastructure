@@ -5,13 +5,30 @@
 
   tasks:
     - name: Get Service Status
-      ansible.builtin.systemd:
-        name: "k3s"
-      register: k3s_service_status
+      ansible.builtin.command: "tailscale ip -4"
+      register: tailscale_ip
+      tags:
+        - skip_ansible_lint
+
+    - name: Creates directory
+      ansible.builtin.file:
+        path: /etc/rancher/k3s
+        state: directory
+
+    - name: Template and copy config
+      ansible.builtin.template:
+        src: ../config/agent-k3s.yaml
+        dest: /etc/rancher/k3s/config.yaml
+        owner: root
+        mode: "0644"
 
     - name: Copy and Execute the script
       ansible.builtin.shell:
-        cmd: curl -sfL https://get.k3s.io | K3S_URL="https://{{ k3s_url }}:6443" K3S_TOKEN="{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}" sh -s - --vpn-auth="name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+        cmd: curl -sfL https://get.k3s.io | sh -s - agent
       tags:
         - skip_ansible_lint
-      when: k3s_service_status.status.ActiveState != 'active'
+
+    - name: Restart K3S
+      ansible.builtin.systemd_service:
+        name: "k3s-agent"
+        state: "restarted"
