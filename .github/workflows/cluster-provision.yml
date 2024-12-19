@@ -75,7 +75,8 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Install k3s on agents"
-          ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml --extra-vars="k3s_url=$K3S_URL"
+          ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml
+          ansible-playbook -i inventory-oracle.yaml playbooks/install_k3s_agent.yaml
           echo "::endgroup::"
 
           echo "::group::Setup proxy"
