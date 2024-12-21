@@ -3,9 +3,9 @@ disable:
   - traefik
 node-external-ip: "{{ tailscale_ip.stdout }}"
 node-ip: "{{ tailscale_ip.stdout }}"
+server: https://100.70.180.118:6443
 tls-san:
   - "100.97.97.24"
   - "internal.anurag.sh"
 etcd-expose-metrics: true
-cluster-init: true
 token: "{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}"

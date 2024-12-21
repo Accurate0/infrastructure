@@ -12,12 +12,12 @@ spec:
       - ServerSideApply=true
   project: default
   sources:
-    repoURL: https://github.com/Accurate0/infrastructure.git
-    path: cluster/kubernetes/minecraft
+    - repoURL: https://github.com/Accurate0/infrastructure.git
+      path: cluster/kubernetes/minecraft
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    namespace: minecraft
 
 operation:
   initiatedBy:

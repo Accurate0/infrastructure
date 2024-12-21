@@ -31,7 +31,7 @@ spec:
                     - prometheus.internal.anurag.sh
             prometheusSpec:
               externalUrl: "https://prometheus.internal.anurag.sh"
-              retention: 3d
+              retention: 1d
               retentionSize: "5GB"
               storageSpec:
                 volumeClaimTemplate:
