@@ -6,7 +6,7 @@ metadata:
 spec:
   syncPolicy:
     syncOptions:
-      # - ApplyOutOfSyncOnly=true
+      - ApplyOutOfSyncOnly=true
       - RespectIgnoreDifferences=true
       - CreateNamespace=true
       - ServerSideApply=true
