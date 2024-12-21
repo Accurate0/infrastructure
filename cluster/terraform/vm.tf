@@ -3,9 +3,9 @@ resource "binarylane_server" "control" {
   image             = "ubuntu-24.04"
   name              = "k8s-control-${count.index + 1}"
   region            = "per"
-  memory            = 8192
+  memory            = 4096
   disk              = 100
-  size              = "std-4vcpu"
+  size              = "std-2vcpu"
   port_blocking     = false
   public_ipv4_count = 1
   vpc_id            = binarylane_vpc.kubernetes-vpc.id
@@ -38,9 +38,8 @@ resource "binarylane_server" "agent" {
   image             = "ubuntu-24.04"
   name              = "k8s-agent-${count.index + 1}"
   region            = "per"
-  memory            = 4096
-  disk              = 100
-  size              = "std-2vcpu"
+  disk              = 20
+  size              = "std-min"
   port_blocking     = false
   public_ipv4_count = 1
   vpc_id            = binarylane_vpc.kubernetes-vpc.id

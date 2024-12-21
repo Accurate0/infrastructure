@@ -1,4 +1,4 @@
-vpn-auth: "name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }},extraArgs=--advertise-exit-node"
+vpn-auth: "name=tailscale,joinKey={{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
 disable:
   - traefik
 node-external-ip: "{{ tailscale_ip.stdout }}"
