@@ -20,6 +20,19 @@ spec:
           scheduler:
             image: registry.k8s.io/scheduler-plugins/kube-scheduler:v0.30.6
             leaderElect: true
+            replicaCount: 4
+            affinity:
+              podAntiAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  - labelSelector:
+                      matchLabels:
+                        component: scheduler
+                    topologyKey: kubernetes.io/hostname
+            tolerations:
+              - key: "group"
+                operator: "Equal"
+                value: "arm64perf"
+                effect: "NoSchedule"
           plugins:
             disabled: ["PrioritySort", "NodeResourceTopologyMatch"]
             enabled:
