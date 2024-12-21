@@ -1,0 +1,11 @@
+- name: Upgrade k3s (agent)
+  hosts:
+    - agent
+  become: true
+
+  tasks:
+    - name: Copy and Execute the script
+      ansible.builtin.shell:
+        cmd: curl -sfL https://get.k3s.io | sh -s - agent
+      tags:
+        - skip_ansible_lint

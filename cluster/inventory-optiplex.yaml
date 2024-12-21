@@ -5,7 +5,10 @@ optiplex:
   hosts:
     k8s-optiplex-1:
       ansible_host: 100.70.180.118
+      ansible_user: janitor
     k8s-optiplex-2:
       ansible_host: 100.89.112.112
+      ansible_user: janitor
     k8s-optiplex-3:
       ansible_host: 100.115.217.79
+      ansible_user: janitor

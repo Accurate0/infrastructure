@@ -11,7 +11,8 @@ output "inventory" {
     }
     "control" : {
       hosts : { for s in binarylane_server.control : s.name => {
-        "ansible_host" : s.public_ipv4_addresses[0]
+        "ansible_host" : s.public_ipv4_addresses[0],
+        "ansible_user" : "root"
         }
       }
     }
@@ -19,6 +20,7 @@ output "inventory" {
     "proxy" : {
       hosts : { for s in binarylane_server.proxy : s.name => {
         "ansible_host" : s.public_ipv4_addresses[0]
+        "ansible_user" : "root"
         }
       }
     }
@@ -26,6 +28,7 @@ output "inventory" {
     "worker" : {
       hosts : { for s in binarylane_server.worker : s.name => {
         "ansible_host" : s.public_ipv4_addresses[0]
+        "ansible_user" : "root"
         }
       }
     }
@@ -33,6 +36,7 @@ output "inventory" {
     "agent" : {
       hosts : { for s in binarylane_server.agent : s.name => {
         "ansible_host" : s.public_ipv4_addresses[0]
+        "ansible_user" : "root"
         }
       }
     }
