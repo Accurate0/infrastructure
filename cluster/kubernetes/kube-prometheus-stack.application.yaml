@@ -30,6 +30,20 @@ spec:
                   hosts:
                     - prometheus.internal.anurag.sh
             prometheusSpec:
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                      - matchExpressions:
+                          - key: kubernetes.io/hostname
+                            operator: In
+                            values:
+                              - ubuntu-arm-oracle
+              tolerations:
+                - key: "group"
+                  operator: "Equal"
+                  value: "arm64perf"
+                  effect: "NoSchedule"
               externalUrl: "https://prometheus.internal.anurag.sh"
               retention: 1d
               retentionSize: "5GB"

@@ -110,3 +110,5 @@ jobs:
 
           echo -n "$KUBE_CONFIG" | base64 -di > $HOME/.kube/config
           kubectl apply -f cluster/kubernetes
+          kubectl apply -f cluster/kubernetes/misc
+          kubectl apply -f cluster/kubernetes/gatekeeper-rules
