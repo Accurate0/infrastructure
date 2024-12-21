@@ -1,6 +1,5 @@
 - name: Install k3s agent
   hosts: agent
-  remote_user: root
   become: true
 
   tasks:

@@ -1,7 +1,6 @@
 - name: Install k3s server (optiplex)
   hosts:
     - optiplex
-  remote_user: janitor
   become: true
 
   tasks:

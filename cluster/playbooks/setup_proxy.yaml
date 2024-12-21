@@ -1,6 +1,5 @@
 - name: Setup Proxy
   hosts: proxy
-  remote_user: root
   become: true
 
   tasks:

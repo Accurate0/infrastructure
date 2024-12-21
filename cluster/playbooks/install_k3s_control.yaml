@@ -1,7 +1,6 @@
 - name: Install k3s server (control)
   hosts:
     - control
-  remote_user: root
   become: true
 
   tasks:

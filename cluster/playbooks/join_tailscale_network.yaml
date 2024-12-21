@@ -1,6 +1,5 @@
 - name: Join tailscale network
   hosts: all
-  remote_user: root
   become: true
 
   tasks:
