@@ -54,6 +54,9 @@ spec:
               value: "TRUE"
             - name: MOTD
               value: "Brandon made me do this"
+            - name: WHITELIST
+              value: |
+                botplayer22
           ports:
             - containerPort: 25565
           volumeMounts:
