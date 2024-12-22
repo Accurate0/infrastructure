@@ -33,6 +33,10 @@ spec:
                 operator: "Equal"
                 value: "arm64perf"
                 effect: "NoSchedule"
+              - key: "group"
+                operator: "Equal"
+                value: "external"
+                effect: "NoSchedule"
           plugins:
             disabled: ["PrioritySort", "NodeResourceTopologyMatch"]
             enabled:
