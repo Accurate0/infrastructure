@@ -10,8 +10,14 @@
           - nginx
           - libnginx-mod-stream
 
-    - name: Copy HAProxy config
-      ansible.builtin.copy:
+    - name: Get tailscale ip
+      ansible.builtin.command: "tailscale ip -4"
+      register: tailscale_ip
+      tags:
+        - skip_ansible_lint
+
+    - name: Template and copy haproxy config
+      ansible.builtin.template:
         src: ../config/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
         owner: root
