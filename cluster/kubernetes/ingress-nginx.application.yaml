@@ -18,6 +18,20 @@ spec:
       helm:
         valuesObject:
           controller:
+            tolerations:
+              - key: "group"
+                operator: "Equal"
+                value: "external"
+                effect: "NoSchedule"
+            config:
+              proxy-hide-headers: "Server, X-Powered-By"
+              server-tokens: "False"
+              enable-modsecurity: "True"
+              enable-owasp-modsecurity-crs: "True"
+              enable-real-ip: "True"
+              modsecurity-snippet: |
+                SecRuleEngine On
+                SecRequestBodyAccess On
             kind: DaemonSet
 
   destination:
