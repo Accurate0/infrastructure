@@ -29,6 +29,7 @@ spec:
               enable-modsecurity: "True"
               enable-owasp-modsecurity-crs: "True"
               enable-real-ip: "True"
+              allow-snippet-annotations: "True"
               modsecurity-snippet: |
                 SecRuleEngine On
                 SecRequestBodyAccess On
