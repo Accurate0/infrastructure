@@ -25,10 +25,31 @@ spec:
   sources:
     - chart: cluster
       repoURL: https://cloudnative-pg.github.io/charts
-      targetRevision: 0.1.0
+      targetRevision: 0.1.3
       helm:
         valuesObject:
+          backups:
+            enabled: true
+            endpointURL: "https://45c8799279b4d50c2126b6188d93045c.r2.cloudflarestorage.com"
+            s3:
+              bucket: "pg-cluster-backup"
+            secret:
+              create: false
+            retentionPolicy: "7d"
           cluster:
+            affinity:
+              podAntiAffinityType: preferred
+              enablePodAntiAffinity: true
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: kubernetes.io/hostname
+                          operator: In
+                          values:
+                            - k8s-optiplex-1
+                            - k8s-optiplex-2
+                            - k8s-optiplex-3
             storage:
               size: "30Gi"
             postgresql:
