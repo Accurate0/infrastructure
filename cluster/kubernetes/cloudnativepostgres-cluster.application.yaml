@@ -35,6 +35,10 @@ spec:
               bucket: "pg-cluster-backup"
             secret:
               create: false
+            wal:
+              encryption: ""
+            data:
+              encryption: ""
             retentionPolicy: "7d"
           cluster:
             affinity:
