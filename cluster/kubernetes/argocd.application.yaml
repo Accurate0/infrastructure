@@ -30,7 +30,6 @@ spec:
               ingressClassName: nginx
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-prod
-                nginx.ingress.kubernetes.io/enable-modsecurity: "False"
                 nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
                 nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
               extraTls:

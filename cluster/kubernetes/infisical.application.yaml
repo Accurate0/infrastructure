@@ -21,7 +21,6 @@ spec:
             enabled: true
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-prod
-              nginx.ingress.kubernetes.io/enable-modsecurity: "False"
             nginx:
               enabled: false
             hostName: vault.internal.anurag.sh

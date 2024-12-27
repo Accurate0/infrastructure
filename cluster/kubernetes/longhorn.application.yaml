@@ -36,7 +36,6 @@ spec:
             secureBackends: true
             ingressClassName: nginx
             annotations:
-              nginx.ingress.kubernetes.io/enable-modsecurity: "False"
               cert-manager.io/cluster-issuer: letsencrypt-prod
             host: longhorn.internal.anurag.sh
             tls: true

@@ -33,6 +33,7 @@ spec:
               modsecurity-snippet: |
                 SecRuleEngine DetectionOnly
                 SecRequestBodyAccess On
+                SecAuditLog /var/log/modsec_audit.log
             kind: DaemonSet
 
   destination:
