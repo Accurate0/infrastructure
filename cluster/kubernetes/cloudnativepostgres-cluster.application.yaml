@@ -36,11 +36,17 @@ spec:
             secret:
               create: false
             wal:
-              encryption: ""
+              encryption: null
             data:
-              encryption: ""
+              encryption: null
             retentionPolicy: "7d"
           cluster:
+            monitoring:
+              enabled: true
+              podMonitor:
+                enabled: true
+              prometheusRule:
+                enabled: false
             affinity:
               podAntiAffinityType: preferred
               enablePodAntiAffinity: true

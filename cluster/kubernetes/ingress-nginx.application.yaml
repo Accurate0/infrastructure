@@ -31,7 +31,7 @@ spec:
               enable-real-ip: "True"
               allow-snippet-annotations: "True"
               modsecurity-snippet: |
-                SecRuleEngine On
+                SecRuleEngine DetectionOnly
                 SecRequestBodyAccess On
             kind: DaemonSet
 
