@@ -17,7 +17,7 @@ spec:
       containers:
         - env:
             - name: SERVER_HOST
-              value: "http://owntracks-recorder.owntracks.svc.cluster.local"
+              value: "owntracks-recorder.owntracks.svc.cluster.local"
             - name: SERVER_PORT
               value: "8083"
           image: owntracks/frontend
