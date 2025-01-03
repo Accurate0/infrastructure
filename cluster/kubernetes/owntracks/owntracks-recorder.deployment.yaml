@@ -32,10 +32,6 @@ spec:
             - containerPort: 8083
               protocol: TCP
           volumeMounts:
-            - mountPath: /etc/localtime
-              name: owntracks-recorder-cm0
-              readOnly: true
-              subPath: localtime
             - mountPath: /config
               name: owntracks-recorder-config
             - mountPath: /store
