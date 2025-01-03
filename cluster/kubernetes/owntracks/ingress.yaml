@@ -7,16 +7,14 @@ metadata:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - host: owntracks.anurag.sh
       http:
         paths:
-          - path: /recorder(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: owntracks-recorder
