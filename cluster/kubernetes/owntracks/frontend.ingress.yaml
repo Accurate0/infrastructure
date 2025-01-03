@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: owntracks-frontend1
+                name: owntracks-frontend
                 port:
                   number: 80
   tls:
