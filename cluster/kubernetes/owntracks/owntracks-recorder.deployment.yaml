@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: owntracks-recorder
+  name: owntracks-recorder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: owntracks-recorder
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.35.0 (HEAD)
+      labels:
+        io.kompose.service: owntracks-recorder
+    spec:
+      containers:
+        - env:
+            - name: OTR_PORT
+              value: "0"
+          image: owntracks/recorder
+          name: owntracks-recorder
+          ports:
+            - containerPort: 8083
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: owntracks-recorder-cm0
+              readOnly: true
+              subPath: localtime
+            - mountPath: /config
+              name: owntracks-recorder-config
+            - mountPath: /store
+              name: owntracks-recorder-store
+      restartPolicy: Always
+      volumes:
+        - name: owntracks-recorder-config
+          persistentVolumeClaim:
+            claimName: owntracks-recorder-config
+        - name: owntracks-recorder-store
+          persistentVolumeClaim:
+            claimName: owntracks-recorder-store

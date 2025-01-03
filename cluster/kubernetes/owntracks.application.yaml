@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: owntracks
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - repoURL: https://github.com/Accurate0/infrastructure.git
+      path: cluster/kubernetes/owntracks
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: owntracks
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    syncStrategy:
+      hook: {}
