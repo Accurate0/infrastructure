@@ -9,7 +9,7 @@ metadata:
   name: owntracks-recorder
 spec:
   ports:
-    - name: "8083"
+    - name: "recorder"
       port: 8083
       targetPort: 8083
   selector:

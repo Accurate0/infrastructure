@@ -1,4 +1,5 @@
 spotify-sync.anurag.sh
+owntracks.anurag.sh
 api.perthtransport.xyz
 perthtransport.xyz
 maccas.one
