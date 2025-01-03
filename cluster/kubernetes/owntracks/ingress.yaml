@@ -13,7 +13,7 @@ spec:
     - host: owntracks.anurag.sh
       http:
         paths:
-          - path: /
+          - path: /recorder
             pathType: Prefix
             backend:
               service:
