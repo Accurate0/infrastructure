@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: owntracks
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: owntracks.internal.anurag.sh
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: owntracks-frontend1
+                port:
+                  number: 80
+  tls:
+    - secretName: owntracks-frontend-tls
+      hosts:
+        - owntracks.internal.anurag.sh
