@@ -19,7 +19,7 @@ spec:
               service:
                 name: owntracks-recorder
                 port:
-                  name: recorder
+                  number: 8083
   tls:
     - secretName: owntracks-tls
       hosts:
