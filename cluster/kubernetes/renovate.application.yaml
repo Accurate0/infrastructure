@@ -12,29 +12,64 @@ spec:
       - ServerSideApply=true
   project: default
   sources:
-    - chart: renovate
-      repoURL: https://docs.renovatebot.com/helm-charts
-      targetRevision: v39.100.2
+    - chart: mend-renovate-ce
+      repoURL: https://mend.github.io/renovate-ce-ee
+      targetRevision: v9.1.1
       helm:
         valuesObject:
-          existingSecret: "renovate-config-managed-secret"
-          cronjob:
-            schedule: "0 */1 * * *"
-            timeZone: "Australia/Perth"
-          persistence:
-            cache:
-              enabled: true
-              storageClass: "longhorn-prod"
-              storageSize: "1Gi"
+          postgresql:
+            enabled: true
+            host: cloudnative-pg-cluster-rw.cnpg-system
+            port: 5432
+            database: renovate
+            user: renovate
+          ingress:
+            enabled: false
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+            hosts:
+              - renovate.internal.anurag.sh
+            tls:
+              - secretName: renovate-internal-tls
+                hosts:
+                  - renovate.internal.anurag.sh
+          cachePersistence:
+            enabled: true
+            storageClass: "longhorn-prod"
+            accessModes:
+              - ReadWriteOnce
+            size: 1Gi
           renovate:
+            mendRnvAcceptTos: y
+            mendRnvPlatform: "github"
+            existingSecret: renovate-config-managed-secret
+            logLevel: debug
+            mendRnvAdminApiEnabled: true
             config: |
-              {
-                "platform": "github",
-                "repositories": ["Accurate0/infrastructure"],
-                "lockFileMaintenance": { "enabled": true },
-                "username": "renovate[bot]",
-                "gitAuthor": "renovate[bot]<renovate@anurag.sh>"
+              module.exports = {
+                repositories: ["Accurate0/infrastructure"],
+                lockFileMaintenance: { "enabled": true },
               }
+
+          # existingSecret: "renovate-config-managed-secret"
+          # cronjob:
+          #   schedule: "0 */1 * * *"
+          #   timeZone: "Australia/Perth"
+          # persistence:
+          #   cache:
+          #     enabled: true
+          #     storageClass: "longhorn-prod"
+          #     storageSize: "1Gi"
+          # renovate:
+          #   config: |
+          #     {
+          #       "platform": "github",
+          #       "repositories": ["Accurate0/infrastructure"],
+          #       "lockFileMaintenance": { "enabled": true },
+          #       "username": "renovate[bot]",
+          #       "gitAuthor": "renovate[bot]<renovate@anurag.sh>"
+          #     }
 
   destination:
     server: https://kubernetes.default.svc
