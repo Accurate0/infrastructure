@@ -29,7 +29,7 @@ spec:
                 "platform": "github",
                 "repositories": ["Accurate0/infrastructure"],
                 "username": "renovate[bot]",
-                "gitAuthor": "renovate[bot]<123456+renovate[bot]@users.noreply.github.com>"
+                "gitAuthor": "renovate[bot]<renovate@anurag.sh>"
               }
 
   destination:
