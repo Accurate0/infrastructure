@@ -18,6 +18,9 @@ spec:
       helm:
         valuesObject:
           existingSecret: "renovate-config-managed-secret"
+          cronjob:
+            schedule: "0 */1 * * *"
+            timeZone: "Australia/Perth"
           persistence:
             cache:
               enabled: true
