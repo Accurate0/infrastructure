@@ -40,7 +40,7 @@ spec:
               pullPolicy: IfNotPresent
     - chart: secrets-operator
       repoURL: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts
-      targetRevision: 0.7.4
+      targetRevision: 0.8.1
 
   destination:
     server: https://kubernetes.default.svc

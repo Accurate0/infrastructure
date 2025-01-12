@@ -1,7 +1,7 @@
 resource "tfe_workspace" "tfc" {
   name               = "tfc"
   execution_mode     = "local"
-  terraform_version  = "1.1.2"
+  terraform_version  = "1.10.4"
   organization       = data.tfe_organization.server.name
   queue_all_runs     = false
   allow_destroy_plan = false
@@ -14,7 +14,7 @@ resource "tfe_workspace" "tfc" {
 resource "tfe_workspace" "oracle" {
   name                  = "oracle"
   execution_mode        = "remote"
-  terraform_version     = "1.5.1"
+  terraform_version     = "1.10.4"
   organization          = data.tfe_organization.server.name
   queue_all_runs        = false
   speculative_enabled   = false
