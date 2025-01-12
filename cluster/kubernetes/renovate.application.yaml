@@ -27,10 +27,9 @@ spec:
             config: |
               {
                 "platform": "github",
-                "dryRun": "full",
                 "repositories": ["Accurate0/infrastructure"],
                 "username": "renovate[bot]",
-                "gitAuthor": "Renovate Bot <123456+renovate[bot]@users.noreply.github.com>"
+                "gitAuthor": "renovate[bot]<123456+renovate[bot]@users.noreply.github.com>"
               }
 
   destination:
