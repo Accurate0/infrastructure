@@ -59,7 +59,7 @@ spec:
                     name: renovate-config-managed-secret
                     key: DOCKER_DOCKER_IO_USERNAME
                     optional: true
-            mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot"
+            mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot,Accurate0/perth-transport-map"
             config: |
               module.exports = {
                 extends: ["group:allNonMajor"],
