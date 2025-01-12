@@ -6,7 +6,7 @@ terraform {
     }
     vercel = {
       source  = "vercel/vercel"
-      version = "~>1"
+      version = ">= 1"
     }
     aws = {
       source  = "hashicorp/aws"

@@ -18,7 +18,7 @@ terraform {
     }
     vercel = {
       source  = "vercel/vercel"
-      version = "~>1"
+      version = ">= 1"
     }
     google = {
       source  = "hashicorp/google"
