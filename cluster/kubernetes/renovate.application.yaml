@@ -28,8 +28,7 @@ spec:
               {
                 "platform": "github",
                 "dryRun": "full",
-                "repositories": ["Accurate0/infrastructure"],
-                "logLevel": "debug"
+                "repositories": ["Accurate0/infrastructure"]
               }
 
   destination:

@@ -1,5 +1,6 @@
 {
     "argocd": {
         "fileMatch": ["cluster/kubernetes/.*\\.application\\.yaml"]
-    }
+    },
+    "ignorePaths": ["./cluster/kubernetes/redis.application.yaml"]
 }
