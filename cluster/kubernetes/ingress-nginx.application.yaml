@@ -34,6 +34,7 @@ spec:
               enable-owasp-modsecurity-crs: "True"
               enable-real-ip: "True"
               allow-snippet-annotations: "True"
+              annotations-risk-level: Critical
               modsecurity-snippet: |
                 SecRuleEngine DetectionOnly
                 SecRequestBodyAccess On
