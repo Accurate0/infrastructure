@@ -41,13 +41,33 @@ spec:
             mendRnvPlatform: "github"
             mendRnvCronJobSchedulerAll: "0 */1 * * *"
             existingSecret: renovate-config-managed-secret
-            logLevel: info
+            logLevel: debug
             mendRnvAdminApiEnabled: false
-            mendRnvAutoDiscoverFilter: "Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot"
+            extraEnvVars:
+              - name: DOCKER_DOCKER_IO_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-config-managed-secret
+                    key: DOCKER_DOCKER_IO_PASSWORD
+                    optional: true
+              - name: DOCKER_DOCKER_IO_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: renovate-config-managed-secret
+                    key: DOCKER_DOCKER_IO_USERNAME
+                    optional: true
+            mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot"
             config: |
               module.exports = {
                 extends: ["group:allNonMajor"],
                 lockFileMaintenance: { "enabled": true },
+                hostRules: [
+                  {
+                    "hostType": "docker",
+                    "username": process.env.DOCKER_DOCKER_IO_USERNAME,
+                    "password": process.env.DOCKER_DOCKER_IO_PASSWORD,
+                  },
+                ],
                 packageRules: [
                   {
                     "matchUpdateTypes": ["minor", "patch", "pin", "digest"],

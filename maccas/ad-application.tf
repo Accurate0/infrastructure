@@ -135,9 +135,9 @@ resource "time_rotating" "client_id_expiry" {
 
 # client secret for graph api
 resource "azuread_application_password" "this" {
-  provider              = azuread.adb2c
-  application_object_id = azuread_application.this.object_id
-  end_date_relative     = "8760h"
+  provider          = azuread.adb2c
+  application_id    = azuread_application.this.object_id
+  end_date_relative = "8760h"
 
   rotate_when_changed = {
     rotation = time_rotating.client_id_expiry.id
