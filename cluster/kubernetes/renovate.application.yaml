@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: renovate
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: renovate
+      repoURL: https://docs.renovatebot.com/helm-charts
+      targetRevision: v39.100.2
+      helm:
+        valuesObject:
+          existingSecret: "renovate-config-managed-secret"
+          persistence:
+            cache:
+              enabled: true
+              storageClass: "longhorn-prod"
+              storageSize: "1Gi"
+          renovate:
+            config: |
+              {
+                "platform": "github",
+                "dryRun": "full",
+                "repositories": ["Accurate0/infrastructure"],
+                "baseBranches": ["feat/renovate"]
+              }
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: renovate
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    syncStrategy:
+      hook: {}

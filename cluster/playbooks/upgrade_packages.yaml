@@ -1,0 +1,23 @@
+- name: Upgrade packages
+  hosts:
+    - optiplex
+  become: true
+  become_user: root
+  become_method: ansible.builtin.sudo
+  serial: 1
+
+  tasks:
+    - name: Install Packages
+      ansible.builtin.apt:
+        upgrade: "safe"
+
+    - name: Upgrade k3s
+      ansible.builtin.shell:
+        cmd: curl -sfL https://get.k3s.io | sh -s - server
+      tags:
+        - skip_ansible_lint
+
+    - name: Set reboot required
+      ansible.builtin.command: touch /var/run/reboot-required
+      tags:
+        - skip_ansible_lint
