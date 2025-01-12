@@ -34,42 +34,27 @@ spec:
               - secretName: renovate-internal-tls
                 hosts:
                   - renovate.internal.anurag.sh
-          cachePersistence:
+          cacheInMemory:
             enabled: true
-            storageClass: "longhorn-prod"
-            accessModes:
-              - ReadWriteOnce
-            size: 1Gi
           renovate:
             mendRnvAcceptTos: y
             mendRnvPlatform: "github"
+            mendRnvCronJobSchedulerAll: "0 */1 * * *"
             existingSecret: renovate-config-managed-secret
-            logLevel: debug
-            mendRnvAdminApiEnabled: true
+            logLevel: info
+            mendRnvAdminApiEnabled: false
+            mendRnvAutoDiscoverFilter: "Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot"
             config: |
               module.exports = {
-                repositories: ["Accurate0/infrastructure"],
+                extends: ["group:allNonMajor"],
                 lockFileMaintenance: { "enabled": true },
+                packageRules: [
+                  {
+                    "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+                    "automerge": true
+                  }
+                ],
               }
-
-          # existingSecret: "renovate-config-managed-secret"
-          # cronjob:
-          #   schedule: "0 */1 * * *"
-          #   timeZone: "Australia/Perth"
-          # persistence:
-          #   cache:
-          #     enabled: true
-          #     storageClass: "longhorn-prod"
-          #     storageSize: "1Gi"
-          # renovate:
-          #   config: |
-          #     {
-          #       "platform": "github",
-          #       "repositories": ["Accurate0/infrastructure"],
-          #       "lockFileMaintenance": { "enabled": true },
-          #       "username": "renovate[bot]",
-          #       "gitAuthor": "renovate[bot]<renovate@anurag.sh>"
-          #     }
 
   destination:
     server: https://kubernetes.default.svc
