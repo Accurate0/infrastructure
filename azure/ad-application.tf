@@ -139,5 +139,5 @@ resource "azuread_application" "terraform" {
 }
 
 resource "azuread_application_password" "terraform-credentials" {
-  application_object_id = azuread_application.terraform.object_id
+  application_id = azuread_application.terraform.id
 }
