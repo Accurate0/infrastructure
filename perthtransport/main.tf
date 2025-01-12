@@ -6,11 +6,11 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~>4"
+      version = ">= 4"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>4"
+      version = ">= 4"
     }
     null = {
       source  = "hashicorp/null"
@@ -30,7 +30,7 @@ terraform {
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~>5"
+      version = ">= 5"
     }
   }
 

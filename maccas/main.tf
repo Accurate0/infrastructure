@@ -2,11 +2,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~>5"
+      version = ">= 5"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~>4"
+      version = ">= 4"
     }
     vercel = {
       source  = "vercel/vercel"
@@ -14,7 +14,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "~>5"
+      version = ">= 5"
     }
     random = {
       source  = "hashicorp/random"
@@ -34,7 +34,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>4"
+      version = ">= 4"
     }
   }
 

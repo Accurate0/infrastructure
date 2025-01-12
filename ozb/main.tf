@@ -2,11 +2,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~>5"
+      version = ">= 5"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>4"
+      version = ">= 4"
     }
     github = {
       source  = "integrations/github"
@@ -14,7 +14,7 @@ terraform {
     }
     mongodbatlas = {
       source  = "mongodb/mongodbatlas"
-      version = "~>1"
+      version = ">= 1"
     }
     random = {
       source  = "hashicorp/random"
