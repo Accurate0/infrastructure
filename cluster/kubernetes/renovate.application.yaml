@@ -62,11 +62,13 @@ spec:
             mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot,Accurate0/perth-transport-map"
             config: |
               module.exports = {
+                reviewers: ["Accurate0"],
                 extends: ["group:allNonMajor"],
                 lockFileMaintenance: { "enabled": true },
                 packageRules: [
                   {
                     "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+                    "matchCurrentVersion": "!/^0/",
                     "automerge": true
                   },
                   {"matchCategories": ["docker"], "enabled": false},
