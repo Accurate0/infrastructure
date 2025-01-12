@@ -29,7 +29,7 @@ spec:
                 "platform": "github",
                 "dryRun": "full",
                 "repositories": ["Accurate0/infrastructure"],
-                "baseBranches": ["feat/renovate"]
+                "logLevel": "debug"
               }
 
   destination:

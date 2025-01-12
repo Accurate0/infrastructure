@@ -1,5 +1,5 @@
 {
     "argocd": {
-        "fileMatch": [".*\\.application\\.(yaml,yml)"]
+        "fileMatch": ["cluster/kubernetes/.*\\.application\\.yaml"]
     }
 }
