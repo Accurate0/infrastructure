@@ -22,7 +22,7 @@ terraform {
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = "~>2"
+      version = ">= 2"
     }
     google = {
       source  = "hashicorp/google"
