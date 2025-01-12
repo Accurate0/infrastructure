@@ -42,7 +42,8 @@ spec:
             mendRnvCronJobSchedulerAll: "0 */1 * * *"
             existingSecret: renovate-config-managed-secret
             logLevel: debug
-            mendRnvAdminApiEnabled: false
+            mendRnvAdminApiEnabled: true
+            mendRnvEnqueueJobsOnStartup: "enabled"
             extraEnvVars:
               - name: DOCKER_DOCKER_IO_PASSWORD
                 valueFrom:
@@ -64,6 +65,13 @@ spec:
                 hostRules: [
                   {
                     "hostType": "docker",
+                    "matchHost": "docker.io",
+                    "username": process.env.DOCKER_DOCKER_IO_USERNAME,
+                    "password": process.env.DOCKER_DOCKER_IO_PASSWORD,
+                  },
+                  {
+                    "hostType": "docker",
+                    "matchHost": "docker.com",
                     "username": process.env.DOCKER_DOCKER_IO_USERNAME,
                     "password": process.env.DOCKER_DOCKER_IO_PASSWORD,
                   },
