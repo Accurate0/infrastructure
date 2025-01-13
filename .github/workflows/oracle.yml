@@ -32,7 +32,7 @@ jobs:
         working-directory: "./cloud"
     steps:
       - name: install/update dependencies
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ env.ORACLE_HOST }}
           sync: true
