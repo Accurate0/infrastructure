@@ -64,7 +64,7 @@ spec:
               module.exports = {
                 reviewers: ["Accurate0"],
                 extends: ["group:allNonMajor"],
-                lockFileMaintenance: { "enabled": true, "automerge": true },
+                lockFileMaintenance: { "enabled": false, "automerge": true },
                 packageRules: [
                   {
                     "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
