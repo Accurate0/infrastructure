@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dawarich-app
+  namespace: dawairch
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dawarich.internal.anurag.sh
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dawarich-app
+                port:
+                  name: app
+  tls:
+    - secretName: dawarich-internal-tls
+      hosts:
+        - dawarich.internal.anurag.sh

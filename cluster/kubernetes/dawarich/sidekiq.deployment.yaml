@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dawarich-sidekiq
+  namespace: dawarich
+  annotations:
+    secrets.infisical.com/auto-reload: "true"
+spec:
+  selector:
+    matchLabels:
+      app: dawarich-sidekiq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dawarich-sidekiq
+    spec:
+      containers:
+        - args:
+            - bundle
+            - exec
+            - sidekiq
+          command:
+            - sidekiq-entrypoint.sh
+          envFrom:
+            - secretRef:
+                name: dawarich-managed-secrets
+          env:
+            - name: APPLICATION_HOSTS
+              value: localhost,::1,127.0.0.1
+            - name: APPLICATION_PROTOCOL
+              value: http
+            - name: DISTANCE_UNIT
+              value: km
+            - name: MIN_MINUTES_SPENT_IN_CITY
+              value: "60"
+            - name: PROMETHEUS_EXPORTER_ENABLED
+              value: "false"
+            - name: PROMETHEUS_EXPORTER_HOST
+              value: 0.0.0.0
+            - name: PROMETHEUS_EXPORTER_PORT
+              value: "9394"
+            - name: RAILS_ENV
+              value: production
+            - name: RAILS_LOG_TO_STDOUT
+              value: "true"
+            - name: TIME_ZONE
+              value: Australia/Perth
+          image: freikin/dawarich:latest
+          livenessProbe:
+            exec:
+              command:
+                - bundle exec sidekiqmon processes | grep ${HOSTNAME}
+            failureThreshold: 30
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 10
+          name: dawarich-sidekiq
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/app/public
+              name: dawarich-public
+            - mountPath: /var/app/tmp/imports/watched
+              name: dawarich-watched
+      restartPolicy: OnFailure
+      volumes:
+        - name: dawarich-public
+          persistentVolumeClaim:
+            claimName: dawarich-public
+        - name: dawarich-watched
+          persistentVolumeClaim:
+            claimName: dawarich-watched
