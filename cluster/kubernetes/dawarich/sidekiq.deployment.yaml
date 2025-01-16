@@ -47,22 +47,6 @@ spec:
             - name: TIME_ZONE
               value: Australia/Perth
           image: freikin/dawarich:latest
-          livenessProbe:
-            httpGet:
-              path: /api/v1/health
-              port: 3000
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 3
-            failureThreshold: 3
           name: dawarich-sidekiq
           ports:
             - containerPort: 3000
