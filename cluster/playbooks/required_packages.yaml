@@ -1,0 +1,12 @@
+- name: Install required packages
+  hosts:
+    - optiplex
+  become: true
+  become_user: root
+  become_method: ansible.builtin.sudo
+
+  tasks:
+    - name: Install Packages
+      ansible.builtin.apt:
+        package:
+          - nfs-common

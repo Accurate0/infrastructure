@@ -17,7 +17,7 @@ spec:
               service:
                 name: dawarich-app
                 port:
-                  name: app
+                  number: 3000
   tls:
     - secretName: dawarich-internal-tls
       hosts:
