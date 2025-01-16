@@ -46,7 +46,7 @@ spec:
               value: "true"
             - name: TIME_ZONE
               value: Australia/Perth
-          image: freikin/dawarich:latest
+          image: freikin/dawarich:0.21.6
           name: dawarich-sidekiq
           ports:
             - containerPort: 3000
