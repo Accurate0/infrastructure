@@ -30,7 +30,7 @@ spec:
                 name: dawarich-managed-secrets
           env:
             - name: APPLICATION_HOSTS
-              value: dawarich.internal.anurag.sh
+              value: dawarich.internal.anurag.sh,dawarich.anurag.sh
             - name: APPLICATION_PROTOCOL
               value: http
             - name: DISTANCE_UNIT
