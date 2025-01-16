@@ -69,7 +69,6 @@ spec:
               name: dawarich-public
             - mountPath: /var/app/tmp/imports/watched
               name: dawarich-watched
-      restartPolicy: OnFailure
       volumes:
         - name: dawarich-public
           persistentVolumeClaim:
