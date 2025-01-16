@@ -30,7 +30,7 @@ spec:
                 name: dawarich-managed-secrets
           env:
             - name: APPLICATION_HOSTS
-              value: 0.0.0.0
+              value: 0.0.0.0,::1
             - name: APPLICATION_PROTOCOL
               value: http
             - name: DISTANCE_UNIT
