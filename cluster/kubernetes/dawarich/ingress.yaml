@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dawarich-app
-  namespace: dawairch
+  namespace: dawarich
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
