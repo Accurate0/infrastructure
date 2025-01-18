@@ -138,6 +138,13 @@ resource "azuread_application" "terraform" {
   }
 }
 
+resource "time_rotating" "client_id_expiry" {
+  rotation_days = 365
+}
+
 resource "azuread_application_password" "terraform-credentials" {
   application_id = azuread_application.terraform.id
+  rotate_when_changed = {
+    rotation = time_rotating.client_id_expiry.id
+  }
 }
