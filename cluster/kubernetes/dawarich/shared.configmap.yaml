@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dawarich-shared-config
+  namespace: dawarich
+data:
+  PHOTON_API_HOST: photon.dawarich.svc.cluster.local
+  PHOTON_API_USE_HTTPS: true
+  APPLICATION_HOSTS: dawarich.internal.anurag.sh,dawarich.anurag.sh
+  APPLICATION_PROTOCOL: http
+  DISTANCE_UNIT: km
+  MIN_MINUTES_SPENT_IN_CITY: "60"
+  PROMETHEUS_EXPORTER_ENABLED: "false"
+  PROMETHEUS_EXPORTER_HOST: 0.0.0.0
+  PROMETHEUS_EXPORTER_PORT: "9394"
+  RAILS_ENV: production
+  RAILS_LOG_TO_STDOUT: "true"
+  TIME_ZONE: Australia/Perth
