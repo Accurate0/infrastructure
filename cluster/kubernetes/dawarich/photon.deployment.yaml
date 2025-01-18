@@ -10,6 +10,8 @@ spec:
     matchLabels:
       app: photon
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -21,7 +23,8 @@ spec:
             - /bin/sh
             - -c
             - |
-              apt-get --assume-yes install pbzip2 tar
+              apt-get -y update
+              apt-get -y install pbzip2 tar wget
 
               mkdir /photon
               cd /photon
@@ -44,7 +47,11 @@ spec:
             - /bin/sh
             - -c
             - |
+              apt-get -y update
+              apt-get -y install wget
+
               cd /photon
+
               wget https://github.com/komoot/photon/releases/download/0.6.0/photon-0.6.0.jar \
                 -O /photon/photon.jar
               java -jar photon.jar
