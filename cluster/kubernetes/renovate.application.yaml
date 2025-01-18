@@ -14,7 +14,7 @@ spec:
   sources:
     - chart: mend-renovate-ce
       repoURL: https://mend.github.io/renovate-ce-ee
-      targetRevision: v9.1.1
+      targetRevision: 9.2.0
       helm:
         valuesObject:
           postgresql:
