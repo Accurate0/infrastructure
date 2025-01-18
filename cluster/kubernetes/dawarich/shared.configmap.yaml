@@ -5,7 +5,7 @@ metadata:
   namespace: dawarich
 data:
   PHOTON_API_HOST: photon.dawarich.svc.cluster.local
-  PHOTON_API_USE_HTTPS: "true"
+  PHOTON_API_USE_HTTPS: "false"
   APPLICATION_HOSTS: dawarich.internal.anurag.sh,dawarich.anurag.sh
   APPLICATION_PROTOCOL: http
   DISTANCE_UNIT: km
