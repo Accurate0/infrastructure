@@ -16,46 +16,46 @@ spec:
         app: photon
     spec:
       initContainers:
-        command:
-          - /bin/sh
-          - -c
-          - |
-            apt-get --assume-yes install pbzip2 tar
+        - name: download-photon-data
+          command:
+            - /bin/sh
+            - -c
+            - |
+              apt-get --assume-yes install pbzip2 tar
 
-            mkdir /photon
-            cd /photon
+              mkdir /photon
+              cd /photon
 
-            if [ ! -d "/photon/photon_data/elasticsearch" ]; then
-                echo "Downloading search index"
-                USER_AGENT="docker: dawarich/photon-geocoder"
-                wget --show-progress \
-                  --user-agent="$USER_AGENT" \
-                  -O - http://download1.graphhopper.com/public/photon-db-latest.tar.bz2 | pbzip2 -cd | tar x
-            fi
-        image: ubuntu:24.04
-        name: download-photon-data
-        volumeMounts:
-          - mountPath: /photon/photon_data
-            name: photon-data
+              if [ ! -d "/photon/photon_data/elasticsearch" ]; then
+                  echo "Downloading search index"
+                  USER_AGENT="docker: dawarich/photon-geocoder"
+                  wget --show-progress \
+                    --user-agent="$USER_AGENT" \
+                    -O - http://download1.graphhopper.com/public/photon-db-latest.tar.bz2 | pbzip2 -cd | tar x
+              fi
+          image: ubuntu:24.04
+          volumeMounts:
+            - mountPath: /photon/photon_data
+              name: photon-data
 
       containers:
-        command:
-          - /bin/sh
-          - -c
-          - |
-            cd /photon
-            wget https://github.com/komoot/photon/releases/download/0.6.0/photon-0.6.0.jar \
-              -O /photon/photon.jar
-            java -jar photon.jar
+        - name: photon
+          command:
+            - /bin/sh
+            - -c
+            - |
+              cd /photon
+              wget https://github.com/komoot/photon/releases/download/0.6.0/photon-0.6.0.jar \
+                -O /photon/photon.jar
+              java -jar photon.jar
 
-        image: openjdk:24-slim-bullseye
-        name: photon
-        ports:
-          - containerPort: 2322
-            protocol: TCP
-        volumeMounts:
-          - mountPath: /photon/photon_data
-            name: photon-data
+          image: openjdk:24-slim-bullseye
+          ports:
+            - containerPort: 2322
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /photon/photon_data
+              name: photon-data
       volumes:
         - name: photon-data
           persistentVolumeClaim:
