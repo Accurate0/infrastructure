@@ -34,8 +34,14 @@ spec:
               - secretName: renovate-internal-tls
                 hosts:
                   - renovate.internal.anurag.sh
-          cacheInMemory:
+          cachePersistence:
             enabled: true
+            storageClass: "longhorn-single"
+            accessModes:
+              - ReadWriteOnce
+            size: 2Gi
+          cacheInMemory:
+            enabled: false
           renovate:
             mendRnvAcceptTos: y
             mendRnvPlatform: "github"
