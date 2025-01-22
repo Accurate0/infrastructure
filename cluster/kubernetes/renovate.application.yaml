@@ -39,7 +39,7 @@ spec:
             storageClass: "longhorn-single"
             accessModes:
               - ReadWriteOnce
-            size: 2Gi
+            size: 10Gi
           cacheInMemory:
             enabled: false
           renovate:
