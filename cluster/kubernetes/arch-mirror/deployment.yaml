@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: pkg-cache
           persistentVolumeClaim:
-            claimName: flexo-pkg-cache
+            claimName: arch-mirror-pkg-cache
         - name: config-volume
           configMap:
             name: pacoloco-config
