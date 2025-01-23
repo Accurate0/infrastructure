@@ -30,7 +30,7 @@ spec:
               value: AU
           volumeMounts:
             - mountPath: /pkg-cache
-              name: flexo-pkg-cache
+              name: pkg-cache
       volumes:
         - name: pkg-cache
           persistentVolumeClaim:
