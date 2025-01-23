@@ -16,7 +16,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: flexo
+                name: pacoloco
                 port:
                   number: 80
   tls:
