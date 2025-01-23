@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: flexo
-  name: flex-pkg-cache
+  name: flexo-pkg-cache
 spec:
   accessModes:
     - ReadWriteOnce
