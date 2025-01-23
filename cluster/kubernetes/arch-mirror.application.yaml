@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: flexo
+  name: arch-mirror
   namespace: argocd
 spec:
   syncPolicy:
@@ -13,11 +13,11 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/Accurate0/infrastructure.git
-      path: cluster/kubernetes/flexo
+      path: cluster/kubernetes/arch-mirror
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: flexo
+    namespace: arch-mirror
 
 operation:
   initiatedBy:

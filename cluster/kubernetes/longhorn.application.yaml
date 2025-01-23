@@ -29,6 +29,8 @@ spec:
                 value: arm64perf
           longhornUI:
             replicas: 1
+          defaultSettings:
+            taintToleration: group=external:NoSchedule;group=arm64perf:NoSchedule
           preUpgradeChecker:
             jobEnabled: false
           ingress:
