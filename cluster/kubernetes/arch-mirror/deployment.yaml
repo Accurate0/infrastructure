@@ -22,11 +22,11 @@ spec:
                     operator: In
                     values:
                       - k8s-control-1
-        tolerations:
-          - key: "group"
-            operator: "Equal"
-            value: "external"
-            effect: "NoSchedule"
+      tolerations:
+        - key: "group"
+          operator: "Equal"
+          value: "external"
+          effect: "NoSchedule"
       containers:
         - image: ghcr.io/anatol/pacoloco:latest
           name: pacoloco
