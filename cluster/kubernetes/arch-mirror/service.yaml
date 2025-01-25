@@ -4,6 +4,7 @@ metadata:
   namespace: arch-mirror
   name: pacoloco
 spec:
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
