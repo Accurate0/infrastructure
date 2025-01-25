@@ -13,6 +13,15 @@ spec:
       labels:
         app: pacoloco
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - k8s-control-1
       containers:
         - image: ghcr.io/anatol/pacoloco:latest
           name: pacoloco
