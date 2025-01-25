@@ -5,9 +5,7 @@ metadata:
   namespace: arch-mirror
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-body-size: 0m
-    nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    nginx.ingress.kubernetes.io/permanent-redirect: http://arch-mirror.anurag.sh
 spec:
   ingressClassName: nginx
   rules:
