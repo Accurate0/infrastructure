@@ -21,3 +21,16 @@ spec:
       targetPort: 9129
   selector:
     app: pacoloco
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: arch-mirror
+  name: pacoloco
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9129
+  selector:
+    app: pacoloco
