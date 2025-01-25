@@ -5,7 +5,7 @@ metadata:
   namespace: arch-mirror
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
 spec:
   ingressClassName: nginx
   rules:
