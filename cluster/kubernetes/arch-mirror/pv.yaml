@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: local-storage
   local:
-    path: /var/lib/local-storage
+    path: /var/lib/local-storage/arch-mirror-pkg
   nodeAffinity:
     required:
       nodeSelectorTerms:
