@@ -6,17 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-storage
-  local:
-    path: /var/lib/local-storage
+  storageClassName: manual
   resources:
     requests:
       storage: 50Gi
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - k8s-control-1
