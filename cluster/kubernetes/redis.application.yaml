@@ -23,11 +23,11 @@ spec:
         valuesObject:
           replica:
             persistence:
-              size: 1Gi
+              size: 5Gi
             replicaCount: 2
           master:
             persistence:
-              size: 1Gi
+              size: 5Gi
           auth:
             existingSecret: redis
             existingSecretPasswordKey: redis-password
