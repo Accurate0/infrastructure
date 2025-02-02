@@ -8,7 +8,7 @@ resource "aws_acm_certificate" "cert" {
   provider = aws.us-east-1
 }
 
-resource "cloudflare_record" "validation-record" {
+resource "cloudflare_dns_record" "validation-record" {
   for_each = {
     for item in aws_acm_certificate.cert.domain_validation_options : item.domain_name => {
       name   = item.resource_record_name
@@ -17,27 +17,21 @@ resource "cloudflare_record" "validation-record" {
     }
   }
 
-  zone_id         = var.cloudflare_zone_id
-  allow_overwrite = true
-  proxied         = false
-  name            = each.value.name
-  type            = each.value.type
-  value           = each.value.record
-  ttl             = 1
-
-  lifecycle {
-    ignore_changes = [value]
-  }
+  zone_id = var.cloudflare_zone_id
+  proxied = false
+  name    = each.value.name
+  type    = each.value.type
+  content = each.value.record
+  ttl     = 1
 }
 
-resource "cloudflare_record" "assets" {
-  zone_id         = var.cloudflare_zone_id
-  allow_overwrite = true
-  proxied         = false
-  name            = "assets"
-  type            = "CNAME"
-  value           = aws_cloudfront_distribution.assets-s3-distribution.domain_name
-  ttl             = 1
+resource "cloudflare_dns_record" "assets" {
+  zone_id = var.cloudflare_zone_id
+  proxied = false
+  name    = "assets"
+  type    = "CNAME"
+  content = aws_cloudfront_distribution.assets-s3-distribution.domain_name
+  ttl     = 1
 }
 
 data "aws_iam_policy_document" "assets-bucket-s3-policy" {

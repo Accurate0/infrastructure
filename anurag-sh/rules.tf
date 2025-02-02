@@ -3,8 +3,8 @@ resource "cloudflare_page_rule" "new-maccas-redirect" {
   target   = "maccas.anurag.sh/*"
   priority = 1
 
-  actions {
-    forwarding_url {
+  actions = {
+    forwarding_url = {
       url         = "https://maccas.one"
       status_code = 301
     }
