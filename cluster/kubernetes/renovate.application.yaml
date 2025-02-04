@@ -48,7 +48,7 @@ spec:
           renovate:
             mendRnvAcceptTos: y
             mendRnvPlatform: "github"
-            mendRnvCronJobSchedulerAll: "0 */1 * * *"
+            mendRnvCronJobSchedulerAll: "*/15 * * * *"
             existingSecret: renovate-config-managed-secret
             logLevel: info
             mendRnvAdminApiEnabled: true
