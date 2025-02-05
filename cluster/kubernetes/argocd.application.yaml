@@ -21,6 +21,13 @@ spec:
             domain: argocd.internal.anurag.sh
 
           configs:
+            cm:
+              admin.enabled: false
+            rbac:
+              policy.csv: |
+                p, anurag, *, *, *, allow
+                p, github-actions, applications, sync, default/*, allow
+                p, github-actions, applications, get, default/*, allow
             params:
               server.insecure: true
 
