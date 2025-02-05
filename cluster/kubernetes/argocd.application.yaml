@@ -28,6 +28,7 @@ spec:
                 p, anurag, *, *, *, allow
                 p, github-actions, applications, sync, default/*, allow
                 p, github-actions, applications, get, default/*, allow
+                p, github-actions, projects, get, *, allow
             params:
               server.insecure: true
 
