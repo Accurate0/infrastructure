@@ -78,9 +78,10 @@ spec:
                   {
                     "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
                     "matchCurrentVersion": "!/^0/",
+                    "automergeType": "branch",
                     "automerge": true
                   },
-                  {"matchCategories": ["docker"], "enabled": false},
+                  { "matchCategories": ["docker"], "enabled": false },
                 ],
               }
 
