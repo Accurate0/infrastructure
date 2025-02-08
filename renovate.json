@@ -2,5 +2,13 @@
     "argocd": {
         "fileMatch": ["cluster/kubernetes/.*\\.application\\.yaml"]
     },
-    "ignorePaths": ["cluster/kubernetes/redis.application.yaml"]
+    "ignorePaths": ["cluster/kubernetes/redis.application.yaml"],
+    "packageRules": [
+        {
+            "description": "Ignore cloudflare for oracle",
+            "matchFileNames": ["oracle/**"],
+            "matchPackageNames": ["cloudflare/cloudflare"],
+            "enabled": false
+        }
+    ]
 }
