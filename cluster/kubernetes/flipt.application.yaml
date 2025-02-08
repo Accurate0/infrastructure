@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flipt
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: flipt
+      repoURL: https://helm.flipt.io
+      targetRevision: 0.80.0
+      helm:
+        valuesObject:
+          ingress:
+            enabled: false
+          migration:
+            enabled: true
+          metrics:
+            serviceMonitor:
+              enabled: true
+          flipt:
+            config:
+              analytics:
+                storage:
+                  prometheus:
+                    enabled: true
+                    url: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+              authentication:
+                required: true
+                session:
+                  domain: "flipt.internal.anurag.sh"
+                  secure: true
+                  csrf:
+                    key: "${FLIPT_CSRF_KEY}"
+                methods:
+                  github:
+                    enabled: true
+                    client_id: "${FLIPT_GITHUB_CLIENT_ID}"
+                    client_secret: "${FLIPT_GITHUB_CLIENT_SECRET}"
+                    redirect_address: "https://flipt.internal.anurag.sh"
+                    scopes:
+                      - "user:email"
+                  token:
+                    enabled: true
+              db:
+                url: "${FLIPT_DB_URL}"
+                max_open_conn: 10
+            envFrom:
+              - secretRef:
+                  name: flipt-managed-secrets
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: flipt
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    syncStrategy:
+      hook: {}

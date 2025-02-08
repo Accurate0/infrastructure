@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipt-ingress
+  namespace: flipt
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: flipt.internal.anurag.sh
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flipt
+                port:
+                  name: http
+  tls:
+    - secretName: flipt-internal-tls
+      hosts:
+        - flipt.internal.anurag.sh
