@@ -7,6 +7,7 @@ locals {
     "maccas-api",
     "perth-transport-map",
     "infrastructure",
+    "ingress-home",
   ])
 }
 
