@@ -23,6 +23,9 @@
         owner: root
         mode: "0644"
 
+    - name: Validate haproxy config
+      ansible.builtin.command: "haproxy -f /etc/haproxy/haproxy.cfg -c"
+
     - name: Copy nginx config
       ansible.builtin.copy:
         src: ../config/nginx.conf
