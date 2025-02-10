@@ -23,11 +23,11 @@ spec:
               cert-manager.io/cluster-issuer: letsencrypt-prod
             nginx:
               enabled: false
-            hostName: vault.internal.anurag.sh
+            hostName: vault.inf-k8s.net
             tls:
-              - secretName: vault-internal-anurag-sh-tls
+              - secretName: vault-inf-k8s-tls
                 hosts:
-                  - vault.internal.anurag.sh
+                  - vault.inf-k8s.net
           postgresql:
             enabled: false
           redis:

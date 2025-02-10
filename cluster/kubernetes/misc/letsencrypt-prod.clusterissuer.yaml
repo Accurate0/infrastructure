@@ -21,3 +21,4 @@ spec:
         selector:
           dnsZones:
             - "internal.anurag.sh"
+            - "inf-k8s.net"

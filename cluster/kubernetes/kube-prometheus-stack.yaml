@@ -24,11 +24,11 @@ spec:
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-prod
               hosts:
-                - prometheus.internal.anurag.sh
+                - prometheus.inf-k8s.net
               tls:
-                - secretName: prometheus-server-tls
+                - secretName: prometheus-inf-k8s-tls
                   hosts:
-                    - prometheus.internal.anurag.sh
+                    - prometheus.inf-k8s.net
             prometheusSpec:
               podMonitorSelectorNilUsesHelmValues: false
               probeSelectorNilUsesHelmValues: false
@@ -48,7 +48,7 @@ spec:
                   operator: "Equal"
                   value: "arm64perf"
                   effect: "NoSchedule"
-              externalUrl: "https://prometheus.internal.anurag.sh"
+              externalUrl: "https://prometheus.inf-k8s.net"
               retention: 2d
               retentionSize: "10GB"
               storageSpec:
@@ -119,11 +119,11 @@ spec:
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-prod
               hosts:
-                - grafana.internal.anurag.sh
+                - grafana.inf-k8s.net
               tls:
-                - secretName: grafana-server-tls
+                - secretName: grafana-inf-k8s-tls
                   hosts:
-                    - grafana.internal.anurag.sh
+                    - grafana.inf-k8s.net
 
   destination:
     server: https://kubernetes.default.svc

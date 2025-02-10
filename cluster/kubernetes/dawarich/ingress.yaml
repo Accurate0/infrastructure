@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: dawarich.internal.anurag.sh
+    - host: dawarich.inf-k8s.net
       http:
         paths:
           - path: /
@@ -30,9 +30,9 @@ spec:
                 port:
                   number: 3000
   tls:
-    - secretName: dawarich-internal-tls
+    - secretName: dawarich-inf-k8s-tls
       hosts:
-        - dawarich.internal.anurag.sh
+        - dawarich.inf-k8s.net
     - secretName: dawarich-tls
       hosts:
         - dawarich.anurag.sh

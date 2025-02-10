@@ -6,7 +6,7 @@ metadata:
 data:
   PHOTON_API_HOST: photon.dawarich.svc.cluster.local
   PHOTON_API_USE_HTTPS: "false"
-  APPLICATION_HOSTS: dawarich.internal.anurag.sh,dawarich.anurag.sh
+  APPLICATION_HOSTS: dawarich.inf-k8s.net,dawarich.anurag.sh
   APPLICATION_PROTOCOL: http
   DISTANCE_UNIT: km
   MIN_MINUTES_SPENT_IN_CITY: "60"

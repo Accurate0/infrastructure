@@ -18,7 +18,7 @@ spec:
       helm:
         valuesObject:
           global:
-            domain: argocd.internal.anurag.sh
+            domain: argocd.inf-k8s.net
 
           configs:
             cm:
@@ -42,8 +42,8 @@ spec:
                 nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
               extraTls:
                 - hosts:
-                    - argocd.internal.anurag.sh
-                  secretName: argocd-wildcard-tls
+                    - argocd.inf-k8s.net
+                  secretName: argocd-inf-k8s-tls
 
   destination:
     server: https://kubernetes.default.svc

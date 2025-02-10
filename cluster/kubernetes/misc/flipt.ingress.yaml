@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: flipt.internal.anurag.sh
+    - host: flipt.inf-k8s.net
       http:
         paths:
           - path: /
@@ -19,6 +19,6 @@ spec:
                 port:
                   name: http
   tls:
-    - secretName: flipt-internal-tls
+    - secretName: flipt-inf-k8s-tls
       hosts:
-        - flipt.internal.anurag.sh
+        - flipt.inf-k8s.net

@@ -34,7 +34,7 @@ spec:
               authentication:
                 required: true
                 session:
-                  domain: "flipt.internal.anurag.sh"
+                  domain: "flipt.inf-k8s.net"
                   secure: true
                   csrf:
                     key: "${FLIPT_CSRF_KEY}"
@@ -43,7 +43,7 @@ spec:
                     enabled: true
                     client_id: "${FLIPT_GITHUB_CLIENT_ID}"
                     client_secret: "${FLIPT_GITHUB_CLIENT_SECRET}"
-                    redirect_address: "https://flipt.internal.anurag.sh"
+                    redirect_address: "https://flipt.inf-k8s.net"
                     scopes:
                       - "user:email"
                   token:
