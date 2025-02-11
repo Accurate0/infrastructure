@@ -8,6 +8,7 @@ locals {
     "perth-transport-map",
     "infrastructure",
     "ingress-home",
+    "anurag.sh",
   ])
 }
 
