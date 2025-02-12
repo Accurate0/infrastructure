@@ -9,3 +9,5 @@ graphql.maccas.one
 event.maccas.one
 batch.maccas.one
 arch-mirror.anurag.sh
+anurag.sh
+anurag.id.au
