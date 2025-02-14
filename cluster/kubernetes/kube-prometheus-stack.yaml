@@ -18,8 +18,12 @@ spec:
       helm:
         valuesObject:
           prometheus:
+            additionalScrapeConfigs:
+              - job_name: "haproxy-metrics"
+                static_configs:
+                  - targets: ["100.97.97.24:8405", "100.88.101.69:8405"]
             ingress:
-              enabled: false
+              enabled: true
               ingressClassName: nginx
               annotations:
                 cert-manager.io/cluster-issuer: letsencrypt-prod

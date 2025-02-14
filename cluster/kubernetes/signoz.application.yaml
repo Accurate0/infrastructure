@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: signoz
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - CreateNamespace=true
+      - ServerSideApply=true
+  project: default
+  sources:
+    - chart: signoz
+      repoURL: https://charts.signoz.io
+      targetRevision: v0.70.0
+      helm:
+        valuesObject:
+          clickhouse:
+            tolerations:
+              - key: "group"
+                operator: "Equal"
+                value: "arm64perf"
+                effect: "NoSchedule"
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: kubernetes.io/hostname
+                          operator: In
+                          values:
+                            - ubuntu-arm-oracle
+          alertmanager:
+            enabled: false
+          frontend:
+            ingress:
+              className: nginx
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-prod
+              hosts:
+                - host: tracing.inf-k8s.net
+                  paths:
+                    - path: /
+                      pathType: ImplementationSpecific
+                      port: 3301
+              tls:
+                - secretName: tracing-inf-k8s-tls
+                  hosts:
+                    - tracing.inf-k8s.net
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tracing
+
+operation:
+  initiatedBy:
+    username: github-actions
+  sync:
+    syncStrategy:
+      hook: {}
