@@ -14,14 +14,10 @@ spec:
   sources:
     - chart: kube-prometheus-stack
       repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 66.1.1
+      targetRevision: 69.2.4
       helm:
         valuesObject:
           prometheus:
-            additionalScrapeConfigs:
-              - job_name: "haproxy-metrics"
-                static_configs:
-                  - targets: ["100.97.97.24:8405", "100.88.101.69:8405"]
             ingress:
               enabled: true
               ingressClassName: nginx
@@ -34,6 +30,14 @@ spec:
                   hosts:
                     - prometheus.inf-k8s.net
             prometheusSpec:
+              additionalScrapeConfigs:
+                - job_name: "haproxy-metrics"
+                  static_configs:
+                    - targets:
+                        - "100.97.97.24:8405"
+                        - "100.88.101.69:8405"
+                  tls_config:
+                    insecure_skip_verify: true
               podMonitorSelectorNilUsesHelmValues: false
               probeSelectorNilUsesHelmValues: false
               ruleSelectorNilUsesHelmValues: false
