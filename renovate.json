@@ -9,6 +9,12 @@
             "matchFileNames": ["oracle/**"],
             "matchPackageNames": ["cloudflare/cloudflare"],
             "enabled": false
+        },
+        {
+            "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+            "matchCurrentVersion": "!/^0/",
+            "automergeType": "pr",
+            "automerge": true
         }
     ]
 }
