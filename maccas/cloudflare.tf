@@ -47,7 +47,7 @@ resource "cloudflare_dns_record" "aws-wild" {
   zone_id = var.cloudflare_zone_id_maccas_one
   name    = "@"
   data = {
-    flags = "0"
+    flags = 0
     tag   = "issuewild"
     value = "awstrust.com"
   }
@@ -60,7 +60,7 @@ resource "cloudflare_dns_record" "aws-api-issue" {
   zone_id = var.cloudflare_zone_id_maccas_one
   name    = "api"
   data = {
-    flags = "0"
+    flags = 0
     tag   = "issue"
     value = "awstrust.com"
   }
