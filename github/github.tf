@@ -9,6 +9,7 @@ locals {
     "infrastructure",
     "ingress-home",
     "anurag.sh",
+    "pg-db-controller",
   ])
 }
 
