@@ -1,6 +1,7 @@
 - name: Setup proxy servers
   hosts: proxy
   become: true
+  serial: 1
   become_user: janitor
 
   roles:

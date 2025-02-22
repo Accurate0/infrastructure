@@ -1,6 +1,7 @@
 - name: Setup K3S control
   hosts: control
   become: true
+  serial: 1
   become_user: janitor
 
   roles:
