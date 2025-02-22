@@ -71,7 +71,7 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Proxy playbook"
-          ansible-playbook -i inventory.yaml playbooks/control.yaml
+          ansible-playbook -i inventory.yaml playbooks/proxy.yaml
           echo "::endgroup::"
 
   provision:
