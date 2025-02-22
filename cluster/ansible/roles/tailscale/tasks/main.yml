@@ -5,16 +5,9 @@
   block:
     - name: Copy and Execute the script
       ansible.builtin.shell: curl -fsSL https://tailscale.com/install.sh | sh
+      when: tailscale_install
       tags:
         - skip_ansible_lint
-
-    - name: Get Service Status
-      ansible.builtin.command:
-        cmd: "tailscale status"
-      tags:
-        - skip_ansible_lint
-      register: tailscale_service_status
-      ignore_errors: true
 
     - name: Join network
       ansible.builtin.command: tailscale up --auth-key='{{ tailscale_auth_key }}' {{ tailscale_extra_args }}

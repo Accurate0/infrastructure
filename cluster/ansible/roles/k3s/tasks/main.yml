@@ -3,9 +3,12 @@
 # tasks file for k3s-control
 - name: Install k3s
   block:
-    - name: Ensure valid selection
+    - name: Ensure valid vars
       ansible.builtin.assert:
-        that: "k3s_role == 'agent' or k3s_role == 'server'"
+        that:
+          - "tailscale_auth_key != ''"
+          - "k3s_role == 'agent' or k3s_role == 'server'"
+          - "k3s_cluster_token != ''"
 
     - name: Get Service Status
       ansible.builtin.command: "tailscale ip -4"
@@ -19,6 +22,9 @@
         dest: /etc/rancher/k3s/config.yaml
         owner: root
         mode: "0644"
+      become: true
+      become_method: sudo
+      become_user: root
 
     - name: Copy and Execute the script
       ansible.builtin.shell:
