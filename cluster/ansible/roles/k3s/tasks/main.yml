@@ -3,6 +3,10 @@
 # tasks file for k3s-control
 - name: Install k3s
   block:
+    - assert:
+        that:
+          - k3s_role != "agent" or k3s_role != "server"
+
     - name: Get Service Status
       ansible.builtin.command: "tailscale ip -4"
       register: tailscale_ip
@@ -11,14 +15,14 @@
 
     - name: Template and copy config
       ansible.builtin.template:
-        src: k3s-config.yaml
+        src: k3s-{{ k3s_role }}.yaml
         dest: /etc/rancher/k3s/config.yaml
         owner: root
         mode: "0644"
 
     - name: Copy and Execute the script
       ansible.builtin.shell:
-        cmd: curl -sfL https://get.k3s.io | sh -s - server
+        cmd: curl -sfL https://get.k3s.io | sh -s - {{ k3s_role }}
       tags:
         - skip_ansible_lint
       notify: Restart K3S

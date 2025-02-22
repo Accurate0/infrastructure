@@ -1,0 +1,72 @@
+- name: Base
+  hosts: all
+  become: true
+  become_user: janitor
+
+  roles:
+    - role: user-management
+      become: true
+      become_method: sudo
+      become_user: root
+    - role: required-packages
+    - role: ssh-config
+    - role: ip-forward
+
+- name: Setup K3S agents
+  hosts: agent
+  become: true
+  become_user: janitor
+
+  roles:
+    - role: fix-multipathd
+    - role: tailscale
+      vars:
+        tailscale_join_network: false
+    - role: k3s
+      vars:
+        k3s_role: agent
+        k3s_control_ip: https://100.66.108.81:6443
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+        k3s_cluster_token: "{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}"
+
+- name: Setup K3S control
+  hosts: control
+  become: true
+  serial: 1
+  become_user: janitor
+
+  roles:
+    - role: fix-multipathd
+    - role: tailscale
+      vars:
+        tailscale_join_network: false
+    - role: k3s
+      vars:
+        k3s_role: server
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+        k3s_cluster_token: "{{ lookup('ansible.builtin.env', 'K3S_CLUSTER_TOKEN') }}"
+
+- name: Setup proxy servers
+  hosts: proxy
+  become: true
+  serial: 1
+  become_user: janitor
+
+  roles:
+    - role: tailscale
+      vars:
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+    - role: proxy
+
+- name: Setup uptime monitor
+  hosts: uptime
+  become: true
+  become_user: janitor
+
+  roles:
+    - role: tailscale
+      vars:
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+        tailscale_extra_args: "--advertise-exit-node"
+    - role: docker
+    - role: uptime-kuma

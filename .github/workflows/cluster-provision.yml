@@ -62,21 +62,7 @@ jobs:
           ansible all -m ping -i inventory.yaml
           echo "::endgroup::"
 
-          echo "::group::Agent playbook"
-          ansible-playbook -i inventory.yaml playbooks/agent.yaml
-          echo "::endgroup::"
-
-          echo "::group::Control playbook"
-          ansible-playbook -i inventory.yaml playbooks/control.yaml
-          echo "::endgroup::"
-
-          echo "::group::Proxy playbook"
-          ansible-playbook -i inventory.yaml playbooks/proxy.yaml
-          echo "::endgroup::"
-
-          echo "::group::Uptime playbook"
-          ansible-playbook -i inventory.yaml playbooks/uptime.yaml
-          echo "::endgroup::"
+          ansible-playbook -i inventory.yaml playbooks/cluster.yaml
 
   provision:
     name: provision applications
