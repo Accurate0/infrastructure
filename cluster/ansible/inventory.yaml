@@ -3,6 +3,7 @@ all:
     optiplex: {}
     agent: {}
     proxy: {}
+    uptime: {}
 
 uptime:
   hosts:
