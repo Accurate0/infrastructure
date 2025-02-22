@@ -1,4 +1,4 @@
-name: Provison Cluster
+name: Provision Cluster
 on:
   push:
     branches: [main]
