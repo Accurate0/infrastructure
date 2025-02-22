@@ -28,10 +28,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Get output from terraform
-        run: |
-          echo '${{ needs.terraform.outputs.json }}' | jq .inventory.value | yq  >> cluster/inventory.yaml
-
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
