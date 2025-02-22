@@ -37,7 +37,6 @@
         mode: "0644"
         validate: "haproxy -f %s -c"
       notify:
-        - Validate haproxy config
         - Reload Haproxy
 
     - name: Copy nginx config
@@ -48,5 +47,4 @@
         mode: "0644"
         validate: "nginx -t -c %s"
       notify:
-        - Validate nginx config
         - Reload Nginx
