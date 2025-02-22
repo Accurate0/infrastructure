@@ -3,9 +3,9 @@
 # tasks file for k3s-control
 - name: Install k3s
   block:
-    - assert:
-        that:
-          - k3s_role != "agent" or k3s_role != "server"
+    - name: Ensure valid selection
+      ansible.builtin.assert:
+        that: "k3s_role == 'agent' or k3s_role == 'server'"
 
     - name: Get Service Status
       ansible.builtin.command: "tailscale ip -4"
