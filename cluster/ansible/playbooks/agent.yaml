@@ -14,10 +14,7 @@
     - role: fix-multipathd
     - role: tailscale
       vars:
-        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
-      ignore_errors: true
-      # this only needs to run on the first time, k3s will reconfigure tailscale
-      when: 0 > 1
+        tailscale_join_network: false
     - role: ip-forward
     - role: k3s-agent
       vars:

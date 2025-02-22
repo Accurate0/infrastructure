@@ -2,3 +2,4 @@
 ---
 # defaults file for tailscale
 tailscale_extra_args: ""
+tailscale_join_network: true

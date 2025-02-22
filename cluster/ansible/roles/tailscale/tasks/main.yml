@@ -18,6 +18,7 @@
 
     - name: Join network
       ansible.builtin.command: tailscale up --auth-key='{{ tailscale_auth_key }}' {{ tailscale_extra_args }}
+      when: tailscale_join_network
       become: true
       become_user: root
       become_method: sudo
