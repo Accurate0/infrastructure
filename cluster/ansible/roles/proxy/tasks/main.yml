@@ -2,6 +2,9 @@
 ---
 # tasks file for proxy
 - name: Setup Proxy
+  become: true
+  become_user: root
+  become_method: sudo
   block:
     - name: Install Packages
       ansible.builtin.apt:

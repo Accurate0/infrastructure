@@ -2,26 +2,49 @@
 ---
 # handlers file for proxy
 - name: Start HAProxy
+  become: true
+  become_method: sudo
+  become_user: root
   ansible.builtin.systemd_service:
     name: "haproxy"
     state: "started"
     enabled: true
 
 - name: Restart Nginx
+  become: true
+  become_method: sudo
+  become_user: root
   ansible.builtin.systemd_service:
     name: "nginx"
     state: "started"
     enabled: true
 
 - name: Validate haproxy config
+  become: true
+  become_method: sudo
+  become_user: root
   ansible.builtin.command: "haproxy -f /etc/haproxy/haproxy.cfg -c"
   changed_when: false
 
 - name: Validate nginx config
+  become: true
+  become_method: sudo
+  become_user: root
   ansible.builtin.command: "nginx -t -c /etc/nginx/nginx.conf"
   changed_when: false
 
 - name: Reload Nginx
+  become: true
+  become_method: sudo
+  become_user: root
   ansible.builtin.systemd_service:
     name: "nginx"
+    state: "reloaded"
+
+- name: Reload Haproxy
+  become: true
+  become_method: sudo
+  become_user: root
+  ansible.builtin.systemd_service:
+    name: "haproxy"
     state: "reloaded"
