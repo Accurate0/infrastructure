@@ -4,6 +4,12 @@ all:
     agent: {}
     proxy: {}
 
+uptime:
+  hosts:
+    perth-uptime:
+      ansible_host: uptime.host.inf-k8s.net
+      ansible_user: root
+
 control:
   hosts:
     k8s-control-1:

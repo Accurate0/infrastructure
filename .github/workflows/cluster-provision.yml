@@ -74,6 +74,10 @@ jobs:
           ansible-playbook -i inventory.yaml playbooks/proxy.yaml
           echo "::endgroup::"
 
+          echo "::group::Uptime playbook"
+          ansible-playbook -i inventory.yaml playbooks/uptime.yaml
+          echo "::endgroup::"
+
   provision:
     name: provision applications
     needs: playbooks

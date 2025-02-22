@@ -19,6 +19,7 @@
     - name: Add janitor user
       ansible.builtin.user:
         name: janitor
+        shell: /bin/bash
         group: "ansible-automation"
         groups: []
         append: true

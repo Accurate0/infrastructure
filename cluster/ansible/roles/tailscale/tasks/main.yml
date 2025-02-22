@@ -17,7 +17,7 @@
       ignore_errors: true
 
     - name: Join network
-      ansible.builtin.command: tailscale up --auth-key="{{ tailscale_auth_key }}"
+      ansible.builtin.command: tailscale up --auth-key='{{ tailscale_auth_key }}' {{ tailscale_extra_args }}
       become: true
       become_user: root
       become_method: sudo

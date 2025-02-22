@@ -1,0 +1,19 @@
+- name: Setup uptime monitor
+  hosts: uptime
+  become: true
+  become_user: janitor
+
+  roles:
+    - role: user-management
+      become: true
+      become_method: sudo
+      become_user: root
+
+    - role: required-packages
+    - role: ssh-config
+    - role: tailscale
+      vars:
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+        tailscale_extra_args: "--advertise-exit-node"
+    - role: docker
+    - role: uptime-kuma

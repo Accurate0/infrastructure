@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MIT-0
+---
+# tasks file for uptime-kuma
+- name: Run uptime-kuma on docker
+  become: true
+  become_method: sudo
+  become_user: root
+  block:
+    - name: Copy docker-compose.yaml
+      ansible.builtin.copy:
+        src: docker-compose.yaml
+        dest: /root/deployment/docker-compose.yaml
+        owner: root
+        mode: "0644"
+      notify: Run uptime-kuma
