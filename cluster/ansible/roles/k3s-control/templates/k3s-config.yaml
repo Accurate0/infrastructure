@@ -1,0 +1,11 @@
+vpn-auth: "name=tailscale,joinKey={{ tailscale_auth_key }},extraArgs=--advertise-exit-node"
+disable:
+  - traefik
+node-external-ip: "{{ tailscale_ip.stdout }}"
+node-ip: "{{ tailscale_ip.stdout }}"
+server: https://100.70.180.118:6443
+tls-san:
+  - "100.97.97.24"
+  - "internal.anurag.sh"
+etcd-expose-metrics: true
+token: "{{ k3s_cluster_token }}"

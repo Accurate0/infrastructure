@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT-0
+---
+# tasks file for tailscale
+- name: Tailscale
+  block:
+    - name: Copy and Execute the script
+      ansible.builtin.shell: curl -fsSL https://tailscale.com/install.sh | sh
+      tags:
+        - skip_ansible_lint
+
+    - name: Get Service Status
+      ansible.builtin.command:
+        cmd: "tailscale status"
+      tags:
+        - skip_ansible_lint
+      register: tailscale_service_status
+      ignore_errors: true
+
+    - name: Join network
+      ansible.builtin.command: tailscale up --auth-key="{{ tailscale_auth_key }}"
+      become: true
+      become_user: root
+      become_method: sudo
+      tags:
+        - skip_ansible_lint
+      notify: Confirm Tailscale is Connected

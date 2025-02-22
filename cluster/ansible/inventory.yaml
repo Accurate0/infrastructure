@@ -1,0 +1,35 @@
+all:
+  children:
+    optiplex: {}
+    agent: {}
+    proxy: {}
+
+control:
+  hosts:
+    k8s-control-1:
+      ansible_host: k8s-control-1.host.inf-k8s.net
+      ansible_user: root
+    k8s-optiplex-1:
+      ansible_host: k8s-optiplex-1.host.inf-k8s.net
+      ansible_user: janitor
+    k8s-optiplex-2:
+      ansible_host: k8s-optiplex-2.host.inf-k8s.net
+      ansible_user: janitor
+
+proxy:
+  hosts:
+    k8s-proxy-1:
+      ansible_host: k8s-proxy-1.host.inf-k8s.net
+      ansible_user: root
+    k8s-proxy-2:
+      ansible_host: k8s-proxy-2.host.inf-k8s.net
+      ansible_user: root
+
+agent:
+  hosts:
+    k8s-optiplex-3:
+      ansible_host: k8s-optiplex-3.host.inf-k8s.net
+      ansible_user: janitor
+    oracle:
+      ansible_host: oracle.host.inf-k8s.net
+      ansible_user: ubuntu

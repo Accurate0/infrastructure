@@ -14,6 +14,11 @@ terraform {
       source  = "hashicorp/tls"
       version = "~>4"
     }
+
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = ">= 4"
+    }
   }
 
   backend "s3" {

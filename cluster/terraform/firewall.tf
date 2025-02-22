@@ -77,14 +77,6 @@ resource "binarylane_server_firewall_rules" "kubernetes-proxy-firewall" {
       action                = "accept"
     },
     {
-      description           = "allow minecraft"
-      protocol              = "all"
-      source_addresses      = ["0.0.0.0/0"]
-      destination_addresses = ["0.0.0.0/0"]
-      destination_ports     = ["25565"]
-      action                = "accept"
-    },
-    {
       description           = "allow ssh"
       protocol              = "all"
       source_addresses      = ["0.0.0.0/0"]

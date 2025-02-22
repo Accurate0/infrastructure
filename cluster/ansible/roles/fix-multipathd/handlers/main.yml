@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for fix-multipathd
+- name: Restart multipathd
+  ansible.builtin.systemd_service:
+    name: "multipathd"
+    state: "restarted"

@@ -44,44 +44,38 @@ jobs:
           sudo add-apt-repository --yes --update ppa:ansible/ansible
           sudo apt install ansible
 
+      - name: Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          version: 1.76.6
+
       - name: Run playbooks
         env:
           K3S_CLUSTER_TOKEN: ${{ secrets.K3S_CLUSTER_TOKEN }}
           TAILSCALE_K8S_AUTH_KEY: ${{ secrets.TAILSCALE_K8S_AUTH_KEY }}
           K3S_URL: ${{ secrets.K3S_URL }}
         run: |
-          cd cluster
+          cd cluster/ansible
 
           export ANSIBLE_HOST_KEY_CHECKING=False
 
-          echo "::group::Check connectivity"
-          ansible all -m ping -i inventory.yaml -u root
-          ansible all -m ping -i inventory-oracle.yaml
+          echo "::group::Check connect"
+          ansible all -m ping -i inventory.yaml
           echo "::endgroup::"
 
-          echo "::group::Disable password authentication"
-          ansible-playbook -i inventory.yaml playbooks/disable_password_authentication.yaml
+          echo "::group::Agent playbook"
+          ansible-playbook -i inventory.yaml playbooks/agent.yaml
           echo "::endgroup::"
 
-          echo "::group::Install tailscale"
-          ansible-playbook -i inventory.yaml playbooks/install_tailscale.yaml
+          echo "::group::Control playbook"
+          ansible-playbook -i inventory.yaml playbooks/control.yaml
           echo "::endgroup::"
 
-          echo "::group::Join tailscale network"
-          ansible-playbook -i inventory.yaml playbooks/join_tailscale_network.yaml
-          echo "::endgroup::"
-
-          echo "::group::Install k3s on control"
-          ansible-playbook -i inventory.yaml playbooks/install_k3s_control.yaml
-          echo "::endgroup::"
-
-          echo "::group::Install k3s on agents"
-          ansible-playbook -i inventory.yaml playbooks/install_k3s_agent.yaml
-          ansible-playbook -i inventory-oracle.yaml playbooks/install_k3s_agent.yaml
-          echo "::endgroup::"
-
-          echo "::group::Setup proxy"
-          ansible-playbook -i inventory.yaml playbooks/setup_proxy.yaml
+          echo "::group::Proxy playbook"
+          ansible-playbook -i inventory.yaml playbooks/control.yaml
           echo "::endgroup::"
 
   provision:
