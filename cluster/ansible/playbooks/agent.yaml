@@ -18,6 +18,7 @@
       ignore_errors: true
       # this only needs to run on the first time, k3s will reconfigure tailscale
       when: 0 > 1
+    - role: ip-forward
     - role: k3s-agent
       vars:
         k3s_control_ip: https://100.66.108.81:6443

@@ -5,18 +5,10 @@ resource "binarylane_server_firewall_rules" "perth-uptime" {
     {
       description           = "SSH"
       protocol              = "all"
-      source_addresses      = [module.home-ip.secret_value]
-      destination_addresses = binarylane_server.perth-uptime.public_ipv4_addresses
-      destination_ports     = ["22"]
-      action                = "accept"
-    },
-    {
-      description           = "SSH Block"
-      protocol              = "all"
       source_addresses      = ["0.0.0.0/0"]
       destination_addresses = binarylane_server.perth-uptime.public_ipv4_addresses
       destination_ports     = ["22"]
-      action                = "drop"
+      action                = "accept"
     },
     {
       description           = "HTTP/S"
