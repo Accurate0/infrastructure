@@ -1,4 +1,4 @@
-vpn-auth: "name=tailscale,joinKey={{ tailscale_auth_key }}"
+vpn-auth: "name=tailscale,joinKey={{ k3s_tailscale_auth_key }}"
 node-external-ip: "{{ tailscale_ip.stdout }}"
 node-ip: "{{ tailscale_ip.stdout }}"
 server: "{{ k3s_control_ip }}"

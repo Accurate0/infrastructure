@@ -1,4 +1,4 @@
-vpn-auth: "name=tailscale,joinKey={{ tailscale_auth_key }},extraArgs=--advertise-exit-node"
+vpn-auth: "name=tailscale,joinKey={{ k3s_tailscale_auth_key }},extraArgs=--advertise-exit-node"
 disable:
   - traefik
 node-external-ip: "{{ tailscale_ip.stdout }}"
