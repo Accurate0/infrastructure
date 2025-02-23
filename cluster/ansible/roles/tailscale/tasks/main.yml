@@ -2,16 +2,57 @@
 ---
 # tasks file for tailscale
 - name: Tailscale
+  become: true
+  become_method: sudo
+  become_user: root
   block:
-    - name: Copy and Execute the script
-      ansible.builtin.shell: curl -fsSL https://tailscale.com/install.sh | sh
-      when: tailscale_install
-      tags:
-        - skip_ansible_lint
+    - name: Ensure directory exists for /etc/apt/keyrings
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Get release name
+      ansible.builtin.shell:
+        cmd: source /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}"
+        executable: "/bin/bash"
+      register: release_name
+      changed_when: false
+
+    - name: Add Tailscale apt key
+      ansible.builtin.get_url:
+        url: "https://pkgs.tailscale.com/stable/ubuntu/{{ release_name.stdout }}.noarmor.gpg"
+        dest: /etc/apt/keyrings/tailscale-archive-keyring.gpg
+        mode: "0644"
+        force: false
+
+    - name: Add Tailscale sources
+      ansible.builtin.get_url:
+        url: "https://pkgs.tailscale.com/stable/ubuntu/{{ release_name.stdout }}.tailscale-keyring.list"
+        dest: /etc/apt/sources.list.d/tailscale.list
+        mode: "0644"
+        force: false
+
+    - name: Install Docker packages
+      ansible.builtin.package:
+        name:
+          - tailscale
+        state: "present"
+      notify:
+        - enable tailscaled
+
+    - name: Fetch Tailscale status
+      ansible.builtin.command: tailscale status --json
+      changed_when: false
+      register: tailscale_status
+
+    - name: Parse tailscale status JSON
+      ansible.builtin.set_fact:
+        tailscale_is_online: "{{ (tailscale_status.stdout | from_json).Self.Online }}"
 
     - name: Join network
       ansible.builtin.command: tailscale up --auth-key='{{ tailscale_auth_key }}' {{ tailscale_extra_args }}
-      when: tailscale_join_network
+      when: tailscale_join_network and not tailscale_is_online
       become: true
       become_user: root
       become_method: sudo

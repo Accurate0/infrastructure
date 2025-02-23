@@ -21,10 +21,15 @@
     - agent
     - control
   become: true
-  serial: 2
+  serial: 1
   become_user: janitor
 
   roles:
+    - role: firewall
+      vars:
+        firewall_allow_http: false
+        firewall_binarylane_k8s_vpc: 'not "optiplex" in inventory_hostname'
+        firewall_allow_local_lan: '"optiplex" in inventory_hostname'
     - role: fix-multipathd
     - role: k3s
       vars:
@@ -40,6 +45,7 @@
   become_user: janitor
 
   roles:
+    - role: firewall
     - role: tailscale
       vars:
         tailscale_install: false
@@ -52,6 +58,7 @@
   become_user: janitor
 
   roles:
+    - role: firewall
     - role: tailscale
       vars:
         tailscale_install: false

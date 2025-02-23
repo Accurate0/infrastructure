@@ -1,0 +1,9 @@
+- name: Allow from K8S VPC for Binarylane
+  community.general.ufw:
+    rule: "{{ 'allow' if firewall_binarylane_k8s_vpc == true else 'deny' }}"
+    from: 10.242.0.0/16
+
+- name: Allow to K8S VPC for Binarylane
+  community.general.ufw:
+    rule: "{{ 'allow' if firewall_binarylane_k8s_vpc == true else 'deny' }}"
+    to: 10.242.0.0/16

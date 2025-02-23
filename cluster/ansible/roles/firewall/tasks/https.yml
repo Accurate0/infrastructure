@@ -1,0 +1,11 @@
+- name: Allow HTTP
+  community.general.ufw:
+    rule: "{{ 'allow' if firewall_allow_http == true else 'deny' }}"
+    port: http
+    direction: in
+
+- name: Allow HTTPS
+  community.general.ufw:
+    rule: "{{ 'allow' if firewall_allow_http == true else 'deny' }}"
+    port: https
+    direction: in

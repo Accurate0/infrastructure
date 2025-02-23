@@ -1,0 +1,11 @@
+- name: Allow all in cni0
+  community.general.ufw:
+    rule: allow
+    interface: cni0
+    direction: in
+
+- name: Allow all out cni0
+  community.general.ufw:
+    rule: allow
+    interface: cni0
+    direction: out

@@ -22,3 +22,12 @@
   ansible.builtin.assert:
     that:
       - tailscale_is_online
+
+- name: Enable tailscaled
+  ansible.builtin.service:
+    name: tailscaled
+    state: "started"
+    enabled: true
+  become: true
+  become_method: sudo
+  become_user: root

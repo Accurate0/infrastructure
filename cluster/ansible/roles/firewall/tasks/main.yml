@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: MIT-0
+---
+# tasks file for firewall
+- name: Setup UFW
+  become: true
+  become_user: root
+  block:
+    - name: Install ufw
+      ansible.builtin.apt:
+        package:
+          - ufw
+
+    - name: Deny everything and enable UFW
+      community.general.ufw:
+        state: enabled
+        policy: deny
+        logging: low
+
+    - name: Ratelimit SSH
+      community.general.ufw:
+        rule: limit
+        port: ssh
+        proto: tcp
+
+    - name: Tailscale
+      ansible.builtin.include_tasks:
+        file: tailscale.yml
+
+    - name: Binarylane vpc
+      ansible.builtin.include_tasks:
+        file: binarylane_vpc.yml
+
+    - name: CNI
+      ansible.builtin.include_tasks:
+        file: cni.yml
+
+    - name: Allow LAN for optiplex
+      community.general.ufw:
+        rule: allow
+        from: 192.168.1.0/24
+      when: firewall_allow_local_lan
+
+    - name: Allow all outgoing
+      community.general.ufw:
+        rule: allow
+        direction: out
+
+    - name: Allow HTTPS
+      ansible.builtin.include_tasks:
+        file: https.yml
+
+    - name: Reload ufw
+      community.general.ufw:
+        state: reloaded
