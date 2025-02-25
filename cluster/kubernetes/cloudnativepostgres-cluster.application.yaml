@@ -51,16 +51,17 @@ spec:
               podAntiAffinityType: preferred
               topologyKey: kubernetes.io/hostname
               enablePodAntiAffinity: true
-              # nodeAffinity:
-              #   requiredDuringSchedulingIgnoredDuringExecution:
-              #     nodeSelectorTerms:
-              #       - matchExpressions:
-              #           - key: kubernetes.io/hostname
-              #             operator: In
-              #             values:
-              #               - k8s-optiplex-1
-              #               - k8s-optiplex-2
-              #               - k8s-optiplex-3
+              # comment me
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: kubernetes.io/hostname
+                          operator: In
+                          values:
+                            - k8s-optiplex-1
+                            - k8s-optiplex-2
+                            - k8s-optiplex-3
             storage:
               size: "30Gi"
             postgresql:
