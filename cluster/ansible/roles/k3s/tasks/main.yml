@@ -16,6 +16,18 @@
       tags:
         - skip_ansible_lint
 
+    - name: Copy and Execute the script
+      ansible.builtin.shell:
+        cmd: curl -sfL https://get.k3s.io | sh -s - {{ k3s_role }}
+      tags:
+        - skip_ansible_lint
+      ignore_errors: true
+
+    - name: Ensure /etc/rancher/k3s dir exists
+      file:
+        path: "/etc/rancher/k3s"
+        state: directory
+
     - name: Template and copy config
       ansible.builtin.template:
         src: k3s-{{ k3s_role }}.yaml
@@ -25,10 +37,4 @@
       become: true
       become_method: sudo
       become_user: root
-
-    - name: Copy and Execute the script
-      ansible.builtin.shell:
-        cmd: curl -sfL https://get.k3s.io | sh -s - {{ k3s_role }}
-      tags:
-        - skip_ansible_lint
       notify: Restart K3S

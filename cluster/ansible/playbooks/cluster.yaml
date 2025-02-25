@@ -1,7 +1,7 @@
 - name: Base
   hosts: all
   become: true
-  become_user: janitor
+  # become_user: janitor
 
   roles:
     - role: user-management
@@ -21,15 +21,21 @@
     - agent
     - control
   become: true
-  serial: 1
-  become_user: janitor
+  # serial: 1
+  # become_user: janitor
 
   roles:
+    - role: tailscale
+      vars:
+        tailscale_install: false
+        tailscale_join_network: true
+        tailscale_auth_key: "{{ lookup('ansible.builtin.env', 'TAILSCALE_K8S_AUTH_KEY') }}"
+      when: 0 > 1
     - role: firewall
       vars:
         firewall_allow_http: false
-        firewall_binarylane_k8s_vpc: 'not "optiplex" in inventory_hostname'
-        firewall_allow_local_lan: '"optiplex" in inventory_hostname'
+        firewall_binarylane_k8s_vpc: true
+        firewall_allow_local_lan: true
     - role: fix-multipathd
     - role: k3s
       vars:

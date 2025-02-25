@@ -22,7 +22,7 @@
     - name: Add Tailscale apt key
       ansible.builtin.get_url:
         url: "https://pkgs.tailscale.com/stable/ubuntu/{{ release_name.stdout }}.noarmor.gpg"
-        dest: /etc/apt/keyrings/tailscale-archive-keyring.gpg
+        dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
         mode: "0644"
         force: false
 
@@ -33,13 +33,14 @@
         mode: "0644"
         force: false
 
-    - name: Install Docker packages
+    - name: Install tailscale package
       ansible.builtin.package:
+        update_cache: true
         name:
           - tailscale
         state: "present"
       notify:
-        - enable tailscaled
+        - Enable tailscaled
 
     - name: Fetch Tailscale status
       ansible.builtin.command: tailscale status --json

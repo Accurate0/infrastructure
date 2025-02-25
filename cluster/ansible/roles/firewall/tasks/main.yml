@@ -10,10 +10,10 @@
         package:
           - ufw
 
-    - name: Deny everything and enable UFW
+    - name: Enable UFW
       community.general.ufw:
         state: enabled
-        policy: deny
+        policy: allow
         logging: low
 
     - name: Ratelimit SSH
@@ -48,6 +48,10 @@
     - name: Allow HTTPS
       ansible.builtin.include_tasks:
         file: https.yml
+
+    - name: Deny all
+      community.general.ufw:
+        policy: deny
 
     - name: Reload ufw
       community.general.ufw:

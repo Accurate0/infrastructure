@@ -7,5 +7,4 @@
       ansible.builtin.apt:
         package:
           - nfs-common
-          - neovim
           - htop

@@ -40,3 +40,12 @@ agent:
     oracle:
       ansible_host: oracle.host.inf-k8s.net
       ansible_user: ubuntu
+    k8s-agent-1:
+      ansible_host: k8s-agent-1.host.inf-k8s.net
+      ansible_user: root
+    k8s-agent-2:
+      ansible_host: k8s-agent-2.host.inf-k8s.net
+      ansible_user: root
+    k8s-agent-3:
+      ansible_host: k8s-agent-3.host.inf-k8s.net
+      ansible_user: root

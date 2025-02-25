@@ -14,7 +14,7 @@ resource "binarylane_server" "control" {
 
 locals {
   control_count = 1
-  agent_count   = 0
+  agent_count   = 3
   proxy_count   = 2
 }
 
@@ -23,8 +23,8 @@ resource "binarylane_server" "agent" {
   image             = "ubuntu-24.04"
   name              = "k8s-agent-${count.index + 1}"
   region            = "per"
-  disk              = 20
-  size              = "std-min"
+  disk              = 100
+  size              = "std-4vcpu"
   port_blocking     = false
   public_ipv4_count = 1
   vpc_id            = binarylane_vpc.kubernetes-vpc.id
