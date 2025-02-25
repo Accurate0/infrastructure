@@ -21,7 +21,9 @@
         name: janitor
         shell: /bin/bash
         group: "ansible-automation"
-        groups: []
+        groups:
+          - adm
+          - systemd-journal
         append: true
 
     - name: Add ssh key
