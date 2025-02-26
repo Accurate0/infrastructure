@@ -24,8 +24,9 @@
       ignore_errors: true
 
     - name: Ensure /etc/rancher/k3s dir exists
-      file:
+      ansible.builtin.file:
         path: "/etc/rancher/k3s"
+        mode: "0744"
         state: directory
 
     - name: Template and copy config

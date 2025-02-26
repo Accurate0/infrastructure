@@ -6,6 +6,12 @@
   become_method: sudo
   become_user: root
   block:
+    - name: Ensure /root/deployment dir exists
+      ansible.builtin.file:
+        path: "/root/deployment"
+        mode: "0744"
+        state: directory
+
     - name: Copy docker-compose.yaml
       ansible.builtin.copy:
         src: docker-compose.yaml
