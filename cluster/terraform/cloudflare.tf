@@ -24,3 +24,13 @@ resource "cloudflare_dns_record" "proxy" {
   type    = "A"
   ttl     = 1
 }
+
+resource "cloudflare_dns_record" "external" {
+  count   = local.proxy_count
+  zone_id = "8d993ee38980642089a2ebad74531806"
+  name    = "external"
+  content = binarylane_server.proxy[count.index].public_ipv4_addresses[0]
+  proxied = false
+  type    = "A"
+  ttl     = 1
+}
