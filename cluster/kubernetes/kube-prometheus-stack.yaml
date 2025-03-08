@@ -79,6 +79,24 @@ spec:
               targetPort: 2381
           alertmanager:
             enabled: false
+            ingress:
+              enabled: true
+              ingressClassName: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-prod
+              hosts:
+                - alertmanager.inf-k8s.net
+              tls:
+                - secretName: alertmanager-inf-k8s-tls
+                  hosts:
+                    - alertmanager.inf-k8s.net
+          alertmanagerSpec:
+            alertmanagerConfigSelector:
+              matchExpressions:
+                - key: alertconfig
+                  operator: In
+                  values:
+                    - discord-config
           grafana:
             grafana.ini:
               server:
