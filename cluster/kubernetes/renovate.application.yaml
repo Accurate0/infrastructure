@@ -68,7 +68,7 @@ spec:
                     name: renovate-config-managed-secret
                     key: DOCKER_DOCKER_IO_USERNAME
                     optional: true
-            mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot,Accurate0/perth-transport-map,Accurate0/ingress-home,Accurate0/anurag.sh,Accurate0/pg-db-controller,Accurate0/sol"
+            mendRnvAutoDiscoverFilter: "Accurate0/spotify-sync,Accurate0/infrastructure,Accurate0/maccas-api,Accurate0/ozb,Accurate0/replybot,Accurate0/tldr-bot,Accurate0/perth-transport-map,Accurate0/ingress-home,Accurate0/anurag.sh,Accurate0/pg-db-controller"
             config: |
               module.exports = {
                 reviewers: ["Accurate0"],
