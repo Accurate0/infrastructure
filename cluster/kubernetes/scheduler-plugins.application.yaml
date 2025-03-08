@@ -20,7 +20,7 @@ spec:
           scheduler:
             image: registry.k8s.io/scheduler-plugins/kube-scheduler:v0.30.6
             leaderElect: true
-            replicaCount: 4
+            replicaCount: 5
             affinity:
               podAntiAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
