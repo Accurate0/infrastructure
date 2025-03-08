@@ -73,7 +73,9 @@ spec:
               module.exports = {
                 reviewers: ["Accurate0"],
                 extends: ["group:allNonMajor"],
+                timezone: "Australia/Perth",
                 lockFileMaintenance: { "enabled": false, "automerge": true },
+                schedule: ["* 0-3 * * 0,6"],
                 packageRules: [
                   {
                     "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
