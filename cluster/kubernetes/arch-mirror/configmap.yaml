@@ -13,6 +13,7 @@ data:
       alarm:
         urls:
           - http://mirror.archlinuxarm.org
+          - http://sg.mirror.archlinuxarm.org
       archlinux:
         urls:
           - https://sydney.mirror.pkgbuild.com
