@@ -25,9 +25,33 @@ spec:
             persistence:
               size: 5Gi
             replicaCount: 2
+            initContainers:
+              - name: repair-redis
+                image: docker.io/bitnami/redis:7.4.1-debian-12-r2
+                command:
+                  [
+                    "sh",
+                    "-c",
+                    "yes | redis-check-aof --fix /data/appendonlydir/*.aof",
+                  ]
+                volumeMounts:
+                  - mountPath: /data
+                    name: redis-data
           master:
             persistence:
               size: 5Gi
+            initContainers:
+              - name: repair-redis
+                image: docker.io/bitnami/redis:7.4.1-debian-12-r2
+                command:
+                  [
+                    "sh",
+                    "-c",
+                    "yes | redis-check-aof --fix /data/appendonlydir/*.aof",
+                  ]
+                volumeMounts:
+                  - mountPath: /data
+                    name: redis-data
           auth:
             existingSecret: redis
             existingSecretPasswordKey: redis-password
