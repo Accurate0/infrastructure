@@ -14,7 +14,7 @@ spec:
   sources:
     - chart: flipt
       repoURL: https://helm.flipt.io
-      targetRevision: 0.80.1
+      targetRevision: 0.80.2
       helm:
         valuesObject:
           ingress:
