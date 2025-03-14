@@ -72,7 +72,7 @@ spec:
             config: |
               module.exports = {
                 reviewers: ["Accurate0"],
-                extends: ["group:allNonMajor", "automergeMinor", "automergePatch"],
+                extends: ["group:allNonMajor", ":automergeMinor", ":automergePatch"],
                 timezone: "Australia/Perth",
                 lockFileMaintenance: { "enabled": false, "automerge": true },
                 schedule: ["* 0-3 * * 0,6"],
