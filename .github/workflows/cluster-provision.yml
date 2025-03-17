@@ -92,3 +92,4 @@ jobs:
           kubectl apply -f cluster/kubernetes
           kubectl apply -f cluster/kubernetes/misc
           kubectl apply -f cluster/kubernetes/gatekeeper-rules
+          kubectl apply -f cluster/kubernetes/minio-buckets

@@ -28,6 +28,8 @@
         dest: /etc/haproxy/allowed-domains.txt
         owner: root
         mode: "0644"
+      notify:
+        - Reload Haproxy
 
     - name: Template and copy haproxy config
       ansible.builtin.template:

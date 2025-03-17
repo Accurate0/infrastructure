@@ -8,6 +8,8 @@ dashboard.maccas.one
 graphql.maccas.one
 event.maccas.one
 batch.maccas.one
+images.maccas.one
 arch-mirror.anurag.sh
 anurag.sh
 anurag.id.au
+s3.inf-k8s.net

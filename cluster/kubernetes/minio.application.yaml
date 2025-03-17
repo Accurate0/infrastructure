@@ -29,10 +29,14 @@ spec:
               cert-manager.io/cluster-issuer: letsencrypt-prod
             hosts:
               - minio.inf-k8s.net
+              - s3.inf-k8s.net
+              - "*.s3.inf-k8s.net"
             tls:
               - secretName: minio-inf-k8s
                 hosts:
                   - minio.inf-k8s.net
+                  - s3.inf-k8s.net
+                  - "*.s3.inf-k8s.net"
           consoleIngress:
             enabled: true
             ingressClassName: nginx
@@ -45,10 +49,7 @@ spec:
               - secretName: console-minio-inf-k8s
                 hosts:
                   - console.minio.inf-k8s.net
-          users:
-            - accessKey: anurag
-              secretKey: thispasswordhasbeenchangedlol
-              policy: consoleAdmin
+          users: []
           resources:
             requests:
               memory: 200Mi
