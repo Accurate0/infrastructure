@@ -53,6 +53,12 @@ spec:
           resources:
             requests:
               memory: 200Mi
+          metrics:
+            serviceMonitor:
+              enabled: true
+              includeNode: true
+              interval: 30s
+              scrapeTimeout: 10s
 
   destination:
     server: https://kubernetes.default.svc
