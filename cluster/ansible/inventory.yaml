@@ -22,9 +22,6 @@ control:
     k8s-optiplex-1:
       ansible_host: k8s-optiplex-1.host.inf-k8s.net
       ansible_user: janitor
-    k8s-optiplex-2:
-      ansible_host: k8s-optiplex-2.host.inf-k8s.net
-      ansible_user: janitor
 
 proxy:
   hosts:
@@ -37,6 +34,9 @@ proxy:
 
 agent:
   hosts:
+    k8s-optiplex-2:
+      ansible_host: k8s-optiplex-2.host.inf-k8s.net
+      ansible_user: janitor
     k8s-optiplex-3:
       ansible_host: k8s-optiplex-3.host.inf-k8s.net
       ansible_user: janitor
