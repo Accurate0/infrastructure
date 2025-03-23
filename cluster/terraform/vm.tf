@@ -14,7 +14,7 @@ resource "binarylane_server" "control" {
 
 locals {
   control_count = 1
-  agent_count   = 0
+  agent_count   = 1
   proxy_count   = 2
 }
 
