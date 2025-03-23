@@ -40,6 +40,15 @@ spec:
             data:
               encryption: null
             retentionPolicy: "7d"
+            scheduledBackups:
+              - name: daily-backup
+                schedule: "0 0 0 * * *"
+                backupOwnerReference: self
+                method: barmanObjectStore
+              - name: hourly-backup
+                schedule: "0 * * * *"
+                backupOwnerReference: self
+                method: barmanObjectStore
           cluster:
             monitoring:
               enabled: true
