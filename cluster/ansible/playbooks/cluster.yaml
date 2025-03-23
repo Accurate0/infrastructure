@@ -70,7 +70,7 @@
             is_api_server: true
           - name: k8s-optiplex-2
             ip: 100.89.112.112
-            is_api_server: true
+            is_api_server: false
           - name: k8s-optiplex-3
             ip: 100.115.217.79
             is_api_server: false

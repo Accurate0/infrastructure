@@ -46,7 +46,7 @@ spec:
                 backupOwnerReference: self
                 method: barmanObjectStore
               - name: hourly-backup
-                schedule: "0 * * * *"
+                schedule: "0 0 * * *"
                 backupOwnerReference: self
                 method: barmanObjectStore
           cluster:
