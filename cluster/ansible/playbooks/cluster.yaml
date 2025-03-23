@@ -56,6 +56,9 @@
     - role: proxy
       vars:
         proxy_backends:
+          - name: k8s-agent-1
+            ip: 100.93.234.1
+            is_api_server: false
           - name: k8s-control-1
             ip: 100.66.108.81
             is_api_server: true
@@ -70,9 +73,6 @@
             is_api_server: true
           - name: k8s-optiplex-3
             ip: 100.115.217.79
-            is_api_server: false
-          - name: k8s-agent-1
-            ip: 100.93.234.1
             is_api_server: false
 
 - name: Setup uptime monitor

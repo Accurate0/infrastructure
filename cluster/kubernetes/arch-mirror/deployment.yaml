@@ -21,7 +21,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - k8s-control-1
+                      - k8s-agent-1
       tolerations:
         - key: "group"
           operator: "Equal"
