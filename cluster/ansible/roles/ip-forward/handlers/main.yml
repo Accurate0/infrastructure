@@ -1,6 +1,0 @@
-# SPDX-License-Identifier: MIT-0
----
-# handlers file for ip-forward
-- name: Reload sysctl
-  ansible.builtin.command: sysctl -p /etc/sysctl.d/99-ip-forward.conf
-  changed_when: false

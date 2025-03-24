@@ -1,6 +1,0 @@
-# SPDX-License-Identifier: MIT-0
----
-# defaults file for tailscale
-tailscale_extra_args: ""
-tailscale_install: true
-tailscale_join_network: true

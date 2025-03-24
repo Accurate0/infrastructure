@@ -1,7 +1,0 @@
-# SPDX-License-Identifier: MIT-0
----
-# defaults file for firewall
-firewall_allow_http: true
-firewall_allow_tailscale: true
-firewall_binarylane_k8s_vpc: false
-firewall_allow_local_lan: false

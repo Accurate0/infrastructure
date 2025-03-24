@@ -1,8 +1,0 @@
-#SPDX-License-Identifier: MIT-0
-galaxy_info:
-  author: Anurag Singh
-  description: Required packages for all machines
-  license: MIT
-  min_ansible_version: "2.1"
-
-dependencies: []
