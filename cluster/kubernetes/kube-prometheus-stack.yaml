@@ -70,8 +70,8 @@ spec:
           kubeEtcd:
             enabled: true
             endpoints:
+              - 100.65.87.102
               - 100.70.180.118
-              - 100.89.112.112
               - 100.66.108.81
             service:
               enabled: true
