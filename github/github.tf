@@ -7,7 +7,6 @@ locals {
     "maccas-api",
     "perth-transport-map",
     "infrastructure",
-    "inf-k8s",
     "anurag.sh",
     "pg-db-controller",
   ])
