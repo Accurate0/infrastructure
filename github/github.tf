@@ -9,6 +9,7 @@ locals {
     "infrastructure",
     "anurag.sh",
     "pg-db-controller",
+    "bom",
   ])
 }
 
