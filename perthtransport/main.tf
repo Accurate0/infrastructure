@@ -14,7 +14,7 @@ terraform {
     }
     null = {
       source  = "hashicorp/null"
-      version = "~>3"
+      version = ">= 3"
     }
     vercel = {
       source  = "vercel/vercel"
