@@ -10,6 +10,7 @@ locals {
     "anurag.sh",
     "pg-db-controller",
     "bom",
+    "inf-k8s",
   ])
 }
 
