@@ -11,6 +11,7 @@ locals {
     "pg-db-controller",
     "bom",
     "inf-k8s",
+    "solar-panels",
   ])
 }
 
