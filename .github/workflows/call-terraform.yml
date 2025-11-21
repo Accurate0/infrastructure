@@ -42,7 +42,7 @@ jobs:
     steps:
       - uses: superfly/flyctl-actions/setup-flyctl@master
         if: ${{ inputs.use-fly }}
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_hostname: app.terraform.io
